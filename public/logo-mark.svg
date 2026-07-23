@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" role="img" aria-label="IN Z">
+  <title>IN Z</title>
+  <g fill="#0a0a0a">
+    <!-- I -->
+    <rect x="40" y="40" width="54" height="220"/>
+    <!-- N with diagonal cut -->
+    <path d="M130 40h58l118 148V40h54v220h-58L184 112v148h-54V40z"/>
+    <!-- Angular Z rune (three strokes) -->
+    <path d="M390 48h200l-108 88h96v42H402l108-88h-84V48z"/>
+    <rect x="402" y="168" width="176" height="42"/>
+    <path d="M402 220h140v50H402z"/>
+  </g>
+</svg>
