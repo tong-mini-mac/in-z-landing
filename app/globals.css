@@ -289,3 +289,227 @@ img {
     animation: none;
   }
 }
+
+/* —— About page —— */
+.page-scroll {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.bg-soft {
+  position: fixed;
+  animation: none;
+  transform: none;
+  opacity: 0.85;
+}
+
+.about {
+  position: relative;
+  z-index: 1;
+  width: min(42rem, calc(100% - 2.5rem));
+  margin: 0 auto;
+  padding: 2.5rem 0 4rem;
+  animation: fade-up 0.9s ease both;
+}
+
+.about-hero {
+  margin-bottom: 3.25rem;
+  text-align: center;
+}
+
+.about-eyebrow {
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  color: var(--muted);
+}
+
+.about-hero h1 {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.65rem, 4.5vw, 2.55rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+  text-wrap: balance;
+}
+
+.about-lead {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 36rem;
+  margin: 0 auto 1.25rem;
+}
+
+.about-motto {
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+}
+
+.about-block {
+  margin-bottom: 2.75rem;
+}
+
+.about-block h2 {
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.about-block p,
+.about-block li {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+.about-block p + p,
+.about-block p + ul,
+.about-block ul + p {
+  margin-top: 0.9rem;
+}
+
+.about-block > ul {
+  padding-left: 1.15rem;
+}
+
+.about-block > ul > li + li {
+  margin-top: 0.55rem;
+}
+
+.about-block blockquote {
+  margin: 1.35rem 0;
+  padding: 1rem 0 1rem 1.15rem;
+  border-left: 2px solid var(--ink);
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}
+
+.about-pillars {
+  list-style: none;
+  padding-left: 0;
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+}
+
+.about-pillars > li strong {
+  display: block;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+}
+
+.about-pillars > li > span {
+  display: block;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.about-pillars > li > ul {
+  padding-left: 1.1rem;
+  color: var(--muted);
+}
+
+.about-pillars > li > ul > li + li {
+  margin-top: 0.35rem;
+}
+
+.about-pillars-inline {
+  gap: 1.15rem;
+}
+
+.about-close {
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.about-close h2 {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  letter-spacing: 0.12em;
+}
+
+.about-signoff {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 1.25rem !important;
+}
+
+.about-mail {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.15rem;
+  transition: opacity 0.25s ease;
+}
+
+.about-mail:hover,
+.about-mail:focus-visible {
+  opacity: 0.55;
+}
+
+.about-footer-wrap {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding: 1rem 0 2rem;
+}
+
+.about-footer-wrap .footer {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.about-footer-wrap .social,
+.about-footer-wrap .legal {
+  position: static;
+  transform: none;
+  justify-content: center;
+}
+
+@media (min-width: 900px) {
+  .page-scroll .nav {
+    position: fixed;
+    top: 18%;
+    transform: translateY(-50%);
+  }
+
+  .about {
+    padding: 4.5rem 0 5rem;
+    margin-left: max(10rem, calc((100% - 42rem) / 2));
+  }
+
+  .about-footer-wrap .legal {
+    justify-content: center;
+  }
+}
