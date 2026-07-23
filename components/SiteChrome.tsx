@@ -1,7 +1,7 @@
 export const navItems = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Products", href: "/#products" },
+  { label: "Products", href: "/products" },
   { label: "Contact", href: "https://personal-secretary-production-3d5f.up.railway.app/contact/" },
 ];
 
