@@ -79,8 +79,8 @@ export function SiteFooter() {
       </div>
 
       <div className="legal">
-        <a href="/#terms">Term and Support</a>
-        <a href="/#privacy">Privacy and Policy</a>
+        <a href="/terms">Term and Support</a>
+        <a href="/privacy">Privacy and Policy</a>
       </div>
     </footer>
   );
