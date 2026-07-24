@@ -17,8 +17,10 @@ export default function HomePage() {
           priority
           unoptimized
         />
-        <p className="brand">IN Z</p>
-        <h1 className="tagline">AI Transform and SaaS</h1>
+        <div className="hero-copy">
+          <p className="brand">IN Z</p>
+          <h1 className="tagline">AI Transform and SaaS</h1>
+        </div>
       </section>
 
       <SiteFooter />
