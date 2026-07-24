@@ -18,8 +18,12 @@ export default function HomePage() {
           unoptimized
         />
         <div className="hero-copy">
-          <p className="brand">IN Z</p>
-          <h1 className="tagline">AI Transform and SaaS</h1>
+          <p className="brand">
+            <span className="hero-copy-line">IN Z</span>
+          </p>
+          <h1 className="tagline">
+            <span className="hero-copy-line">AI Transform and SaaS</span>
+          </h1>
         </div>
       </section>
 
