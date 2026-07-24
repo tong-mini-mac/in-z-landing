@@ -1,24 +1,20 @@
+import { ContactNav } from "@/components/ContactNav";
+
 export const navItems = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Products", href: "/products" },
-  { label: "Contact", href: "https://personal-secretary-production-3d5f.up.railway.app/contact/" },
 ];
 
 export function SiteNav() {
   return (
     <nav className="nav" aria-label="Primary">
-        {navItems.map((item) => (
-        <a
-          key={item.href}
-          href={item.href}
-          {...(item.href.startsWith("http")
-            ? { target: "_blank", rel: "noreferrer" }
-            : {})}
-        >
+      {navItems.map((item) => (
+        <a key={item.href} href={item.href}>
           {item.label}
         </a>
       ))}
+      <ContactNav />
     </nav>
   );
 }

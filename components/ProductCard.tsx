@@ -81,7 +81,10 @@ export function ProductCard({
   }, [openPanel]);
 
   return (
-    <div className={`product-card${className ? ` ${className}` : ""}`} ref={rootRef}>
+    <div
+      className={`product-card${openPanel ? " is-active" : ""}${className ? ` ${className}` : ""}`}
+      ref={rootRef}
+    >
       <h2 className="product-name">{name}</h2>
 
       <div
