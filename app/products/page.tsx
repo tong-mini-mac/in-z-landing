@@ -9,8 +9,7 @@ export const metadata: Metadata = {
     "IN Z products — SynthComm, AI-Commerce, and RestoChain. Synthetic data, procurement, and restaurant inventory platforms.",
 };
 
-const CONTACT =
-  "https://personal-secretary-production-3d5f.up.railway.app/contact/";
+const AUTH_SIGNUP = "/auth?mode=signup";
 
 const SYNTHCOMM_DESCRIPTION =
   "SynthComm is an AI-powered platform that generates high-fidelity Thai conversational datasets for businesses training chatbots, customer service systems, and language models. Using advanced multi-agent orchestration, it produces authentic Thai dialogue across diverse contexts including e-commerce, social media, food delivery, banking, and healthcare. The system combines web research with specialized AI writers to create natural conversations that reflect real Thai communication patterns, including proper use of polite particles, regional dialects, slang, and gender-diverse voices. Each conversation undergoes dual-layer quality control to ensure linguistic accuracy, cultural appropriateness, and contextual relevance. The platform automatically retrains its models monthly using live data from Thai social platforms to stay current with evolving language trends. Designed for B2B clients, SynthComm handles everything from small pilot projects to enterprise-scale datasets of 10,000+ conversations through automated parallel processing, delivering production-ready training data in JSON, CSV, or bundled formats with full PDPA compliance and data privacy protection.";
@@ -45,19 +44,19 @@ export default function ProductsPage() {
           name="SynthComm"
           title="SynthComm — Industrial Thai Synthetic Data Factory"
           description={SYNTHCOMM_DESCRIPTION}
-          subscribeHref={CONTACT}
+          subscribeHref={AUTH_SIGNUP}
         />
         <ProductCard
           name="AI-Commerce"
           title="AI-Commerce — Multi-Agent Procurement Assistant for Online Sellers"
           description={AICOMMERCE_DESCRIPTION}
-          subscribeHref={CONTACT}
+          subscribeHref={AUTH_SIGNUP}
         />
         <ProductCard
           name="RestoChain"
           title="RestoChain — Yield-Aware Restaurant Inventory & Food Costing"
           description={RESTOCHAIN_DESCRIPTION}
-          subscribeHref={CONTACT}
+          subscribeHref={AUTH_SIGNUP}
         />
       </div>
 

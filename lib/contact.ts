@@ -1,3 +1,5 @@
+import { MAILBOX } from "@/lib/mail-addresses";
+
 export type ContactChannel = "customer-service" | "support";
 
 export const CONTACT_CHANNELS: Record<
@@ -6,12 +8,12 @@ export const CONTACT_CHANNELS: Record<
 > = {
   "customer-service": {
     label: "Customer Service",
-    to: "info@inz.lol",
+    to: MAILBOX.info,
     subject: "Customer Service inquiry — inz.lol",
   },
   support: {
     label: "Support",
-    to: "help@inz.lol",
+    to: MAILBOX.help,
     subject: "Support request — inz.lol",
   },
 };

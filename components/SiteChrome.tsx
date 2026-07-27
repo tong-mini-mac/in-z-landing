@@ -1,5 +1,7 @@
 import { ContactNav } from "@/components/ContactNav";
 
+const AUTH_HREF = "/auth";
+
 export const navItems = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
@@ -8,14 +10,19 @@ export const navItems = [
 
 export function SiteNav() {
   return (
-    <nav className="nav" aria-label="Primary">
-      {navItems.map((item) => (
-        <a key={item.href} href={item.href}>
-          {item.label}
-        </a>
-      ))}
-      <ContactNav />
-    </nav>
+    <>
+      <nav className="nav" aria-label="Primary">
+        {navItems.map((item) => (
+          <a key={item.href} href={item.href}>
+            {item.label}
+          </a>
+        ))}
+        <ContactNav />
+      </nav>
+      <a className="nav-auth" href={AUTH_HREF}>
+        Sign In / Sign Up
+      </a>
+    </>
   );
 }
 

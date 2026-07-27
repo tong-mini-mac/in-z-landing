@@ -29,7 +29,6 @@ export function ContactForm({ channel }: ContactFormProps) {
     const message = String(data.get("message") || "").trim();
     const company = String(data.get("company") || "").trim();
 
-    // Honeypot
     if (company) {
       setStatus("success");
       form.reset();
@@ -49,51 +48,27 @@ export function ContactForm({ channel }: ContactFormProps) {
     }
 
     try {
-      // Submit from the browser so FormSubmit accepts the request.
-      const response = await fetch(
-        `https://formsubmit.co/ajax/${encodeURIComponent(config.to)}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            name: name || "Website visitor",
-            email,
-            _replyto: email,
-            _subject: config.subject,
-            _template: "table",
-            _captcha: "false",
-            channel: config.label,
-            message,
-          }),
-        },
-      );
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          channel,
+          email,
+          name,
+          message,
+          company,
+        }),
+      });
 
       const raw = await response.text();
-      let parsed: { success?: string | boolean; message?: string } = {};
+      let parsed: { ok?: boolean; error?: string; message?: string } = {};
       try {
         parsed = JSON.parse(raw) as typeof parsed;
       } catch {
         parsed = {};
       }
 
-      const failed =
-        !response.ok ||
-        parsed.success === false ||
-        parsed.success === "false";
-
-      if (failed) {
-        const detail = (parsed.message || raw || "").toLowerCase();
-        if (detail.includes("activation")) {
-          setStatus("error");
-          setError(
-            `Please activate ${config.to} once: open Gmail for that inbox, find the FormSubmit email, click “Activate Form”, then send again.`,
-          );
-          return;
-        }
-
+      if (!response.ok || !parsed.ok) {
         setStatus("error");
         setError(
           parsed.message ||

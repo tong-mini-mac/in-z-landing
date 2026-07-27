@@ -142,13 +142,8 @@ export function ProductCard({
           aria-label={`${name} subscribe options`}
           hidden={openPanel !== "subscribe"}
         >
-          <a
-            className="product-subscribe-auth"
-            href={subscribeHref}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Sign in / Sign up
+          <a className="product-subscribe-auth" href={subscribeHref}>
+            Sign In / Sign Up
           </a>
           <ul className="product-pricing">
             <li>
