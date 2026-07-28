@@ -4,7 +4,9 @@ export type ProductId =
   | "ai-commerce"
   | "restochain"
   | "ai-marketing"
-  | "music-demo";
+  | "music-demo"
+  | "podcast"
+  | "netr";
 
 export type ProductEntry = {
   id: ProductId;
@@ -14,7 +16,7 @@ export type ProductEntry = {
   available: boolean;
 };
 
-/** Full catalog shown to Admin trial accounts (no subscription gate). */
+/** Internal tools + commercial products (Admin launcher may show both). */
 export const PRODUCTS: ProductEntry[] = [
   {
     id: "admin-portal",
@@ -57,25 +59,55 @@ export const PRODUCTS: ProductEntry[] = [
     available: true,
   },
   {
-    id: "ai-marketing",
-    name: "AI-Marketing",
-    description: {
-      th: "Emotional Marketing + วิเคราะห์เทรนด์ตลาด",
-      en: "Emotional marketing and market trend analysis",
-    },
-    href: "https://ai-marketing-production-d0d4.up.railway.app",
-    available: true,
-  },
-  {
     id: "music-demo",
     name: "Music Demo",
     description: {
-      th: "เดโมสร้างเพลงด้วย AI",
-      en: "AI music generation demo",
+      th: "สตูดิโอสร้างเพลงด้วย AI",
+      en: "AI music creation studio",
     },
     href: "https://myclaw-music-demo-production.up.railway.app",
     available: true,
   },
+  {
+    id: "podcast",
+    name: "Podcast",
+    description: {
+      th: "สตูดิโอพอดแคสต์ AI สำหรับครีเอเตอร์ไทย",
+      en: "AI podcast studio for Thai creators",
+    },
+    href: "https://podcast-production-dd89.up.railway.app",
+    available: true,
+  },
+  {
+    id: "netr",
+    name: "NetR",
+    description: {
+      th: "ศูนย์เครือข่ายและความสัมพันธ์ทางธุรกิจ",
+      en: "Network and relationship hub",
+    },
+    href: "/products#netr",
+    available: true,
+  },
+  {
+    id: "ai-marketing",
+    name: "AI-Marketing",
+    description: {
+      th: "เครื่องมือวิเคราะห์เทรนด์ภายใน (ไม่ใช่ product ขาย)",
+      en: "Internal trend analysis tool (not a sellable product)",
+    },
+    href: "https://ai-marketing-production-d0d4.up.railway.app",
+    available: true,
+  },
+];
+
+/** Commercial products shown on /products (excludes Landing, ERP, AI-Marketing). */
+export const COMMERCIAL_PRODUCT_IDS: ProductId[] = [
+  "synthcomm",
+  "ai-commerce",
+  "restochain",
+  "music-demo",
+  "podcast",
+  "netr",
 ];
 
 export function productsForAccess(
@@ -91,8 +123,7 @@ export function productsForAccess(
   if (isAdmin) {
     return PRODUCTS.map((product) => ({ ...product, available: true }));
   }
-  // Non-admin: only currently subscribed / launched products
   return PRODUCTS.filter((product) =>
-    ["synthcomm", "ai-commerce", "restochain"].includes(product.id),
+    COMMERCIAL_PRODUCT_IDS.includes(product.id),
   );
 }

@@ -504,6 +504,8 @@ img {
   justify-content: center;
   align-items: stretch;
   gap: 1cm;
+  max-width: 64rem;
+  margin-inline: auto;
   padding: 0.5rem 1.25rem 2rem;
   animation: fade-up 1s 0.28s ease both;
 }
