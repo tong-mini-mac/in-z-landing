@@ -1389,6 +1389,24 @@ img {
   color: var(--muted);
 }
 
+.account-admin-badge {
+  display: inline-block;
+  margin-top: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink, #1a1a18);
+  border-bottom: 1px solid currentColor;
+}
+
+.account-admin-note {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
 .account-products-heading {
   margin: 0.5rem 0 0;
   font-family: var(--font-display), sans-serif;

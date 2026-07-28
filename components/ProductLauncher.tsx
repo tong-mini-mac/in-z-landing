@@ -1,11 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AuthLangToggle } from "@/components/AuthLangToggle";
 import { AUTH_COPY, getStoredAuthLang, type AuthLang } from "@/lib/auth-i18n";
 import { clearSession, getSession, type AuthSession } from "@/lib/auth-session";
-import { PRODUCTS } from "@/lib/products";
+import { isDemoAdminEmail } from "@/lib/demo-access";
+import { productsForAccess } from "@/lib/products";
 
 export function ProductLauncher() {
   const router = useRouter();
@@ -27,6 +28,14 @@ export function ProductLauncher() {
     setSession(current);
   }, [router]);
 
+  const isAdmin = Boolean(
+    session?.user.unlimited ||
+      session?.user.role === "admin" ||
+      (session && isDemoAdminEmail(session.user.email)),
+  );
+
+  const products = useMemo(() => productsForAccess(isAdmin), [isAdmin]);
+
   function signOut() {
     clearSession();
     router.push("/auth?mode=signin");
@@ -45,12 +54,15 @@ export function ProductLauncher() {
         <strong>{session.user.fullName || session.user.email}</strong>
         <br />
         <span className="account-email">{session.user.email}</span>
+        {isAdmin ? <span className="account-admin-badge">{t.adminBadge}</span> : null}
       </p>
+
+      {isAdmin ? <p className="account-admin-note">{t.adminUnlimitedNote}</p> : null}
 
       <h2 className="account-products-heading">{t.yourProducts}</h2>
 
       <ul className="product-launcher">
-        {PRODUCTS.map((product) => (
+        {products.map((product) => (
           <li key={product.id}>
             <a
               className="product-launcher-link"

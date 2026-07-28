@@ -58,6 +58,10 @@ type AuthCopy = {
   subscribeProduct: string;
   signOut: string;
   demoNote: string;
+  adminBadge: string;
+  adminUnlimitedNote: string;
+  errAdminPassword: string;
+  errAdminSignup: string;
   checkEmailTitle: string;
   checkEmailBody: string;
   activating: string;
@@ -117,7 +121,12 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     subscribeProduct: "สมัครใช้งาน",
     signOut: "Sign Out",
     demoNote:
-      "หลัง Sign Up ระบบจะส่งอีเมล Activate จาก no-reply@inz.lol",
+      "ทดลอง Admin: admin@inz.lol / admin2026 — เห็นทุก Product ไม่ติดลิมิต",
+    adminBadge: "Admin · Unlimited trial",
+    adminUnlimitedNote:
+      "บัญชี Admin สำหรับทดสอบ — เข้าได้ทุก Product โดยไม่จำกัดแพ็กเกจ",
+    errAdminPassword: "รหัสผ่าน Admin ไม่ถูกต้อง",
+    errAdminSignup: "บัญชี Admin ใช้ได้ที่ Sign In เท่านั้น",
     checkEmailTitle: "ตรวจสอบอีเมลของคุณ",
     checkEmailBody:
       "เราได้ส่งลิงก์ Activate จาก no-reply@inz.lol ไปที่อีเมลของคุณแล้ว กรุณาคลิกลิงก์เพื่อเปิดใช้งานบัญชี",
@@ -176,7 +185,12 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     subscribeProduct: "Subscribe",
     signOut: "Sign Out",
     demoNote:
-      "After Sign Up, we email an activation link from no-reply@inz.lol.",
+      "Admin trial: admin@inz.lol / admin2026 — unlocks every product with no limits",
+    adminBadge: "Admin · Unlimited trial",
+    adminUnlimitedNote:
+      "Admin trial account — open every product with no plan limits",
+    errAdminPassword: "Incorrect admin password",
+    errAdminSignup: "Admin trial uses Sign In only",
     checkEmailTitle: "Check your email",
     checkEmailBody:
       "We sent an activation link from no-reply@inz.lol. Click the link to activate your account.",

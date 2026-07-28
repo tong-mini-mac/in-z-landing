@@ -10,6 +10,12 @@ import {
   type AuthLang,
 } from "@/lib/auth-i18n";
 import {
+  DEMO_ADMIN_EMAIL,
+  DEMO_ADMIN_PASSWORD,
+  isDemoAdminEmail,
+  isValidDemoAdmin,
+} from "@/lib/demo-access";
+import {
   combinePhoneNumber,
   getSession,
   isValidEmail,
@@ -104,14 +110,29 @@ export function AuthForm() {
     }
 
     if (mode === "signin") {
+      if (isDemoAdminEmail(email) && !isValidDemoAdmin(email, password)) {
+        setError(t.errAdminPassword);
+        setSubmitting(false);
+        return;
+      }
+
+      const isAdmin = isValidDemoAdmin(email, password);
       const user: AuthUser = {
-        fullName: email.split("@")[0],
+        fullName: isAdmin ? "IN Z Admin" : email.split("@")[0],
         email,
         phone: "",
         createdAt: new Date().toISOString(),
+        role: isAdmin ? "admin" : "user",
+        unlimited: isAdmin,
       };
       saveSession(user);
       router.push("/account");
+      return;
+    }
+
+    if (isDemoAdminEmail(email)) {
+      setError(t.errAdminSignup);
+      setSubmitting(false);
       return;
     }
 
@@ -281,6 +302,8 @@ export function AuthForm() {
             required
             autoComplete="email"
             disabled={submitting}
+            defaultValue={mode === "signin" ? DEMO_ADMIN_EMAIL : ""}
+            key={`email-${mode}`}
           />
         </label>
 
@@ -334,6 +357,8 @@ export function AuthForm() {
                 mode === "signup" ? "new-password" : "current-password"
               }
               disabled={submitting}
+              defaultValue={mode === "signin" ? DEMO_ADMIN_PASSWORD : ""}
+              key={`password-${mode}`}
             />
             <label className="auth-show-password">
               <input

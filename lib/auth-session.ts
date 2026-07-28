@@ -13,6 +13,8 @@ export type AuthUser = {
   phone: string;
   vat?: VatProfile | null;
   createdAt: string;
+  role?: "admin" | "user";
+  unlimited?: boolean;
 };
 
 export type AuthSession = {

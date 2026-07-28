@@ -1,4 +1,10 @@
-export type ProductId = "synthcomm" | "ai-commerce" | "restochain";
+export type ProductId =
+  | "admin-portal"
+  | "synthcomm"
+  | "ai-commerce"
+  | "restochain"
+  | "ai-marketing"
+  | "music-demo";
 
 export type ProductEntry = {
   id: ProductId;
@@ -8,7 +14,18 @@ export type ProductEntry = {
   available: boolean;
 };
 
+/** Full catalog shown to Admin trial accounts (no subscription gate). */
 export const PRODUCTS: ProductEntry[] = [
+  {
+    id: "admin-portal",
+    name: "Admin Portal",
+    description: {
+      th: "ศูนย์ Admin แผนก CFO / บัญชี / การตลาด / HR",
+      en: "Department admin for CFO, Accounting, Marketing, HR",
+    },
+    href: "https://www.inz.lol/admin",
+    available: true,
+  },
   {
     id: "synthcomm",
     name: "SynthComm",
@@ -39,4 +56,34 @@ export const PRODUCTS: ProductEntry[] = [
     href: "https://restochain-production.up.railway.app",
     available: true,
   },
+  {
+    id: "ai-marketing",
+    name: "AI-Marketing",
+    description: {
+      th: "Emotional Marketing + วิเคราะห์เทรนด์ตลาด",
+      en: "Emotional marketing and market trend analysis",
+    },
+    href: "https://ai-marketing-production-d0d4.up.railway.app",
+    available: true,
+  },
+  {
+    id: "music-demo",
+    name: "Music Demo",
+    description: {
+      th: "เดโมสร้างเพลงด้วย AI",
+      en: "AI music generation demo",
+    },
+    href: "https://myclaw-music-demo-production.up.railway.app",
+    available: true,
+  },
 ];
+
+export function productsForAccess(isAdmin: boolean): ProductEntry[] {
+  if (isAdmin) {
+    return PRODUCTS.map((product) => ({ ...product, available: true }));
+  }
+  // Non-admin: only currently subscribed / launched products
+  return PRODUCTS.filter((product) =>
+    ["synthcomm", "ai-commerce", "restochain"].includes(product.id),
+  );
+}
