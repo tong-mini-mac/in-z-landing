@@ -34,7 +34,12 @@ export function ProductLauncher() {
       (session && isDemoAdminEmail(session.user.email)),
   );
 
-  const products = useMemo(() => productsForAccess(isAdmin), [isAdmin]);
+  const isTrial = session?.user.role === "trial" || session?.user.kind === "complimentary";
+
+  const products = useMemo(
+    () => productsForAccess(isAdmin, session?.user.allowedProducts),
+    [isAdmin, session?.user.allowedProducts],
+  );
 
   function signOut() {
     clearSession();
@@ -55,9 +60,22 @@ export function ProductLauncher() {
         <br />
         <span className="account-email">{session.user.email}</span>
         {isAdmin ? <span className="account-admin-badge">{t.adminBadge}</span> : null}
+        {isTrial ? (
+          <span className="account-admin-badge">
+            Trial · ไม่มีรายได้
+            {session.user.expiresAt
+              ? ` · ถึง ${String(session.user.expiresAt).slice(0, 10)}`
+              : ""}
+          </span>
+        ) : null}
       </p>
 
       {isAdmin ? <p className="account-admin-note">{t.adminUnlimitedNote}</p> : null}
+      {isTrial ? (
+        <p className="account-admin-note">
+          บัญชีทดลองใช้ฟรี — เปิดได้เฉพาะ product ที่ได้รับสิทธิ์ และไม่ก่อให้เกิดรายได้
+        </p>
+      ) : null}
 
       <h2 className="account-products-heading">{t.yourProducts}</h2>
 

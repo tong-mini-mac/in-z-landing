@@ -116,14 +116,77 @@ export function AuthForm() {
         return;
       }
 
-      const isAdmin = isValidDemoAdmin(email, password);
+      if (isValidDemoAdmin(email, password)) {
+        const user: AuthUser = {
+          fullName: "IN Z Admin",
+          email,
+          phone: "",
+          createdAt: new Date().toISOString(),
+          role: "admin",
+          unlimited: true,
+        };
+        saveSession(user);
+        router.push("/account");
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/auth/special-signin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: email, password }),
+        });
+        const data = (await response.json()) as {
+          ok?: boolean;
+          error?: string;
+          email?: string;
+          username?: string;
+          allowedProducts?: string[];
+          expiresAt?: string;
+          role?: "trial";
+          kind?: string;
+        };
+
+        if (response.ok && data.ok) {
+          const user: AuthUser = {
+            fullName: (data.username || email).split("@")[0],
+            email: data.email || data.username || email,
+            phone: "",
+            createdAt: new Date().toISOString(),
+            role: "trial",
+            unlimited: false,
+            allowedProducts: data.allowedProducts || [],
+            expiresAt: data.expiresAt,
+            revenue: false,
+            kind: data.kind || "complimentary",
+          };
+          saveSession(user);
+          router.push("/account");
+          return;
+        }
+
+        const err = String(data.error || "");
+        if (err.toLowerCase().includes("expired") || err.includes("ถูกลบ")) {
+          setError("บัญชีทดลองหมดอายุแล้ว และถูกลบแล้ว — ใช้ username นี้ซ้ำไม่ได้");
+          setSubmitting(false);
+          return;
+        }
+        if (err && err !== "not_a_special_user") {
+          setError("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
+          setSubmitting(false);
+          return;
+        }
+      } catch {
+        /* fall through to generic local session for non-trial emails */
+      }
+
       const user: AuthUser = {
-        fullName: isAdmin ? "IN Z Admin" : email.split("@")[0],
+        fullName: email.split("@")[0],
         email,
         phone: "",
         createdAt: new Date().toISOString(),
-        role: isAdmin ? "admin" : "user",
-        unlimited: isAdmin,
+        role: "user",
+        unlimited: false,
       };
       saveSession(user);
       router.push("/account");

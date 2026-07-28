@@ -13,8 +13,13 @@ export type AuthUser = {
   phone: string;
   vat?: VatProfile | null;
   createdAt: string;
-  role?: "admin" | "user";
+  role?: "admin" | "user" | "trial";
   unlimited?: boolean;
+  /** Locked product ids for complimentary trial users */
+  allowedProducts?: string[];
+  expiresAt?: string;
+  revenue?: boolean;
+  kind?: string;
 };
 
 export type AuthSession = {

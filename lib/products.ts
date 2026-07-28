@@ -78,7 +78,16 @@ export const PRODUCTS: ProductEntry[] = [
   },
 ];
 
-export function productsForAccess(isAdmin: boolean): ProductEntry[] {
+export function productsForAccess(
+  isAdmin: boolean,
+  allowedProducts?: string[] | null,
+): ProductEntry[] {
+  if (allowedProducts && allowedProducts.length > 0) {
+    const allowed = new Set(allowedProducts);
+    return PRODUCTS.filter((product) => allowed.has(product.id)).map(
+      (product) => ({ ...product, available: true }),
+    );
+  }
   if (isAdmin) {
     return PRODUCTS.map((product) => ({ ...product, available: true }));
   }
