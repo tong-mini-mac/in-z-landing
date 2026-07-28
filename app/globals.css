@@ -690,13 +690,16 @@ img {
 
   .products-panel {
     position: absolute;
-    left: 2.6rem;
+    left: 50%;
     right: auto;
-    top: 48%;
-    transform: translateY(-50%);
-    justify-content: flex-start;
+    top: 52%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
     align-items: stretch;
     flex-wrap: wrap;
+    width: min(100% - 4rem, 64rem);
+    max-width: 64rem;
+    margin-inline: 0;
     padding: 0;
     gap: 1cm;
   }
