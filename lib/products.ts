@@ -16,7 +16,7 @@ export type ProductEntry = {
   available: boolean;
 };
 
-/** Internal tools + commercial products (Admin launcher may show both). */
+/** Product catalog. Account launcher shows commercial ids only. */
 export const PRODUCTS: ProductEntry[] = [
   {
     id: "admin-portal",
@@ -100,7 +100,7 @@ export const PRODUCTS: ProductEntry[] = [
   },
 ];
 
-/** Commercial products shown on /products (excludes Landing, ERP, AI-Marketing). */
+/** Commercial products only — Landing / ERP / AI-Marketing are not sellable products. */
 export const COMMERCIAL_PRODUCT_IDS: ProductId[] = [
   "synthcomm",
   "ai-commerce",
@@ -114,16 +114,21 @@ export function productsForAccess(
   isAdmin: boolean,
   allowedProducts?: string[] | null,
 ): ProductEntry[] {
-  if (allowedProducts && allowedProducts.length > 0) {
-    const allowed = new Set(allowedProducts);
-    return PRODUCTS.filter((product) => allowed.has(product.id)).map(
-      (product) => ({ ...product, available: true }),
-    );
-  }
-  if (isAdmin) {
-    return PRODUCTS.map((product) => ({ ...product, available: true }));
-  }
-  return PRODUCTS.filter((product) =>
+  const commercial = PRODUCTS.filter((product) =>
     COMMERCIAL_PRODUCT_IDS.includes(product.id),
   );
+
+  if (allowedProducts && allowedProducts.length > 0) {
+    const allowed = new Set(allowedProducts);
+    return commercial
+      .filter((product) => allowed.has(product.id))
+      .map((product) => ({ ...product, available: true }));
+  }
+
+  // Admin trial unlocks every commercial product — still excludes internal tools.
+  if (isAdmin) {
+    return commercial.map((product) => ({ ...product, available: true }));
+  }
+
+  return commercial;
 }
