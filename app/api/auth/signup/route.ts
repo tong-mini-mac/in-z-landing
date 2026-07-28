@@ -8,6 +8,7 @@ import { MAILBOX } from "@/lib/mail-addresses";
 import { getSiteUrl, sendMail } from "@/lib/mail";
 import {
   isValidEmail,
+  normalizePhoneNumber,
   isValidPhone,
   isValidTaxId,
   type VatProfile,
@@ -25,11 +26,11 @@ export async function POST(request: Request) {
 
     const fullName = String(body.fullName || "").trim();
     const email = String(body.email || "").trim().toLowerCase();
-    const phone = String(body.phone || "").trim();
+    const phone = normalizePhoneNumber(String(body.phone || "").trim());
     const vat = body.vat ?? null;
     const lang = body.lang === "en" ? "en" : "th";
 
-    if (!fullName || !isValidEmail(email) || !isValidPhone(phone)) {
+    if (!fullName || !isValidEmail(email) || !phone || !isValidPhone(phone)) {
       return NextResponse.json({ error: "invalid" }, { status: 400 });
     }
 

@@ -27,10 +27,13 @@ type AuthCopy = {
   fullName: string;
   email: string;
   phone: string;
+  country: string;
+  phoneNumber: string;
   password: string;
   confirmPassword: string;
   showPassword: string;
   needVat: string;
+  vatUnavailable: string;
   companyName: string;
   taxId: string;
   billingAddress: string;
@@ -83,10 +86,13 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     fullName: "ชื่อ-นามสกุล",
     email: "อีเมล",
     phone: "เบอร์โทร",
+    country: "ประเทศ",
+    phoneNumber: "เบอร์โทร",
     password: "รหัสผ่าน",
     confirmPassword: "ยืนยันรหัสผ่าน",
     showPassword: "แสดง",
     needVat: "ต้องการใบกำกับภาษี (VAT)",
+    vatUnavailable: "ยังไม่พร้อมใช้งาน เนื่องจากบริษัทยังไม่ได้จด VAT",
     companyName: "ชื่อบริษัท",
     taxId: "เลขผู้เสียภาษี (13 หลัก)",
     billingAddress: "ที่อยู่ในใบกำกับภาษี",
@@ -139,10 +145,13 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     fullName: "Full name",
     email: "Email",
     phone: "Phone",
+    country: "Country",
+    phoneNumber: "Phone number",
     password: "Password",
     confirmPassword: "Confirm password",
     showPassword: "Show",
     needVat: "Need VAT invoice",
+    vatUnavailable: "Unavailable for now because the company is not VAT registered yet.",
     companyName: "Company name",
     taxId: "Tax ID (13 digits)",
     billingAddress: "Billing address",

@@ -50,8 +50,40 @@ export function isValidEmail(value: string): boolean {
 }
 
 export function isValidPhone(value: string): boolean {
-  const digits = value.replace(/\D/g, "");
-  return digits.length >= 9 && digits.length <= 15;
+  return normalizePhoneNumber(value) !== null;
+}
+
+export function normalizePhoneNumber(value: string): string | null {
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+
+  const hasPlus = trimmed.startsWith("+");
+  const digits = trimmed.replace(/\D/g, "");
+
+  if (digits.length < 8 || digits.length > 15) {
+    return null;
+  }
+
+  return `${hasPlus ? "+" : ""}${digits}`;
+}
+
+export function combinePhoneNumber(
+  countryCode: string,
+  localNumber: string,
+): string | null {
+  const normalizedCountry = countryCode.replace(/[^\d+]/g, "");
+  const localDigits = localNumber.replace(/\D/g, "");
+
+  if (!normalizedCountry.startsWith("+") || localDigits.length < 4) {
+    return null;
+  }
+
+  const normalizedLocal = localDigits.replace(/^0+/, "");
+  if (!normalizedLocal) {
+    return null;
+  }
+
+  return normalizePhoneNumber(`${normalizedCountry}${normalizedLocal}`);
 }
 
 export function isValidTaxId(value: string): boolean {

@@ -10,6 +10,7 @@ import {
   type AuthLang,
 } from "@/lib/auth-i18n";
 import {
+  combinePhoneNumber,
   getSession,
   isValidEmail,
   isValidPhone,
@@ -21,6 +22,23 @@ import {
 
 type AuthMode = "signin" | "signup";
 
+const PHONE_COUNTRIES = [
+  { code: "TH", dialCode: "+66", label: { th: "Thailand", en: "Thailand" } },
+  {
+    code: "US",
+    dialCode: "+1",
+    label: { th: "United States", en: "United States" },
+  },
+  { code: "GB", dialCode: "+44", label: { th: "United Kingdom", en: "United Kingdom" } },
+  { code: "VN", dialCode: "+84", label: { th: "Vietnam", en: "Vietnam" } },
+  { code: "ID", dialCode: "+62", label: { th: "Indonesia", en: "Indonesia" } },
+  { code: "MY", dialCode: "+60", label: { th: "Malaysia", en: "Malaysia" } },
+  { code: "CN", dialCode: "+86", label: { th: "China", en: "China" } },
+  { code: "KR", dialCode: "+82", label: { th: "South Korea", en: "South Korea" } },
+  { code: "JP", dialCode: "+81", label: { th: "Japan", en: "Japan" } },
+  { code: "SG", dialCode: "+65", label: { th: "Singapore", en: "Singapore" } },
+] as const;
+
 export function AuthForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -29,6 +47,7 @@ export function AuthForm() {
 
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const [lang, setLang] = useState<AuthLang>("th");
+  const [phoneCountry, setPhoneCountry] = useState<(typeof PHONE_COUNTRIES)[number]["code"]>("TH");
   const [needVat, setNeedVat] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [acceptPdpa, setAcceptPdpa] = useState(false);
@@ -97,8 +116,12 @@ export function AuthForm() {
     }
 
     const fullName = String(data.get("fullName") || "").trim();
-    const phone = String(data.get("phone") || "").trim();
+    const phoneLocal = String(data.get("phoneLocal") || "").trim();
     const confirm = String(data.get("confirmPassword") || "");
+    const selectedCountry =
+      PHONE_COUNTRIES.find((country) => country.code === phoneCountry) ??
+      PHONE_COUNTRIES[0];
+    const phone = combinePhoneNumber(selectedCountry.dialCode, phoneLocal);
 
     if (!fullName) {
       setError(t.errGeneric);
@@ -106,7 +129,7 @@ export function AuthForm() {
       return;
     }
 
-    if (!isValidPhone(phone)) {
+    if (!phone || !isValidPhone(phone)) {
       setError(t.errPhone);
       setSubmitting(false);
       return;
@@ -173,6 +196,7 @@ export function AuthForm() {
 
       setPendingEmail(email);
       form.reset();
+      setPhoneCountry("TH");
       setNeedVat(false);
       setAcceptTerms(false);
       setAcceptPdpa(false);
@@ -261,16 +285,41 @@ export function AuthForm() {
         </label>
 
         {mode === "signup" ? (
-          <label className="contact-field">
+          <div className="contact-field">
             <span>{t.phone}</span>
-            <input
-              type="tel"
-              name="phone"
-              required
-              autoComplete="tel"
-              disabled={submitting}
-            />
-          </label>
+            <div className="auth-phone-row">
+              <label className="contact-field auth-phone-country">
+                <span>{t.country}</span>
+                <select
+                  name="phoneCountry"
+                  value={phoneCountry}
+                  onChange={(e) =>
+                    setPhoneCountry(
+                      e.target.value as (typeof PHONE_COUNTRIES)[number]["code"],
+                    )
+                  }
+                  disabled={submitting}
+                >
+                  {PHONE_COUNTRIES.map((country) => (
+                    <option key={country.code} value={country.code}>
+                      {country.label[lang]} ({country.dialCode})
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="contact-field auth-phone-number">
+                <span>{t.phoneNumber}</span>
+                <input
+                  type="tel"
+                  name="phoneLocal"
+                  required
+                  autoComplete="tel-national"
+                  placeholder={phoneCountry === "TH" ? "812345678" : "4155552671"}
+                  disabled={submitting}
+                />
+              </label>
+            </div>
+          </div>
         ) : null}
 
         <div className="contact-field">
@@ -325,14 +374,17 @@ export function AuthForm() {
 
         {mode === "signup" ? (
           <>
-            <label className="auth-check">
+            <label className="auth-check auth-check-disabled">
               <input
                 type="checkbox"
-                checked={needVat}
-                onChange={(e) => setNeedVat(e.target.checked)}
-                disabled={submitting}
+                checked={false}
+                disabled
+                aria-disabled="true"
               />
-              <span>{t.needVat}</span>
+              <span>
+                {t.needVat}
+                <small className="auth-check-note">{t.vatUnavailable}</small>
+              </span>
             </label>
 
             {needVat ? (
@@ -385,7 +437,7 @@ export function AuthForm() {
               />
               <span>
                 {t.acceptTerms}{" "}
-                <Link href="/terms" target="_blank">
+                <Link className="auth-inline-link" href="/terms" target="_blank">
                   {t.termsLink}
                 </Link>
               </span>
@@ -400,7 +452,7 @@ export function AuthForm() {
               />
               <span>
                 {t.acceptPdpa}{" "}
-                <Link href="/privacy" target="_blank">
+                <Link className="auth-inline-link" href="/privacy" target="_blank">
                   {t.pdpaLink}
                 </Link>
               </span>
