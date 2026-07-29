@@ -1,0 +1,73 @@
+import { createHmac, timingSafeEqual } from "crypto";
+
+export type HandoffClaims = {
+  email: string;
+  product_id: string;
+  role: string;
+  unlimited: boolean;
+  package: "unlimited" | "complimentary" | "standard";
+  allowed_products: string[];
+  exp: number;
+  iat: number;
+};
+
+function ssoSecret(): string {
+  return (
+    process.env.INZ_SSO_SECRET ||
+    process.env.ERP_SPECIAL_LOGIN_KEY ||
+    process.env.ERP_SERVICE_KEY ||
+    "dev-secret"
+  );
+}
+
+function b64url(input: Buffer | string): string {
+  const buf = Buffer.isBuffer(input) ? input : Buffer.from(input, "utf8");
+  return buf
+    .toString("base64")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/g, "");
+}
+
+function fromB64url(input: string): Buffer {
+  const padded = input.replace(/-/g, "+").replace(/_/g, "/");
+  const pad = padded.length % 4 === 0 ? "" : "=".repeat(4 - (padded.length % 4));
+  return Buffer.from(padded + pad, "base64");
+}
+
+export function signHandoffToken(claims: Omit<HandoffClaims, "exp" | "iat">, ttlSec = 120): string {
+  const now = Math.floor(Date.now() / 1000);
+  const full: HandoffClaims = {
+    ...claims,
+    iat: now,
+    exp: now + ttlSec,
+  };
+  const body = b64url(JSON.stringify(full));
+  const sig = createHmac("sha256", ssoSecret()).update(body).digest();
+  return `${body}.${b64url(sig)}`;
+}
+
+export function verifyHandoffToken(token: string): HandoffClaims {
+  const [body, sig] = token.split(".");
+  if (!body || !sig) throw new Error("invalid_token");
+  const expected = createHmac("sha256", ssoSecret()).update(body).digest();
+  const given = fromB64url(sig);
+  if (given.length !== expected.length || !timingSafeEqual(given, expected)) {
+    throw new Error("bad_signature");
+  }
+  const claims = JSON.parse(fromB64url(body).toString("utf8")) as HandoffClaims;
+  if (!claims.email || !claims.product_id) throw new Error("invalid_claims");
+  if (Math.floor(Date.now() / 1000) > Number(claims.exp || 0)) {
+    throw new Error("expired");
+  }
+  return claims;
+}
+
+export function productBaseUrl(productId: string): string | null {
+  const map: Record<string, string> = {
+    synthcomm:
+      process.env.SYNTHCOMM_URL ||
+      "https://synthcomm-production.up.railway.app",
+  };
+  return map[productId] || null;
+}
