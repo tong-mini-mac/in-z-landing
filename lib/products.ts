@@ -1,8 +1,7 @@
 export type ProductId =
   | "admin-portal"
   | "synthcomm"
-  | "ai-commerce"
-  | "restochain"
+  | "universal-simulator"
   | "ai-marketing"
   | "music-demo"
   | "podcast"
@@ -39,23 +38,13 @@ export const PRODUCTS: ProductEntry[] = [
     available: true,
   },
   {
-    id: "ai-commerce",
-    name: "AI-Commerce",
+    id: "universal-simulator",
+    name: "Universal Simulator",
     description: {
-      th: "ผู้ช่วยจัดซื้อสำหรับร้านออนไลน์",
-      en: "Procurement assistant for online sellers",
+      th: "จำลองพฤติกรรมผู้ใช้สำหรับทีม QA",
+      en: "User behavior simulation for QA teams",
     },
-    href: "https://ai-commerce-production.up.railway.app",
-    available: true,
-  },
-  {
-    id: "restochain",
-    name: "RestoChain",
-    description: {
-      th: "สต็อกและต้นทุนอาหารร้านอาหาร",
-      en: "Restaurant inventory and food costing",
-    },
-    href: "https://restochain-production.up.railway.app",
+    href: "https://universal-simulator-production.up.railway.app",
     available: true,
   },
   {
@@ -103,8 +92,7 @@ export const PRODUCTS: ProductEntry[] = [
 /** Commercial products only — Landing / ERP / AI-Marketing are not sellable products. */
 export const COMMERCIAL_PRODUCT_IDS: ProductId[] = [
   "synthcomm",
-  "ai-commerce",
-  "restochain",
+  "universal-simulator",
   "music-demo",
   "podcast",
   "netr",
