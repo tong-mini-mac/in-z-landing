@@ -552,6 +552,7 @@ img {
 }
 
 .products-panel {
+  --products-gap: clamp(0.75rem, 2.5vw, 1cm);
   position: relative;
   z-index: 3;
   display: flex;
@@ -559,8 +560,8 @@ img {
   flex-wrap: wrap;
   justify-content: center;
   align-items: stretch;
-  gap: 1cm;
-  max-width: 64rem;
+  gap: var(--products-gap);
+  width: min(100% - 2rem, 76rem);
   margin-inline: auto;
   padding: 0.5rem 1.25rem 2rem;
   animation: fade-up 1s 0.28s ease both;
@@ -568,7 +569,9 @@ img {
 
 .product-card {
   position: relative;
-  width: min(100%, 17rem);
+  flex: 0 1 17rem;
+  width: 17rem;
+  max-width: 100%;
   min-height: 8.5rem;
   padding: 1.35rem 1.5rem 1.45rem;
   border-radius: 1.1rem;
@@ -582,6 +585,13 @@ img {
   align-self: stretch;
   box-sizing: border-box;
   z-index: 1;
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+  .product-card {
+    flex-basis: calc((100% - (2 * var(--products-gap))) / 3);
+    width: auto;
+  }
 }
 
 .product-card.is-active {
@@ -784,20 +794,20 @@ img {
     left: 50%;
     right: auto;
     top: 52%;
-    transform: translate(-50%, -50%);
+    translate: -50% -50%;
     justify-content: center;
     align-items: stretch;
     flex-wrap: wrap;
-    width: min(100% - 4rem, 64rem);
-    max-width: 64rem;
+    width: min(100% - 4rem, 76rem);
     margin-inline: 0;
     padding: 0;
-    gap: 1cm;
+    gap: var(--products-gap);
   }
 
   .product-card {
-    width: 17rem;
-    flex: 0 0 17rem;
+    flex: 0 1 calc((100% - (3 * var(--products-gap))) / 4);
+    width: auto;
+    max-width: 17rem;
   }
 
   .product-popover {
