@@ -3,30 +3,15 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 
-const CHAT_HREF =
-  "https://personal-secretary-production-3d5f.up.railway.app/contact/";
-
 const CLOSE_DELAY_MS = 2000;
 
-const contactOptions = [
-  {
-    label: "Chat",
-    kind: "external" as const,
-    href: CHAT_HREF,
-  },
-  {
-    label: "Customer Service",
-    kind: "page" as const,
-    href: "/contact?channel=customer-service",
-  },
-  {
-    label: "Support",
-    kind: "page" as const,
-    href: "/contact?channel=support",
-  },
-];
+const productOptions = [
+  { label: "White Label", href: "/products/white-label" },
+  { label: "License", href: "/products/license" },
+  { label: "SaaS", href: "/products/saas" },
+] as const;
 
-export function ContactNav() {
+export function ProductsNav() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -101,44 +86,30 @@ export function ContactNav() {
           setOpen((current) => !current);
         }}
       >
-        Contact
+        Products
       </button>
 
       <div
         id={menuId}
         className="nav-flyout-menu"
         role="menu"
-        aria-label="Contact options"
+        aria-label="Product models"
         hidden={!open}
       >
-        {contactOptions.map((option) =>
-          option.kind === "external" ? (
-            <a
-              key={option.label}
-              className="nav-flyout-item"
-              href={option.href}
-              role="menuitem"
-              target="_blank"
-              rel="noreferrer"
-              onClick={closeMenu}
-            >
-              {option.label}
-            </a>
-          ) : (
-            <button
-              key={option.label}
-              type="button"
-              className="nav-flyout-item"
-              role="menuitem"
-              onClick={() => {
-                closeMenu();
-                router.push(option.href);
-              }}
-            >
-              {option.label}
-            </button>
-          ),
-        )}
+        {productOptions.map((option) => (
+          <button
+            key={option.href}
+            type="button"
+            className="nav-flyout-item"
+            role="menuitem"
+            onClick={() => {
+              closeMenu();
+              router.push(option.href);
+            }}
+          >
+            {option.label}
+          </button>
+        ))}
       </div>
     </div>
   );

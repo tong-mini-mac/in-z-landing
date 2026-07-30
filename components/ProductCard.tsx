@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import type { PricingTier } from "@/lib/product-catalog";
 
 type ProductCardProps = {
   name: string;
@@ -9,6 +10,9 @@ type ProductCardProps = {
   subscribeHref: string;
   earlyBirdPrice?: string;
   regularPrice?: string;
+  pricingTiers?: PricingTier[];
+  subscribeCtaLabel?: string;
+  pricingNote?: string;
   className?: string;
 };
 
@@ -23,6 +27,9 @@ export function ProductCard({
   subscribeHref,
   earlyBirdPrice = "3 baht / conversation",
   regularPrice = "6 baht / conversation",
+  pricingTiers,
+  subscribeCtaLabel = "Sign In / Sign Up",
+  pricingNote,
   className = "",
 }: ProductCardProps) {
   const [openPanel, setOpenPanel] = useState<Panel>(null);
@@ -30,6 +37,7 @@ export function ProductCard({
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const descriptionId = useId();
   const subscribeId = useId();
+  const hasTier = Boolean(pricingTiers && pricingTiers.length > 0);
 
   function clearCloseTimer() {
     if (closeTimerRef.current) {
@@ -99,7 +107,9 @@ export function ProductCard({
           aria-controls={descriptionId}
           onClick={() => {
             clearCloseTimer();
-            setOpenPanel((current) => (current === "description" ? null : "description"));
+            setOpenPanel((current) =>
+              current === "description" ? null : "description",
+            );
           }}
         >
           Description
@@ -129,7 +139,9 @@ export function ProductCard({
           aria-controls={subscribeId}
           onClick={() => {
             clearCloseTimer();
-            setOpenPanel((current) => (current === "subscribe" ? null : "subscribe"));
+            setOpenPanel((current) =>
+              current === "subscribe" ? null : "subscribe",
+            );
           }}
         >
           Subscribe
@@ -137,24 +149,45 @@ export function ProductCard({
 
         <div
           id={subscribeId}
-          className="product-popover product-popover-subscribe"
+          className={`product-popover product-popover-subscribe${hasTier ? " is-tiers" : ""}`}
           role="region"
           aria-label={`${name} subscribe options`}
           hidden={openPanel !== "subscribe"}
         >
           <a className="product-subscribe-auth" href={subscribeHref}>
-            Sign In / Sign Up
+            {subscribeCtaLabel}
           </a>
-          <ul className="product-pricing">
-            <li>
-              <span>Early Bird</span>
-              <strong>{earlyBirdPrice}</strong>
-            </li>
-            <li>
-              <span>Price</span>
-              <strong>{regularPrice}</strong>
-            </li>
-          </ul>
+
+          {hasTier ? (
+            <>
+              <ul className="product-pricing product-pricing-tiers">
+                {pricingTiers!.map((tier) => (
+                  <li
+                    key={tier.name}
+                    className={tier.highlight ? "is-highlight" : undefined}
+                  >
+                    <span>{tier.name}</span>
+                    <strong>{tier.price}</strong>
+                    <em>{tier.detail}</em>
+                  </li>
+                ))}
+              </ul>
+              {pricingNote ? (
+                <p className="product-pricing-note">{pricingNote}</p>
+              ) : null}
+            </>
+          ) : (
+            <ul className="product-pricing">
+              <li>
+                <span>Early Bird</span>
+                <strong>{earlyBirdPrice}</strong>
+              </li>
+              <li>
+                <span>Price</span>
+                <strong>{regularPrice}</strong>
+              </li>
+            </ul>
+          )}
         </div>
       </div>
     </div>

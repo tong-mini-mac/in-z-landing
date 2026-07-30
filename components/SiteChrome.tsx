@@ -1,11 +1,11 @@
 import { ContactNav } from "@/components/ContactNav";
+import { ProductsNav } from "@/components/ProductsNav";
 
 const AUTH_HREF = "/auth";
 
 export const navItems = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Products", href: "/products" },
 ];
 
 export function SiteNav() {
@@ -17,6 +17,7 @@ export function SiteNav() {
             {item.label}
           </a>
         ))}
+        <ProductsNav />
         <ContactNav />
       </nav>
       <a className="nav-auth" href={AUTH_HREF}>
