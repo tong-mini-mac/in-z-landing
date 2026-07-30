@@ -72,30 +72,30 @@ function ProductsModelView({ model }: { model: ProductModel }) {
         <p className="brand">IN Z</p>
         <p className="products-model-label">{config.title}</p>
         <p className="products-model-lead">{config.lead}</p>
-      </section>
 
-      <div className="products-panel">
-        {catalog.map((product) => {
-          const pricing = pricingForProduct(product, model);
-          return (
-            <ProductCard
-              key={product.name}
-              name={product.name}
-              title={product.title}
-              description={product.description}
-              subscribeHref={
-                pricing?.ctaHref ||
-                `${AUTH_SIGNUP}&model=${model}&product=${encodeURIComponent(product.name.toLowerCase())}`
-              }
-              earlyBirdPrice={product.earlyBirdPrice}
-              regularPrice={product.regularPrice}
-              pricingTiers={pricing?.tiers}
-              subscribeCtaLabel={pricing?.ctaLabel}
-              pricingNote={pricing?.note}
-            />
-          );
-        })}
-      </div>
+        <div className="products-panel">
+          {catalog.map((product) => {
+            const pricing = pricingForProduct(product, model);
+            return (
+              <ProductCard
+                key={product.name}
+                name={product.name}
+                title={product.title}
+                description={product.description}
+                subscribeHref={
+                  pricing?.ctaHref ||
+                  `${AUTH_SIGNUP}&model=${model}&product=${encodeURIComponent(product.name.toLowerCase())}`
+                }
+                earlyBirdPrice={product.earlyBirdPrice}
+                regularPrice={product.regularPrice}
+                pricingTiers={pricing?.tiers}
+                subscribeCtaLabel={pricing?.ctaLabel}
+                pricingNote={pricing?.note}
+              />
+            );
+          })}
+        </div>
+      </section>
 
       <SiteFooter />
     </main>

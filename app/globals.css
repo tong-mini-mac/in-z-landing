@@ -779,6 +779,10 @@ img {
 }
 
 @media (min-width: 900px) {
+  .page-products:has(.products-panel) {
+    min-height: max(100svh, 46rem);
+  }
+
   .product-link {
     font-size: var(--text-nav-lg);
     letter-spacing: var(--track-nav-lg);
@@ -790,16 +794,16 @@ img {
   }
 
   .products-panel {
-    position: absolute;
-    left: 50%;
+    position: relative;
+    left: auto;
     right: auto;
-    top: 52%;
-    translate: -50% -50%;
+    top: auto;
+    translate: none;
     justify-content: center;
     align-items: stretch;
     flex-wrap: wrap;
     width: min(100% - 4rem, 76rem);
-    margin-inline: 0;
+    margin: 1.5rem auto 7rem;
     padding: 0;
     gap: var(--products-gap);
   }
