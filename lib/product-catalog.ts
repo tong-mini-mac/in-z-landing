@@ -129,7 +129,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     description: UNIVERSAL_SIMULATOR_DESCRIPTION,
     earlyBirdPrice: "Starter $500 / test",
     regularPrice: "$500 – $2,500 / test · annual bundles",
-    models: ["white-label", "license", "saas"],
+    models: ["saas"],
   },
   {
     name: "Music Demo",
@@ -137,7 +137,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     description: MUSIC_DEMO_DESCRIPTION,
     earlyBirdPrice: "Starter ฿99 / month",
     regularPrice: "฿99 – ฿1,599 / month",
-    models: ["white-label", "license", "saas"],
+    models: ["saas"],
   },
   {
     name: "Podcast",
@@ -145,7 +145,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     description: PODCAST_DESCRIPTION,
     earlyBirdPrice: "14-day free trial",
     regularPrice: "฿599 – ฿2,999 / month",
-    models: ["white-label", "license", "saas"],
+    models: ["saas"],
   },
   {
     name: "NetR",
@@ -153,7 +153,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     description: NETR_DESCRIPTION,
     earlyBirdPrice: "Contact for Early Bird",
     regularPrice: "Subscription tiers",
-    models: ["white-label", "license", "saas"],
+    models: ["saas"],
   },
 ];
 
