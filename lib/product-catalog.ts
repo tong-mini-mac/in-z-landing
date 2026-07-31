@@ -32,7 +32,7 @@ const SYNTHCOMM_DESCRIPTION =
   "SynthComm is an AI-powered platform that generates high-fidelity Thai conversational datasets for businesses training chatbots, customer service systems, and language models. Start free with 100 conversations per month — try before you buy — then scale to Starter, Growth, Business, or Enterprise. Using advanced multi-agent orchestration, it produces authentic Thai dialogue across diverse contexts including e-commerce, social media, food delivery, banking, and healthcare. The system combines web research with specialized AI writers to create natural conversations that reflect real Thai communication patterns, including proper use of polite particles, regional dialects, slang, and gender-diverse voices. Each conversation undergoes dual-layer quality control to ensure linguistic accuracy, cultural appropriateness, and contextual relevance. Designed for B2B clients with full PDPA compliance and data privacy protection.";
 
 const UNIVERSAL_SIMULATOR_DESCRIPTION =
-  "Universal Simulator is an IN Z SaaS platform for QA and product teams to generate personas, simulate web user behavior, run auto-scaled load tests, and analyze results with ML/AI. Plans start from $500 per test with Professional and Enterprise tiers, plus annual bundles. Public catalog, user manual, and PDPA pages ship with the portal so buyers can review pricing and privacy before signup.";
+  "Universal Simulator is an IN Z SaaS platform for QA and product teams to generate personas, simulate web user behavior, run auto-scaled load tests, and analyze results with ML/AI. Starter, Professional, and Business plans launch with an Early Bird promotion for the first five months, then move to regular monthly pricing. Public catalog, user manual, and PDPA pages ship with the portal so buyers can review pricing and privacy before signup.";
 
 const MUSIC_DEMO_DESCRIPTION =
   "Music Demo is an AI music creation studio for makers, creators, and small labels. Users generate song drafts from prompts, preview multiple takes, then confirm and export in formats that fit their workflow — from MP3 and WAV to lyrics, chords, MIDI, MusicXML, and stems on higher plans. Plans scale from Starter through Studio with monthly song quotas, optional re-edit on confirmed tracks, AI voice options, and busker-friendly modes. Built for fast creative loops with clear export rights per plan, so teams can move from idea to usable audio without a full production stack.";
@@ -95,6 +95,28 @@ const SYNTHCOMM_WHITE_LABEL_TIERS: PricingTier[] = [
   },
 ];
 
+const UNIVERSAL_SIMULATOR_SAAS_TIERS: PricingTier[] = [
+  {
+    name: "Starter",
+    price: "$42 / month",
+    detail:
+      "Early Bird mo 1–5 · then $199/mo · 50 simulations · 500 personas · 20 scrapes · 100 API tests · 10 ML reports · 5 GB · 30-day retention · 1 concurrent job · 2 seats · Email 48h · LLM & Drive not included",
+  },
+  {
+    name: "Professional",
+    price: "$192 / month",
+    detail:
+      "Early Bird mo 1–5 · then $599/mo · 200 simulations · 2,000 personas · 100 scrapes · 500 API tests · 50 ML reports · 25 GB · 90-day retention · 3 concurrent jobs · 5 seats · Email 24h + Chat · DeepSeek 500K tokens · Drive sync · Hybrid pipeline · Webhooks",
+    highlight: true,
+  },
+  {
+    name: "Business",
+    price: "$746 / month",
+    detail:
+      "Early Bird mo 1–5 · then $1,299/mo · 1,000 simulations · 5,000 personas · 500 scrapes · 2,500 API tests · Unlimited ML · 100 GB · 180-day retention · 10 concurrent jobs · 15 seats · 24/7 Chat + Phone · DeepSeek 2M tokens · Unlimited Drive · White-label dashboard · ERP · Monthly security audit · Priority queue",
+  },
+];
+
 export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "SynthComm",
@@ -127,9 +149,17 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     name: "Universal Simulator",
     title: "Universal Simulator — User Behavior Simulation for QA",
     description: UNIVERSAL_SIMULATOR_DESCRIPTION,
-    earlyBirdPrice: "Starter $500 / test",
-    regularPrice: "$500 – $2,500 / test · annual bundles",
+    earlyBirdPrice: "Starter $42 / month (Early Bird)",
+    regularPrice: "Starter $199 · Professional $599 · Business $1,299 / month",
     models: ["saas"],
+    pricingByModel: {
+      saas: {
+        ctaLabel: "Start Early Bird",
+        note:
+          "Early Bird covers months 1–5 for new customers through 31 Dec 2026, then regular pricing applies. Prices exclude VAT 7%. Annual prepaid: Early Bird × 12, or regular with 15% off from month 6. When Early Bird ends, loyalty offers (e.g. 10% for 3 months) may apply for continuing customers.",
+        tiers: UNIVERSAL_SIMULATOR_SAAS_TIERS,
+      },
+    },
   },
   {
     name: "Music Demo",
