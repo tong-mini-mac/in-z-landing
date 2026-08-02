@@ -1,7 +1,6 @@
 import { ContactNav } from "@/components/ContactNav";
+import { NavAuth } from "@/components/NavAuth";
 import { ProductsNav } from "@/components/ProductsNav";
-
-const AUTH_HREF = "/auth";
 
 export const navItems = [
   { label: "Home", href: "/" },
@@ -20,9 +19,7 @@ export function SiteNav() {
         <ProductsNav />
         <ContactNav />
       </nav>
-      <a className="nav-auth" href={AUTH_HREF}>
-        Sign In / Sign Up
-      </a>
+      <NavAuth />
     </>
   );
 }

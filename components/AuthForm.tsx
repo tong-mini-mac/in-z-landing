@@ -7,6 +7,8 @@ import { AuthLangToggle } from "@/components/AuthLangToggle";
 import {
   AUTH_COPY,
   getStoredAuthLang,
+  normalizeAuthLang,
+  setStoredAuthLang,
   type AuthLang,
 } from "@/lib/auth-i18n";
 import {
@@ -65,13 +67,15 @@ export function AuthForm() {
   const t = AUTH_COPY[lang];
 
   useEffect(() => {
-    const stored = getStoredAuthLang();
-    setLang(stored);
-    document.documentElement.lang = stored;
+    const fromUrl = searchParams.get("lang") || searchParams.get("ui_lang");
+    const next = fromUrl ? normalizeAuthLang(fromUrl) : getStoredAuthLang();
+    setStoredAuthLang(next);
+    setLang(next);
+    document.documentElement.lang = next;
     if (getSession()) {
       router.replace("/account");
     }
-  }, [router]);
+  }, [router, searchParams]);
 
   useEffect(() => {
     setMode(searchParams.get("mode") === "signup" ? "signup" : "signin");
@@ -83,8 +87,11 @@ export function AuthForm() {
     setError("");
     setPendingEmail("");
     setMode(next);
-    const url = next === "signup" ? "/auth?mode=signup" : "/auth?mode=signin";
-    router.replace(url, { scroll: false });
+    const params = new URLSearchParams();
+    if (next === "signup") params.set("mode", "signup");
+    else params.set("mode", "signin");
+    params.set("lang", lang);
+    router.replace(`/auth?${params.toString()}`, { scroll: false });
   }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -320,8 +327,6 @@ export function AuthForm() {
 
   return (
     <div className="auth-shell">
-      <AuthLangToggle lang={lang} onChange={setLang} />
-
       <div className="auth-tabs" role="tablist" aria-label="Auth mode">
         <button
           type="button"
@@ -577,6 +582,10 @@ export function AuthForm() {
             </button>
           )}
         </p>
+
+        <div className="auth-lang-under-cta">
+          <AuthLangToggle lang={lang} onChange={setLang} />
+        </div>
 
         <p className="auth-demo-note">{t.demoNote}</p>
       </form>

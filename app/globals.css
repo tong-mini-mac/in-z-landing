@@ -102,11 +102,23 @@ img {
   opacity: 0.55;
 }
 
-.nav-auth {
+.nav-auth-wrap {
   position: absolute;
   top: 1.15rem;
   right: 1.25rem;
   z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+  animation: fade-up 0.9s ease both;
+}
+
+.nav-auth {
+  position: static;
+  top: auto;
+  right: auto;
+  z-index: auto;
   font-family: var(--font-display), system-ui, sans-serif;
   font-size: var(--text-nav);
   font-weight: 600;
@@ -114,7 +126,7 @@ img {
   text-transform: uppercase;
   white-space: nowrap;
   transition: opacity 0.25s ease;
-  animation: fade-up 0.9s ease both;
+  animation: none;
 }
 
 .nav-auth:hover,
@@ -383,9 +395,12 @@ img {
     z-index: 2;
   }
 
-  .nav-auth {
+  .nav-auth-wrap {
     top: 1.6rem;
     right: 2.6rem;
+  }
+
+  .nav-auth {
     font-size: var(--text-nav-lg);
     letter-spacing: var(--track-nav-lg);
   }
@@ -471,6 +486,7 @@ img {
 @media (prefers-reduced-motion: reduce) {
   .bg,
   .nav,
+  .nav-auth-wrap,
   .nav-auth,
   .logo-mark,
   .brand,
@@ -1137,7 +1153,7 @@ img {
     transform: translateY(-50%);
   }
 
-  .page-scroll .nav-auth {
+  .page-scroll .nav-auth-wrap {
     position: fixed;
   }
 
@@ -1299,6 +1315,12 @@ img {
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+.auth-lang-under-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.85rem;
 }
 
 .auth-lang-btn {
