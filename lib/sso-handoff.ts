@@ -1,4 +1,4 @@
-import { createHmac, timingSafeEqual } from "crypto";
+import { createHash, createHmac, timingSafeEqual } from "crypto";
 
 export type HandoffClaims = {
   email: string;
@@ -12,12 +12,29 @@ export type HandoffClaims = {
 };
 
 function ssoSecret(): string {
-  return (
+  const raw =
     process.env.INZ_SSO_SECRET ||
     process.env.ERP_SPECIAL_LOGIN_KEY ||
     process.env.ERP_SERVICE_KEY ||
-    "dev-secret"
-  );
+    "dev-secret";
+  return String(raw).trim();
+}
+
+/** Which env var is actively used for SSO HMAC (for ops debugging). */
+export function ssoSecretSource():
+  | "INZ_SSO_SECRET"
+  | "ERP_SPECIAL_LOGIN_KEY"
+  | "ERP_SERVICE_KEY"
+  | "dev-secret" {
+  if (String(process.env.INZ_SSO_SECRET || "").trim()) return "INZ_SSO_SECRET";
+  if (String(process.env.ERP_SPECIAL_LOGIN_KEY || "").trim()) return "ERP_SPECIAL_LOGIN_KEY";
+  if (String(process.env.ERP_SERVICE_KEY || "").trim()) return "ERP_SERVICE_KEY";
+  return "dev-secret";
+}
+
+/** Short fingerprint so Landing vs product can confirm the same secret without revealing it. */
+export function ssoSecretFingerprint(): string {
+  return createHash("sha256").update(ssoSecret()).digest("hex").slice(0, 8);
 }
 
 function b64url(input: Buffer | string): string {
