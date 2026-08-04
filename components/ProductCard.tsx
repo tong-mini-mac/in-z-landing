@@ -13,6 +13,7 @@ type ProductCardProps = {
   pricingTiers?: PricingTier[];
   subscribeCtaLabel?: string;
   pricingNote?: string;
+  pricingNotice?: string;
   className?: string;
 };
 
@@ -30,6 +31,7 @@ export function ProductCard({
   pricingTiers,
   subscribeCtaLabel = "Sign In / Sign Up",
   pricingNote,
+  pricingNotice,
   className = "",
 }: ProductCardProps) {
   const [openPanel, setOpenPanel] = useState<Panel>(null);
@@ -160,6 +162,12 @@ export function ProductCard({
 
           {hasTier ? (
             <>
+              {pricingNotice ? (
+                <aside className="product-pricing-notice" role="note">
+                  <p className="product-pricing-notice-label">Notice</p>
+                  <p>{pricingNotice}</p>
+                </aside>
+              ) : null}
               <ul className="product-pricing product-pricing-tiers">
                 {pricingTiers!.map((tier) => (
                   <li

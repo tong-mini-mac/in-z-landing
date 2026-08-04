@@ -959,6 +959,30 @@ img {
   color: var(--muted);
 }
 
+.product-pricing-notice {
+  margin: 0 0 0.85rem;
+  padding: 0.75rem 0 0.85rem;
+  border-top: 1px solid rgba(10, 10, 10, 0.12);
+  border-bottom: 1px solid rgba(10, 10, 10, 0.12);
+}
+
+.product-pricing-notice-label {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: var(--text-legal);
+  font-weight: 600;
+  letter-spacing: var(--track-legal);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.product-pricing-notice p:last-child {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
 @media (min-width: 900px) {
   .page-products:has(.products-panel) {
     min-height: max(100svh, 46rem);

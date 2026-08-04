@@ -22,6 +22,8 @@ export type CatalogProduct = {
         ctaLabel?: string;
         ctaHref?: string;
         note?: string;
+        /** Pre-purchase limitation notice shown in the subscribe panel. */
+        notice?: string;
         tiers: PricingTier[];
       }
     >
@@ -191,6 +193,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
         ctaHref: "/demo",
         note:
           "Cloud SaaS · monthly. Free readiness audit — no signup. Prices exclude VAT 7%.",
+        notice:
+          "Before you buy — Cloud SaaS works only with public internet URLs. Systems on NAS / LAN / localhost / VPN cannot be scanned from our cloud. Expose a public HTTPS endpoint (tunnel/proxy), or choose License / White Label for on-prem. Free Readiness: up to 5 findings, no LLM, no load test. Monthly simulations: Starter 50 · Pro 300 · Business 500.",
         tiers: UNIVERSAL_SIMULATOR_SAAS_TIERS,
       },
       license: {
@@ -241,6 +245,7 @@ export function pricingForProduct(
   ctaLabel: string;
   ctaHref?: string;
   note?: string;
+  notice?: string;
   tiers: PricingTier[];
 } | null {
   const byModel = product.pricingByModel?.[model];
@@ -249,6 +254,7 @@ export function pricingForProduct(
       ctaLabel: byModel.ctaLabel || "Sign In / Sign Up",
       ctaHref: byModel.ctaHref,
       note: byModel.note,
+      notice: byModel.notice,
       tiers: byModel.tiers,
     };
   }

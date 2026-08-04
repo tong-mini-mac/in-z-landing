@@ -91,6 +91,7 @@ function ProductsModelView({ model }: { model: ProductModel }) {
                 pricingTiers={pricing?.tiers}
                 subscribeCtaLabel={pricing?.ctaLabel}
                 pricingNote={pricing?.note}
+                pricingNotice={pricing?.notice}
               />
             );
           })}
