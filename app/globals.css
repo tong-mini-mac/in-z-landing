@@ -807,6 +807,16 @@ img {
   opacity: 0.55;
 }
 
+.product-link-scope {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
 .product-popover {
   position: absolute;
   left: 0;
@@ -1017,6 +1027,11 @@ img {
   .product-link {
     font-size: var(--text-nav-lg);
     letter-spacing: var(--track-nav-lg);
+  }
+
+  .product-link-scope {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
   }
 
   .logo-mark-products {

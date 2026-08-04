@@ -131,72 +131,6 @@ export function ProductCard({
         </div>
       </div>
 
-      {hasScope ? (
-        <div
-          className={`product-hover${openPanel === "scope" ? " is-open" : ""}`}
-          onMouseEnter={() => showPanel("scope")}
-          onMouseLeave={scheduleClose}
-        >
-          <button
-            type="button"
-            className="product-link"
-            aria-expanded={openPanel === "scope"}
-            aria-controls={scopeId}
-            onClick={() => {
-              clearCloseTimer();
-              setOpenPanel((current) => (current === "scope" ? null : "scope"));
-            }}
-          >
-            Scope of Work
-          </button>
-
-          <div
-            id={scopeId}
-            className="product-popover product-popover-scope"
-            role="region"
-            aria-label={`${name} scope of work`}
-            hidden={openPanel !== "scope"}
-          >
-            <p className="product-popover-title">Scope of Work</p>
-            <p className="product-popover-body">{scopeOfWork!.summary}</p>
-
-            <p className="product-scope-heading">In scope</p>
-            <ul className="product-scope-list">
-              {scopeOfWork!.inScope.map((item) => (
-                <li key={item.area}>
-                  <strong>{item.area}</strong>
-                  <span>{item.detail}</span>
-                </li>
-              ))}
-            </ul>
-
-            <p className="product-scope-heading">Out of scope</p>
-            <ul className="product-scope-list">
-              {scopeOfWork!.outOfScope.map((item) => (
-                <li key={item.area}>
-                  <strong>{item.area}</strong>
-                  <span>{item.detail}</span>
-                </li>
-              ))}
-            </ul>
-
-            {scopeOfWork!.bands && scopeOfWork!.bands.length > 0 ? (
-              <>
-                <p className="product-scope-heading">Deployment bands</p>
-                <ul className="product-scope-list">
-                  {scopeOfWork!.bands.map((item) => (
-                    <li key={item.area}>
-                      <strong>{item.area}</strong>
-                      <span>{item.detail}</span>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
-
       <div
         className={`product-hover${openPanel === "subscribe" ? " is-open" : ""}`}
         onMouseEnter={() => showPanel("subscribe")}
@@ -260,6 +194,72 @@ export function ProductCard({
           )}
         </div>
       </div>
+
+      {hasScope ? (
+        <div
+          className={`product-hover${openPanel === "scope" ? " is-open" : ""}`}
+          onMouseEnter={() => showPanel("scope")}
+          onMouseLeave={scheduleClose}
+        >
+          <button
+            type="button"
+            className="product-link product-link-scope"
+            aria-expanded={openPanel === "scope"}
+            aria-controls={scopeId}
+            onClick={() => {
+              clearCloseTimer();
+              setOpenPanel((current) => (current === "scope" ? null : "scope"));
+            }}
+          >
+            Scope of Work
+          </button>
+
+          <div
+            id={scopeId}
+            className="product-popover product-popover-scope"
+            role="region"
+            aria-label={`${name} scope of work`}
+            hidden={openPanel !== "scope"}
+          >
+            <p className="product-popover-title">Scope of Work</p>
+            <p className="product-popover-body">{scopeOfWork!.summary}</p>
+
+            <p className="product-scope-heading">In scope</p>
+            <ul className="product-scope-list">
+              {scopeOfWork!.inScope.map((item) => (
+                <li key={item.area}>
+                  <strong>{item.area}</strong>
+                  <span>{item.detail}</span>
+                </li>
+              ))}
+            </ul>
+
+            <p className="product-scope-heading">Out of scope</p>
+            <ul className="product-scope-list">
+              {scopeOfWork!.outOfScope.map((item) => (
+                <li key={item.area}>
+                  <strong>{item.area}</strong>
+                  <span>{item.detail}</span>
+                </li>
+              ))}
+            </ul>
+
+            {scopeOfWork!.bands && scopeOfWork!.bands.length > 0 ? (
+              <>
+                <p className="product-scope-heading">Deployment bands</p>
+                <ul className="product-scope-list">
+                  {scopeOfWork!.bands.map((item) => (
+                    <li key={item.area}>
+                      <strong>{item.area}</strong>
+                      <span>{item.detail}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
