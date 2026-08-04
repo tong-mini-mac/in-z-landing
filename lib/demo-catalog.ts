@@ -94,25 +94,6 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "เริ่มทดลอง Podcast",
     },
   },
-  {
-    id: "netr",
-    name: "NetR",
-    href: "/contact?channel=customer-service",
-    requiresSignup: false,
-    external: false,
-    trialTitle: {
-      en: "Early Bird / request a trial",
-      th: "Early Bird / ขอทดลองใช้",
-    },
-    trialSummary: {
-      en: "No self-serve trial yet — contact us to try the Network & Relationship Hub.",
-      th: "ยังไม่มี self-serve trial — ติดต่อทีมเพื่อขอทดลองใช้ Network & Relationship Hub",
-    },
-    ctaLabel: {
-      en: "Contact for trial",
-      th: "ติดต่อขอทดลองใช้",
-    },
-  },
 ];
 
 export const DEMO_COPY: Record<
