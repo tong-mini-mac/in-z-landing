@@ -5,7 +5,6 @@ import { ProductsNav } from "@/components/ProductsNav";
 export const navItems = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Demo", href: "/demo" },
 ];
 
 export function SiteNav() {
@@ -18,6 +17,7 @@ export function SiteNav() {
           </a>
         ))}
         <ProductsNav />
+        <a href="/demo">Demo</a>
         <ContactNav />
       </nav>
       <NavAuth />
