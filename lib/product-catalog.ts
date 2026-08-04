@@ -1,4 +1,5 @@
 import type { ProductModel } from "@/lib/product-models";
+import type { AuthLang } from "@/lib/auth-i18n";
 
 export type PricingTier = {
   name: string;
@@ -19,6 +20,8 @@ export type ScopeOfWork = {
   bands?: ScopeItem[];
 };
 
+export type LocalizedScopeOfWork = Record<AuthLang, ScopeOfWork>;
+
 export type CatalogProduct = {
   name: string;
   title: string;
@@ -26,8 +29,8 @@ export type CatalogProduct = {
   earlyBirdPrice: string;
   regularPrice: string;
   models: ProductModel[];
-  /** Optional Scope of Work shown via product card button. */
-  scopeOfWork?: ScopeOfWork;
+  /** Optional Scope of Work shown via product card button (TH/EN). */
+  scopeOfWork?: LocalizedScopeOfWork;
   /** Per-model pricing; falls back to earlyBird/regular when absent. */
   pricingByModel?: Partial<
     Record<
@@ -48,7 +51,7 @@ const SYNTHCOMM_DESCRIPTION =
 const UNIVERSAL_SIMULATOR_DESCRIPTION =
   "QA LAB is an IN Z platform for QA and product teams to simulate user behavior and test deployed web/API systems — including mobile app backends and Appium native E2E (License/local or BrowserStack BYOK). Available as Cloud SaaS (monthly), BYOK License with Early Bird 2026 pricing (annual), or White Label. Try free with a readiness audit — no signup required.";
 
-const UNIVERSAL_SIMULATOR_SCOPE: ScopeOfWork = {
+const UNIVERSAL_SIMULATOR_SCOPE_EN: ScopeOfWork = {
   summary:
     "User-behavior simulation and web/API testing for deployed systems with a public URL. Includes mobile app backends/APIs and Appium native E2E (License/local or BrowserStack BYOK). Not AI-only. Not a Git-repo tester.",
   inScope: [
@@ -143,6 +146,133 @@ const UNIVERSAL_SIMULATOR_SCOPE: ScopeOfWork = {
       detail: "Internal systems / NAS / Appium in LAN / compliance (BYOK).",
     },
   ],
+};
+
+const UNIVERSAL_SIMULATOR_SCOPE_TH: ScopeOfWork = {
+  summary:
+    "จำลองพฤติกรรมผู้ใช้และทดสอบเว็บ/API ของระบบที่ deploy แล้วมี URL สาธารณะ รวม API/backend ของแอปมือถือ และ E2E native ผ่าน Appium (License/local หรือ BrowserStack BYOK) — ไม่จำกัดแค่ระบบแนว AI และไม่ใช่การทดสอบ repo บน Git",
+  inScope: [
+    {
+      area: "เป้าทดสอบ",
+      detail:
+        "เว็บแอป, API/Backend, SaaS, พอร์ทัล, ERP ที่ deploy แล้วเข้าถึงด้วย HTTP(S) สาธารณะ",
+    },
+    {
+      area: "แอปมือถือ — ชั้น API / Backend",
+      detail:
+        "ทดสอบ API ที่แอป iOS/Android เรียกผ่านโปรไฟล์ readiness mobile_api (version/config, auth, deep-link well-known, latency) รวม API test / load",
+    },
+    {
+      area: "แอปมือถือ — WebView / PWA / responsive web",
+      detail: "หน้าเว็บหรือ hybrid ที่เปิดในเบราว์เซอร์/WebView ได้ผ่าน URL สาธารณะ",
+    },
+    {
+      area: "แอปมือถือ — E2E native (Appium)",
+      detail:
+        "แตะ UI บน iOS/Android ผ่าน Appium step script — License/local หรือ Cloud + BrowserStack BYOK",
+    },
+    {
+      area: "โปรเจกต์บน Git ที่ deploy แล้ว",
+      detail:
+        "ได้ — ชี้ URL ของระบบที่รันอยู่ (เช่น Railway / Vercel / VPS) ไม่ใช่ลิงก์ repo",
+    },
+    {
+      area: "Readiness scan",
+      detail: "สแกน URL จริง — health, docs, OpenAPI, auth, latency, 5xx",
+    },
+    {
+      area: "Web simulation & load",
+      detail:
+        "จำลอง user journey / พฤติกรรมคลิกบนเว็บ และ auto-scaled load test (รวมยิง API ของแอปมือถือ)",
+    },
+    {
+      area: "ML / AI วิเคราะห์ผล (ทางเลือก)",
+      detail:
+        "Anomaly, clustering, Markov จากข้อมูล simulation — Free Readiness ไม่ใช้ LLM",
+    },
+    {
+      area: "SaaS Portal",
+      detail:
+        "สมัคร/login, โควต้า, แท็บเว็บ (full-test), แท็บมือถือ (readiness + Appium E2E), แดชบอร์ด, PDPA",
+    },
+  ],
+  outOfScope: [
+    {
+      area: "Device farm ในตัวบน SaaS Cloud",
+      detail:
+        "ไม่โฮสต์ emulator/เครื่องจริงบน Cloud — ใช้ License/local Appium หรือ BrowserStack BYOK",
+    },
+    {
+      area: "มีแค่โค้ดบน Git ยังไม่ deploy",
+      detail:
+        "ไม่ clone / build / รันจาก GitHub·GitLab — ต้องมี URL ระบบที่รันอยู่ก่อน",
+    },
+    {
+      area: "ระบบใน LAN/NAS อย่างเดียว จาก Cloud",
+      detail:
+        "บล็อก private IP (SSRF) — ต้องมี public URL หรือ License ใน LAN",
+    },
+    {
+      area: "Desktop / non-HTTP",
+      detail:
+        "เน้นเว็บ + API (+ Appium สำหรับมือถือ) — ไม่ใช่ desktop automation ทั่วไป",
+    },
+    {
+      area: "ทดสอบคุณภาพโมเดล AI เอง",
+      detail: "ไม่ใช่ LLM eval / model benchmark",
+    },
+    {
+      area: "เจาะ VPN ของลูกค้าจาก Cloud",
+      detail:
+        "ต้อง public URL หรือ deploy Simulator ในเครือข่ายลูกค้า",
+    },
+  ],
+  bands: [
+    {
+      area: "Free Readiness",
+      detail: "สแกน URL สาธารณะ (web / mobile_api) — ไม่มี Appium · สูงสุด 5 ข้อ",
+    },
+    {
+      area: "SaaS Cloud",
+      detail:
+        "เว็บ/API บน internet + โควต้า · Appium เฉพาะ BrowserStack BYOK · Starter 50 / Pro 300 / Business 500 sims ต่อเดือน",
+    },
+    {
+      area: "License / White Label",
+      detail: "ระบบภายใน / NAS / Appium ใน LAN / compliance (BYOK)",
+    },
+  ],
+};
+
+const UNIVERSAL_SIMULATOR_SCOPE: LocalizedScopeOfWork = {
+  en: UNIVERSAL_SIMULATOR_SCOPE_EN,
+  th: UNIVERSAL_SIMULATOR_SCOPE_TH,
+};
+
+export const SCOPE_OF_WORK_COPY: Record<
+  AuthLang,
+  {
+    button: string;
+    title: string;
+    inScope: string;
+    outOfScope: string;
+    bands: string;
+  }
+> = {
+  en: {
+    button: "Scope of Work",
+    title: "Scope of Work",
+    inScope: "In scope",
+    outOfScope: "Out of scope",
+    bands: "Deployment bands",
+  },
+  th: {
+    button: "ขอบเขตงาน",
+    title: "ขอบเขตงาน",
+    inScope: "อยู่ในขอบเขต",
+    outOfScope: "นอกขอบเขต",
+    bands: "โหมดการติดตั้ง",
+  },
 };
 
 const MUSIC_DEMO_DESCRIPTION =

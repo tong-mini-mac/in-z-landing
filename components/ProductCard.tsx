@@ -1,7 +1,16 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import type { PricingTier, ScopeOfWork } from "@/lib/product-catalog";
+import {
+  AUTH_LANG_CHANGE_EVENT,
+  getStoredAuthLang,
+  type AuthLang,
+} from "@/lib/auth-i18n";
+import {
+  SCOPE_OF_WORK_COPY,
+  type LocalizedScopeOfWork,
+  type PricingTier,
+} from "@/lib/product-catalog";
 
 type ProductCardProps = {
   name: string;
@@ -13,7 +22,7 @@ type ProductCardProps = {
   pricingTiers?: PricingTier[];
   subscribeCtaLabel?: string;
   pricingNote?: string;
-  scopeOfWork?: ScopeOfWork;
+  scopeOfWork?: LocalizedScopeOfWork;
   className?: string;
 };
 
@@ -35,6 +44,7 @@ export function ProductCard({
   className = "",
 }: ProductCardProps) {
   const [openPanel, setOpenPanel] = useState<Panel>(null);
+  const [lang, setLang] = useState<AuthLang>("th");
   const rootRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const descriptionId = useId();
@@ -42,6 +52,8 @@ export function ProductCard({
   const scopeId = useId();
   const hasTier = Boolean(pricingTiers && pricingTiers.length > 0);
   const hasScope = Boolean(scopeOfWork);
+  const scope = scopeOfWork?.[lang] || scopeOfWork?.th || scopeOfWork?.en;
+  const scopeCopy = SCOPE_OF_WORK_COPY[lang];
 
   function clearCloseTimer() {
     if (closeTimerRef.current) {
@@ -65,6 +77,19 @@ export function ProductCard({
 
   useEffect(() => {
     return () => clearCloseTimer();
+  }, []);
+
+  useEffect(() => {
+    const stored = getStoredAuthLang();
+    setLang(stored);
+
+    function onLangChange(event: Event) {
+      const detail = (event as CustomEvent<{ lang?: AuthLang }>).detail;
+      setLang(detail?.lang || getStoredAuthLang());
+    }
+
+    window.addEventListener(AUTH_LANG_CHANGE_EVENT, onLangChange);
+    return () => window.removeEventListener(AUTH_LANG_CHANGE_EVENT, onLangChange);
   }, []);
 
   useEffect(() => {
@@ -195,7 +220,7 @@ export function ProductCard({
         </div>
       </div>
 
-      {hasScope ? (
+      {hasScope && scope ? (
         <div
           className={`product-hover${openPanel === "scope" ? " is-open" : ""}`}
           onMouseEnter={() => showPanel("scope")}
@@ -211,22 +236,22 @@ export function ProductCard({
               setOpenPanel((current) => (current === "scope" ? null : "scope"));
             }}
           >
-            Scope of Work
+            {scopeCopy.button}
           </button>
 
           <div
             id={scopeId}
             className="product-popover product-popover-scope"
             role="region"
-            aria-label={`${name} scope of work`}
+            aria-label={`${name} ${scopeCopy.title}`}
             hidden={openPanel !== "scope"}
           >
-            <p className="product-popover-title">Scope of Work</p>
-            <p className="product-popover-body">{scopeOfWork!.summary}</p>
+            <p className="product-popover-title">{scopeCopy.title}</p>
+            <p className="product-popover-body">{scope.summary}</p>
 
-            <p className="product-scope-heading">In scope</p>
+            <p className="product-scope-heading">{scopeCopy.inScope}</p>
             <ul className="product-scope-list">
-              {scopeOfWork!.inScope.map((item) => (
+              {scope.inScope.map((item) => (
                 <li key={item.area}>
                   <strong>{item.area}</strong>
                   <span>{item.detail}</span>
@@ -234,9 +259,9 @@ export function ProductCard({
               ))}
             </ul>
 
-            <p className="product-scope-heading">Out of scope</p>
+            <p className="product-scope-heading">{scopeCopy.outOfScope}</p>
             <ul className="product-scope-list">
-              {scopeOfWork!.outOfScope.map((item) => (
+              {scope.outOfScope.map((item) => (
                 <li key={item.area}>
                   <strong>{item.area}</strong>
                   <span>{item.detail}</span>
@@ -244,11 +269,11 @@ export function ProductCard({
               ))}
             </ul>
 
-            {scopeOfWork!.bands && scopeOfWork!.bands.length > 0 ? (
+            {scope.bands && scope.bands.length > 0 ? (
               <>
-                <p className="product-scope-heading">Deployment bands</p>
+                <p className="product-scope-heading">{scopeCopy.bands}</p>
                 <ul className="product-scope-list">
-                  {scopeOfWork!.bands.map((item) => (
+                  {scope.bands.map((item) => (
                     <li key={item.area}>
                       <strong>{item.area}</strong>
                       <span>{item.detail}</span>
