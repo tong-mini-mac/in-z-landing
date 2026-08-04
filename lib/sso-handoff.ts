@@ -68,6 +68,9 @@ export function productBaseUrl(productId: string): string | null {
     synthcomm:
       process.env.SYNTHCOMM_URL ||
       "https://synthcomm-production.up.railway.app",
+    "universal-simulator":
+      process.env.UNIVERSAL_SIMULATOR_URL ||
+      "https://universal-simulator-production.up.railway.app",
   };
   return map[productId] || null;
 }
