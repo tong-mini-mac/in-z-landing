@@ -753,7 +753,7 @@ img {
   flex: 0 1 17rem;
   width: 17rem;
   max-width: 100%;
-  min-height: 8.5rem;
+  min-height: 10rem;
   padding: 1.35rem 1.5rem 1.45rem;
   border-radius: 1.1rem;
   background: rgba(214, 214, 214, 0.55);
@@ -959,15 +959,13 @@ img {
   color: var(--muted);
 }
 
-.product-pricing-notice {
-  margin: 0 0 0.85rem;
-  padding: 0.75rem 0 0.85rem;
-  border-top: 1px solid rgba(10, 10, 10, 0.12);
-  border-bottom: 1px solid rgba(10, 10, 10, 0.12);
+.product-popover-scope {
+  width: min(92vw, 28rem);
+  max-height: min(70svh, 28rem);
 }
 
-.product-pricing-notice-label {
-  margin: 0 0 0.35rem;
+.product-scope-heading {
+  margin: 1rem 0 0.45rem;
   font-family: var(--font-display), system-ui, sans-serif;
   font-size: var(--text-legal);
   font-weight: 600;
@@ -976,8 +974,36 @@ img {
   color: var(--ink);
 }
 
-.product-pricing-notice p:last-child {
+.product-scope-list {
+  list-style: none;
   margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.product-scope-list li {
+  display: grid;
+  gap: 0.15rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+}
+
+.product-scope-list li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.product-scope-list strong {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.product-scope-list span {
+  font-family: var(--font-body), system-ui, sans-serif;
   font-size: 0.78rem;
   line-height: 1.45;
   color: var(--muted);

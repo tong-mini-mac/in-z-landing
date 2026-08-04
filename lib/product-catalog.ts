@@ -7,6 +7,18 @@ export type PricingTier = {
   highlight?: boolean;
 };
 
+export type ScopeItem = {
+  area: string;
+  detail: string;
+};
+
+export type ScopeOfWork = {
+  summary: string;
+  inScope: ScopeItem[];
+  outOfScope: ScopeItem[];
+  bands?: ScopeItem[];
+};
+
 export type CatalogProduct = {
   name: string;
   title: string;
@@ -14,6 +26,8 @@ export type CatalogProduct = {
   earlyBirdPrice: string;
   regularPrice: string;
   models: ProductModel[];
+  /** Optional Scope of Work shown via product card button. */
+  scopeOfWork?: ScopeOfWork;
   /** Per-model pricing; falls back to earlyBird/regular when absent. */
   pricingByModel?: Partial<
     Record<
@@ -22,8 +36,6 @@ export type CatalogProduct = {
         ctaLabel?: string;
         ctaHref?: string;
         note?: string;
-        /** Pre-purchase limitation notice shown in the subscribe panel. */
-        notice?: string;
         tiers: PricingTier[];
       }
     >
@@ -34,7 +46,104 @@ const SYNTHCOMM_DESCRIPTION =
   "SynthComm is an AI-powered platform that generates high-fidelity Thai conversational datasets for businesses training chatbots, customer service systems, and language models. Start free with 100 conversations per month — try before you buy — then scale to Starter, Growth, Business, or Enterprise. Using advanced multi-agent orchestration, it produces authentic Thai dialogue across diverse contexts including e-commerce, social media, food delivery, banking, and healthcare. The system combines web research with specialized AI writers to create natural conversations that reflect real Thai communication patterns, including proper use of polite particles, regional dialects, slang, and gender-diverse voices. Each conversation undergoes dual-layer quality control to ensure linguistic accuracy, cultural appropriateness, and contextual relevance. Designed for B2B clients with full PDPA compliance and data privacy protection.";
 
 const UNIVERSAL_SIMULATOR_DESCRIPTION =
-  "Universal Simulator is an IN Z platform for QA and product teams to generate personas, simulate web user behavior, run auto-scaled load tests, and analyze results with ML/AI. Available as Cloud SaaS (monthly), BYOK License with Early Bird 2026 pricing (annual), or White Label. Try free with a readiness audit — no signup required.";
+  "Universal Simulator is an IN Z platform for QA and product teams to simulate user behavior and test deployed web/API systems — including mobile app backends and Appium native E2E (License/local or BrowserStack BYOK). Available as Cloud SaaS (monthly), BYOK License with Early Bird 2026 pricing (annual), or White Label. Try free with a readiness audit — no signup required.";
+
+const UNIVERSAL_SIMULATOR_SCOPE: ScopeOfWork = {
+  summary:
+    "User-behavior simulation and web/API testing for deployed systems with a public URL. Includes mobile app backends/APIs and Appium native E2E (License/local or BrowserStack BYOK). Not AI-only. Not a Git-repo tester.",
+  inScope: [
+    {
+      area: "Test targets",
+      detail:
+        "Web apps, APIs/backends, SaaS, portals, and ERP systems that are already deployed and reachable over public HTTP(S).",
+    },
+    {
+      area: "Mobile — API / backend",
+      detail:
+        "Scan APIs used by iOS/Android apps via the mobile_api readiness profile (version/config, auth, deep-link well-known, latency) plus API/load tests.",
+    },
+    {
+      area: "Mobile — WebView / PWA / responsive web",
+      detail:
+        "Public web or hybrid surfaces that open in a browser or WebView.",
+    },
+    {
+      area: "Mobile — native E2E (Appium)",
+      detail:
+        "Tap native iOS/Android UI through Appium step scripts — License/local Appium or Cloud + BrowserStack BYOK.",
+    },
+    {
+      area: "Deployed Git projects",
+      detail:
+        "Yes — point at the running system URL (Railway / Vercel / VPS). Not the Git repository link itself.",
+    },
+    {
+      area: "Readiness scan",
+      detail: "Live URL checks: health, docs, OpenAPI, auth, latency, 5xx.",
+    },
+    {
+      area: "Web simulation & load",
+      detail:
+        "Persona journeys, click-path simulation, and auto-scaled load tests (including mobile API traffic).",
+    },
+    {
+      area: "ML / AI analysis (optional)",
+      detail:
+        "Anomaly, clustering, and Markov on simulation results. Free Readiness does not use LLM.",
+    },
+    {
+      area: "SaaS Portal",
+      detail:
+        "Sign-up/login, quotas, Web full-test flow, Mobile readiness + Appium E2E, dashboard, PDPA tools.",
+    },
+  ],
+  outOfScope: [
+    {
+      area: "Cloud SaaS device farm",
+      detail:
+        "No hosted emulators/physical devices on Cloud — use License/local Appium or BrowserStack BYOK.",
+    },
+    {
+      area: "Git-only (not deployed)",
+      detail:
+        "Does not clone/build/run from GitHub or GitLab — a running system URL is required first.",
+    },
+    {
+      area: "LAN / NAS-only from Cloud",
+      detail:
+        "Private IPs are blocked (SSRF). Expose a public URL, or run License/White Label inside the customer LAN.",
+    },
+    {
+      area: "Desktop / non-HTTP automation",
+      detail:
+        "Focused on web + API (+ Appium for mobile) — not general desktop automation.",
+    },
+    {
+      area: "LLM / model evaluation",
+      detail: "Not an LLM eval or model benchmark product.",
+    },
+    {
+      area: "Customer VPN from Cloud",
+      detail:
+        "Cannot traverse customer VPN/Zero Trust from Cloud — use public URL or on-prem License.",
+    },
+  ],
+  bands: [
+    {
+      area: "Free Readiness",
+      detail: "Public URL scan (web / mobile_api) — no Appium, up to 5 findings.",
+    },
+    {
+      area: "SaaS Cloud",
+      detail:
+        "Public web/API + monthly quotas · Appium only via BrowserStack BYOK · Starter 50 / Pro 300 / Business 500 sims per month.",
+    },
+    {
+      area: "License / White Label",
+      detail: "Internal systems / NAS / Appium in LAN / compliance (BYOK).",
+    },
+  ],
+};
 
 const MUSIC_DEMO_DESCRIPTION =
   "Music Demo is an AI music creation studio for makers, creators, and small labels. Users generate song drafts from prompts, preview multiple takes, then confirm and export in formats that fit their workflow — from MP3 and WAV to lyrics, chords, MIDI, MusicXML, and stems on higher plans. Plans scale from Starter through Studio with monthly song quotas, optional re-edit on confirmed tracks, AI voice options, and busker-friendly modes. Built for fast creative loops with clear export rights per plan, so teams can move from idea to usable audio without a full production stack.";
@@ -187,14 +296,13 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     earlyBirdPrice: "SaaS from ฿490 / month · License Early Bird from ฿120,000 / year",
     regularPrice: "License Year 2+ from ฿156,000 · White Label ฿3,000,000+",
     models: ["saas", "license", "white-label"],
+    scopeOfWork: UNIVERSAL_SIMULATOR_SCOPE,
     pricingByModel: {
       saas: {
         ctaLabel: "Try free readiness audit",
         ctaHref: "/demo",
         note:
           "Cloud SaaS · monthly. Free readiness audit — no signup. Prices exclude VAT 7%.",
-        notice:
-          "Before you buy — Cloud SaaS works only with public internet URLs. Systems on NAS / LAN / localhost / VPN cannot be scanned from our cloud. Expose a public HTTPS endpoint (tunnel/proxy), or choose License / White Label for on-prem. Free Readiness: up to 5 findings, no LLM, no load test. Monthly simulations: Starter 50 · Pro 300 · Business 500.",
         tiers: UNIVERSAL_SIMULATOR_SAAS_TIERS,
       },
       license: {
@@ -245,7 +353,6 @@ export function pricingForProduct(
   ctaLabel: string;
   ctaHref?: string;
   note?: string;
-  notice?: string;
   tiers: PricingTier[];
 } | null {
   const byModel = product.pricingByModel?.[model];
@@ -254,7 +361,6 @@ export function pricingForProduct(
       ctaLabel: byModel.ctaLabel || "Sign In / Sign Up",
       ctaHref: byModel.ctaHref,
       note: byModel.note,
-      notice: byModel.notice,
       tiers: byModel.tiers,
     };
   }
