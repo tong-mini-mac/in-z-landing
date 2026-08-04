@@ -46,7 +46,7 @@ const SYNTHCOMM_DESCRIPTION =
   "SynthComm is an AI-powered platform that generates high-fidelity Thai conversational datasets for businesses training chatbots, customer service systems, and language models. Start free with 100 conversations per month — try before you buy — then scale to Starter, Growth, Business, or Enterprise. Using advanced multi-agent orchestration, it produces authentic Thai dialogue across diverse contexts including e-commerce, social media, food delivery, banking, and healthcare. The system combines web research with specialized AI writers to create natural conversations that reflect real Thai communication patterns, including proper use of polite particles, regional dialects, slang, and gender-diverse voices. Each conversation undergoes dual-layer quality control to ensure linguistic accuracy, cultural appropriateness, and contextual relevance. Designed for B2B clients with full PDPA compliance and data privacy protection.";
 
 const UNIVERSAL_SIMULATOR_DESCRIPTION =
-  "Universal Simulator is an IN Z platform for QA and product teams to simulate user behavior and test deployed web/API systems — including mobile app backends and Appium native E2E (License/local or BrowserStack BYOK). Available as Cloud SaaS (monthly), BYOK License with Early Bird 2026 pricing (annual), or White Label. Try free with a readiness audit — no signup required.";
+  "QA LAB is an IN Z platform for QA and product teams to simulate user behavior and test deployed web/API systems — including mobile app backends and Appium native E2E (License/local or BrowserStack BYOK). Available as Cloud SaaS (monthly), BYOK License with Early Bird 2026 pricing (annual), or White Label. Try free with a readiness audit — no signup required.";
 
 const UNIVERSAL_SIMULATOR_SCOPE: ScopeOfWork = {
   summary:
@@ -152,7 +152,7 @@ const PODCAST_DESCRIPTION =
   "Podcast is a full-cycle Thai podcast platform for upload, AI transcription, show notes, clips, subtitles, RSS publishing, and monetization. It supports Thai and English plus regional dialect workflows for Isan, Northern, and Southern Thai through dialect-aware prompts. Creators get episode pipelines with calendar, analytics, social scheduling, guest CRM, and sponsor-ready ad slots. Billing starts with a 14-day free trial, then Starter, Creator, and Pro monthly plans so indie podcasters and content studios can produce and distribute without stitching separate tools together.";
 
 const NETR_DESCRIPTION =
-  "NetR is an IN Z network and relationship product for mapping partners, channels, and operating links across the business. It helps teams keep counterparties, referral paths, and collaboration status visible in one place so growth and operations stay aligned. Designed as a commercial IN Z product alongside SynthComm, Universal Simulator, Music Demo, and Podcast — with Early Bird and standard plans for teams that need structured network visibility without building a custom CRM from scratch.";
+  "NetR is an IN Z network and relationship product for mapping partners, channels, and operating links across the business. It helps teams keep counterparties, referral paths, and collaboration status visible in one place so growth and operations stay aligned. Designed as a commercial IN Z product alongside SynthComm, QA LAB, Music Demo, and Podcast — with Early Bird and standard plans for teams that need structured network visibility without building a custom CRM from scratch.";
 
 const SYNTHCOMM_SAAS_TIERS: PricingTier[] = [
   {
@@ -290,8 +290,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     },
   },
   {
-    name: "Universal Simulator",
-    title: "Universal Simulator — User Behavior Simulation for QA",
+    name: "QA LAB",
+    title: "QA LAB — User Behavior Simulation for QA Teams",
     description: UNIVERSAL_SIMULATOR_DESCRIPTION,
     earlyBirdPrice: "SaaS from ฿490 / month · License Early Bird from ฿120,000 / year",
     regularPrice: "License Year 2+ from ฿156,000 · White Label ฿3,000,000+",

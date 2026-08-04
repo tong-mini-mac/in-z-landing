@@ -39,12 +39,12 @@ export const PRODUCTS: ProductEntry[] = [
   },
   {
     id: "universal-simulator",
-    name: "Universal Simulator",
+    name: "QA LAB",
     description: {
       th: "จำลองพฤติกรรมผู้ใช้สำหรับทีม QA",
       en: "User behavior simulation for QA teams",
     },
-    href: "https://universal-simulator-production.up.railway.app",
+    href: "https://qa-lab-production.up.railway.app",
     available: true,
   },
   {

@@ -39,7 +39,7 @@ export const DEMO_OFFERS: DemoOffer[] = [
   },
   {
     id: "universal-simulator",
-    name: "Universal Simulator",
+    name: "QA LAB",
     href: `${PRODUCT_HREF["universal-simulator"]}/#readiness-section`,
     requiresSignup: false,
     external: true,

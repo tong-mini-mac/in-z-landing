@@ -6,7 +6,7 @@ import { PRODUCT_MODELS, type ProductModel } from "@/lib/product-models";
 export const metadata: Metadata = {
   title: "Products — IN Z",
   description:
-    "IN Z products — White Label, License, and SaaS for SynthComm, Universal Simulator, Music Demo, Podcast, and NetR.",
+    "IN Z products — White Label, License, and SaaS for SynthComm, QA LAB, Music Demo, Podcast, and NetR.",
 };
 
 const MODELS: ProductModel[] = ["white-label", "license", "saas"];

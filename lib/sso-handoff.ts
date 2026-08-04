@@ -70,7 +70,7 @@ export function productBaseUrl(productId: string): string | null {
       "https://synthcomm-production.up.railway.app",
     "universal-simulator":
       process.env.UNIVERSAL_SIMULATOR_URL ||
-      "https://universal-simulator-production.up.railway.app",
+      "https://qa-lab-production.up.railway.app",
   };
   return map[productId] || null;
 }
