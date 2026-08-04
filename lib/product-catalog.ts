@@ -160,6 +160,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     pricingByModel: {
       saas: {
         ctaLabel: "Try free — 100 conversations",
+        ctaHref: "/demo",
         note: "Annual plans save about 20%.",
         tiers: SYNTHCOMM_SAAS_TIERS,
       },
@@ -187,6 +188,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     pricingByModel: {
       saas: {
         ctaLabel: "Try free readiness audit",
+        ctaHref: "/demo",
         note:
           "Cloud SaaS · monthly. Free readiness audit — no signup. Prices exclude VAT 7%.",
         tiers: UNIVERSAL_SIMULATOR_SAAS_TIERS,
