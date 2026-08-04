@@ -71,6 +71,9 @@ export function productBaseUrl(productId: string): string | null {
     "universal-simulator":
       process.env.UNIVERSAL_SIMULATOR_URL ||
       "https://qa-lab-production.up.railway.app",
+    "music-demo":
+      process.env.MUSIC_DEMO_URL ||
+      "https://myclaw-music-demo-production.up.railway.app",
   };
   return map[productId] || null;
 }
