@@ -1,6 +1,7 @@
 export type AuthLang = "th" | "en";
 
 export const AUTH_LANG_KEY = "inz_auth_lang";
+export const AUTH_LANG_CHANGE_EVENT = "inz-auth-lang-change";
 
 export function normalizeAuthLang(value: string | null | undefined): AuthLang {
   return String(value || "").toLowerCase().startsWith("en") ? "en" : "th";
@@ -14,6 +15,9 @@ export function getStoredAuthLang(): AuthLang {
 export function setStoredAuthLang(lang: AuthLang): void {
   if (typeof window === "undefined") return;
   localStorage.setItem(AUTH_LANG_KEY, lang);
+  window.dispatchEvent(
+    new CustomEvent(AUTH_LANG_CHANGE_EVENT, { detail: { lang } }),
+  );
 }
 
 type AuthCopy = {

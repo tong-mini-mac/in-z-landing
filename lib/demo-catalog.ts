@@ -1,14 +1,15 @@
 import { COMMERCIAL_PRODUCT_IDS, PRODUCTS, type ProductId } from "@/lib/products";
+import type { AuthLang } from "@/lib/auth-i18n";
 
 export type DemoOffer = {
   id: ProductId;
   name: string;
-  trialTitle: string;
-  trialSummary: string;
-  ctaLabel: string;
   href: string;
   requiresSignup: boolean;
   external: boolean;
+  trialTitle: Record<AuthLang, string>;
+  trialSummary: Record<AuthLang, string>;
+  ctaLabel: Record<AuthLang, string>;
 };
 
 const PRODUCT_HREF = Object.fromEntries(
@@ -20,58 +21,122 @@ export const DEMO_OFFERS: DemoOffer[] = [
   {
     id: "synthcomm",
     name: "SynthComm",
-    trialTitle: "Free — 100 conversations / month",
-    trialSummary:
-      "ลองสร้างชุดสนทนาภาษาไทยฟรี 100 ครั้งต่อเดือน ก่อนอัปเกรดแพ็กเกจ",
-    ctaLabel: "Try SynthComm free",
     href: PRODUCT_HREF.synthcomm,
     requiresSignup: true,
     external: true,
+    trialTitle: {
+      en: "Free — 100 conversations / month",
+      th: "ฟรี — 100 บทสนทนา / เดือน",
+    },
+    trialSummary: {
+      en: "Generate Thai conversations free — 100 per month — before upgrading.",
+      th: "ลองสร้างชุดสนทนาภาษาไทยฟรี 100 ครั้งต่อเดือน ก่อนอัปเกรดแพ็กเกจ",
+    },
+    ctaLabel: {
+      en: "Try SynthComm free",
+      th: "ทดลอง SynthComm ฟรี",
+    },
   },
   {
     id: "universal-simulator",
     name: "Universal Simulator",
-    trialTitle: "Free Readiness Audit",
-    trialSummary:
-      "สแกน URL ระบบจริง ได้คะแนน + สูงสุด 5 ข้อค้นพบ — ไม่ต้องสมัคร ไม่ต้องใส่บัตร",
-    ctaLabel: "Run free readiness check",
     href: `${PRODUCT_HREF["universal-simulator"]}/#readiness-section`,
     requiresSignup: false,
     external: true,
+    trialTitle: {
+      en: "Free Readiness Audit",
+      th: "ตรวจความพร้อมฟรี",
+    },
+    trialSummary: {
+      en: "Scan your real system URL for a score plus up to 5 findings — no signup, no card.",
+      th: "สแกน URL ระบบจริง ได้คะแนน + สูงสุด 5 ข้อค้นพบ — ไม่ต้องสมัคร ไม่ต้องใส่บัตร",
+    },
+    ctaLabel: {
+      en: "Run free readiness check",
+      th: "เริ่มสแกนฟรี",
+    },
   },
   {
     id: "music-demo",
     name: "Music Demo",
-    trialTitle: "Try AI music creation",
-    trialSummary: "เปิดสตูดิโอสร้างเพลงด้วย AI แล้วลองสร้างดราฟต์จาก prompt",
-    ctaLabel: "Open Music Demo",
     href: PRODUCT_HREF["music-demo"],
     requiresSignup: true,
     external: true,
+    trialTitle: {
+      en: "Try AI music creation",
+      th: "ลองสร้างเพลงด้วย AI",
+    },
+    trialSummary: {
+      en: "Open the AI music studio and draft songs from a prompt.",
+      th: "เปิดสตูดิโอสร้างเพลงด้วย AI แล้วลองสร้างดราฟต์จาก prompt",
+    },
+    ctaLabel: {
+      en: "Open Music Demo",
+      th: "เปิด Music Demo",
+    },
   },
   {
     id: "podcast",
     name: "Podcast",
-    trialTitle: "14-day free trial",
-    trialSummary:
-      "ทดลองสตูดิโอพอดแคสต์ AI สำหรับครีเอเตอร์ไทย 14 วันก่อนเลือกแพ็กเกจ",
-    ctaLabel: "Start Podcast trial",
     href: PRODUCT_HREF.podcast,
     requiresSignup: true,
     external: true,
+    trialTitle: {
+      en: "14-day free trial",
+      th: "ทดลองใช้ฟรี 14 วัน",
+    },
+    trialSummary: {
+      en: "Try the Thai AI podcast studio for 14 days before choosing a plan.",
+      th: "ทดลองสตูดิโอพอดแคสต์ AI สำหรับครีเอเตอร์ไทย 14 วันก่อนเลือกแพ็กเกจ",
+    },
+    ctaLabel: {
+      en: "Start Podcast trial",
+      th: "เริ่มทดลอง Podcast",
+    },
   },
   {
     id: "netr",
     name: "NetR",
-    trialTitle: "Early Bird / request a trial",
-    trialSummary:
-      "ยังไม่มี self-serve trial — ติดต่อทีมเพื่อขอทดลองใช้ Network & Relationship Hub",
-    ctaLabel: "Contact for trial",
     href: "/contact?channel=customer-service",
     requiresSignup: false,
     external: false,
+    trialTitle: {
+      en: "Early Bird / request a trial",
+      th: "Early Bird / ขอทดลองใช้",
+    },
+    trialSummary: {
+      en: "No self-serve trial yet — contact us to try the Network & Relationship Hub.",
+      th: "ยังไม่มี self-serve trial — ติดต่อทีมเพื่อขอทดลองใช้ Network & Relationship Hub",
+    },
+    ctaLabel: {
+      en: "Contact for trial",
+      th: "ติดต่อขอทดลองใช้",
+    },
   },
 ];
+
+export const DEMO_COPY: Record<
+  AuthLang,
+  {
+    label: string;
+    lead: string;
+    metaSignup: string;
+    metaNoSignup: string;
+  }
+> = {
+  en: {
+    label: "Demo",
+    lead: "Try each product free before you subscribe — pick a trial and open the live app.",
+    metaSignup: "May require account signup in the product app",
+    metaNoSignup: "No signup required to start",
+  },
+  th: {
+    label: "Demo",
+    lead: "ทดลองใช้แต่ละผลิตภัณฑ์ฟรีก่อนสมัครแพ็กเกจ — เลือกแล้วเปิดแอปจริงได้เลย",
+    metaSignup: "อาจต้องสมัครบัญชีในแอปของผลิตภัณฑ์",
+    metaNoSignup: "เริ่มได้โดยไม่ต้องสมัคร",
+  },
+};
 
 export function demoOffersForCommercial(): DemoOffer[] {
   const allowed = new Set(COMMERCIAL_PRODUCT_IDS);
