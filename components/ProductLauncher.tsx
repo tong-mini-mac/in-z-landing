@@ -3,25 +3,28 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, type MouseEvent } from "react";
 import { AuthLangToggle } from "@/components/AuthLangToggle";
-import { AUTH_COPY, getStoredAuthLang, type AuthLang } from "@/lib/auth-i18n";
-import { clearSession, getSession, type AuthSession } from "@/lib/auth-session";
+import { AUTH_COPY } from "@/lib/auth-i18n";
+import { SITE_COPY } from "@/lib/site-i18n";
+import { useSiteLang } from "@/lib/use-site-lang";
+import { getSession, signOutLocal, type AuthSession } from "@/lib/auth-session";
 import { isDemoAdminEmail } from "@/lib/demo-access";
 import { productsForAccess, type ProductEntry } from "@/lib/products";
 
 export function ProductLauncher() {
   const router = useRouter();
-  const [lang, setLang] = useState<AuthLang>("th");
+  const lang = useSiteLang();
   const [session, setSession] = useState<AuthSession | null>(null);
   const [openingId, setOpeningId] = useState<string | null>(null);
   const [openError, setOpenError] = useState("");
 
   const t = AUTH_COPY[lang];
+  const accountCopy = SITE_COPY[lang].account;
 
   useEffect(() => {
-    const stored = getStoredAuthLang();
-    setLang(stored);
-    document.documentElement.lang = stored;
+    document.documentElement.lang = lang;
+  }, [lang]);
 
+  useEffect(() => {
     const current = getSession();
     if (!current) {
       router.replace("/auth?mode=signin");
@@ -44,7 +47,7 @@ export function ProductLauncher() {
   );
 
   function signOut() {
-    clearSession();
+    signOutLocal();
     router.push("/auth?mode=signin");
   }
 
@@ -90,9 +93,9 @@ export function ProductLauncher() {
         return;
       }
 
-      setOpenError(data.message || data.error || "เปิด product ไม่สำเร็จ");
+      setOpenError(data.message || data.error || accountCopy.openFail);
     } catch {
-      setOpenError("เปิด product ไม่สำเร็จ");
+      setOpenError(accountCopy.openFail);
     } finally {
       setOpeningId(null);
     }
@@ -104,7 +107,7 @@ export function ProductLauncher() {
 
   return (
     <div className="auth-shell">
-      <AuthLangToggle lang={lang} onChange={setLang} />
+      <AuthLangToggle lang={lang} onChange={() => {}} />
 
       <p className="account-user">
         {t.signedInAs}{" "}
@@ -114,9 +117,9 @@ export function ProductLauncher() {
         {isAdmin ? <span className="account-admin-badge">{t.adminBadge}</span> : null}
         {isTrial ? (
           <span className="account-admin-badge">
-            Trial · ไม่มีรายได้
+            {accountCopy.trialBadge}
             {session.user.expiresAt
-              ? ` · ถึง ${String(session.user.expiresAt).slice(0, 10)}`
+              ? ` · ${String(session.user.expiresAt).slice(0, 10)}`
               : ""}
           </span>
         ) : null}
@@ -124,15 +127,11 @@ export function ProductLauncher() {
 
       {isAdmin ? <p className="account-admin-note">{t.adminUnlimitedNote}</p> : null}
       {isTrial ? (
-        <p className="account-admin-note">
-          บัญชีทดลองใช้ฟรี — เปิดได้เฉพาะ product ที่ได้รับสิทธิ์ และไม่ก่อให้เกิดรายได้
-        </p>
+        <p className="account-admin-note">{accountCopy.trialNote}</p>
       ) : null}
 
       <h2 className="account-products-heading">{t.yourProducts}</h2>
-      <p className="account-admin-note">
-        Sign in ที่ IN Z ครั้งเดียว — เปิด product แล้วระบบพาเข้าพร้อมสิทธิ์อัตโนมัติ
-      </p>
+      <p className="account-admin-note">{accountCopy.ssoNote}</p>
 
       <ul className="product-launcher">
         {products.map((product) => (

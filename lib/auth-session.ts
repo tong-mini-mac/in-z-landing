@@ -1,4 +1,10 @@
 export const AUTH_SESSION_KEY = "inz_auth_session";
+export const AUTH_SESSION_CHANGE_EVENT = "inz-auth-session-change";
+
+function notifySessionChange(): void {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new Event(AUTH_SESSION_CHANGE_EVENT));
+}
 
 export type VatProfile = {
   companyName: string;
@@ -44,47 +50,66 @@ export function saveSession(user: AuthUser): AuthSession {
     signedInAt: new Date().toISOString(),
   };
   localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify(session));
+  notifySessionChange();
   return session;
 }
 
 export function clearSession(): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem(AUTH_SESSION_KEY);
+  notifySessionChange();
 }
 
-/** Optional “remember email + password” for Sign In (device-local only). */
-export const AUTH_REMEMBER_KEY = "inz_auth_remember";
+/** Optional “remember email” for Sign In (device-local only — never store password). */
+export const AUTH_REMEMBER_KEY = "inz_auth_remember_email_v2";
 
 export type RememberedCredentials = {
   email: string;
-  password: string;
 };
+
+/** Drop legacy stores that used to keep passwords. */
+export function purgeLegacyRememberStores(): void {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem("inz_auth_remember");
+  try {
+    const raw = localStorage.getItem(AUTH_REMEMBER_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw) as { password?: string; email?: string };
+    if (parsed.password) {
+      localStorage.removeItem(AUTH_REMEMBER_KEY);
+    }
+  } catch {
+    localStorage.removeItem(AUTH_REMEMBER_KEY);
+  }
+}
 
 export function getRememberedCredentials(): RememberedCredentials | null {
   if (typeof window === "undefined") return null;
   try {
+    purgeLegacyRememberStores();
     const raw = localStorage.getItem(AUTH_REMEMBER_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as Partial<RememberedCredentials>;
+    const parsed = JSON.parse(raw) as Partial<RememberedCredentials> & {
+      password?: string;
+    };
+    if (parsed.password) {
+      localStorage.removeItem(AUTH_REMEMBER_KEY);
+      return null;
+    }
     const email = String(parsed.email || "").trim();
-    const password = String(parsed.password || "");
-    if (!email || !password) return null;
-    return { email, password };
+    if (!email) return null;
+    return { email };
   } catch {
     return null;
   }
 }
 
-export function saveRememberedCredentials(
-  email: string,
-  password: string,
-): void {
+export function saveRememberedCredentials(email: string): void {
   if (typeof window === "undefined") return;
   localStorage.setItem(
     AUTH_REMEMBER_KEY,
     JSON.stringify({
       email: email.trim().toLowerCase(),
-      password,
     } satisfies RememberedCredentials),
   );
 }
@@ -92,6 +117,14 @@ export function saveRememberedCredentials(
 export function clearRememberedCredentials(): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem(AUTH_REMEMBER_KEY);
+  localStorage.removeItem("inz_auth_remember");
+}
+
+/** Full sign-out: drop session and any remembered login fields. */
+export function signOutLocal(): void {
+  clearSession();
+  clearRememberedCredentials();
+  purgeLegacyRememberStores();
 }
 
 export function isValidEmail(value: string): boolean {

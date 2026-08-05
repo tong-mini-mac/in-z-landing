@@ -62,6 +62,8 @@ type AuthCopy = {
   openProduct: string;
   subscribeProduct: string;
   signOut: string;
+  alreadySignedInNote: string;
+  continueToAccount: string;
   demoNote: string;
   adminBadge: string;
   adminUnlimitedNote: string;
@@ -100,7 +102,7 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     password: "รหัสผ่าน",
     confirmPassword: "ยืนยันรหัสผ่าน",
     showPassword: "แสดง",
-    rememberCredentials: "จำอีเมลและรหัสผ่านในอุปกรณ์นี้",
+    rememberCredentials: "จำอีเมลในอุปกรณ์นี้",
     needVat: "ต้องการใบกำกับภาษี (VAT)",
     vatUnavailable: "ยังไม่พร้อมใช้งาน เนื่องจากบริษัทยังไม่ได้จด VAT",
     companyName: "ชื่อบริษัท",
@@ -126,8 +128,10 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     openProduct: "เปิด",
     subscribeProduct: "สมัครใช้งาน",
     signOut: "Sign Out",
+    alreadySignedInNote: "คุณเข้าสู่ระบบอยู่แล้ว — กดไปหน้าผลิตภัณฑ์ หรือ Sign Out เพื่อเข้าด้วยบัญชีอื่น",
+    continueToAccount: "ไปที่ผลิตภัณฑ์ของฉัน",
     demoNote:
-      "ทดลอง Admin: admin@inz.lol / admin2026 — เห็นทุก Product ไม่ติดลิมิต",
+      "บัญชี Admin สำหรับทดสอบภายในทีม — ไม่แสดงรหัสผ่านบนหน้าเว็บ",
     adminBadge: "Admin · Unlimited trial",
     adminUnlimitedNote:
       "บัญชี Admin สำหรับทดสอบ — เข้าได้ทุก Product โดยไม่จำกัดแพ็กเกจ",
@@ -165,7 +169,7 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     password: "Password",
     confirmPassword: "Confirm password",
     showPassword: "Show",
-    rememberCredentials: "Remember email and password on this device",
+    rememberCredentials: "Remember email on this device",
     needVat: "Need VAT invoice",
     vatUnavailable: "Unavailable for now because the company is not VAT registered yet.",
     companyName: "Company name",
@@ -191,8 +195,11 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     openProduct: "Open",
     subscribeProduct: "Subscribe",
     signOut: "Sign Out",
+    alreadySignedInNote:
+      "You’re already signed in — continue to your products, or Sign Out to use another account.",
+    continueToAccount: "Go to your products",
     demoNote:
-      "Admin trial: admin@inz.lol / admin2026 — unlocks every product with no limits",
+      "Admin trial is for internal testing — credentials are not shown on this page.",
     adminBadge: "Admin · Unlimited trial",
     adminUnlimitedNote:
       "Admin trial account — open every product with no plan limits",

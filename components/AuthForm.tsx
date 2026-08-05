@@ -6,11 +6,10 @@ import { FormEvent, useEffect, useState } from "react";
 import { AuthLangToggle } from "@/components/AuthLangToggle";
 import {
   AUTH_COPY,
-  getStoredAuthLang,
   normalizeAuthLang,
   setStoredAuthLang,
-  type AuthLang,
 } from "@/lib/auth-i18n";
+import { useSiteLang } from "@/lib/use-site-lang";
 import {
   isDemoAdminEmail,
   isValidDemoAdmin,
@@ -23,8 +22,11 @@ import {
   isValidEmail,
   isValidPhone,
   isValidTaxId,
+  purgeLegacyRememberStores,
   saveRememberedCredentials,
   saveSession,
+  signOutLocal,
+  type AuthSession,
   type AuthUser,
   type VatProfile,
 } from "@/lib/auth-session";
@@ -55,7 +57,7 @@ export function AuthForm() {
     searchParams.get("mode") === "signup" ? "signup" : "signin";
 
   const [mode, setMode] = useState<AuthMode>(initialMode);
-  const [lang, setLang] = useState<AuthLang>("th");
+  const lang = useSiteLang();
   const [phoneCountry, setPhoneCountry] = useState<(typeof PHONE_COUNTRIES)[number]["code"]>("TH");
   const [needVat, setNeedVat] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
@@ -67,28 +69,46 @@ export function AuthForm() {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [pendingEmail, setPendingEmail] = useState("");
+  const [existingSession, setExistingSession] = useState<AuthSession | null>(
+    null,
+  );
+
+  const [fieldsReady, setFieldsReady] = useState(false);
+  const [autofillLock, setAutofillLock] = useState(true);
 
   const t = AUTH_COPY[lang];
 
   useEffect(() => {
+    purgeLegacyRememberStores();
     const remembered = getRememberedCredentials();
-    if (remembered) {
-      setEmail(remembered.email);
-      setPassword(remembered.password);
-      setRememberMe(true);
-    }
+    setEmail(remembered?.email || "");
+    setPassword("");
+    setRememberMe(Boolean(remembered));
+    setExistingSession(getSession());
+    setFieldsReady(true);
+
+    // Beat Chrome/Safari password autofill that re-injects after first paint.
+    const timers = [50, 150, 400, 800].map((ms) =>
+      window.setTimeout(() => {
+        setPassword("");
+        if (!getRememberedCredentials()) {
+          setEmail("");
+          setRememberMe(false);
+        }
+        setAutofillLock(false);
+      }, ms),
+    );
+    return () => {
+      for (const id of timers) window.clearTimeout(id);
+    };
   }, []);
 
   useEffect(() => {
     const fromUrl = searchParams.get("lang") || searchParams.get("ui_lang");
-    const next = fromUrl ? normalizeAuthLang(fromUrl) : getStoredAuthLang();
-    setStoredAuthLang(next);
-    setLang(next);
-    document.documentElement.lang = next;
-    if (getSession()) {
-      router.replace("/account");
+    if (fromUrl) {
+      setStoredAuthLang(normalizeAuthLang(fromUrl));
     }
-  }, [router, searchParams]);
+  }, [searchParams]);
 
   useEffect(() => {
     setMode(searchParams.get("mode") === "signup" ? "signup" : "signin");
@@ -96,9 +116,9 @@ export function AuthForm() {
     setError("");
   }, [searchParams]);
 
-  function persistRememberChoice(nextEmail: string, nextPassword: string) {
+  function persistRememberChoice(nextEmail: string) {
     if (rememberMe) {
-      saveRememberedCredentials(nextEmail, nextPassword);
+      saveRememberedCredentials(nextEmail);
     } else {
       clearRememberedCredentials();
     }
@@ -129,8 +149,8 @@ export function AuthForm() {
 
     const form = event.currentTarget;
     const data = new FormData(form);
-    const nextEmail = String(data.get("email") || "").trim().toLowerCase();
-    const nextPassword = String(data.get("password") || "");
+    const nextEmail = email.trim().toLowerCase();
+    const nextPassword = password;
 
     if (!nextEmail || !isValidEmail(nextEmail)) {
       setError(t.errEmail);
@@ -160,7 +180,7 @@ export function AuthForm() {
           role: "admin",
           unlimited: true,
         };
-        persistRememberChoice(nextEmail, nextPassword);
+        persistRememberChoice(nextEmail);
         saveSession(user);
         router.push("/account");
         return;
@@ -196,7 +216,7 @@ export function AuthForm() {
             revenue: false,
             kind: data.kind || "complimentary",
           };
-          persistRememberChoice(nextEmail, nextPassword);
+          persistRememberChoice(nextEmail);
           saveSession(user);
           router.push("/account");
           return;
@@ -225,7 +245,7 @@ export function AuthForm() {
         role: "user",
         unlimited: false,
       };
-      persistRememberChoice(nextEmail, nextPassword);
+      persistRememberChoice(nextEmail);
       saveSession(user);
       router.push("/account");
       return;
@@ -342,7 +362,7 @@ export function AuthForm() {
   if (pendingEmail) {
     return (
       <div className="auth-shell">
-        <AuthLangToggle lang={lang} onChange={setLang} />
+        <AuthLangToggle lang={lang} onChange={() => {}} />
         <div className="contact-success">
           <p>
             <strong>{t.checkEmailTitle}</strong>
@@ -366,6 +386,40 @@ export function AuthForm() {
 
   return (
     <div className="auth-shell">
+      {existingSession ? (
+        <div className="contact-success" style={{ marginBottom: "1.25rem" }}>
+          <p>
+            {t.signedInAs}{" "}
+            <strong>
+              {existingSession.user.fullName || existingSession.user.email}
+            </strong>
+          </p>
+          <p className="muted">{t.alreadySignedInNote}</p>
+          <div className="auth-phone-row" style={{ gap: "0.75rem", flexWrap: "wrap" }}>
+            <button
+              type="button"
+              className="contact-submit"
+              onClick={() => router.push("/account")}
+            >
+              {t.continueToAccount}
+            </button>
+            <button
+              type="button"
+              className="contact-secondary"
+              onClick={() => {
+                signOutLocal();
+                setExistingSession(null);
+                setEmail("");
+                setPassword("");
+                setRememberMe(false);
+              }}
+            >
+              {t.signOut}
+            </button>
+          </div>
+        </div>
+      ) : null}
+
       <div className="auth-tabs" role="tablist" aria-label="Auth mode">
         <button
           type="button"
@@ -387,7 +441,33 @@ export function AuthForm() {
         </button>
       </div>
 
-      <form className="contact-form auth-form" onSubmit={onSubmit} noValidate>
+      <form
+        className="contact-form auth-form"
+        onSubmit={onSubmit}
+        noValidate
+        autoComplete="off"
+      >
+        {/* Honey-pot / decoy fields — browsers often autofill the first email+password pair. */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            left: "-10000px",
+            top: "auto",
+            width: 1,
+            height: 1,
+            overflow: "hidden",
+          }}
+        >
+          <input type="text" name="username" tabIndex={-1} autoComplete="username" />
+          <input
+            type="password"
+            name="password"
+            tabIndex={-1}
+            autoComplete="current-password"
+          />
+        </div>
+
         {mode === "signup" ? (
           <label className="contact-field">
             <span>{t.fullName}</span>
@@ -403,16 +483,28 @@ export function AuthForm() {
 
         <label className="contact-field">
           <span>{t.email}</span>
-          <input
-            type="email"
-            name="email"
-            required
-            autoComplete="email"
-            disabled={submitting}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            key={`email-${mode}`}
-          />
+          {fieldsReady ? (
+            <input
+              type="text"
+              name="inz_account_id"
+              inputMode="email"
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck={false}
+              required
+              autoComplete="off"
+              data-1p-ignore="true"
+              data-lpignore="true"
+              data-form-type="other"
+              disabled={submitting}
+              readOnly={autofillLock}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onFocus={() => setAutofillLock(false)}
+            />
+          ) : (
+            <input type="text" disabled value="" readOnly />
+          )}
         </label>
 
         {mode === "signup" ? (
@@ -456,19 +548,25 @@ export function AuthForm() {
         <div className="contact-field">
           <span>{t.password}</span>
           <div className="auth-password-row">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              required
-              minLength={8}
-              autoComplete={
-                mode === "signup" ? "new-password" : "current-password"
-              }
-              disabled={submitting}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              key={`password-${mode}`}
-            />
+            {fieldsReady ? (
+              <input
+                type={showPassword ? "text" : "password"}
+                name="inz_account_secret"
+                required
+                minLength={8}
+                autoComplete="new-password"
+                data-1p-ignore="true"
+                data-lpignore="true"
+                data-form-type="other"
+                disabled={submitting}
+                readOnly={autofillLock}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onFocus={() => setAutofillLock(false)}
+              />
+            ) : (
+              <input type="password" disabled value="" readOnly />
+            )}
             <label className="auth-show-password">
               <input
                 type="checkbox"
@@ -637,7 +735,7 @@ export function AuthForm() {
         </p>
 
         <div className="auth-lang-under-cta">
-          <AuthLangToggle lang={lang} onChange={setLang} />
+          <AuthLangToggle lang={lang} onChange={() => {}} />
         </div>
 
         <p className="auth-demo-note">{t.demoNote}</p>
