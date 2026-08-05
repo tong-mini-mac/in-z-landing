@@ -36,6 +36,7 @@ type AuthCopy = {
   password: string;
   confirmPassword: string;
   showPassword: string;
+  rememberCredentials: string;
   needVat: string;
   vatUnavailable: string;
   companyName: string;
@@ -99,6 +100,7 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     password: "รหัสผ่าน",
     confirmPassword: "ยืนยันรหัสผ่าน",
     showPassword: "แสดง",
+    rememberCredentials: "จำอีเมลและรหัสผ่านในอุปกรณ์นี้",
     needVat: "ต้องการใบกำกับภาษี (VAT)",
     vatUnavailable: "ยังไม่พร้อมใช้งาน เนื่องจากบริษัทยังไม่ได้จด VAT",
     companyName: "ชื่อบริษัท",
@@ -163,6 +165,7 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     password: "Password",
     confirmPassword: "Confirm password",
     showPassword: "Show",
+    rememberCredentials: "Remember email and password on this device",
     needVat: "Need VAT invoice",
     vatUnavailable: "Unavailable for now because the company is not VAT registered yet.",
     companyName: "Company name",

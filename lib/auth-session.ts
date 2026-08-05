@@ -52,6 +52,48 @@ export function clearSession(): void {
   localStorage.removeItem(AUTH_SESSION_KEY);
 }
 
+/** Optional “remember email + password” for Sign In (device-local only). */
+export const AUTH_REMEMBER_KEY = "inz_auth_remember";
+
+export type RememberedCredentials = {
+  email: string;
+  password: string;
+};
+
+export function getRememberedCredentials(): RememberedCredentials | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(AUTH_REMEMBER_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as Partial<RememberedCredentials>;
+    const email = String(parsed.email || "").trim();
+    const password = String(parsed.password || "");
+    if (!email || !password) return null;
+    return { email, password };
+  } catch {
+    return null;
+  }
+}
+
+export function saveRememberedCredentials(
+  email: string,
+  password: string,
+): void {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(
+    AUTH_REMEMBER_KEY,
+    JSON.stringify({
+      email: email.trim().toLowerCase(),
+      password,
+    } satisfies RememberedCredentials),
+  );
+}
+
+export function clearRememberedCredentials(): void {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem(AUTH_REMEMBER_KEY);
+}
+
 export function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }

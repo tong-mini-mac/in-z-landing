@@ -12,17 +12,18 @@ import {
   type AuthLang,
 } from "@/lib/auth-i18n";
 import {
-  DEMO_ADMIN_EMAIL,
-  DEMO_ADMIN_PASSWORD,
   isDemoAdminEmail,
   isValidDemoAdmin,
 } from "@/lib/demo-access";
 import {
+  clearRememberedCredentials,
   combinePhoneNumber,
+  getRememberedCredentials,
   getSession,
   isValidEmail,
   isValidPhone,
   isValidTaxId,
+  saveRememberedCredentials,
   saveSession,
   type AuthUser,
   type VatProfile,
@@ -60,11 +61,23 @@ export function AuthForm() {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [acceptPdpa, setAcceptPdpa] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [pendingEmail, setPendingEmail] = useState("");
 
   const t = AUTH_COPY[lang];
+
+  useEffect(() => {
+    const remembered = getRememberedCredentials();
+    if (remembered) {
+      setEmail(remembered.email);
+      setPassword(remembered.password);
+      setRememberMe(true);
+    }
+  }, []);
 
   useEffect(() => {
     const fromUrl = searchParams.get("lang") || searchParams.get("ui_lang");
@@ -82,6 +95,21 @@ export function AuthForm() {
     setPendingEmail("");
     setError("");
   }, [searchParams]);
+
+  function persistRememberChoice(nextEmail: string, nextPassword: string) {
+    if (rememberMe) {
+      saveRememberedCredentials(nextEmail, nextPassword);
+    } else {
+      clearRememberedCredentials();
+    }
+  }
+
+  function onRememberChange(checked: boolean) {
+    setRememberMe(checked);
+    if (!checked) {
+      clearRememberedCredentials();
+    }
+  }
 
   function switchMode(next: AuthMode) {
     setError("");
@@ -101,37 +129,38 @@ export function AuthForm() {
 
     const form = event.currentTarget;
     const data = new FormData(form);
-    const email = String(data.get("email") || "").trim().toLowerCase();
-    const password = String(data.get("password") || "");
+    const nextEmail = String(data.get("email") || "").trim().toLowerCase();
+    const nextPassword = String(data.get("password") || "");
 
-    if (!email || !isValidEmail(email)) {
+    if (!nextEmail || !isValidEmail(nextEmail)) {
       setError(t.errEmail);
       setSubmitting(false);
       return;
     }
 
-    if (password.length < 8) {
+    if (nextPassword.length < 8) {
       setError(t.errPassword);
       setSubmitting(false);
       return;
     }
 
     if (mode === "signin") {
-      if (isDemoAdminEmail(email) && !isValidDemoAdmin(email, password)) {
+      if (isDemoAdminEmail(nextEmail) && !isValidDemoAdmin(nextEmail, nextPassword)) {
         setError(t.errAdminPassword);
         setSubmitting(false);
         return;
       }
 
-      if (isValidDemoAdmin(email, password)) {
+      if (isValidDemoAdmin(nextEmail, nextPassword)) {
         const user: AuthUser = {
           fullName: "IN Z Admin",
-          email,
+          email: nextEmail,
           phone: "",
           createdAt: new Date().toISOString(),
           role: "admin",
           unlimited: true,
         };
+        persistRememberChoice(nextEmail, nextPassword);
         saveSession(user);
         router.push("/account");
         return;
@@ -141,7 +170,7 @@ export function AuthForm() {
         const response = await fetch("/api/auth/special-signin", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username: email, password }),
+          body: JSON.stringify({ username: nextEmail, password: nextPassword }),
         });
         const data = (await response.json()) as {
           ok?: boolean;
@@ -156,8 +185,8 @@ export function AuthForm() {
 
         if (response.ok && data.ok) {
           const user: AuthUser = {
-            fullName: (data.username || email).split("@")[0],
-            email: data.email || data.username || email,
+            fullName: (data.username || nextEmail).split("@")[0],
+            email: data.email || data.username || nextEmail,
             phone: "",
             createdAt: new Date().toISOString(),
             role: "trial",
@@ -167,6 +196,7 @@ export function AuthForm() {
             revenue: false,
             kind: data.kind || "complimentary",
           };
+          persistRememberChoice(nextEmail, nextPassword);
           saveSession(user);
           router.push("/account");
           return;
@@ -188,19 +218,20 @@ export function AuthForm() {
       }
 
       const user: AuthUser = {
-        fullName: email.split("@")[0],
-        email,
+        fullName: nextEmail.split("@")[0],
+        email: nextEmail,
         phone: "",
         createdAt: new Date().toISOString(),
         role: "user",
         unlimited: false,
       };
+      persistRememberChoice(nextEmail, nextPassword);
       saveSession(user);
       router.push("/account");
       return;
     }
 
-    if (isDemoAdminEmail(email)) {
+    if (isDemoAdminEmail(nextEmail)) {
       setError(t.errAdminSignup);
       setSubmitting(false);
       return;
@@ -226,7 +257,7 @@ export function AuthForm() {
       return;
     }
 
-    if (password !== confirm) {
+    if (nextPassword !== confirm) {
       setError(t.errConfirm);
       setSubmitting(false);
       return;
@@ -269,23 +300,31 @@ export function AuthForm() {
       const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName, email, phone, vat, lang }),
+        body: JSON.stringify({
+          fullName,
+          email: nextEmail,
+          phone,
+          vat,
+          lang,
+        }),
       });
-      const data = (await response.json()) as {
+      const result = (await response.json()) as {
         ok?: boolean;
         error?: string;
         message?: string;
       };
 
-      if (!response.ok || !data.ok) {
+      if (!response.ok || !result.ok) {
         setError(
-          data.error === "email" ? t.errEmailSend : t.errGeneric,
+          result.error === "email" ? t.errEmailSend : t.errGeneric,
         );
         setSubmitting(false);
         return;
       }
 
-      setPendingEmail(email);
+      setPendingEmail(nextEmail);
+      setEmail("");
+      setPassword("");
       form.reset();
       setPhoneCountry("TH");
       setNeedVat(false);
@@ -370,7 +409,8 @@ export function AuthForm() {
             required
             autoComplete="email"
             disabled={submitting}
-            defaultValue={mode === "signin" ? DEMO_ADMIN_EMAIL : ""}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             key={`email-${mode}`}
           />
         </label>
@@ -425,7 +465,8 @@ export function AuthForm() {
                 mode === "signup" ? "new-password" : "current-password"
               }
               disabled={submitting}
-              defaultValue={mode === "signin" ? DEMO_ADMIN_PASSWORD : ""}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               key={`password-${mode}`}
             />
             <label className="auth-show-password">
@@ -439,6 +480,18 @@ export function AuthForm() {
             </label>
           </div>
         </div>
+
+        {mode === "signin" ? (
+          <label className="auth-check">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => onRememberChange(e.target.checked)}
+              disabled={submitting}
+            />
+            <span>{t.rememberCredentials}</span>
+          </label>
+        ) : null}
 
         {mode === "signup" ? (
           <div className="contact-field">
