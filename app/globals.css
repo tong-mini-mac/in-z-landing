@@ -80,9 +80,11 @@ img {
 }
 
 .nav {
+  position: relative;
+  z-index: 5;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.55rem;
   padding: 1.25rem 1.25rem 0;
   font-family: var(--font-display), system-ui, sans-serif;
@@ -106,7 +108,7 @@ img {
   position: absolute;
   top: 1.15rem;
   right: 1.25rem;
-  z-index: 3;
+  z-index: 6;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -218,6 +220,9 @@ img {
   text-align: center;
   padding: 0 1.5rem 1.5rem;
   gap: 0.35rem;
+  /* Logo uses negative margin and can overlap the nav on mobile —
+     let clicks pass through so Home menu remains tappable. */
+  pointer-events: none;
 }
 
 .logo-mark {
@@ -226,6 +231,7 @@ img {
   aspect-ratio: 1 / 1;
   object-fit: contain;
   margin-top: -1.25in;
+  pointer-events: none;
   animation: fade-up 1s 0.12s ease both;
 }
 
@@ -392,7 +398,7 @@ img {
     gap: 0.7rem;
     font-size: var(--text-nav-lg);
     letter-spacing: var(--track-nav-lg);
-    z-index: 2;
+    z-index: 5;
   }
 
   .nav-auth-wrap {
@@ -415,7 +421,7 @@ img {
   }
 
   .hero > * {
-    pointer-events: auto;
+    pointer-events: none;
   }
 
   .logo-mark {
