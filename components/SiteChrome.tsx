@@ -1,23 +1,22 @@
+"use client";
+
 import { ContactNav } from "@/components/ContactNav";
 import { NavAuth } from "@/components/NavAuth";
 import { ProductsNav } from "@/components/ProductsNav";
-
-export const navItems = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-];
+import { SITE_COPY } from "@/lib/site-i18n";
+import { useSiteLang } from "@/lib/use-site-lang";
 
 export function SiteNav() {
+  const lang = useSiteLang();
+  const t = SITE_COPY[lang].nav;
+
   return (
     <>
       <nav className="nav" aria-label="Primary">
-        {navItems.map((item) => (
-          <a key={item.href} href={item.href}>
-            {item.label}
-          </a>
-        ))}
+        <a href="/">{t.home}</a>
+        <a href="/about">{t.about}</a>
         <ProductsNav />
-        <a href="/demo">Demo</a>
+        <a href="/demo">{t.demo}</a>
         <ContactNav />
       </nav>
       <NavAuth />
@@ -58,6 +57,9 @@ function ChatIcon() {
 }
 
 export function SiteFooter() {
+  const lang = useSiteLang();
+  const t = SITE_COPY[lang].footer;
+
   return (
     <footer className="footer">
       <div className="social" aria-label="Social links">
@@ -81,8 +83,8 @@ export function SiteFooter() {
       </div>
 
       <div className="legal">
-        <a href="/terms">Term and Support</a>
-        <a href="/privacy">Privacy and Policy</a>
+        <a href="/terms">{t.terms}</a>
+        <a href="/privacy">{t.privacy}</a>
       </div>
     </footer>
   );

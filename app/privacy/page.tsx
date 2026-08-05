@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LegalHero } from "@/components/LegalHero";
 import { SiteFooter, SiteNav } from "@/components/SiteChrome";
 
 export const metadata: Metadata = {
@@ -17,16 +18,11 @@ export default function PrivacyPage() {
       <SiteNav />
 
       <article className="about">
-        <header className="about-hero">
-          <p className="about-eyebrow">Legal</p>
-          <h1>Privacy Policy</h1>
-          <p className="about-lead">
-            At IN Z, we take your privacy seriously. This Privacy Policy explains how we
-            collect, use, disclose, and safeguard your information when you use our
-            platform.
-          </p>
-          <p className="about-motto">Last updated: July 23, 2026</p>
-        </header>
+        <LegalHero
+          kind="privacy"
+          lead="At IN Z, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform."
+          motto="Last updated: July 23, 2026"
+        />
 
         <section className="about-block">
           <h2>1. Information We Collect</h2>

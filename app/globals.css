@@ -1553,12 +1553,6 @@ img {
   text-transform: uppercase;
 }
 
-.auth-lang-under-cta {
-  display: flex;
-  justify-content: center;
-  margin-top: 0.85rem;
-}
-
 .auth-lang-btn {
   border: 0;
   background: transparent;

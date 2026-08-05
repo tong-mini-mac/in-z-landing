@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
-import { AuthLangToggle } from "@/components/AuthLangToggle";
 import {
   AUTH_COPY,
   normalizeAuthLang,
@@ -362,7 +361,6 @@ export function AuthForm() {
   if (pendingEmail) {
     return (
       <div className="auth-shell">
-        <AuthLangToggle lang={lang} onChange={() => {}} />
         <div className="contact-success">
           <p>
             <strong>{t.checkEmailTitle}</strong>
@@ -733,10 +731,6 @@ export function AuthForm() {
             </button>
           )}
         </p>
-
-        <div className="auth-lang-under-cta">
-          <AuthLangToggle lang={lang} onChange={() => {}} />
-        </div>
 
         <p className="auth-demo-note">{t.demoNote}</p>
       </form>

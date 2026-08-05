@@ -5,6 +5,8 @@ import {
   CONTACT_CHANNELS,
   type ContactChannel,
 } from "@/lib/contact";
+import { SITE_COPY } from "@/lib/site-i18n";
+import { useSiteLang } from "@/lib/use-site-lang";
 
 type ContactFormProps = {
   channel: ContactChannel;
@@ -13,7 +15,10 @@ type ContactFormProps = {
 type Status = "idle" | "sending" | "success" | "error";
 
 export function ContactForm({ channel }: ContactFormProps) {
+  const lang = useSiteLang();
+  const t = SITE_COPY[lang].contact;
   const config = CONTACT_CHANNELS[channel];
+  const channelLabel = t.channels[channel];
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
 
@@ -37,13 +42,13 @@ export function ContactForm({ channel }: ContactFormProps) {
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus("error");
-      setError("Please enter a valid email address.");
+      setError(t.errEmail);
       return;
     }
 
     if (!message) {
       setStatus("error");
-      setError("Please enter a message.");
+      setError(t.errMessage);
       return;
     }
 
@@ -70,10 +75,7 @@ export function ContactForm({ channel }: ContactFormProps) {
 
       if (!response.ok || !parsed.ok) {
         setStatus("error");
-        setError(
-          parsed.message ||
-            "Could not send email. Please try again later.",
-        );
+        setError(parsed.message || t.errGeneric);
         return;
       }
 
@@ -81,20 +83,20 @@ export function ContactForm({ channel }: ContactFormProps) {
       form.reset();
     } catch {
       setStatus("error");
-      setError("Could not send email. Please try again.");
+      setError(t.errGeneric);
     }
   }
 
   if (status === "success") {
     return (
       <div className="contact-success" role="status">
-        <p>Message sent. We&apos;ll reply to your email soon.</p>
+        <p>{t.success}</p>
         <button
           type="button"
           className="contact-secondary"
           onClick={() => setStatus("idle")}
         >
-          Send another message
+          {t.sendAnother}
         </button>
       </div>
     );
@@ -103,11 +105,11 @@ export function ContactForm({ channel }: ContactFormProps) {
   return (
     <form className="contact-form" onSubmit={onSubmit} noValidate>
       <p className="contact-destination">
-        Sending to <strong>{config.label}</strong> ({config.to})
+        {t.sendingTo} <strong>{channelLabel}</strong> ({config.to})
       </p>
 
       <label className="contact-field">
-        <span>Your email</span>
+        <span>{t.email}</span>
         <input
           type="email"
           name="email"
@@ -119,24 +121,24 @@ export function ContactForm({ channel }: ContactFormProps) {
       </label>
 
       <label className="contact-field">
-        <span>Your name</span>
+        <span>{t.name}</span>
         <input
           type="text"
           name="name"
           autoComplete="name"
-          placeholder="Optional"
+          placeholder={t.namePlaceholder}
           disabled={status === "sending"}
         />
       </label>
 
       <label className="contact-field">
-        <span>Message</span>
+        <span>{t.message}</span>
         <textarea
           name="message"
           required
           rows={7}
           maxLength={5000}
-          placeholder="How can we help?"
+          placeholder={t.messagePlaceholder}
           disabled={status === "sending"}
         />
       </label>
@@ -157,7 +159,7 @@ export function ContactForm({ channel }: ContactFormProps) {
         className="contact-submit"
         disabled={status === "sending"}
       >
-        {status === "sending" ? "Sending…" : "Send email"}
+        {status === "sending" ? t.sending : t.send}
       </button>
     </form>
   );

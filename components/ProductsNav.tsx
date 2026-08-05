@@ -2,21 +2,25 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
+import { SITE_COPY } from "@/lib/site-i18n";
+import { useSiteLang } from "@/lib/use-site-lang";
 
 const CLOSE_DELAY_MS = 2000;
 
-const productOptions = [
-  { label: "White Label", href: "/products/white-label" },
-  { label: "License", href: "/products/license" },
-  { label: "SaaS", href: "/products/saas" },
-] as const;
-
 export function ProductsNav() {
   const router = useRouter();
+  const lang = useSiteLang();
+  const t = SITE_COPY[lang];
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuId = useId();
+
+  const productOptions = [
+    { label: t.productsMenu.whiteLabel, href: "/products/white-label" },
+    { label: t.productsMenu.license, href: "/products/license" },
+    { label: t.productsMenu.saas, href: "/products/saas" },
+  ] as const;
 
   function clearCloseTimer() {
     if (closeTimerRef.current) {
@@ -86,7 +90,7 @@ export function ProductsNav() {
           setOpen((current) => !current);
         }}
       >
-        Products
+        {t.nav.products}
       </button>
 
       <div

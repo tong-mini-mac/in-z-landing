@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LegalHero } from "@/components/LegalHero";
 import { SiteFooter, SiteNav } from "@/components/SiteChrome";
 
 export const metadata: Metadata = {
@@ -100,21 +101,11 @@ export default function TermsSupportPage() {
       <SiteNav />
 
       <article className="about">
-        <header className="about-hero">
-          <p className="about-eyebrow">Support Center</p>
-          <h1>Term and Support</h1>
-          <p className="about-lead">
-            We&apos;re here to help you achieve balance. Find guides, answers, and our
-            terms of service below.
-          </p>
-          <p className="about-motto">
-            <a href="#support">Support</a>
-            <span aria-hidden="true"> · </span>
-            <a href="#faq">FAQ</a>
-            <span aria-hidden="true"> · </span>
-            <a href="#terms">Terms of Service</a>
-          </p>
-        </header>
+        <LegalHero
+          kind="terms"
+          lead="We're here to help you achieve balance. Find guides, answers, and our terms of service below."
+          motto="Support · FAQ · Terms of Service"
+        />
 
         <section className="about-block" id="support">
           <h2>Getting started</h2>

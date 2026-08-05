@@ -2,26 +2,20 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AuthLangToggle } from "@/components/AuthLangToggle";
-import { AUTH_COPY, getStoredAuthLang, type AuthLang } from "@/lib/auth-i18n";
+import { AUTH_COPY } from "@/lib/auth-i18n";
 import { saveSession, type AuthUser } from "@/lib/auth-session";
+import { useSiteLang } from "@/lib/use-site-lang";
 
 type Status = "loading" | "success" | "error";
 
 export function ActivateAccount() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [lang, setLang] = useState<AuthLang>("th");
+  const lang = useSiteLang();
   const [status, setStatus] = useState<Status>("loading");
   const [error, setError] = useState("");
 
   const t = AUTH_COPY[lang];
-
-  useEffect(() => {
-    const stored = getStoredAuthLang();
-    setLang(stored);
-    document.documentElement.lang = stored;
-  }, []);
 
   useEffect(() => {
     const token = searchParams.get("token");
@@ -41,23 +35,24 @@ export function ActivateAccount() {
           body: JSON.stringify({ token }),
         });
         const data = (await response.json()) as {
-          user?: AuthUser;
+          ok?: boolean;
           error?: string;
+          user?: AuthUser;
         };
 
-        if (!response.ok || !data.user) {
-          if (!cancelled) {
-            setStatus("error");
-            setError(t.errActivate);
-          }
+        if (cancelled) return;
+
+        if (!response.ok || !data.ok || !data.user) {
+          setStatus("error");
+          setError(t.errActivate);
           return;
         }
 
         saveSession(data.user);
-        if (!cancelled) {
-          setStatus("success");
-          window.setTimeout(() => router.replace("/account"), 1200);
-        }
+        setStatus("success");
+        window.setTimeout(() => {
+          router.replace("/account");
+        }, 1200);
       } catch {
         if (!cancelled) {
           setStatus("error");
@@ -74,28 +69,19 @@ export function ActivateAccount() {
 
   return (
     <div className="auth-shell">
-      <AuthLangToggle lang={lang} onChange={setLang} />
-
-      {status === "loading" ? (
-        <p className="auth-loading">{t.activating}</p>
-      ) : null}
-
-      {status === "success" ? (
-        <div className="contact-success">
-          <p>{t.activateSuccess}</p>
-        </div>
-      ) : null}
-
-      {status === "error" ? (
-        <div className="contact-success">
+      <div className="contact-success">
+        {status === "loading" ? <p>{t.activating}</p> : null}
+        {status === "success" ? (
+          <p>
+            <strong>{t.activateSuccess}</strong>
+          </p>
+        ) : null}
+        {status === "error" ? (
           <p className="contact-error" role="alert">
             {error || t.errActivate}
           </p>
-          <a className="contact-secondary" href="/auth?mode=signup">
-            {t.switchToSignUp}
-          </a>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </div>
   );
 }

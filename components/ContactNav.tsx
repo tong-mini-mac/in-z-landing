@@ -2,36 +2,40 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
+import { SITE_COPY } from "@/lib/site-i18n";
+import { useSiteLang } from "@/lib/use-site-lang";
 
 const CHAT_HREF =
   "https://personal-secretary-production-3d5f.up.railway.app/contact/";
 
 const CLOSE_DELAY_MS = 2000;
 
-const contactOptions = [
-  {
-    label: "Chat",
-    kind: "external" as const,
-    href: CHAT_HREF,
-  },
-  {
-    label: "Customer Service",
-    kind: "page" as const,
-    href: "/contact?channel=customer-service",
-  },
-  {
-    label: "Support",
-    kind: "page" as const,
-    href: "/contact?channel=support",
-  },
-];
-
 export function ContactNav() {
   const router = useRouter();
+  const lang = useSiteLang();
+  const t = SITE_COPY[lang];
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuId = useId();
+
+  const contactOptions = [
+    {
+      label: t.contactMenu.chat,
+      kind: "external" as const,
+      href: CHAT_HREF,
+    },
+    {
+      label: t.contactMenu.customerService,
+      kind: "page" as const,
+      href: "/contact?channel=customer-service",
+    },
+    {
+      label: t.contactMenu.support,
+      kind: "page" as const,
+      href: "/contact?channel=support",
+    },
+  ];
 
   function clearCloseTimer() {
     if (closeTimerRef.current) {
@@ -101,7 +105,7 @@ export function ContactNav() {
           setOpen((current) => !current);
         }}
       >
-        Contact
+        {t.nav.contact}
       </button>
 
       <div

@@ -2,15 +2,12 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import {
-  AUTH_LANG_CHANGE_EVENT,
-  getStoredAuthLang,
-  type AuthLang,
-} from "@/lib/auth-i18n";
-import {
   SCOPE_OF_WORK_COPY,
   type LocalizedScopeOfWork,
   type PricingTier,
 } from "@/lib/product-catalog";
+import { SITE_COPY } from "@/lib/site-i18n";
+import { useSiteLang } from "@/lib/use-site-lang";
 
 type ProductCardProps = {
   name: string;
@@ -44,7 +41,8 @@ export function ProductCard({
   className = "",
 }: ProductCardProps) {
   const [openPanel, setOpenPanel] = useState<Panel>(null);
-  const [lang, setLang] = useState<AuthLang>("th");
+  const lang = useSiteLang();
+  const ui = SITE_COPY[lang].productCard;
   const rootRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const descriptionId = useId();
@@ -77,19 +75,6 @@ export function ProductCard({
 
   useEffect(() => {
     return () => clearCloseTimer();
-  }, []);
-
-  useEffect(() => {
-    const stored = getStoredAuthLang();
-    setLang(stored);
-
-    function onLangChange(event: Event) {
-      const detail = (event as CustomEvent<{ lang?: AuthLang }>).detail;
-      setLang(detail?.lang || getStoredAuthLang());
-    }
-
-    window.addEventListener(AUTH_LANG_CHANGE_EVENT, onLangChange);
-    return () => window.removeEventListener(AUTH_LANG_CHANGE_EVENT, onLangChange);
   }, []);
 
   useEffect(() => {
@@ -141,7 +126,7 @@ export function ProductCard({
             );
           }}
         >
-          Description
+          {ui.description}
         </button>
 
         <div
@@ -173,7 +158,7 @@ export function ProductCard({
             );
           }}
         >
-          Subscribe
+          {ui.subscribe}
         </button>
 
         <div
@@ -208,11 +193,11 @@ export function ProductCard({
           ) : (
             <ul className="product-pricing">
               <li>
-                <span>Early Bird</span>
+                <span>{ui.earlyBird}</span>
                 <strong>{earlyBirdPrice}</strong>
               </li>
               <li>
-                <span>Price</span>
+                <span>{ui.regular}</span>
                 <strong>{regularPrice}</strong>
               </li>
             </ul>

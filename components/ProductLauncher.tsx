@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, type MouseEvent } from "react";
-import { AuthLangToggle } from "@/components/AuthLangToggle";
 import { AUTH_COPY } from "@/lib/auth-i18n";
 import { SITE_COPY } from "@/lib/site-i18n";
 import { useSiteLang } from "@/lib/use-site-lang";
@@ -107,8 +106,6 @@ export function ProductLauncher() {
 
   return (
     <div className="auth-shell">
-      <AuthLangToggle lang={lang} onChange={() => {}} />
-
       <p className="account-user">
         {t.signedInAs}{" "}
         <strong>{session.user.fullName || session.user.email}</strong>
