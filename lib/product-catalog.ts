@@ -276,7 +276,7 @@ export const SCOPE_OF_WORK_COPY: Record<
 };
 
 const MUSIC_DEMO_DESCRIPTION =
-  "Music Demo is an AI music creation studio for makers, creators, and small labels. Users generate song drafts from prompts, preview multiple takes, then confirm and export in formats that fit their workflow — from MP3 and WAV to lyrics, chords, MIDI, MusicXML, and stems on higher plans. Plans scale from Starter through Studio with monthly song quotas, optional re-edit on confirmed tracks, AI voice options, and busker-friendly modes. Built for fast creative loops with clear export rights per plan, so teams can move from idea to usable audio without a full production stack.";
+  "Music Demo is an AI music creation studio for makers, creators, and small labels. Users generate song drafts from prompts, preview takes, then confirm and export — lyrics, chords, MIDI, MusicXML, and optional AI vocal preview. Pricing is pay-as-you-go credits (top up from ฿30 = 100 credits): create a song costs 50 credits, regenerate costs 25. Signup includes free credits. Built for fast creative loops without a monthly plan lock-in.";
 
 const PODCAST_DESCRIPTION =
   "Podcast is a full-cycle Thai podcast platform for upload, AI transcription, show notes, clips, subtitles, RSS publishing, and monetization. It supports Thai and English plus regional dialect workflows for Isan, Northern, and Southern Thai through dialect-aware prompts. Creators get episode pipelines with calendar, analytics, social scheduling, guest CRM, and sponsor-ready ad slots. Billing starts with a 14-day free trial, then Starter, Creator, and Pro monthly plans so indie podcasters and content studios can produce and distribute without stitching separate tools together.";
@@ -390,6 +390,35 @@ const UNIVERSAL_SIMULATOR_WHITE_LABEL_TIERS: PricingTier[] = [
   },
 ];
 
+const MUSIC_DEMO_SAAS_TIERS: PricingTier[] = [
+  {
+    name: "Top-up 100",
+    price: "฿30",
+    detail: "100 credits · ~2 songs or 1 song + 2 regenerates",
+    highlight: true,
+  },
+  {
+    name: "Top-up 300",
+    price: "฿90",
+    detail: "300 credits · ~6 songs (no regenerates)",
+  },
+  {
+    name: "Top-up 1,000",
+    price: "฿270",
+    detail: "1,000 credits · for frequent creators",
+  },
+  {
+    name: "Usage",
+    price: "50 / 25",
+    detail: "Create song 50 credits · Regenerate 25 credits",
+  },
+  {
+    name: "Signup bonus",
+    price: "100–300 free",
+    detail: "100 credits on signup · 300 for the first 30 users",
+  },
+];
+
 export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "SynthComm",
@@ -454,9 +483,18 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     name: "Music Demo",
     title: "Music Demo — AI Music Creation Studio",
     description: MUSIC_DEMO_DESCRIPTION,
-    earlyBirdPrice: "Starter ฿99 / month",
-    regularPrice: "฿99 – ฿1,599 / month",
+    earlyBirdPrice: "Signup bonus 100–300 credits · top-up from ฿30",
+    regularPrice: "฿30 = 100 credits · create 50 · regen 25",
     models: ["saas"],
+    pricingByModel: {
+      saas: {
+        ctaLabel: "Open Music Demo",
+        ctaHref: "/demo",
+        note:
+          "Credits pay-as-you-go — no monthly plan. Artist Blueprint (lyrics / chords / MIDI / MusicXML). AI Vocal Preview add-on from ฿49. Prices exclude VAT 7%.",
+        tiers: MUSIC_DEMO_SAAS_TIERS,
+      },
+    },
   },
   {
     name: "Podcast",
