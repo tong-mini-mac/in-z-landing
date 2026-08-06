@@ -5,7 +5,7 @@ import { SiteFooter, SiteNav } from "@/components/SiteChrome";
 export const metadata: Metadata = {
   title: "Demo — IN Z",
   description:
-    "Try IN Z products free — SynthComm, QA LAB, Music Demo, and Podcast.",
+    "Try IN Z products free — SynthComm, QA LAB, Music Demo, and Content Creator.",
 };
 
 export default function DemoPage() {

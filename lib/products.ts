@@ -4,7 +4,7 @@ export type ProductId =
   | "universal-simulator"
   | "ai-marketing"
   | "music-demo"
-  | "podcast"
+  | "content-creator"
   | "netr";
 
 export type ProductEntry = {
@@ -58,13 +58,13 @@ export const PRODUCTS: ProductEntry[] = [
     available: true,
   },
   {
-    id: "podcast",
-    name: "Podcast",
+    id: "content-creator",
+    name: "Content Creator",
     description: {
-      th: "สตูดิโอพอดแคสต์ AI สำหรับครีเอเตอร์ไทย",
-      en: "AI podcast studio for Thai creators",
+      th: "พอดแคสต์ + AI Video สำหรับภาษาถิ่นไทยและ SEA",
+      en: "Podcast + AI video for Thai dialects and SEA languages",
     },
-    href: "https://podcast-production-dd89.up.railway.app",
+    href: "https://podcast-web-production-41ac.up.railway.app",
     available: true,
   },
   {
@@ -94,9 +94,15 @@ export const COMMERCIAL_PRODUCT_IDS: ProductId[] = [
   "synthcomm",
   "universal-simulator",
   "music-demo",
-  "podcast",
+  "content-creator",
   "netr",
 ];
+
+/** Normalize legacy product ids from older ERP / trial grants. */
+export function normalizeProductId(id: string): string {
+  if (id === "podcast") return "content-creator";
+  return id;
+}
 
 export function productsForAccess(
   isAdmin: boolean,
@@ -107,7 +113,7 @@ export function productsForAccess(
   );
 
   if (allowedProducts && allowedProducts.length > 0) {
-    const allowed = new Set(allowedProducts);
+    const allowed = new Set(allowedProducts.map(normalizeProductId));
     return commercial
       .filter((product) => allowed.has(product.id))
       .map((product) => ({ ...product, available: true }));

@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { isDemoAdminEmail } from "@/lib/demo-access";
-import { COMMERCIAL_PRODUCT_IDS, type ProductId } from "@/lib/products";
+import {
+  COMMERCIAL_PRODUCT_IDS,
+  normalizeProductId,
+  type ProductId,
+} from "@/lib/products";
 import { productBaseUrl, signHandoffToken } from "@/lib/sso-handoff";
 
 export async function POST(request: Request) {
@@ -18,11 +22,15 @@ export async function POST(request: Request) {
     const email = String(body.email || "")
       .trim()
       .toLowerCase();
-    const productId = String(body.productId || "").trim() as ProductId;
+    const productId = normalizeProductId(
+      String(body.productId || "").trim(),
+    ) as ProductId;
     const role = String(body.role || "user");
-    const unlimited = Boolean(body.unlimited || role === "admin" || isDemoAdminEmail(email));
+    const unlimited = Boolean(
+      body.unlimited || role === "admin" || isDemoAdminEmail(email),
+    );
     const allowedProducts = Array.isArray(body.allowedProducts)
-      ? body.allowedProducts.map(String)
+      ? body.allowedProducts.map((id) => normalizeProductId(String(id)))
       : [];
 
     if (!email || !email.includes("@")) {
@@ -42,14 +50,19 @@ export async function POST(request: Request) {
     const base = productBaseUrl(productId);
     if (!base) {
       return NextResponse.json(
-        { error: "sso_not_ready", message: "SSO for this product is not ready yet" },
+        {
+          error: "sso_not_ready",
+          message: "SSO for this product is not ready yet",
+        },
         { status: 501 },
       );
     }
 
     let pkg: "unlimited" | "complimentary" | "standard" = "standard";
     if (unlimited || role === "admin") pkg = "unlimited";
-    else if (role === "trial" || body.kind === "complimentary") pkg = "complimentary";
+    else if (role === "trial" || body.kind === "complimentary") {
+      pkg = "complimentary";
+    }
 
     const token = signHandoffToken({
       email,
@@ -57,7 +70,9 @@ export async function POST(request: Request) {
       role,
       unlimited,
       package: pkg,
-      allowed_products: unlimited ? [...COMMERCIAL_PRODUCT_IDS] : allowedProducts,
+      allowed_products: unlimited
+        ? [...COMMERCIAL_PRODUCT_IDS]
+        : allowedProducts,
     });
 
     const url = `${base.replace(/\/$/, "")}/?inz_sso=${encodeURIComponent(token)}`;

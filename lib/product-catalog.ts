@@ -278,11 +278,11 @@ export const SCOPE_OF_WORK_COPY: Record<
 const MUSIC_DEMO_DESCRIPTION =
   "Music Demo is an AI music creation studio for makers, creators, and small labels. Users generate song drafts from prompts, preview takes, then confirm and export — lyrics, chords, MIDI, MusicXML, and optional AI vocal preview. Pricing is pay-as-you-go credits (top up from ฿30 = 100 credits): create a song costs 50 credits, regenerate costs 25. Signup includes free credits. Built for fast creative loops without a monthly plan lock-in.";
 
-const PODCAST_DESCRIPTION =
-  "Podcast is a full-cycle Thai podcast platform for upload, AI transcription, show notes, clips, subtitles, RSS publishing, and monetization. It supports Thai and English plus regional dialect workflows for Isan, Northern, and Southern Thai through dialect-aware prompts. Creators get episode pipelines with calendar, analytics, social scheduling, guest CRM, and sponsor-ready ad slots. Billing starts with a 14-day free trial, then Starter, Creator, and Pro monthly plans so indie podcasters and content studios can produce and distribute without stitching separate tools together.";
+const CONTENT_CREATOR_DESCRIPTION =
+  "Content Creator is IN Z’s Thai + SEA content platform: podcast pipelines (upload → AI transcription → show notes → clips → RSS) plus AI Video (idea chat → script → media match → TTS → render MP4 → multi-platform publish). It supports Thai dialects (Isan, Northern, Southern), Thai central, English, Vietnamese, and Indonesian. Billing is a 14-day free trial, then Starter ฿599, Creator ฿1,499, and Pro ฿2,999 per month — with real episode, render, storage, and feature quotas.";
 
 const NETR_DESCRIPTION =
-  "NetR is an IN Z network and relationship product for mapping partners, channels, and operating links across the business. It helps teams keep counterparties, referral paths, and collaboration status visible in one place so growth and operations stay aligned. Designed as a commercial IN Z product alongside SynthComm, QA LAB, Music Demo, and Podcast — with Early Bird and standard plans for teams that need structured network visibility without building a custom CRM from scratch.";
+  "NetR is an IN Z network and relationship product for mapping partners, channels, and operating links across the business. It helps teams keep counterparties, referral paths, and collaboration status visible in one place so growth and operations stay aligned. Designed as a commercial IN Z product alongside SynthComm, QA LAB, Music Demo, and Content Creator — with Early Bird and standard plans for teams that need structured network visibility without building a custom CRM from scratch.";
 
 const SYNTHCOMM_SAAS_TIERS: PricingTier[] = [
   {
@@ -419,6 +419,32 @@ const MUSIC_DEMO_SAAS_TIERS: PricingTier[] = [
   },
 ];
 
+const CONTENT_CREATOR_SAAS_TIERS: PricingTier[] = [
+  {
+    name: "Free Trial",
+    price: "฿0 · 14 days",
+    detail: "5 episodes total · 3 video renders (watermark) · 5 GB storage",
+  },
+  {
+    name: "Starter",
+    price: "฿599 / month",
+    detail: "10 episodes · 20 renders · 20 GB · RSS + 3 platforms",
+  },
+  {
+    name: "Creator",
+    price: "฿1,499 / month",
+    detail:
+      "50 episodes · 150 renders · 100 GB · AI clips · scheduler · guests · analytics · team",
+    highlight: true,
+  },
+  {
+    name: "Pro",
+    price: "฿2,999 / month",
+    detail:
+      "200 episodes · 600 renders · 500 GB · monetization · API · white-label",
+  },
+];
+
 export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "SynthComm",
@@ -497,12 +523,21 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     },
   },
   {
-    name: "Podcast",
-    title: "Podcast — AI Podcast Studio for Thai Creators",
-    description: PODCAST_DESCRIPTION,
+    name: "Content Creator",
+    title: "Content Creator — Podcast + AI Video for Thai & SEA",
+    description: CONTENT_CREATOR_DESCRIPTION,
     earlyBirdPrice: "14-day free trial",
     regularPrice: "฿599 – ฿2,999 / month",
     models: ["saas"],
+    pricingByModel: {
+      saas: {
+        ctaLabel: "Open Content Creator",
+        ctaHref: "/demo",
+        note:
+          "Source of truth: Content Creator plans.ts — Free Trial then Starter / Creator / Pro. Annual ~17% off. Quotas enforced (episodes, renders, storage, features).",
+        tiers: CONTENT_CREATOR_SAAS_TIERS,
+      },
+    },
   },
   {
     name: "NetR",

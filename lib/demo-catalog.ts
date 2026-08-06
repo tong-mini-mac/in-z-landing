@@ -76,9 +76,9 @@ export const DEMO_OFFERS: DemoOffer[] = [
     },
   },
   {
-    id: "podcast",
-    name: "Podcast",
-    href: PRODUCT_HREF.podcast,
+    id: "content-creator",
+    name: "Content Creator",
+    href: PRODUCT_HREF["content-creator"],
     requiresSignup: true,
     external: true,
     trialTitle: {
@@ -86,12 +86,12 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "ทดลองใช้ฟรี 14 วัน",
     },
     trialSummary: {
-      en: "Try the Thai AI podcast studio for 14 days before choosing a plan.",
-      th: "ทดลองสตูดิโอพอดแคสต์ AI สำหรับครีเอเตอร์ไทย 14 วันก่อนเลือกแพ็กเกจ",
+      en: "Try podcast + AI video for Thai dialects and SEA — 5 episodes and 3 renders on trial.",
+      th: "ทดลองพอดแคสต์ + AI Video สำหรับภาษาถิ่นไทยและ SEA — 5 episodes และเรนเดอร์ 3 ครั้งในช่วงทดลอง",
     },
     ctaLabel: {
-      en: "Start Podcast trial",
-      th: "เริ่มทดลอง Podcast",
+      en: "Start Content Creator trial",
+      th: "เริ่มทดลอง Content Creator",
     },
   },
 ];
