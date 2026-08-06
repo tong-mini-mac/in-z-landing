@@ -91,7 +91,9 @@ export function productBaseUrl(productId: string): string | null {
     "music-demo":
       process.env.MUSIC_DEMO_URL ||
       "https://myclaw-music-demo-production.up.railway.app",
-    // Content Creator SSO not wired yet — omit so launcher opens product.href directly.
+    "content-creator":
+      process.env.CONTENT_CREATOR_URL ||
+      "https://podcast-web-production-41ac.up.railway.app",
   };
   return map[productId] || null;
 }
