@@ -71,10 +71,10 @@ export const PRODUCTS: ProductEntry[] = [
     id: "netr",
     name: "NetR",
     description: {
-      th: "ศูนย์เครือข่ายและความสัมพันธ์ทางธุรกิจ",
-      en: "Network and relationship hub",
+      th: "ศูนย์เครือข่ายและความสัมพันธ์ทางธุรกิจ (เร็วๆ นี้)",
+      en: "Network and relationship hub (coming soon)",
     },
-    href: "/products#netr",
+    href: "/netr",
     available: true,
   },
   {
