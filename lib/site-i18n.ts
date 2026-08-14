@@ -285,8 +285,8 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       back: "กลับไปผลิตภัณฑ์",
       catalog: "แคตตาล็อก",
       manual: "ดาวน์โหลดคู่มือ",
-      yourPackage: "Your package",
-      signInSignUp: "Sign in / Sign up",
+      yourPackage: "แพ็กเกจของคุณ",
+      signInSignUp: "เข้าสู่ระบบ / สมัคร",
     },
     legal: {
       termsEyebrow: "กฎหมาย",

@@ -32,7 +32,7 @@ export async function generateMetadata({
   }
   return {
     title: `${product.name} — ${model} — IN Z`,
-    description: product.title,
+    description: product.title.en,
   };
 }
 

@@ -37,7 +37,7 @@ export function ProductCard({
   earlyBirdPrice = "3 baht / conversation",
   regularPrice = "6 baht / conversation",
   pricingTiers,
-  subscribeCtaLabel = "Sign In / Sign Up",
+  subscribeCtaLabel,
   pricingNote,
   scopeOfWork,
   className = "",
@@ -175,7 +175,7 @@ export function ProductCard({
           hidden={openPanel !== "subscribe"}
         >
           <a className="product-subscribe-auth" href={subscribeHref}>
-            {subscribeCtaLabel}
+            {subscribeCtaLabel || SITE_COPY[lang].productDetail.signInSignUp}
           </a>
 
           {hasTier ? (

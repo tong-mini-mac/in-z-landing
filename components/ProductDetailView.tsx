@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { SiteFooter, SiteNav } from "@/components/SiteChrome";
 import {
   SCOPE_OF_WORK_COPY,
+  pickLang,
   pricingForProduct,
   productManualHref,
   type CatalogProduct,
@@ -27,7 +28,7 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
   const t = SITE_COPY[lang].productDetail;
   const modelCopy = SITE_COPY[lang].products.models[model];
   const scopeCopy = SCOPE_OF_WORK_COPY[lang];
-  const pricing = pricingForProduct(product, model);
+  const pricing = pricingForProduct(product, model, lang);
   const scope = product.scopeOfWork?.[lang] || product.scopeOfWork?.th || product.scopeOfWork?.en;
   const [signedIn, setSignedIn] = useState(false);
 
@@ -72,12 +73,12 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
           </a>
           <p className="products-model-label">{modelCopy.label}</p>
           <h1 className="product-detail-name">{product.name}</h1>
-          <p className="product-detail-title">{product.title}</p>
+          <p className="product-detail-title">{pickLang(product.title, lang)}</p>
         </header>
 
         <section className="product-detail-section" aria-labelledby="product-catalog-heading">
           <h2 id="product-catalog-heading">{t.catalog}</h2>
-          <p className="product-detail-body">{product.description}</p>
+          <p className="product-detail-body">{pickLang(product.description, lang)}</p>
 
           {pricing?.tiers?.length ? (
             <ul className="product-pricing product-pricing-tiers product-detail-tiers">
@@ -96,11 +97,11 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
             <ul className="product-pricing product-detail-tiers">
               <li>
                 <span>{SITE_COPY[lang].productCard.earlyBird}</span>
-                <strong>{product.earlyBirdPrice}</strong>
+                <strong>{pickLang(product.earlyBirdPrice, lang)}</strong>
               </li>
               <li>
                 <span>{SITE_COPY[lang].productCard.regular}</span>
-                <strong>{product.regularPrice}</strong>
+                <strong>{pickLang(product.regularPrice, lang)}</strong>
               </li>
             </ul>
           )}
@@ -139,7 +140,7 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
         <div className="product-detail-actions">
           <a
             className="product-detail-cta"
-            href={productManualHref(product.name)}
+            href={productManualHref(product.name, lang)}
             download
           >
             {t.manual}

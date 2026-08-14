@@ -5,6 +5,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { SiteFooter, SiteNav } from "@/components/SiteChrome";
 import {
   PRODUCT_CATALOG,
+  pickLang,
   pricingForProduct,
   productSlug,
 } from "@/lib/product-catalog";
@@ -48,7 +49,7 @@ export function ProductsModelView({ model }: { model: ProductModel }) {
 
         <div className="products-panel">
           {catalog.map((product) => {
-            const pricing = pricingForProduct(product, model);
+            const pricing = pricingForProduct(product, model, lang);
             return (
               <div
                 key={product.name}
@@ -57,15 +58,15 @@ export function ProductsModelView({ model }: { model: ProductModel }) {
               >
                 <ProductCard
                   name={product.name}
-                  title={product.title}
-                  description={product.description}
+                  title={pickLang(product.title, lang)}
+                  description={pickLang(product.description, lang)}
                   detailHref={`/products/${model}/${productSlug(product.name)}`}
                   subscribeHref={
                     pricing?.ctaHref ||
                     `${AUTH_SIGNUP}&model=${model}&product=${encodeURIComponent(product.name.toLowerCase())}`
                   }
-                  earlyBirdPrice={product.earlyBirdPrice}
-                  regularPrice={product.regularPrice}
+                  earlyBirdPrice={pickLang(product.earlyBirdPrice, lang)}
+                  regularPrice={pickLang(product.regularPrice, lang)}
                   pricingTiers={pricing?.tiers}
                   subscribeCtaLabel={pricing?.ctaLabel}
                   pricingNote={pricing?.note}
