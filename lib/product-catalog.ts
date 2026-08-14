@@ -65,13 +65,13 @@ export type CatalogProduct = {
 };
 
 const SYNTHCOMM_DESCRIPTION: LocalizedText = {
-  en: "SynthComm is an AI-powered platform that generates high-fidelity Thai conversational datasets for businesses training chatbots, customer service systems, and language models. Start free with 100 conversations per month — try before you buy — then scale to Starter, Growth, Business, or Enterprise. Using advanced multi-agent orchestration, it produces authentic Thai dialogue across diverse contexts including e-commerce, social media, food delivery, banking, and healthcare. The system combines web research with specialized AI writers to create natural conversations that reflect real Thai communication patterns, including proper use of polite particles, regional dialects, slang, and gender-diverse voices. Each conversation undergoes dual-layer quality control to ensure linguistic accuracy, cultural appropriateness, and contextual relevance. Designed for B2B clients with full PDPA compliance and data privacy protection.",
-  th: "SynthComm เป็นแพลตฟอร์ม AI ที่สร้างชุดข้อมูลบทสนทนาภาษาไทยคุณภาพสูง สำหรับธุรกิจที่ฝึกแชทบอท ระบบบริการลูกค้า และโมเดลภาษา เริ่มฟรี 100 บทสนทนาต่อเดือน — ทดลองก่อนซื้อ — แล้วขยายเป็น Starter, Growth, Business หรือ Enterprise ระบบใช้การทำงานร่วมกันของเอเจนต์หลายตัว เพื่อสร้างบทสนทนาไทยที่สมจริงในบริบทหลากหลาย เช่น อีคอมเมิร์ซ โซเชียลมีเดีย ส่งอาหาร ธนาคาร และสาธารณสุข รวมงานวิจัยบนเว็บกับนักเขียน AI เฉพาะทาง เพื่อสะท้อนการใช้ภาษาไทยจริง ทั้งคำลงท้าย สำเนียงท้องถิ่น สแลง และเสียงที่หลากหลายตามเพศ ทุกบทสนทนาผ่านการควบคุมคุณภาพสองชั้น เพื่อความถูกต้องทางภาษา ความเหมาะสมทางวัฒนธรรม และความเกี่ยวข้องตามบริบท ออกแบบสำหรับลูกค้า B2B พร้อมปฏิบัติตาม PDPA และปกป้องข้อมูลส่วนบุคคล",
+  en: "Industrial multi-agent factory for high-fidelity synthetic CS data (Thai · English · Indonesian · Vietnamese) — web-grounded SOP production, locale-locked geo/banks/tracking, multi-dimensional QC, and a B2B web portal. Customer channel is the web portal only (no Telegram or LINE bot). Start free with 100 conversations per month, then Starter, Growth, Business, or Enterprise.",
+  th: "โรงงาน multi-agent สำหรับข้อมูลบทสนทนาสังเคราะห์คุณภาพสูง (ไทย · อังกฤษ · อินโดนีเซีย · เวียดนาม) — ผลิต SOP จากเว็บ ล็อก locale (เมือง/ธนาคาร/แทร็กกิง) QC หลายมิติ และพอร์ทัลลูกค้า B2B ช่องทางลูกค้าคือ Web Portal เท่านั้น ไม่มีบอท Telegram หรือ LINE เริ่มฟรี 100 บทสนทนาต่อเดือน แล้วขยายเป็น Starter, Growth, Business หรือ Enterprise",
 };
 
 const UNIVERSAL_SIMULATOR_DESCRIPTION: LocalizedText = {
-  en: "QA LAB is an IN Z platform for QA and product teams to simulate user behavior and test deployed web/API systems — including mobile app backends and Appium native E2E (License/local or BrowserStack BYOK). Available as Cloud SaaS (monthly), BYOK License with Early Bird 2026 pricing (annual), or White Label. Try free with a readiness audit — no signup required.",
-  th: "QA LAB เป็นแพลตฟอร์มของ IN Z สำหรับทีม QA และผลิตภัณฑ์ เพื่อจำลองพฤติกรรมผู้ใช้และทดสอบระบบเว็บ/API ที่ติดตั้งแล้ว — รวม API/แบ็กเอนด์ของแอปมือถือ และทดสอบ E2E บนแอป native ผ่าน Appium (License/เครื่องตัวเอง หรือ BrowserStack BYOK) มีทั้ง Cloud SaaS รายเดือน, License แบบนำคีย์มาเองในราคา Early Bird 2026 รายปี หรือ White Label ทดลองฟรีด้วยการตรวจความพร้อมของระบบ — ไม่ต้องสมัคร",
+  en: "IN Z QA LAB — simulation and verification for web, API, and mobile. Persona → Simulate → ML/AI → Portal. QA simulation & verification lab · Web · API · Mobile · Bring Your Own API Key. Early Bird 2026: SaaS ฿490–5,990/month · License ฿120K–300K/year · White Label ฿3M+. Free readiness check on a live system URL — no signup.",
+  th: "IN Z QA LAB — จำลอง + ตรวจสอบเว็บ/API/มือถือ · Persona → Simulate → ML/AI → Portal ห้องแล็บจำลองและตรวจสอบสำหรับทีม QA · Web · API · Mobile · นำคีย์ API มาเอง Early Bird 2026: SaaS ฿490–5,990/เดือน · License ฿120K–300K/ปี · White Label ฿3M+ ตรวจความพร้อมฟรีจาก URL ระบบที่รันอยู่ — ไม่ต้องสมัคร",
 };
 
 const UNIVERSAL_SIMULATOR_SCOPE_EN: ScopeOfWork = {
@@ -299,18 +299,18 @@ export const SCOPE_OF_WORK_COPY: Record<
 };
 
 const MUSIC_DEMO_DESCRIPTION: LocalizedText = {
-  en: "Music Demo is an AI music creation studio for makers, creators, and small labels. Users generate song drafts from prompts, preview takes, then confirm and export — lyrics, chords, MIDI, MusicXML, and optional AI vocal preview. Pricing is pay-as-you-go credits (top up from ฿30 = 100 credits): create a song costs 50 credits, regenerate costs 25. Signup includes free credits. Built for fast creative loops without a monthly plan lock-in.",
-  th: "Music Demo เป็นสตูดิโอสร้างเพลงด้วย AI สำหรับผู้สร้างสรรค์และค่ายเล็ก สร้างเดโมจากพรอมต์ ฟังตัวอย่าง แล้วยืนยันและส่งออก — เนื้อเพลง คอร์ด MIDI MusicXML และตัวอย่างเสียงร้อง AI ตามต้องการ คิดเงินแบบเครดิตเติมได้ (เริ่ม ฿30 = 100 เครดิต): สร้างเพลง 50 เครดิต สร้างใหม่ 25 เครดิต สมัครแล้วได้เครดิตฟรี ออกแบบให้วนลูปสร้างสรรค์ได้เร็ว โดยไม่ล็อกแพ็กเกจรายเดือน",
+  en: "Music Demo is a DEMO / blueprint tool — we do not create the finished work; you do. Tagline: we help you complete. Core package is Artist Blueprint (lyrics · chords · MIDI/MusicXML) for playing on real instruments. AI vocal preview is a separate add-on from ฿49, not for commercial release. Credits pay-as-you-go (฿30 = 100 credits): create 50 · regenerate 25 · re-edit 50. Signup bonus 100 credits (300 for the first 30 users). For Gen Z, students, buskers, and small studios — not a commercial-ready song.",
+  th: "Music Demo เป็นเครื่องมือสร้าง DEMO / blueprint — เราไม่ได้สร้างสิ่งที่สมบูรณ์ คุณคือคนสร้างสิ่งที่สมบูรณ์ แพ็กหลักคือ Artist Blueprint (คำร้อง · คอร์ด · โน้ต/MIDI/MusicXML) สำหรับเล่นบนเครื่องจริง เสียงร้อง AI เป็นแอดออนแยก เริ่ม ฿49 ไม่ใช่ไฟล์ปล่อยขาย เครดิตจ่ายตามใช้ (฿30 = 100 เครดิต): สร้างเพลง 50 · เจนใหม่ 25 · Re-edit 50 โบนัสสมัคร 100 เครดิต (300 สำหรับ 30 คนแรก) สำหรับ Gen Z นักเรียน Busker และสตูดิโอเล็ก — ไม่ใช่ผลงานสำเร็จรูปพร้อมวางขาย",
 };
 
 const CONTENT_CREATOR_DESCRIPTION: LocalizedText = {
-  en: "Content Creator is IN Z’s Thai + SEA content platform: podcast pipelines (upload → AI transcription → show notes → clips → RSS) plus AI Video (idea chat → script → media match → TTS → render MP4 → multi-platform publish). It supports Thai dialects (Isan, Northern, Southern), Thai central, English, Vietnamese, and Indonesian. Billing is a 14-day free trial, then Starter ฿599, Creator ฿1,499, and Pro ฿2,999 per month — with real episode, render, storage, and feature quotas.",
-  th: "Content Creator คือแพลตฟอร์มคอนเทนต์ไทยและเอเชียตะวันออกเฉียงใต้ของ IN Z: ไปป์ไลน์พอดแคสต์ (อัปโหลด → ถอดเสียงด้วย AI → บันทึกตอน → คลิป → RSS) และวิดีโอ AI (แชทไอเดีย → สคริปต์ → จับคู่สื่อ → แปลงข้อความเป็นเสียง → เรนเดอร์ MP4 → เผยแพร่หลายแพลตฟอร์ม) รองรับภาษาถิ่นไทย (อีสาน เหนือ ใต้) ไทยกลาง อังกฤษ เวียดนาม และอินโดนีเซีย เริ่มทดลองฟรี 14 วัน แล้วเป็น Starter ฿599, Creator ฿1,499 และ Pro ฿2,999 ต่อเดือน พร้อมโควต้าตอน เรนเดอร์ ที่เก็บข้อมูล และฟีเจอร์จริง",
+  en: "Content Creator is a SaaS for making and managing content in Thai dialects (Northern · Isan · Southern) and SEA (Vietnamese · Indonesian · Central Thai · English). Pipeline: podcast upload → STT → show notes → clips → RSS, plus AI Video (idea chat → script → media match → TTS → render MP4 → multi-platform publish). 14-day free trial, then Starter ฿599 · Creator ฿1,499 · Pro ฿2,999 per month.",
+  th: "Content Creator เป็น SaaS สำหรับสร้างและจัดการคอนเทนต์ภาษาถิ่นไทย (เหนือ · อีสาน · ใต้) และ SEA (เวียดนาม · อินโดนีเซีย · ไทยกลาง · อังกฤษ) ไปป์ไลน์พอดแคสต์: อัปโหลด → ถอดเสียง → show notes → clips → RSS และ AI Video: chat แต่งเรื่อง/สคริปต์ → อัปโหลดสื่อ → จับคู่ฉาก → TTS → เรนเดอร์ MP4 → คิว publish ทดลองฟรี 14 วัน แล้วเป็น Starter ฿599 · Creator ฿1,499 · Pro ฿2,999 ต่อเดือน",
 };
 
 const NETR_DESCRIPTION: LocalizedText = {
-  en: "NetR is an IN Z network and relationship product for mapping partners, channels, and operating links across the business. It helps teams keep counterparties, referral paths, and collaboration status visible in one place so growth and operations stay aligned. Designed as a commercial IN Z product alongside SynthComm, QA LAB, Music Demo, and Content Creator — with Early Bird and standard plans for teams that need structured network visibility without building a custom CRM from scratch.",
-  th: "NetR เป็นผลิตภัณฑ์เครือข่ายและความสัมพันธ์ของ IN Z สำหรับแมปพาร์ทเนอร์ ช่องทาง และลิงก์การดำเนินงานของธุรกิจ ช่วยให้ทีมเห็นคู่ค้า เส้นทางแนะนำ และสถานะความร่วมมือในที่เดียว เพื่อให้การเติบโตและการดำเนินงานไปด้วยกัน ออกแบบเป็นผลิตภัณฑ์เชิงพาณิชย์ของ IN Z คู่กับ SynthComm, QA LAB, Music Demo และ Content Creator — มี Early Bird และแพ็กเกจมาตรฐาน สำหรับทีมที่ต้องการมองเห็นเครือข่ายอย่างเป็นระบบ โดยไม่ต้องสร้างระบบลูกค้าสัมพันธ์ขึ้นมาเอง",
+  en: "netr (เนตร) is IN Z’s Thai karmic-astrology oracle: ancient Thai texts plus AI that remembers you. Chat your chart on the web — start free with 5 minutes per day, then Prepaid minutes or Plus. Fortune-telling for reflection and decisions, not a substitute for medical or psychiatric care.",
+  th: "เนตร (netr) คือ Oracle โหราศาสตร์ปฏิวัติกรรมจากตำราไทยโบราณ ผสาน AI ที่จำคุณได้ คุยดวงบนเว็บ เริ่มฟรี 5 นาทีต่อวัน แล้วเติมนาที Prepaid หรือสมัคร Plus โหราศาสตร์เพื่อการสะท้อนและตัดสินใจ — ไม่แทนที่คำปรึกษาทางการแพทย์หรือจิตเวช",
 };
 
 const SYNTHCOMM_SAAS_TIERS: PricingTier[] = [
@@ -454,8 +454,8 @@ const MUSIC_DEMO_SAAS_TIERS: PricingTier[] = [
     name: { en: "Top-up 100", th: "เติม 100" },
     price: "฿30",
     detail: {
-      en: "100 credits · ~2 songs or 1 song + 2 regenerates",
-      th: "100 เครดิต · ประมาณ 2 เพลง หรือ 1 เพลง + สร้างใหม่ 2 ครั้ง",
+      en: "100 credits · 2 songs or 1 song + 2 regenerates",
+      th: "100 เครดิต · สร้างได้ 2 เพลง หรือ 1 เพลง + เจนใหม่ 2 ครั้ง",
     },
     highlight: true,
   },
@@ -464,7 +464,7 @@ const MUSIC_DEMO_SAAS_TIERS: PricingTier[] = [
     price: "฿90",
     detail: {
       en: "300 credits · ~6 songs (no regenerates)",
-      th: "300 เครดิต · ประมาณ 6 เพลง (ไม่รวมสร้างใหม่)",
+      th: "300 เครดิต · สร้างได้ 6 เพลง (ไม่เจนใหม่)",
     },
   },
   {
@@ -477,10 +477,10 @@ const MUSIC_DEMO_SAAS_TIERS: PricingTier[] = [
   },
   {
     name: { en: "Usage", th: "การใช้งาน" },
-    price: "50 / 25",
+    price: "50 / 25 / 50",
     detail: {
-      en: "Create song 50 credits · Regenerate 25 credits",
-      th: "สร้างเพลง 50 เครดิต · สร้างใหม่ 25 เครดิต",
+      en: "Create 50 · regenerate 25 · re-edit 50 credits",
+      th: "สร้างเพลง 50 · เจนใหม่ 25 · Re-edit 50 เครดิต",
     },
   },
   {
@@ -529,6 +529,34 @@ const CONTENT_CREATOR_SAAS_TIERS: PricingTier[] = [
   },
 ];
 
+const NETR_SAAS_TIERS: PricingTier[] = [
+  {
+    name: { en: "Free", th: "ฟรี" },
+    price: "฿0",
+    detail: {
+      en: "5 minutes / day · web /chat only · no payment",
+      th: "5 นาที/วัน — ไม่ต้องจ่าย คุยได้เฉพาะหน้า /chat",
+    },
+    highlight: true,
+  },
+  {
+    name: { en: "Prepaid 10 minutes", th: "Prepaid 10 นาที" },
+    price: "฿10",
+    detail: {
+      en: "Buy as needed · stackable · chat at /chat",
+      th: "฿10 · ซื้อตามต้องการ · สะสมได้ · คุยที่ /chat",
+    },
+  },
+  {
+    name: { en: "Plus", th: "Plus" },
+    price: { en: "฿59 / month", th: "฿59/เดือน" },
+    detail: {
+      en: "150 minutes / month · chat at /chat",
+      th: "฿59/เดือน · 150 นาที/เดือน · คุยที่ /chat",
+    },
+  },
+];
+
 const CONTACT_SALES: LocalizedText = {
   en: "Contact sales",
   th: "ติดต่อฝ่ายขาย",
@@ -538,8 +566,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "SynthComm",
     title: {
-      en: "SynthComm — Industrial Thai Synthetic Data Factory",
-      th: "SynthComm — โรงงานข้อมูลสังเคราะห์ภาษาไทยระดับอุตสาหกรรม",
+      en: "SynthComm — Industrial synthetic CS data factory",
+      th: "SynthComm — โรงงานข้อมูลบทสนทนาสังเคราะห์",
     },
     description: SYNTHCOMM_DESCRIPTION,
     earlyBirdPrice: { en: "Contact for quote", th: "ติดต่อขอใบเสนอราคา" },
@@ -581,8 +609,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "QA LAB",
     title: {
-      en: "QA LAB — User Behavior Simulation for QA Teams",
-      th: "QA LAB — จำลองพฤติกรรมผู้ใช้สำหรับทีม QA",
+      en: "QA LAB — simulation & verification for web, API, and mobile",
+      th: "QA LAB — จำลองและตรวจสอบเว็บ API และมือถือ",
     },
     description: UNIVERSAL_SIMULATOR_DESCRIPTION,
     earlyBirdPrice: {
@@ -631,8 +659,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "Music Demo",
     title: {
-      en: "Music Demo — AI Music Creation Studio",
-      th: "Music Demo — สตูดิโอสร้างเพลงด้วย AI",
+      en: "Music Demo — We help you complete",
+      th: "Music Demo — เราช่วยให้คุณสมบูรณ์",
     },
     description: MUSIC_DEMO_DESCRIPTION,
     earlyBirdPrice: {
@@ -649,8 +677,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
         ctaLabel: { en: "Open Music Demo", th: "เปิด Music Demo" },
         ctaHref: "/demo",
         note: {
-          en: "Credits pay-as-you-go — no monthly plan. Artist Blueprint (lyrics / chords / MIDI / MusicXML). AI Vocal Preview add-on from ฿49. Prices exclude VAT 7%.",
-          th: "เครดิตจ่ายตามใช้ — ไม่มีแพ็กเกจรายเดือน Artist Blueprint (เนื้อเพลง / คอร์ด / MIDI / MusicXML) ส่วนเสริมตัวอย่างเสียงร้อง AI เริ่ม ฿49 ราคาไม่รวม VAT 7%",
+          en: "Credits pay-as-you-go — no monthly plan. Artist Blueprint (lyrics · chords · MIDI/MusicXML). AI Vocal Preview add-on from ฿49, not included in the core package. Prices exclude VAT 7%.",
+          th: "เครดิตจ่ายตามใช้ — ไม่ผูกแพ็กเดือน แพ็กหลัก Artist Blueprint (คำร้อง · คอร์ด · MIDI/MusicXML) เสียงร้อง AI เป็นแอดออนเริ่ม ฿49 ไม่รวมในแพ็กหลัก ราคาไม่รวม VAT 7%",
         },
         tiers: MUSIC_DEMO_SAAS_TIERS,
       },
@@ -659,8 +687,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "Content Creator",
     title: {
-      en: "Content Creator — Podcast + AI Video for Thai & SEA",
-      th: "Content Creator — พอดแคสต์และวิดีโอ AI สำหรับไทยและเอเชียตะวันออกเฉียงใต้",
+      en: "Content Creator — Thai dialects + SEA",
+      th: "Content Creator — ถิ่นไทย + SEA",
     },
     description: CONTENT_CREATOR_DESCRIPTION,
     earlyBirdPrice: { en: "14-day free trial", th: "ทดลองฟรี 14 วัน" },
@@ -671,8 +699,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
         ctaLabel: { en: "Open Content Creator", th: "เปิด Content Creator" },
         ctaHref: "/demo",
         note: {
-          en: "Source of truth: Content Creator plans.ts — Free Trial then Starter / Creator / Pro. Annual ~17% off. Quotas enforced (episodes, renders, storage, features).",
-          th: "อ้างอิงแพ็กเกจ Content Creator — ทดลองฟรี แล้วเป็น Starter / Creator / Pro รายปีลดประมาณ 17% มีโควต้าตอน เรนเดอร์ ที่เก็บข้อมูล และฟีเจอร์",
+          en: "Source of truth: api/src/config/plans.ts — Free Trial then Starter / Creator / Pro. Monthly quotas reset on the 1st (Thailand time). Trial videos always have a watermark.",
+          th: "ต้นฉบับราคา: api/src/config/plans.ts — ทดลองฟรี แล้วเป็น Starter / Creator / Pro โควตารายเดือนรีเซ็ตวันที่ 1 ตามเวลาไทย วิดีโอช่วงทดลองติดลายน้ำเสมอ",
         },
         tiers: CONTENT_CREATOR_SAAS_TIERS,
       },
@@ -681,13 +709,30 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "NetR",
     title: {
-      en: "NetR — Network & Relationship Hub",
-      th: "NetR — ศูนย์เครือข่ายและความสัมพันธ์",
+      en: "netr — Oracle of Karmic Stars",
+      th: "เนตร — Oracle ที่รู้จักคุณดีกว่าใคร",
     },
     description: NETR_DESCRIPTION,
-    earlyBirdPrice: { en: "Contact for Early Bird", th: "ติดต่อสำหรับ Early Bird" },
-    regularPrice: { en: "Subscription tiers", th: "แพ็กเกจรายเดือน" },
+    earlyBirdPrice: {
+      en: "Free — 5 minutes / day",
+      th: "ฟรี — 5 นาที/วัน",
+    },
+    regularPrice: {
+      en: "Prepaid ฿10 · Plus ฿59 / month",
+      th: "Prepaid ฿10 · Plus ฿59/เดือน",
+    },
     models: ["saas"],
+    pricingByModel: {
+      saas: {
+        ctaLabel: { en: "Open netr", th: "เปิดเนตร" },
+        ctaHref: "/netr",
+        note: {
+          en: "Chat only on the web /chat page. Daily free minutes first, then Plus, then Prepaid. No Pro plan.",
+          th: "คุยดวงได้เฉพาะหน้าเว็บ /chat ใช้ฟรีรายวันก่อน แล้ว Plus แล้ว Prepaid ไม่มีแพ็กเกจ Pro",
+        },
+        tiers: NETR_SAAS_TIERS,
+      },
+    },
   },
 ];
 

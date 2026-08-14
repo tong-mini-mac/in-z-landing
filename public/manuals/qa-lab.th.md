@@ -1,21 +1,22 @@
-# QA LAB — คู่มือผู้ใช้
+# คู่มือผู้ใช้ — QA LAB Portal
 
-QA LAB ของ IN Z จำลองพฤติกรรมผู้ใช้และทดสอบระบบเว็บ/API ที่ติดตั้งแล้ว รวม API/แบ็กเอนด์ของแอปมือถือ และการทดสอบ E2E บนแอป native ผ่าน Appium
+IN Z QA LAB — จำลอง + ตรวจสอบเว็บ/API/มือถือ · Persona → Simulate → ML/AI → Portal
 
-## เริ่มต้นใช้งาน
+## ระบบนี้ทำอะไร (Scope)
 
-1. เข้าสู่ระบบที่ [inz.lol](https://www.inz.lol/auth?mode=signin)
-2. เปิด QA LAB จาก **แพ็กเกจของคุณ** ในบัญชี
-3. ชี้การทดสอบไปที่ URL HTTPS สาธารณะของระบบที่รันอยู่
+จำลองพฤติกรรมผู้ใช้ + ทดสอบ **เว็บ/API ที่ deploy แล้วมี URL** — รวม backend ของแอปมือถือ และ E2E native ผ่าน Appium · ไม่จำกัดแค่ระบบแนว AI · ไม่ใช่การทดสอบ repo บน Git โดยตรง
 
-## สิ่งที่ทดสอบได้
+## เริ่มต้น
 
-- เว็บแอป API พอร์ทัล SaaS ERP
-- ความพร้อมของ API / แบ็กเอนด์แอปมือถือ
-- E2E native ผ่าน Appium (License/เครื่องตัวเอง หรือ BrowserStack BYOK)
+1. เปิด Portal (เช่น https://qa-lab-production.up.railway.app)
+2. เอกสารสาธารณะ: Catalog · User Manual · PDPA
+3. Free readiness: ใส่ URL ระบบจริง → คะแนน 0–100 + สูงสุด 5 ข้อค้นพบ ไม่ต้องสมัคร ไม่ใช้ LLM
+4. หลังเข้าสู่ระบบ เลือก Starter / Pro / Business
 
-## สิ่งที่ทดสอบจาก Cloud ไม่ได้
+## SaaS Early Bird 2026
 
-- คลังโค้ดบน Git ที่ยังไม่ได้ติดตั้ง
-- IP ใน LAN / NAS ส่วนตัว (ใช้ License / White Label)
-- VPN ของลูกค้าจาก Cloud SaaS
+| แผน | ราคา | ที่นั่ง | Sims / เดือน |
+|------|------|--------|----------------|
+| Starter | ฿490 / เดือน | 1 | 50 |
+| Pro | ฿3,490 / เดือน | 3 | 300 |
+| Business | ฿5,990 / เดือน | 5 | 500 |

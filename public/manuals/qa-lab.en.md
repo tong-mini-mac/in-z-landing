@@ -1,21 +1,22 @@
 # QA LAB — User Manual
 
-IN Z QA LAB simulates user behavior and tests deployed web/API systems, including mobile app backends and Appium native E2E.
+IN Z QA LAB — simulation and verification for web, API, and mobile. Persona → Simulate → ML/AI → Portal.
 
-## Getting started
+## Scope
 
-1. Sign in at [inz.lol](https://www.inz.lol/auth?mode=signin).
-2. Open QA LAB from **Your package** on your account.
-3. Point tests at a public HTTPS URL of a running system.
+Simulate user behavior and test **web/API systems that are already deployed with a URL** — including mobile backends and native E2E via Appium. Not Git-repo testing. Not a hosted device farm on Cloud SaaS.
 
-## What you can test
+## Start
 
-- Web apps, APIs, SaaS portals, ERP
-- Mobile API / backend readiness
-- Appium native E2E (License/local or BrowserStack BYOK)
+1. Open the portal (for example https://qa-lab-production.up.railway.app).
+2. Public docs: Catalog · User Manual · PDPA.
+3. Free readiness: paste a live system URL — score 0–100 plus up to 5 findings. No signup. No LLM.
+4. After login, choose Starter / Pro / Business.
 
-## What you cannot test from Cloud
+## Early Bird 2026 SaaS
 
-- Git repositories that are not deployed
-- Private LAN / NAS IPs (use License / White Label)
-- Customer VPN from Cloud SaaS
+| Plan | Price | Seats | Sims / month |
+|------|-------|-------|----------------|
+| Starter | ฿490 / month | 1 | 50 |
+| Pro | ฿3,490 / month | 3 | 300 |
+| Business | ฿5,990 / month | 5 | 500 |

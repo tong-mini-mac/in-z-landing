@@ -4,7 +4,7 @@ import { NetRView } from "@/components/NetRView";
 export const metadata: Metadata = {
   title: "NetR — IN Z",
   description:
-    "NetR — Network & Relationship Hub from IN Z. Coming soon as a commercial SaaS product.",
+    "netr (เนตร) — Oracle of Karmic Stars. Thai karmic astrology from ancient texts plus AI that remembers you. Start free.",
 };
 
 export default function NetRPage() {

@@ -8,29 +8,29 @@ import { useSiteLang } from "@/lib/use-site-lang";
 const COPY = {
   th: {
     eyebrow: "IN Z · SaaS",
-    lead: "ศูนย์เครือข่ายและความสัมพันธ์ — แมปพาร์ทเนอร์ ช่องทาง และลิงก์การทำงานไว้ที่เดียว",
+    lead: "เนตร — Oracle ที่รู้จักคุณดีกว่าใคร · โหราศาสตร์ปฏิวัติกรรมจากตำราไทยโบราณ ผสาน AI ที่จำคุณได้",
     statusTitle: "สถานะ",
     statusBody:
-      "NetR อยู่ในรายการ Your products สำหรับ Early Bird / แผนเชิงพาณิชย์ แต่แอปยังไม่เปิดใช้งาน — หน้านี้เป็นหน้าสถานะ ไม่ใช่หน้า Products ที่ซ้อนกัน",
+      "เนตรอยู่ในรายการผลิตภัณฑ์ของคุณ แต่แอปยังเชื่อม SSO จาก IN Z ไม่ครบ — หน้านี้เป็นหน้าสถานะ ไม่ใช่หน้าดูดวง",
     nextBody:
-      "เมื่อ SaaS พร้อม จะเข้า workspace แบบเดียวกับ Music Demo และ Content Creator",
+      "เมื่อพร้อม จะเปิดหน้าแชทเนตรแบบเดียวกับผลิตภัณฑ์อื่นในบัญชี IN Z",
     meanwhileTitle: "ระหว่างนี้",
-    meanwhileBody: "ดูรายละเอียดในแคตตาล็อก SaaS หรือกลับไป Your products",
+    meanwhileBody: "ดูแคตตาล็อก SaaS หรือกลับไปแพ็กเกจของคุณ — คุยดวงได้เฉพาะหน้า /chat ของเนตร",
     catalog: "ดูในแคตตาล็อก SaaS",
-    account: "Your products",
+    account: "แพ็กเกจของคุณ",
   },
   en: {
     eyebrow: "IN Z · SaaS",
-    lead: "Network & Relationship Hub — map partners, channels, and operating links in one place.",
+    lead: "netr — Oracle of Karmic Stars · Thai karmic astrology from ancient texts plus AI that remembers you.",
     statusTitle: "Status",
     statusBody:
-      "NetR is listed in Your products for Early Bird / commercial planning, but the product app is not live yet. This is the NetR status page.",
+      "netr is listed in Your products, but IN Z SSO handoff is not live yet. This is the status page, not the chat oracle.",
     nextBody:
-      "When SaaS launches, account open will hand off into the NetR workspace the same way Music Demo and Content Creator do.",
+      "When ready, account open will take you into the netr web chat the same way other IN Z products do.",
     meanwhileTitle: "Meanwhile",
-    meanwhileBody: "Review the SaaS catalog, or return to Your products.",
+    meanwhileBody: "Review the SaaS catalog, or return to Your package. Chart chat is only on netr’s /chat page.",
     catalog: "View on SaaS catalog",
-    account: "Your products",
+    account: "Your package",
   },
 } as const;
 

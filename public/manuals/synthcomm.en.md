@@ -1,21 +1,29 @@
 # SynthComm — User Manual
 
-IN Z SynthComm generates high-fidelity Thai conversational datasets for chatbots, customer service systems, and language models.
+For B2B customers. SynthComm is an industrial multi-agent factory for high-fidelity synthetic CS data (Thai · English · Indonesian · Vietnamese). Customer channel: **web portal only** — no Telegram or LINE bot.
+
+## What it does
+
+- Takes a **topic** and a **conversation count**
+- Optional web research
+- Locale-locked geo / banks / tracking (TH / EN / ID / VI)
+- Multi-dimensional QC
+- Delivers JSON / CSV / HTML / PDF via the portal
 
 ## Getting started
 
-1. Sign in at [inz.lol](https://www.inz.lol/auth?mode=signin).
-2. Open SynthComm from **Your package** on your account.
-3. Start with the Free plan (100 conversations / month), then scale as needed.
+1. Sign in at IN Z, then open SynthComm from **Your package**.
+2. Email verify activates **Free** (100 conversations / month).
+3. Upgrade to Starter / Growth / Business as needed.
 
-## Plans
+## SaaS plans
 
-- Free — 100 conversations / month
-- Starter — 1,000 conversations / month
-- Growth — 5,000 conversations / month
-- Business — 20,000 conversations / month
-- Enterprise — custom, unlimited, SLA
+| Plan | Price | Included |
+|------|-------|----------|
+| Free | ฿0 | 100 conversations / month |
+| Starter | ฿2,900 / month | 1,000 / month |
+| Growth | ฿12,900 / month | 5,000 / month |
+| Business | ฿39,000 / month | 20,000 / month |
+| Enterprise | Custom | Unlimited · white-label · custom SLA |
 
-## Quality
-
-Each conversation uses multi-agent writing plus dual-layer quality control for linguistic accuracy, cultural fit, and PDPA-safe handling.
+Annual plans save about 20%.

@@ -29,8 +29,8 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "ฟรี — 100 บทสนทนา / เดือน",
     },
     trialSummary: {
-      en: "Generate Thai conversations free — 100 per month — before upgrading.",
-      th: "ลองสร้างชุดสนทนาภาษาไทยฟรี 100 ครั้งต่อเดือน ก่อนอัปเกรดแพ็กเกจ",
+      en: "Generate synthetic CS conversations free — 100 per month (TH · EN · ID · VI).",
+      th: "สร้างบทสนทนาสังเคราะห์ฟรี 100 ครั้งต่อเดือน (ไทย · อังกฤษ · อินโด · เวียด)",
     },
     ctaLabel: {
       en: "Try SynthComm free",
@@ -67,8 +67,8 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "ลองสร้างเพลงด้วย AI",
     },
     trialSummary: {
-      en: "Open the AI music studio and draft songs from a prompt.",
-      th: "เปิดสตูดิโอสร้างเพลงด้วย AI แล้วลองสร้างดราฟต์จาก prompt",
+      en: "DEMO / blueprint credits — we help you complete; you finish the song.",
+      th: "เครดิต DEMO / blueprint — เราช่วยให้คุณสมบูรณ์ คุณใส่จิตวิญญาณ",
     },
     ctaLabel: {
       en: "Open Music Demo",
@@ -86,8 +86,8 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "ทดลองใช้ฟรี 14 วัน",
     },
     trialSummary: {
-      en: "Try podcast + AI video for Thai dialects and SEA — 5 episodes and 3 renders on trial.",
-      th: "ทดลองพอดแคสต์ + AI Video สำหรับภาษาถิ่นไทยและ SEA — 5 episodes และเรนเดอร์ 3 ครั้งในช่วงทดลอง",
+      en: "Try podcast + AI video for Thai dialects and SEA — 5 episodes and 3 watermarked renders on trial.",
+      th: "ทดลองพอดแคสต์ + AI Video สำหรับถิ่นไทยและ SEA — 5 ตอน และเรนเดอร์ 3 ครั้งติดลายน้ำในช่วงทดลอง",
     },
     ctaLabel: {
       en: "Start Content Creator trial",
