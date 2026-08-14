@@ -10,6 +10,13 @@ export type PricingTier = {
   highlight?: boolean;
 };
 
+export type ResolvedPricingTier = {
+  name: string;
+  price: string;
+  detail: string;
+  highlight?: boolean;
+};
+
 export function pickLang(
   value: LocalizedText | string | undefined,
   lang: AuthLang,
@@ -699,7 +706,7 @@ export function productManualHref(name: string, lang: AuthLang = "en"): string {
 export function localizeTiers(
   tiers: PricingTier[] | undefined,
   lang: AuthLang,
-): Array<{ name: string; price: string; detail: string; highlight?: boolean }> {
+): ResolvedPricingTier[] {
   return (tiers || []).map((tier) => ({
     name: pickLang(tier.name, lang),
     price: pickLang(tier.price, lang),
@@ -716,7 +723,7 @@ export function pricingForProduct(
   ctaLabel: string;
   ctaHref?: string;
   note?: string;
-  tiers: Array<{ name: string; price: string; detail: string; highlight?: boolean }>;
+  tiers: ResolvedPricingTier[];
 } | null {
   const byModel = product.pricingByModel?.[model];
   if (byModel) {

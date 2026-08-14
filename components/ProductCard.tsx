@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import {
   SCOPE_OF_WORK_COPY,
   type LocalizedScopeOfWork,
-  type PricingTier,
+  type ResolvedPricingTier,
 } from "@/lib/product-catalog";
 import { SITE_COPY } from "@/lib/site-i18n";
 import { useSiteLang } from "@/lib/use-site-lang";
@@ -17,7 +17,7 @@ type ProductCardProps = {
   subscribeHref: string;
   earlyBirdPrice?: string;
   regularPrice?: string;
-  pricingTiers?: PricingTier[];
+  pricingTiers?: ResolvedPricingTier[];
   subscribeCtaLabel?: string;
   pricingNote?: string;
   scopeOfWork?: LocalizedScopeOfWork;
