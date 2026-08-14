@@ -13,6 +13,7 @@ type ProductCardProps = {
   name: string;
   title: string;
   description: string;
+  detailHref: string;
   subscribeHref: string;
   earlyBirdPrice?: string;
   regularPrice?: string;
@@ -31,6 +32,7 @@ export function ProductCard({
   name,
   title,
   description,
+  detailHref,
   subscribeHref,
   earlyBirdPrice = "3 baht / conversation",
   regularPrice = "6 baht / conversation",
@@ -107,7 +109,11 @@ export function ProductCard({
       className={`product-card${openPanel ? " is-active" : ""}${className ? ` ${className}` : ""}`}
       ref={rootRef}
     >
-      <h2 className="product-name">{name}</h2>
+      <h2 className="product-name">
+        <a className="product-name-link" href={detailHref}>
+          {name}
+        </a>
+      </h2>
 
       <div
         className={`product-hover${openPanel === "description" ? " is-open" : ""}`}

@@ -3,7 +3,11 @@
 import Image from "next/image";
 import { ProductCard } from "@/components/ProductCard";
 import { SiteFooter, SiteNav } from "@/components/SiteChrome";
-import { PRODUCT_CATALOG, pricingForProduct } from "@/lib/product-catalog";
+import {
+  PRODUCT_CATALOG,
+  pricingForProduct,
+  productSlug,
+} from "@/lib/product-catalog";
 import type { ProductModel } from "@/lib/product-models";
 import { SITE_COPY } from "@/lib/site-i18n";
 import { useSiteLang } from "@/lib/use-site-lang";
@@ -55,6 +59,7 @@ export function ProductsModelView({ model }: { model: ProductModel }) {
                   name={product.name}
                   title={product.title}
                   description={product.description}
+                  detailHref={`/products/${model}/${productSlug(product.name)}`}
                   subscribeHref={
                     pricing?.ctaHref ||
                     `${AUTH_SIGNUP}&model=${model}&product=${encodeURIComponent(product.name.toLowerCase())}`

@@ -549,6 +549,18 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
   },
 ];
 
+export function productSlug(name: string): string {
+  return name.toLowerCase().replace(/\s+/g, "-");
+}
+
+export function findCatalogProduct(slug: string): CatalogProduct | undefined {
+  return PRODUCT_CATALOG.find((product) => productSlug(product.name) === slug);
+}
+
+export function productManualHref(name: string): string {
+  return `/manuals/${productSlug(name)}.md`;
+}
+
 export function pricingForProduct(
   product: CatalogProduct,
   model: ProductModel,

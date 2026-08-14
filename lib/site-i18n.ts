@@ -89,6 +89,14 @@ export type SiteCopy = {
     subscribe: string;
     earlyBird: string;
     regular: string;
+    openCatalog: string;
+  };
+  productDetail: {
+    back: string;
+    catalog: string;
+    manual: string;
+    yourPackage: string;
+    signInSignUp: string;
   };
   legal: {
     termsEyebrow: string;
@@ -271,6 +279,14 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       subscribe: "สมัครใช้งาน",
       earlyBird: "Early Bird",
       regular: "ราคาปกติ",
+      openCatalog: "แคตตาล็อก",
+    },
+    productDetail: {
+      back: "กลับไปผลิตภัณฑ์",
+      catalog: "แคตตาล็อก",
+      manual: "ดาวน์โหลดคู่มือ",
+      yourPackage: "Your package",
+      signInSignUp: "Sign in / Sign up",
     },
     legal: {
       termsEyebrow: "กฎหมาย",
@@ -457,6 +473,14 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       subscribe: "Subscribe",
       earlyBird: "Early Bird",
       regular: "Regular",
+      openCatalog: "Catalog",
+    },
+    productDetail: {
+      back: "Back to products",
+      catalog: "Catalog",
+      manual: "Download manual",
+      yourPackage: "Your package",
+      signInSignUp: "Sign in / Sign up",
     },
     legal: {
       termsEyebrow: "Legal",
