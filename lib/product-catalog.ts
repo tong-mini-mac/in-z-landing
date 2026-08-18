@@ -545,11 +545,11 @@ const NETR_SAAS_TIERS: PricingTier[] = [
     highlight: true,
   },
   {
-    name: { en: "Prepaid 10 minutes", th: "Prepaid 10 นาที" },
-    price: "฿10",
+    name: { en: "Prepaid 15 minutes", th: "Prepaid 15 นาที" },
+    price: "฿20",
     detail: {
-      en: "Buy as needed · stackable · chat at /chat",
-      th: "฿10 · ซื้อตามต้องการ · สะสมได้ · คุยที่ /chat",
+      en: "฿20 · buy as needed · stackable · chat at /chat",
+      th: "฿20 · ซื้อตามต้องการ · สะสมได้ · คุยที่ /chat",
     },
   },
   {
@@ -755,8 +755,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
       th: "ฟรี — 5 นาที/วัน",
     },
     regularPrice: {
-      en: "Prepaid ฿10 · Plus ฿59 / month",
-      th: "Prepaid ฿10 · Plus ฿59/เดือน",
+      en: "Prepaid ฿20 · Plus ฿59 / month",
+      th: "Prepaid ฿20 · Plus ฿59/เดือน",
     },
     models: ["saas"],
     pricingByModel: {

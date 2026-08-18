@@ -28,7 +28,7 @@ Signed in with this package: the button is **Your package** (goes to chat).
 | Package | Price | Quota |
 |---------|-------|--------|
 | Free | ฿0 | 5 minutes / day |
-| Prepaid 10 minutes (`prepaid_10m`) | ฿10 | 10 minutes, stackable |
+| Prepaid 15 minutes (`prepaid_15m`) | ฿20 | 15 minutes, stackable |
 | Plus (`plus_monthly`) | ฿59 / month | 150 minutes / month |
 
 There is no Pro plan (discontinued).
