@@ -97,9 +97,10 @@ export function PaymentNotifyView() {
       setSkuId(skuMatch.id);
       return;
     }
-    if (fromQuery && products.some((item) => item.id === fromQuery)) {
-      setProductId(fromQuery);
-      const models = payableModelsForProduct(fromQuery);
+    const productMatch = products.find((item) => item.id === fromQuery);
+    if (productMatch) {
+      setProductId(productMatch.id);
+      const models = payableModelsForProduct(productMatch.id);
       setModel(
         modelFromQuery && models.includes(modelFromQuery)
           ? modelFromQuery
