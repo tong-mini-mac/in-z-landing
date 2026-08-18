@@ -21,7 +21,8 @@ export async function GET() {
   const mock = process.env.DEMO_BILLING_MOCK === "1";
   const omise = isOmiseConfigured() || mock;
   const mail = getMailStatus().configured || mock;
-  const omiseLive = isOmiseLive() || mock;
+  // Keys alone (or demo mock) must not open PromptPay/card on the public page.
+  const omiseLive = isOmiseLive();
   return NextResponse.json({
     configured: omise || mail,
     omise,

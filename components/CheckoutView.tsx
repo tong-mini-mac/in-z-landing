@@ -98,7 +98,7 @@ export function CheckoutView() {
   const [productId, setProductId] = useState(products[0]?.id || "");
   const [model, setModel] = useState<ProductModel>("saas");
   const [skuId, setSkuId] = useState("");
-  const [method, setMethod] = useState<PayMethod>("promptpay");
+  const [method, setMethod] = useState<PayMethod>("transfer");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [qrImage, setQrImage] = useState<string | null>(null);
@@ -110,6 +110,7 @@ export function CheckoutView() {
   const [omiseLive, setOmiseLive] = useState(false);
   const [mailReady, setMailReady] = useState(false);
   const [bank, setBank] = useState<BankAccount | null>(null);
+  const [qrUrl, setQrUrl] = useState("/pay/promptpay-qr.png");
   const [slip, setSlip] = useState<File | null>(null);
   const [copied, setCopied] = useState(false);
   const [mockBilling, setMockBilling] = useState(false);
@@ -212,6 +213,7 @@ export function CheckoutView() {
           publicKey?: string | null;
           mock?: boolean;
           bank?: BankAccount | null;
+          qrUrl?: string;
         }) => {
           setOmiseReady(Boolean(data.omise));
           setOmiseLive(Boolean(data.omiseLive));
@@ -219,6 +221,7 @@ export function CheckoutView() {
           setPublicKey(data.publicKey || null);
           setMockBilling(Boolean(data.mock));
           setBank(data.bank || null);
+          if (data.qrUrl) setQrUrl(data.qrUrl);
         },
       )
       .catch(() => {
@@ -542,32 +545,40 @@ export function CheckoutView() {
           {!omiseLive || !(promptpayBlocked || tooSmall) ? (
             <button
               type="button"
-              className={method === "promptpay" ? "is-active" : undefined}
+              className={[
+                method === "promptpay" ? "is-active" : "",
+                !omiseLive ? "is-closed" : "",
+              ]
+                .filter(Boolean)
+                .join(" ") || undefined}
               aria-pressed={method === "promptpay"}
               onClick={() => setMethod("promptpay")}
             >
               {t.promptpay}
+              {!omiseLive ? <span className="chip-note">{t.omiseClosed}</span> : null}
             </button>
           ) : null}
           {!omiseLive || !tooSmall ? (
             <button
               type="button"
-              className={method === "card" ? "is-active" : undefined}
+              className={[
+                method === "card" ? "is-active" : "",
+                !omiseLive ? "is-closed" : "",
+              ]
+                .filter(Boolean)
+                .join(" ") || undefined}
               aria-pressed={method === "card"}
               onClick={() => setMethod("card")}
             >
               {t.card}
+              {!omiseLive ? <span className="chip-note">{t.omiseClosed}</span> : null}
             </button>
           ) : null}
           <button
             type="button"
             className={method === "transfer" ? "is-active" : undefined}
             aria-pressed={method === "transfer"}
-            onClick={() =>
-              router.push(
-                `/pay/notify?product=${encodeURIComponent(productId)}&model=${model}&sku=${encodeURIComponent(selected?.id || "")}&lang=${lang}`,
-              )
-            }
+            onClick={() => setMethod("transfer")}
           >
             {t.transfer}
           </button>
@@ -584,11 +595,7 @@ export function CheckoutView() {
           <button
             type="button"
             className="product-detail-cta is-primary"
-            onClick={() =>
-              router.push(
-                `/pay/notify?product=${encodeURIComponent(productId)}&model=${model}&sku=${encodeURIComponent(selected?.id || "")}&lang=${lang}`,
-              )
-            }
+            onClick={() => setMethod("transfer")}
           >
             {t.goTransfer}
           </button>
@@ -636,6 +643,14 @@ export function CheckoutView() {
       {method === "transfer" ? (
         <div className="checkout-transfer">
           <p className="product-pricing-note">{t.transferNote}</p>
+          {qrUrl ? (
+            <div className="checkout-pay-qr">
+              <p>{SITE_COPY[lang].payNotify.scanQr}</p>
+              {/* Static PromptPay QR hosted on this site */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={qrUrl} alt={SITE_COPY[lang].payNotify.scanQr} width={280} height={360} />
+            </div>
+          ) : null}
           {bank ? (
             <dl className="checkout-bank">
               <div>

@@ -2050,6 +2050,19 @@ img {
   text-align: left;
 }
 
+.checkout-chips button.is-closed {
+  opacity: 0.88;
+}
+
+.checkout-chips button .chip-note {
+  display: block;
+  margin-top: 0.18rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
 .checkout-chips button.is-active,
 .checkout-skus button.is-active {
   border-color: var(--ink);
@@ -2201,6 +2214,10 @@ img {
   display: grid;
   gap: 0.6rem;
   justify-items: start;
+  width: 100%;
+  padding: 1rem 1.05rem;
+  border: 1px dashed rgba(10, 10, 10, 0.28);
+  background: rgba(10, 10, 10, 0.04);
 }
 
 .checkout-closed-title {
