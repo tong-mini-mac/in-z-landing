@@ -2133,3 +2133,52 @@ img {
   height: 220px;
   object-fit: contain;
 }
+
+.checkout-transfer,
+.checkout-bank {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.checkout-bank {
+  margin: 0;
+}
+
+.checkout-bank div {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.checkout-bank dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.checkout-bank dd {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.checkout-bank button {
+  border: 1px solid rgba(10, 10, 10, 0.16);
+  background: transparent;
+  color: var(--ink);
+  padding: 0.25rem 0.55rem;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+}
+
+.checkout-slip {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.checkout-slip input[type="file"] {
+  font: inherit;
+}

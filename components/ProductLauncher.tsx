@@ -56,6 +56,7 @@ export function ProductLauncher() {
   const latestByProduct = useMemo(() => {
     const map = new Map<string, AtlasEntitlement>();
     for (const item of entitlements) {
+      if (item.status !== "paid") continue;
       if (!map.has(item.product_id)) map.set(item.product_id, item);
     }
     return map;

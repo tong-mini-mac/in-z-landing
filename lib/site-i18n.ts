@@ -135,6 +135,7 @@ export type SiteCopy = {
     success: string;
     openAccount: string;
     notConfigured: string;
+    mailNotConfigured: string;
     belowMin: string;
     cardName: string;
     cardNumber: string;
@@ -149,6 +150,22 @@ export type SiteCopy = {
     quoteNote: string;
     contactSales: string;
     promptpayMax: string;
+    transfer: string;
+    transferNote: string;
+    uploadSlip: string;
+    sendSlip: string;
+    sendingSlip: string;
+    slipReceived: string;
+    bankName: string;
+    accountName: string;
+    accountNumber: string;
+    branch: string;
+    copyAccount: string;
+    copied: string;
+    slipRequired: string;
+    slipTooBig: string;
+    slipType: string;
+    bankMissing: string;
   };
 };
 
@@ -349,7 +366,7 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
     pay: {
       eyebrow: "ชำระเงิน",
       title: "จ่ายที่ IN Z ครั้งเดียว",
-      lead: "เลือกผลิตภัณฑ์และแพ็กเกจ ชำระผ่าน PromptPay หรือบัตร แล้วสิทธิ์จะถูกบันทึกใน Atlas และส่งไปยังผลิตภัณฑ์นั้น โดยใช้อีเมลบัญชี IN Z เป็นรหัสอ้างอิง",
+      lead: "เลือกผลิตภัณฑ์และแพ็กเกจ ชำระผ่าน PromptPay บัตร หรือโอนเงินแล้วอัปโหลดสลิป แล้วสิทธิ์จะถูกบันทึกใน Atlas และส่งไปยังผลิตภัณฑ์นั้น โดยใช้อีเมลบัญชี IN Z เป็นรหัสอ้างอิง",
       signInFirst: "เข้าสู่ระบบก่อนชำระเงิน",
       product: "ผลิตภัณฑ์",
       package: "แพ็กเกจ",
@@ -366,8 +383,9 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       waiting: "รอการชำระ…",
       success: "ชำระสำเร็จ — สิทธิ์ถูกส่งไป Atlas และผลิตภัณฑ์แล้ว",
       openAccount: "เปิดแพ็กเกจของคุณ",
-      notConfigured: "ยังไม่ได้ตั้งค่า Omise บนเซิร์ฟเวอร์ — ใส่ OMISE_SECRET_KEY และ OMISE_PUBLIC_KEY",
-      belowMin: "แพ็กเกจนี้ต่ำกว่าขั้นต่ำของ Omise (฿20) — ติดต่อฝ่ายขายหรือเลือกแผนอื่น",
+      notConfigured: "ยังไม่ได้ตั้งค่า Omise บนเซิร์ฟเวอร์ — ใส่ OMISE_SECRET_KEY และ OMISE_PUBLIC_KEY หรือใช้โอนเงิน",
+      mailNotConfigured: "ยังไม่ได้ตั้งค่าอีเมลบนเซิร์ฟเวอร์ — ไม่สามารถรับสลิปได้จนกว่าจะใส่ RESEND_API_KEY หรือ SMTP",
+      belowMin: "แพ็กเกจนี้ต่ำกว่าขั้นต่ำของ Omise (฿20) — โอนเงินแล้วอัปโหลดสลิป หรือเลือกแผนอื่น",
       cardName: "ชื่อบนบัตร",
       cardNumber: "เลขบัตร",
       cardExpiry: "หมดอายุ MM/YY",
@@ -380,7 +398,23 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       quoteOnly: "ติดต่อขอใบเสนอราคา",
       quoteNote: "แพ็กเกจนี้ยังไม่มีราคาคงที่บนหน้าจ่าย — ติดต่อฝ่ายขายเพื่อออกใบเสนอราคา แล้วชำระผ่านหน้านี้หรือโอนตามใบแจ้งหนี้",
       contactSales: "ติดต่อฝ่ายขาย",
-      promptpayMax: "ยอดนี้เกินเพดาน PromptPay ฿2,000,000 — ใช้บัตร หรือติดต่อฝ่ายขายเพื่อโอนผ่านธนาคาร",
+      promptpayMax: "ยอดนี้เกินเพดาน PromptPay ฿2,000,000 — ใช้บัตร หรือโอนเงินแล้วอัปโหลดสลิปที่หน้านี้",
+      transfer: "โอนเงิน",
+      transferNote: "โอนตามยอดรวมด้านบน แล้วอัปโหลดสลิป เลขาจะแจ้งทาง Telegram เพื่ออนุมัติก่อนเปิดสิทธิ์ใน Atlas",
+      uploadSlip: "อัปโหลดสลิป (รูปหรือ PDF สูงสุด 4 MB)",
+      sendSlip: "ส่งสลิป",
+      sendingSlip: "กำลังส่งสลิป…",
+      slipReceived: "รับสลิปแล้ว — เลขาจะแจ้งทาง Telegram เพื่ออนุมัติ แล้วนำสิทธิ์เข้า Atlas",
+      bankName: "ธนาคาร",
+      accountName: "ชื่อบัญชี",
+      accountNumber: "เลขที่บัญชี",
+      branch: "สาขา",
+      copyAccount: "คัดลอกเลขบัญชี",
+      copied: "คัดลอกแล้ว",
+      slipRequired: "กรุณาแนบสลิปโอนเงิน",
+      slipTooBig: "ไฟล์ใหญ่เกิน 4 MB",
+      slipType: "ใช้ได้เฉพาะ JPG PNG WEBP หรือ PDF",
+      bankMissing: "ยังไม่ได้ตั้งเลขบัญชีบนเซิร์ฟเวอร์ — ส่งสลิปมาได้ ทีมจะยืนยันกับคุณทางอีเมล",
     },
   },
   en: {
@@ -581,7 +615,7 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
     pay: {
       eyebrow: "Checkout",
       title: "Pay once at IN Z",
-      lead: "Pick a product and package, pay with PromptPay or card, then we record the entitlement in Atlas and send it to that product. Your IN Z account email is the reference.",
+      lead: "Pick a product and package, pay with PromptPay, card, or bank transfer with a slip upload. We record the entitlement in Atlas and send it to that product. Your IN Z account email is the reference.",
       signInFirst: "Sign in before paying",
       product: "Product",
       package: "Package",
@@ -598,8 +632,9 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       waiting: "Waiting for payment…",
       success: "Paid — entitlement sent to Atlas and the product",
       openAccount: "Open your package",
-      notConfigured: "Omise is not configured — set OMISE_SECRET_KEY and OMISE_PUBLIC_KEY on the server",
-      belowMin: "This package is below Omise’s ฿20 minimum — contact sales or pick another plan",
+      notConfigured: "Omise is not configured — set OMISE_SECRET_KEY and OMISE_PUBLIC_KEY, or pay by bank transfer",
+      mailNotConfigured: "Mail is not configured — slip upload needs RESEND_API_KEY or SMTP on the server",
+      belowMin: "This package is below Omise’s ฿20 minimum — transfer and upload a slip, or pick another plan",
       cardName: "Name on card",
       cardNumber: "Card number",
       cardExpiry: "Expiry MM/YY",
@@ -612,7 +647,23 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       quoteOnly: "Contact for quote",
       quoteNote: "This package has no fixed public price yet — contact sales for a quote, then pay here or by bank transfer against the invoice",
       contactSales: "Contact sales",
-      promptpayMax: "This amount is above the PromptPay ฿2,000,000 cap — pay by card, or contact sales for a bank transfer",
+      promptpayMax: "This amount is above the PromptPay ฿2,000,000 cap — pay by card, or transfer and upload a slip on this page",
+      transfer: "Bank transfer",
+      transferNote: "Transfer the total above, then upload the slip. The secretary will ask for approval on Telegram before Atlas grants the package.",
+      uploadSlip: "Upload slip (image or PDF, max 4 MB)",
+      sendSlip: "Send slip",
+      sendingSlip: "Sending slip…",
+      slipReceived: "Slip received — the secretary will ping Telegram for approval, then Atlas grants the package",
+      bankName: "Bank",
+      accountName: "Account name",
+      accountNumber: "Account number",
+      branch: "Branch",
+      copyAccount: "Copy account number",
+      copied: "Copied",
+      slipRequired: "Please attach a transfer slip",
+      slipTooBig: "File is larger than 4 MB",
+      slipType: "Use JPG, PNG, WEBP, or PDF",
+      bankMissing: "Bank details are not set on the server yet — you can still send a slip and the team will confirm by email",
     },
   },
 };

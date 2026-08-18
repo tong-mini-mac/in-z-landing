@@ -7,7 +7,8 @@ import {
   withVat,
 } from "@/lib/checkout-skus";
 import { fulfillPaidCharge } from "@/lib/fulfill-purchase";
-import { getSiteUrl } from "@/lib/mail";
+import { getBankAccount } from "@/lib/bank-account";
+import { getMailStatus, getSiteUrl } from "@/lib/mail";
 import {
   createCardCharge,
   createPromptPayCharge,
@@ -17,10 +18,15 @@ import {
 
 export async function GET() {
   const mock = process.env.DEMO_BILLING_MOCK === "1";
+  const omise = isOmiseConfigured() || mock;
+  const mail = getMailStatus().configured || mock;
   return NextResponse.json({
-    configured: isOmiseConfigured() || mock,
+    configured: omise || mail,
+    omise,
+    mail,
     publicKey: getOmisePublicKey(),
     mock,
+    bank: getBankAccount(),
   });
 }
 
@@ -62,7 +68,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error: "promptpay_max",
-          message: "PromptPay cannot take this amount. Pay by card or contact sales for a bank transfer.",
+          message: "PromptPay cannot take this amount. Pay by card or bank transfer with a slip.",
         },
         { status: 400 },
       );

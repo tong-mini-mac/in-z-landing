@@ -47,6 +47,7 @@ export type AtlasPurchaseInput = {
   interval: string;
   credits?: number;
   minutes?: number;
+  status?: "paid" | "pending_slip";
   metadata?: Record<string, string | number | boolean | null>;
 };
 
@@ -74,6 +75,26 @@ export async function recordAtlasPurchase(input: AtlasPurchaseInput) {
     {
       method: "POST",
       body: JSON.stringify(input),
+    },
+  );
+}
+
+export async function confirmAtlasPurchase(transferId: string) {
+  return atlasFetch<AtlasEntitlement & { ok: boolean; duplicate?: boolean; revenue?: boolean }>(
+    "/api/commerce/confirm",
+    {
+      method: "POST",
+      body: JSON.stringify({ omise_charge_id: transferId }),
+    },
+  );
+}
+
+export async function rejectAtlasPurchase(transferId: string, reason = "") {
+  return atlasFetch<AtlasEntitlement & { ok: boolean; duplicate?: boolean; revenue?: boolean }>(
+    "/api/commerce/reject",
+    {
+      method: "POST",
+      body: JSON.stringify({ omise_charge_id: transferId, reason }),
     },
   );
 }

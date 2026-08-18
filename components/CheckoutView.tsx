@@ -26,8 +26,27 @@ import { useSiteLang } from "@/lib/use-site-lang";
 
 const CHARGE_KEY = "inz_pending_pay";
 
+const SLIP_MAX_BYTES = 4 * 1024 * 1024;
+const SLIP_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+  "application/pdf",
+]);
+
+type PayMethod = "promptpay" | "card" | "transfer";
+
+type BankAccount = {
+  bankName: string;
+  accountName: string;
+  accountNumber: string;
+  branch: string;
+};
+
 type CheckoutResponse = {
   paid?: boolean;
+  pending?: boolean;
   mock?: boolean;
   chargeId?: string;
   qrImage?: string | null;
@@ -79,14 +98,19 @@ export function CheckoutView() {
   const [productId, setProductId] = useState(products[0]?.id || "");
   const [model, setModel] = useState<ProductModel>("saas");
   const [skuId, setSkuId] = useState("");
-  const [method, setMethod] = useState<"promptpay" | "card">("promptpay");
+  const [method, setMethod] = useState<PayMethod>("promptpay");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [qrImage, setQrImage] = useState<string | null>(null);
   const [pollUrl, setPollUrl] = useState("");
   const [paid, setPaid] = useState(false);
+  const [slipPending, setSlipPending] = useState(false);
   const [publicKey, setPublicKey] = useState<string | null>(null);
-  const [configured, setConfigured] = useState<boolean | null>(null);
+  const [omiseReady, setOmiseReady] = useState(false);
+  const [mailReady, setMailReady] = useState(false);
+  const [bank, setBank] = useState<BankAccount | null>(null);
+  const [slip, setSlip] = useState<File | null>(null);
+  const [copied, setCopied] = useState(false);
   const [mockBilling, setMockBilling] = useState(false);
   const [cardName, setCardName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
@@ -166,20 +190,37 @@ export function CheckoutView() {
   }, [availableModels, model, skus, skuId]);
 
   useEffect(() => {
-    if (promptpayBlocked && method === "promptpay") {
-      setMethod("card");
+    if (method === "promptpay" && (promptpayBlocked || tooSmall)) {
+      setMethod("transfer");
+      return;
     }
-  }, [promptpayBlocked, method]);
+    if (method === "card" && tooSmall) {
+      setMethod("transfer");
+    }
+  }, [promptpayBlocked, tooSmall, method]);
 
   useEffect(() => {
     fetch("/api/pay/checkout")
       .then((response) => response.json())
-      .then((data: { configured?: boolean; publicKey?: string | null; mock?: boolean }) => {
-        setConfigured(Boolean(data.configured));
-        setPublicKey(data.publicKey || null);
-        setMockBilling(Boolean(data.mock));
-      })
-      .catch(() => setConfigured(false));
+      .then(
+        (data: {
+          omise?: boolean;
+          mail?: boolean;
+          publicKey?: string | null;
+          mock?: boolean;
+          bank?: BankAccount | null;
+        }) => {
+          setOmiseReady(Boolean(data.omise));
+          setMailReady(Boolean(data.mail));
+          setPublicKey(data.publicKey || null);
+          setMockBilling(Boolean(data.mock));
+          setBank(data.bank || null);
+        },
+      )
+      .catch(() => {
+        setOmiseReady(false);
+        setMailReady(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -245,6 +286,73 @@ export function CheckoutView() {
     });
   }
 
+  function transferError(code?: string) {
+    if (code === "slip_required") return t.slipRequired;
+    if (code === "slip_too_big") return t.slipTooBig;
+    if (code === "slip_type") return t.slipType;
+    if (code === "mail_not_configured") return t.mailNotConfigured;
+    return t.errGeneric;
+  }
+
+  async function copyAccount() {
+    if (!bank?.accountNumber) return;
+    try {
+      await navigator.clipboard.writeText(bank.accountNumber.replace(/\s+/g, ""));
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  }
+
+  function onSlipChange(file: File | null) {
+    setSlip(null);
+    if (!file) return;
+    if (file.size > SLIP_MAX_BYTES) {
+      setError(t.slipTooBig);
+      return;
+    }
+    if (file.type && !SLIP_TYPES.has(file.type)) {
+      setError(t.slipType);
+      return;
+    }
+    setError("");
+    setSlip(file);
+  }
+
+  async function payByTransfer() {
+    if (!selected || !slip) {
+      setError(t.slipRequired);
+      return;
+    }
+    setSubmitting(true);
+    setError("");
+    try {
+      const body = new FormData();
+      body.set("skuId", selected.id);
+      body.set("email", email);
+      body.set("displayName", displayName);
+      body.set("taxId", taxId);
+      body.set("slip", slip);
+      const response = await fetch("/api/pay/transfer", {
+        method: "POST",
+        body,
+      });
+      const data = (await response.json()) as CheckoutResponse;
+      if (!response.ok) {
+        setError(data.message || transferError(data.error));
+        return;
+      }
+      setSlipPending(true);
+      setQrImage(null);
+      setPollUrl("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t.errGeneric);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   async function pay() {
     if (!email) {
       const next = `/pay?${new URLSearchParams({
@@ -258,6 +366,10 @@ export function CheckoutView() {
     if (!selected) return;
     if (selected.quoteOnly) {
       router.push("/contact?channel=customer-service");
+      return;
+    }
+    if (method === "transfer") {
+      await payByTransfer();
       return;
     }
     setSubmitting(true);
@@ -419,7 +531,7 @@ export function CheckoutView() {
       <fieldset className="checkout-fieldset">
         <legend>{t.method}</legend>
         <div className="checkout-chips" role="group" aria-label={t.method}>
-          {promptpayBlocked ? null : (
+          {promptpayBlocked || tooSmall ? null : (
             <button
               type="button"
               className={method === "promptpay" ? "is-active" : undefined}
@@ -429,13 +541,23 @@ export function CheckoutView() {
               {t.promptpay}
             </button>
           )}
+          {tooSmall ? null : (
+            <button
+              type="button"
+              className={method === "card" ? "is-active" : undefined}
+              aria-pressed={method === "card"}
+              onClick={() => setMethod("card")}
+            >
+              {t.card}
+            </button>
+          )}
           <button
             type="button"
-            className={method === "card" ? "is-active" : undefined}
-            aria-pressed={method === "card"}
-            onClick={() => setMethod("card")}
+            className={method === "transfer" ? "is-active" : undefined}
+            aria-pressed={method === "transfer"}
+            onClick={() => setMethod("transfer")}
           >
-            {t.card}
+            {t.transfer}
           </button>
         </div>
       </fieldset>
@@ -481,11 +603,61 @@ export function CheckoutView() {
         </div>
       ) : null}
 
-      {tooSmall ? <p className="account-admin-note">{t.belowMin}</p> : null}
-      {configured === false ? <p className="account-admin-note">{t.notConfigured}</p> : null}
+      {method === "transfer" ? (
+        <div className="checkout-transfer">
+          <p className="product-pricing-note">{t.transferNote}</p>
+          {bank ? (
+            <dl className="checkout-bank">
+              <div>
+                <dt>{t.bankName}</dt>
+                <dd>{bank.bankName}</dd>
+              </div>
+              <div>
+                <dt>{t.accountName}</dt>
+                <dd>{bank.accountName}</dd>
+              </div>
+              <div>
+                <dt>{t.accountNumber}</dt>
+                <dd>
+                  <span>{bank.accountNumber}</span>
+                  <button type="button" onClick={() => void copyAccount()}>
+                    {copied ? t.copied : t.copyAccount}
+                  </button>
+                </dd>
+              </div>
+              {bank.branch ? (
+                <div>
+                  <dt>{t.branch}</dt>
+                  <dd>{bank.branch}</dd>
+                </div>
+              ) : null}
+            </dl>
+          ) : (
+            <p className="account-admin-note">{t.bankMissing}</p>
+          )}
+          <label className="checkout-slip">
+            {t.uploadSlip}
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif,application/pdf"
+              onChange={(event) => onSlipChange(event.target.files?.[0] || null)}
+            />
+          </label>
+        </div>
+      ) : null}
+
+      {tooSmall && method !== "transfer" ? (
+        <p className="account-admin-note">{t.belowMin}</p>
+      ) : null}
+      {method !== "transfer" && !omiseReady ? (
+        <p className="account-admin-note">{t.notConfigured}</p>
+      ) : null}
+      {method === "transfer" && !mailReady ? (
+        <p className="account-admin-note">{t.mailNotConfigured}</p>
+      ) : null}
       {error ? <p className="account-admin-note">{error}</p> : null}
 
-      {qrImage ? (
+      {qrImage && method === "promptpay" ? (
         <div className="checkout-qr">
           <p>{t.scanQr}</p>
           {/* Omise hosts the QR image */}
@@ -502,6 +674,13 @@ export function CheckoutView() {
             {t.openAccount}
           </a>
         </div>
+      ) : slipPending ? (
+        <div className="contact-success">
+          <p>{t.slipReceived}</p>
+          <a className="product-detail-cta is-primary" href="/account">
+            {t.openAccount}
+          </a>
+        </div>
       ) : (
         <button
           type="button"
@@ -509,12 +688,19 @@ export function CheckoutView() {
           onClick={() => void pay()}
           disabled={
             submitting ||
-            tooSmall ||
             !selected ||
-            !configured
+            (method === "transfer"
+              ? !slip || !mailReady
+              : tooSmall || !omiseReady)
           }
         >
-          {submitting ? t.paying : t.payNow}
+          {method === "transfer"
+            ? submitting
+              ? t.sendingSlip
+              : t.sendSlip
+            : submitting
+              ? t.paying
+              : t.payNow}
         </button>
       )}
         </>

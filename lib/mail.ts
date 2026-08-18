@@ -12,6 +12,13 @@ export type SendMailInput = {
   /** Defaults to no-reply@inz.lol */
   from?: string;
   replyTo?: string;
+  attachments?: MailAttachment[];
+};
+
+export type MailAttachment = {
+  filename: string;
+  content: Buffer;
+  contentType: string;
 };
 
 export type SendMailResult =
@@ -62,6 +69,11 @@ async function sendWithResend(input: SendMailInput): Promise<SendMailResult> {
       text: input.text,
       html: input.html,
       reply_to: input.replyTo,
+      attachments: input.attachments?.map((file) => ({
+        filename: file.filename,
+        content: file.content.toString("base64"),
+        content_type: file.contentType,
+      })),
     }),
   });
 
@@ -108,6 +120,11 @@ async function sendWithSmtp(input: SendMailInput): Promise<SendMailResult> {
     text: input.text,
     html: input.html,
     replyTo: input.replyTo,
+    attachments: input.attachments?.map((file) => ({
+      filename: file.filename,
+      content: file.content,
+      contentType: file.contentType,
+    })),
   });
 
   return { ok: true, provider: "smtp" };

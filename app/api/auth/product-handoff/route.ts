@@ -79,7 +79,9 @@ export async function POST(request: Request) {
         ]),
       ];
       const latest = listed.items.find(
-        (item) => normalizeProductId(item.product_id) === productId,
+        (item) =>
+          normalizeProductId(item.product_id) === productId &&
+          item.status === "paid",
       );
       if (latest) {
         planId = latest.plan_id;
