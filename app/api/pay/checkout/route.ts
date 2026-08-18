@@ -7,26 +7,30 @@ import {
   withVat,
 } from "@/lib/checkout-skus";
 import { fulfillPaidCharge } from "@/lib/fulfill-purchase";
-import { getBankAccount } from "@/lib/bank-account";
+import { getBankAccount, getBankQrUrl } from "@/lib/bank-account";
 import { getMailStatus, getSiteUrl } from "@/lib/mail";
 import {
   createCardCharge,
   createPromptPayCharge,
   getOmisePublicKey,
   isOmiseConfigured,
+  isOmiseLive,
 } from "@/lib/omise";
 
 export async function GET() {
   const mock = process.env.DEMO_BILLING_MOCK === "1";
   const omise = isOmiseConfigured() || mock;
   const mail = getMailStatus().configured || mock;
+  const omiseLive = isOmiseLive() || mock;
   return NextResponse.json({
     configured: omise || mail,
     omise,
+    omiseLive,
     mail,
-    publicKey: getOmisePublicKey(),
+    publicKey: omiseLive ? getOmisePublicKey() : null,
     mock,
     bank: getBankAccount(),
+    qrUrl: getBankQrUrl(),
   });
 }
 
@@ -63,6 +67,15 @@ export async function POST(request: Request) {
     }
     if (!email.includes("@")) {
       return NextResponse.json({ error: "email" }, { status: 400 });
+    }
+    if (!isOmiseLive() && process.env.DEMO_BILLING_MOCK !== "1") {
+      return NextResponse.json(
+        {
+          error: "omise_closed",
+          message: "PromptPay and card are under construction. Pay by bank transfer.",
+        },
+        { status: 503 },
+      );
     }
     if (method === "promptpay" && abovePromptPayMax(sku.amountBaht)) {
       return NextResponse.json(

@@ -397,6 +397,28 @@ export function modelsForProduct(productId: string): ProductModel[] {
   );
 }
 
+export function payableCheckoutProducts(): { id: ProductId; name: string }[] {
+  const seen = new Map<ProductId, string>();
+  for (const sku of CHECKOUT_SKUS) {
+    if (sku.quoteOnly) continue;
+    if (!seen.has(sku.productId)) seen.set(sku.productId, sku.productName);
+  }
+  return [...seen.entries()].map(([id, name]) => ({ id, name }));
+}
+
+export function payableModelsForProduct(productId: string): ProductModel[] {
+  return modelsForProduct(productId).filter((model) =>
+    skusForProductModel(productId, model).some((sku) => !sku.quoteOnly),
+  );
+}
+
+export function payableSkusForProductModel(
+  productId: string,
+  model: ProductModel,
+): CheckoutSku[] {
+  return skusForProductModel(productId, model).filter((sku) => !sku.quoteOnly);
+}
+
 export function catalogNameToProductId(name: string): ProductId | null {
   const key = name.trim().toLowerCase();
   if (key === "synthcomm") return "synthcomm";

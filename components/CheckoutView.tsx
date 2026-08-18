@@ -107,6 +107,7 @@ export function CheckoutView() {
   const [slipPending, setSlipPending] = useState(false);
   const [publicKey, setPublicKey] = useState<string | null>(null);
   const [omiseReady, setOmiseReady] = useState(false);
+  const [omiseLive, setOmiseLive] = useState(false);
   const [mailReady, setMailReady] = useState(false);
   const [bank, setBank] = useState<BankAccount | null>(null);
   const [slip, setSlip] = useState<File | null>(null);
@@ -190,6 +191,7 @@ export function CheckoutView() {
   }, [availableModels, model, skus, skuId]);
 
   useEffect(() => {
+    if (!omiseLive) return;
     if (method === "promptpay" && (promptpayBlocked || tooSmall)) {
       setMethod("transfer");
       return;
@@ -197,7 +199,7 @@ export function CheckoutView() {
     if (method === "card" && tooSmall) {
       setMethod("transfer");
     }
-  }, [promptpayBlocked, tooSmall, method]);
+  }, [promptpayBlocked, tooSmall, method, omiseLive]);
 
   useEffect(() => {
     fetch("/api/pay/checkout")
@@ -205,12 +207,14 @@ export function CheckoutView() {
       .then(
         (data: {
           omise?: boolean;
+          omiseLive?: boolean;
           mail?: boolean;
           publicKey?: string | null;
           mock?: boolean;
           bank?: BankAccount | null;
         }) => {
           setOmiseReady(Boolean(data.omise));
+          setOmiseLive(Boolean(data.omiseLive));
           setMailReady(Boolean(data.mail));
           setPublicKey(data.publicKey || null);
           setMockBilling(Boolean(data.mock));
@@ -372,6 +376,10 @@ export function CheckoutView() {
       await payByTransfer();
       return;
     }
+    if (!omiseLive) {
+      setMethod("transfer");
+      return;
+    }
     setSubmitting(true);
     setError("");
     try {
@@ -531,7 +539,7 @@ export function CheckoutView() {
       <fieldset className="checkout-fieldset">
         <legend>{t.method}</legend>
         <div className="checkout-chips" role="group" aria-label={t.method}>
-          {promptpayBlocked || tooSmall ? null : (
+          {!omiseLive || !(promptpayBlocked || tooSmall) ? (
             <button
               type="button"
               className={method === "promptpay" ? "is-active" : undefined}
@@ -540,8 +548,8 @@ export function CheckoutView() {
             >
               {t.promptpay}
             </button>
-          )}
-          {tooSmall ? null : (
+          ) : null}
+          {!omiseLive || !tooSmall ? (
             <button
               type="button"
               className={method === "card" ? "is-active" : undefined}
@@ -550,22 +558,44 @@ export function CheckoutView() {
             >
               {t.card}
             </button>
-          )}
+          ) : null}
           <button
             type="button"
             className={method === "transfer" ? "is-active" : undefined}
             aria-pressed={method === "transfer"}
-            onClick={() => setMethod("transfer")}
+            onClick={() =>
+              router.push(
+                `/pay/notify?product=${encodeURIComponent(productId)}&model=${model}&sku=${encodeURIComponent(selected?.id || "")}&lang=${lang}`,
+              )
+            }
           >
             {t.transfer}
           </button>
         </div>
       </fieldset>
-      {promptpayBlocked ? (
+      {promptpayBlocked && omiseLive ? (
         <p className="account-admin-note">{t.promptpayMax}</p>
       ) : null}
 
-      {method === "card" ? (
+      {method !== "transfer" && !omiseLive ? (
+        <div className="checkout-closed">
+          <p className="checkout-closed-title">{t.omiseClosed}</p>
+          <p className="product-pricing-note">{t.omiseClosedNote}</p>
+          <button
+            type="button"
+            className="product-detail-cta is-primary"
+            onClick={() =>
+              router.push(
+                `/pay/notify?product=${encodeURIComponent(productId)}&model=${model}&sku=${encodeURIComponent(selected?.id || "")}&lang=${lang}`,
+              )
+            }
+          >
+            {t.goTransfer}
+          </button>
+        </div>
+      ) : null}
+
+      {method === "card" && omiseLive ? (
         <div className="checkout-card">
           <label>
             {t.cardName}
@@ -646,10 +676,10 @@ export function CheckoutView() {
         </div>
       ) : null}
 
-      {tooSmall && method !== "transfer" ? (
+      {tooSmall && method !== "transfer" && omiseLive ? (
         <p className="account-admin-note">{t.belowMin}</p>
       ) : null}
-      {method !== "transfer" && !omiseReady ? (
+      {method !== "transfer" && omiseLive && !omiseReady ? (
         <p className="account-admin-note">{t.notConfigured}</p>
       ) : null}
       {method === "transfer" && !mailReady ? (
@@ -657,7 +687,7 @@ export function CheckoutView() {
       ) : null}
       {error ? <p className="account-admin-note">{error}</p> : null}
 
-      {qrImage && method === "promptpay" ? (
+      {qrImage && method === "promptpay" && omiseLive ? (
         <div className="checkout-qr">
           <p>{t.scanQr}</p>
           {/* Omise hosts the QR image */}
@@ -681,7 +711,7 @@ export function CheckoutView() {
             {t.openAccount}
           </a>
         </div>
-      ) : (
+      ) : method !== "transfer" && !omiseLive ? null : (
         <button
           type="button"
           className="contact-submit"
@@ -691,7 +721,7 @@ export function CheckoutView() {
             !selected ||
             (method === "transfer"
               ? !slip || !mailReady
-              : tooSmall || !omiseReady)
+              : tooSmall || !omiseReady || !omiseLive)
           }
         >
           {method === "transfer"

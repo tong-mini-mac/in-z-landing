@@ -147,7 +147,7 @@ export function ProductLauncher() {
       <h2 className="account-products-heading">{t.yourProducts}</h2>
       <p className="account-admin-note">{accountCopy.ssoNote}</p>
       <p>
-        <a className="product-detail-cta is-primary" href={`/pay?lang=${lang}`}>
+        <a className="product-detail-cta is-primary" href={`/pay/notify?lang=${lang}`}>
           {accountCopy.buyPackage}
         </a>
       </p>

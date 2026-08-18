@@ -58,9 +58,7 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
     : [];
   const canPay = modelSkus.length > 0;
   const payHref = canPay
-    ? signedIn
-      ? `/pay?product=${encodeURIComponent(payProductId || "")}&model=${model}&lang=${lang}`
-      : `/auth?mode=signin&lang=${lang}&next=${encodeURIComponent(`/pay?product=${payProductId || ""}&model=${model}`)}`
+    ? `/pay/notify?product=${encodeURIComponent(payProductId || "")}&model=${model}&lang=${lang}`
     : "";
 
   return (

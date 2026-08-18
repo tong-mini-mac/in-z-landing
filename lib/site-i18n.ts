@@ -150,6 +150,9 @@ export type SiteCopy = {
     quoteNote: string;
     contactSales: string;
     promptpayMax: string;
+    omiseClosed: string;
+    omiseClosedNote: string;
+    goTransfer: string;
     transfer: string;
     transferNote: string;
     uploadSlip: string;
@@ -166,6 +169,34 @@ export type SiteCopy = {
     slipTooBig: string;
     slipType: string;
     bankMissing: string;
+  };
+  payNotify: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    name: string;
+    email: string;
+    product: string;
+    package: string;
+    model: string;
+    uploadSlip: string;
+    send: string;
+    sending: string;
+    waitingTitle: string;
+    waitingLead: string;
+    errName: string;
+    errEmail: string;
+    errSlip: string;
+    errGeneric: string;
+    total: string;
+    mailNotConfigured: string;
+    bankName: string;
+    accountName: string;
+    accountNumber: string;
+    copyAccount: string;
+    copied: string;
+    bankMissing: string;
+    scanQr: string;
   };
 };
 
@@ -399,6 +430,9 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       quoteNote: "แพ็กเกจนี้ยังไม่มีราคาคงที่บนหน้าจ่าย — ติดต่อฝ่ายขายเพื่อออกใบเสนอราคา แล้วชำระผ่านหน้านี้หรือโอนตามใบแจ้งหนี้",
       contactSales: "ติดต่อฝ่ายขาย",
       promptpayMax: "ยอดนี้เกินเพดาน PromptPay ฿2,000,000 — ใช้บัตร หรือโอนเงินแล้วอัปโหลดสลิปที่หน้านี้",
+      omiseClosed: "Under construction",
+      omiseClosedNote: "PromptPay และบัตรยังไม่เปิดรับเงินจริง — ชำระด้วยการโอนเงินแล้วอัปโหลดสลิป",
+      goTransfer: "ชำระด้วยการโอนเงิน",
       transfer: "โอนเงิน",
       transferNote: "โอนตามยอดรวมด้านบน แล้วอัปโหลดสลิป เลขาจะแจ้งทาง Telegram เพื่ออนุมัติก่อนเปิดสิทธิ์ใน Atlas",
       uploadSlip: "อัปโหลดสลิป (รูปหรือ PDF สูงสุด 4 MB)",
@@ -415,6 +449,34 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       slipTooBig: "ไฟล์ใหญ่เกิน 4 MB",
       slipType: "ใช้ได้เฉพาะ JPG PNG WEBP หรือ PDF",
       bankMissing: "ยังไม่ได้ตั้งเลขบัญชีบนเซิร์ฟเวอร์ — ส่งสลิปมาได้ ทีมจะยืนยันกับคุณทางอีเมล",
+    },
+    payNotify: {
+      eyebrow: "แจ้งชำระเงิน",
+      title: "แจ้งการชำระเงิน",
+      lead: "โอนเงินแล้วกรอกชื่อ อีเมล ผลิตภัณฑ์ แพ็กเกจ และอัปโหลดสลิป ระบบจะส่งให้เลขายืนยันก่อนเปิดสิทธิ์",
+      name: "ชื่อ",
+      email: "อีเมล",
+      product: "ผลิตภัณฑ์",
+      package: "แพ็กเกจที่ซื้อ",
+      model: "โมเดล",
+      uploadSlip: "อัปโหลดสลิป (รูปหรือ PDF สูงสุด 4 MB)",
+      send: "ส่ง",
+      sending: "กำลังส่ง…",
+      waitingTitle: "รอยืนยันการชำระ",
+      waitingLead: "ได้รับสลิปแล้ว เลขาจะตรวจสอบแล้วยืนยันทาง Telegram ก่อนเปิดแพ็กเกจ",
+      errName: "กรุณากรอกชื่อ",
+      errEmail: "กรุณากรอกอีเมลที่ถูกต้อง",
+      errSlip: "กรุณาแนบสลิปโอนเงิน",
+      errGeneric: "ส่งไม่สำเร็จ กรุณาลองใหม่",
+      total: "ยอดที่โอน",
+      mailNotConfigured: "ยังไม่ได้ตั้งค่าอีเมลบนเซิร์ฟเวอร์ — ยังส่งสลิปไม่ได้",
+      bankName: "ธนาคาร",
+      accountName: "ชื่อบัญชี",
+      accountNumber: "เลขที่บัญชี",
+      copyAccount: "คัดลอกเลขบัญชี",
+      copied: "คัดลอกแล้ว",
+      bankMissing: "ยังไม่ได้ตั้งเลขบัญชีบนเซิร์ฟเวอร์ — โอนตามที่ทีมแจ้งไว้แล้วส่งสลิปได้",
+      scanQr: "สแกน QR เพื่อโอนเข้าบัญชี",
     },
   },
   en: {
@@ -648,6 +710,9 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       quoteNote: "This package has no fixed public price yet — contact sales for a quote, then pay here or by bank transfer against the invoice",
       contactSales: "Contact sales",
       promptpayMax: "This amount is above the PromptPay ฿2,000,000 cap — pay by card, or transfer and upload a slip on this page",
+      omiseClosed: "Under construction",
+      omiseClosedNote: "PromptPay and card are not taking live payments yet — pay by bank transfer and upload a slip",
+      goTransfer: "Pay by bank transfer",
       transfer: "Bank transfer",
       transferNote: "Transfer the total above, then upload the slip. The secretary will ask for approval on Telegram before Atlas grants the package.",
       uploadSlip: "Upload slip (image or PDF, max 4 MB)",
@@ -664,6 +729,34 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       slipTooBig: "File is larger than 4 MB",
       slipType: "Use JPG, PNG, WEBP, or PDF",
       bankMissing: "Bank details are not set on the server yet — you can still send a slip and the team will confirm by email",
+    },
+    payNotify: {
+      eyebrow: "Payment notice",
+      title: "Notify payment",
+      lead: "After you transfer, enter your name, email, product, package, and upload the slip. The secretary confirms it before the package is granted.",
+      name: "Name",
+      email: "Email",
+      product: "Product",
+      package: "Package purchased",
+      model: "Model",
+      uploadSlip: "Upload slip (image or PDF, max 4 MB)",
+      send: "Submit",
+      sending: "Sending…",
+      waitingTitle: "Waiting for payment confirmation",
+      waitingLead: "We received the slip. The secretary will check it on Telegram before opening the package.",
+      errName: "Please enter your name",
+      errEmail: "Please enter a valid email",
+      errSlip: "Please attach a transfer slip",
+      errGeneric: "Could not send. Please try again.",
+      total: "Amount transferred",
+      mailNotConfigured: "Mail is not configured on the server — slip upload is unavailable",
+      bankName: "Bank",
+      accountName: "Account name",
+      accountNumber: "Account number",
+      copyAccount: "Copy account number",
+      copied: "Copied",
+      bankMissing: "Bank details are not set on the server yet — transfer as instructed, then send the slip",
+      scanQr: "Scan the QR to transfer",
     },
   },
 };

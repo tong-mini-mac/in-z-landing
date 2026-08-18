@@ -4,6 +4,11 @@ export function isOmiseConfigured() {
   return Boolean(String(process.env.OMISE_SECRET_KEY || "").trim());
 }
 
+/** Public PromptPay/card stay closed until live merchant is enabled. */
+export function isOmiseLive() {
+  return process.env.OMISE_LIVE === "1" && isOmiseConfigured();
+}
+
 function authHeader() {
   const key = String(process.env.OMISE_SECRET_KEY || "").trim();
   if (!key) throw new Error("OMISE_SECRET_KEY missing");

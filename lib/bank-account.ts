@@ -5,6 +5,12 @@ export type BankAccount = {
   branch: string;
 };
 
+export function getBankQrUrl(): string {
+  return (
+    String(process.env.INZ_BANK_QR_URL || "").trim() || "/pay/promptpay-qr.png"
+  );
+}
+
 export function getBankAccount(): BankAccount | null {
   const bankName = String(process.env.INZ_BANK_NAME || "").trim();
   const accountName = String(process.env.INZ_BANK_ACCOUNT_NAME || "").trim();
