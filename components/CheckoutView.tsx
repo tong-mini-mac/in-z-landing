@@ -86,8 +86,8 @@ export function CheckoutView() {
   const [pollUrl, setPollUrl] = useState("");
   const [paid, setPaid] = useState(false);
   const [publicKey, setPublicKey] = useState<string | null>(null);
-  const [omiseReady, setOmiseReady] = useState(false);
   const [configured, setConfigured] = useState<boolean | null>(null);
+  const [mockBilling, setMockBilling] = useState(false);
   const [cardName, setCardName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [cardExpiry, setCardExpiry] = useState("");
@@ -174,9 +174,10 @@ export function CheckoutView() {
   useEffect(() => {
     fetch("/api/pay/checkout")
       .then((response) => response.json())
-      .then((data: { configured?: boolean; publicKey?: string | null }) => {
+      .then((data: { configured?: boolean; publicKey?: string | null; mock?: boolean }) => {
         setConfigured(Boolean(data.configured));
         setPublicKey(data.publicKey || null);
+        setMockBilling(Boolean(data.mock));
       })
       .catch(() => setConfigured(false));
   }, []);
@@ -216,7 +217,12 @@ export function CheckoutView() {
   }
 
   async function tokenizeCard(): Promise<string> {
-    if (!publicKey || !window.Omise) {
+    const started = Date.now();
+    while (!window.Omise) {
+      if (Date.now() - started > 8000) throw new Error("omise_js");
+      await new Promise((resolve) => window.setTimeout(resolve, 50));
+    }
+    if (!publicKey) {
       throw new Error("omise_js");
     }
     const [month, year] = cardExpiry.split("/").map((part) => part.trim());
@@ -249,14 +255,16 @@ export function CheckoutView() {
       router.push(`/auth?mode=signin&next=${encodeURIComponent(next)}`);
       return;
     }
+    if (!selected) return;
     if (selected.quoteOnly) {
       router.push("/contact?channel=customer-service");
       return;
     }
+    setSubmitting(true);
     setError("");
     try {
       let cardToken: string | undefined;
-      if (method === "card") {
+      if (method === "card" && !mockBilling) {
         cardToken = await tokenizeCard();
       }
       const response = await fetch("/api/pay/checkout", {
@@ -297,11 +305,7 @@ export function CheckoutView() {
 
   return (
     <div className="auth-shell checkout-shell">
-      <Script
-        src="https://cdn.omise.co/omise.js"
-        strategy="afterInteractive"
-        onLoad={() => setOmiseReady(true)}
-      />
+      <Script src="https://cdn.omise.co/omise.js" strategy="afterInteractive" />
 
       {!email ? (
         <p className="account-admin-note">
@@ -414,11 +418,12 @@ export function CheckoutView() {
         <>
       <fieldset className="checkout-fieldset">
         <legend>{t.method}</legend>
-        <div className="checkout-chips">
+        <div className="checkout-chips" role="group" aria-label={t.method}>
           {promptpayBlocked ? null : (
             <button
               type="button"
               className={method === "promptpay" ? "is-active" : undefined}
+              aria-pressed={method === "promptpay"}
               onClick={() => setMethod("promptpay")}
             >
               {t.promptpay}
@@ -427,8 +432,8 @@ export function CheckoutView() {
           <button
             type="button"
             className={method === "card" ? "is-active" : undefined}
+            aria-pressed={method === "card"}
             onClick={() => setMethod("card")}
-            disabled={!publicKey}
           >
             {t.card}
           </button>
@@ -506,8 +511,7 @@ export function CheckoutView() {
             submitting ||
             tooSmall ||
             !selected ||
-            !configured ||
-            (method === "card" && !omiseReady)
+            !configured
           }
         >
           {submitting ? t.paying : t.payNow}

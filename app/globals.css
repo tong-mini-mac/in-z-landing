@@ -2056,6 +2056,13 @@ img {
   background: rgba(10, 10, 10, 0.06);
 }
 
+.checkout-chips button:hover,
+.checkout-chips button:focus-visible,
+.checkout-skus button:hover,
+.checkout-skus button:focus-visible {
+  border-color: var(--ink);
+}
+
 .checkout-skus {
   list-style: none;
   margin: 0;
