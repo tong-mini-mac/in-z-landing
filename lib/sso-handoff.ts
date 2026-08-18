@@ -7,11 +7,14 @@ export type HandoffClaims = {
   unlimited: boolean;
   package: "unlimited" | "complimentary" | "standard";
   allowed_products: string[];
+  plan_id?: string;
+  sku_id?: string;
+  paid?: boolean;
   exp: number;
   iat: number;
 };
 
-function ssoSecret(): string {
+export function ssoSecret(): string {
   const raw =
     process.env.INZ_SSO_SECRET ||
     process.env.ERP_SPECIAL_LOGIN_KEY ||
@@ -94,6 +97,10 @@ export function productBaseUrl(productId: string): string | null {
     "content-creator":
       process.env.CONTENT_CREATOR_URL ||
       "https://podcast-web-production-41ac.up.railway.app",
+    netr: process.env.NETR_URL || "",
+    prism:
+      process.env.PRISM_URL ||
+      "https://prism-web-production.up.railway.app",
   };
   return map[productId] || null;
 }

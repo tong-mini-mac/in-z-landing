@@ -30,6 +30,14 @@ import {
   type VatProfile,
 } from "@/lib/auth-session";
 
+function postAuthPath(searchParams: URLSearchParams): string {
+  const next = searchParams.get("next");
+  if (next && next.startsWith("/") && !next.startsWith("//")) {
+    return next;
+  }
+  return "/account";
+}
+
 type AuthMode = "signin" | "signup";
 
 const PHONE_COUNTRIES = [
@@ -181,7 +189,7 @@ export function AuthForm() {
         };
         persistRememberChoice(nextEmail);
         saveSession(user);
-        router.push("/account");
+        router.push(postAuthPath(searchParams));
         return;
       }
 
@@ -217,7 +225,7 @@ export function AuthForm() {
           };
           persistRememberChoice(nextEmail);
           saveSession(user);
-          router.push("/account");
+          router.push(postAuthPath(searchParams));
           return;
         }
 
@@ -246,7 +254,7 @@ export function AuthForm() {
       };
       persistRememberChoice(nextEmail);
       saveSession(user);
-      router.push("/account");
+      router.push(postAuthPath(searchParams));
       return;
     }
 
@@ -397,7 +405,7 @@ export function AuthForm() {
             <button
               type="button"
               className="contact-submit"
-              onClick={() => router.push("/account")}
+              onClick={() => router.push(postAuthPath(searchParams))}
             >
               {t.continueToAccount}
             </button>

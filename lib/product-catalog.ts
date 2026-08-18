@@ -313,6 +313,11 @@ const NETR_DESCRIPTION: LocalizedText = {
   th: "เนตร (netr) คือ Oracle โหราศาสตร์ปฏิวัติกรรมจากตำราไทยโบราณ ผสาน AI ที่จำคุณได้ คุยดวงบนเว็บ เริ่มฟรี 5 นาทีต่อวัน แล้วเติมนาที Prepaid หรือสมัคร Plus โหราศาสตร์เพื่อการสะท้อนและตัดสินใจ — ไม่แทนที่คำปรึกษาทางการแพทย์หรือจิตเวช",
 };
 
+const PRISM_DESCRIPTION: LocalizedText = {
+  en: "PRISM (Property Retrieval & Intent Subset Matching) is an AI customer-engagement platform for real estate marketing, powered by SRAG (Subset Retrieval Augmented Generation). It classifies intent, segments leads High / Medium / Low, matches projects, and nurtures from registration through closing — with SubsetGuard so each user only searches inside their assigned data subset.",
+  th: "PRISM (Property Retrieval & Intent Subset Matching) เป็นแพลตฟอร์มดูแลลูกค้าด้วย AI สำหรับการตลาดอสังหาริมทรัพย์ ขับเคลื่อนด้วย SRAG (Subset Retrieval Augmented Generation) จำแนกเจตนา แบ่งลีด High / Medium / Low จับคู่โครงการ และดูแลตั้งแต่ลงทะเบียนถึงปิดการขาย พร้อม SubsetGuard ให้แต่ละผู้ใช้ค้นได้เฉพาะชุดข้อมูลที่ได้รับสิทธิ์",
+};
+
 const SYNTHCOMM_SAAS_TIERS: PricingTier[] = [
   {
     name: { en: "Free", th: "ฟรี" },
@@ -557,6 +562,38 @@ const NETR_SAAS_TIERS: PricingTier[] = [
   },
 ];
 
+const PRISM_LICENSE_TIERS: PricingTier[] = [
+  {
+    name: { en: "Startup License", th: "Startup License" },
+    price: { en: "Contact for quote", th: "ติดต่อขอใบเสนอราคา" },
+    detail: {
+      en: "Binary deploy · co-branded · PRISM engine + admin web · SubsetGuard · no full rebrand rights",
+      th: "ติดตั้งแบบไบนารี · ร่วมแบรนด์ · เครื่องยนต์ PRISM + แอดมินเว็บ · SubsetGuard · ยังไม่ใช่สิทธิ์รีแบรนด์เต็ม",
+    },
+    highlight: true,
+  },
+];
+
+const PRISM_WHITE_LABEL_TIERS: PricingTier[] = [
+  {
+    name: { en: "White Label", th: "White Label" },
+    price: { en: "Contact for quote", th: "ติดต่อขอใบเสนอราคา" },
+    detail: {
+      en: "Full rebrand under your brand · PRISM engine + admin web · SRAG search · SubsetGuard",
+      th: "รีแบรนด์เต็มภายใต้แบรนด์คุณ · เครื่องยนต์ PRISM + แอดมินเว็บ · ค้นด้วย SRAG · SubsetGuard",
+    },
+    highlight: true,
+  },
+  {
+    name: { en: "Enterprise IP", th: "Enterprise IP" },
+    price: { en: "Contact for quote", th: "ติดต่อขอใบเสนอราคา" },
+    detail: {
+      en: "Source + ownership · RBAC knowledge base · offer / appointment / follow-up stack",
+      th: "ซอร์สและกรรมสิทธิ์ · คลังความรู้ RBAC · ข้อเสนอ นัดชม และระบบติดตาม",
+    },
+  },
+];
+
 const CONTACT_SALES: LocalizedText = {
   en: "Contact sales",
   th: "ติดต่อฝ่ายขาย",
@@ -731,6 +768,43 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
           th: "คุยดวงได้เฉพาะหน้าเว็บ /chat ใช้ฟรีรายวันก่อน แล้ว Plus แล้ว Prepaid ไม่มีแพ็กเกจ Pro",
         },
         tiers: NETR_SAAS_TIERS,
+      },
+    },
+  },
+  {
+    name: "PRISM",
+    title: {
+      en: "PRISM — Property Retrieval & Intent Subset Matching",
+      th: "PRISM — ค้นโครงการและจับคู่เจตนาด้วย SRAG",
+    },
+    description: PRISM_DESCRIPTION,
+    earlyBirdPrice: {
+      en: "Contact for License / White Label quote",
+      th: "ติดต่อขอใบเสนอราคา License / White Label",
+    },
+    regularPrice: {
+      en: "Co-branded license or source + full rebrand",
+      th: "ไลเซนส์ร่วมแบรนด์ หรือซอร์ส + รีแบรนด์เต็ม",
+    },
+    models: ["white-label", "license"],
+    pricingByModel: {
+      license: {
+        ctaLabel: { en: "Open PRISM", th: "เปิด PRISM" },
+        ctaHref: "https://prism-web-production.up.railway.app",
+        note: {
+          en: "Co-branded license for real-estate teams. Live admin web is the reference UI — contact sales for commercial terms. Upgrade to White Label for full rebrand.",
+          th: "ไลเซนส์ร่วมแบรนด์สำหรับทีมอสังหา แอดมินเว็บที่เปิดได้คือ UI อ้างอิง — ติดต่อฝ่ายขายเรื่องเงื่อนไข อัปเกรดเป็น White Label หากต้องการรีแบรนด์เต็ม",
+        },
+        tiers: PRISM_LICENSE_TIERS,
+      },
+      "white-label": {
+        ctaLabel: { en: "Open PRISM", th: "เปิด PRISM" },
+        ctaHref: "https://prism-web-production.up.railway.app",
+        note: {
+          en: "White Label for real-estate brands. Live admin web is the reference UI — contact sales for source, rebrand, and ownership.",
+          th: "White Label สำหรับแบรนด์อสังหา แอดมินเว็บที่เปิดได้คือ UI อ้างอิง — ติดต่อฝ่ายขายสำหรับซอร์ส รีแบรนด์ และกรรมสิทธิ์",
+        },
+        tiers: PRISM_WHITE_LABEL_TIERS,
       },
     },
   },

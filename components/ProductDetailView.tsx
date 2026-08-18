@@ -10,6 +10,7 @@ import {
   productManualHref,
   type CatalogProduct,
 } from "@/lib/product-catalog";
+import { catalogNameToProductId, skusForProductModel } from "@/lib/checkout-skus";
 import {
   AUTH_SESSION_CHANGE_EVENT,
   getSession,
@@ -51,6 +52,16 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
     ? `/account?lang=${lang}`
     : `/auth?mode=signin&lang=${lang}&model=${model}&product=${encodeURIComponent(product.name.toLowerCase())}`;
   const packageLabel = signedIn ? t.yourPackage : t.signInSignUp;
+  const payProductId = catalogNameToProductId(product.name);
+  const modelSkus = payProductId
+    ? skusForProductModel(payProductId, model)
+    : [];
+  const canPay = modelSkus.length > 0;
+  const payHref = canPay
+    ? signedIn
+      ? `/pay?product=${encodeURIComponent(payProductId || "")}&model=${model}&lang=${lang}`
+      : `/auth?mode=signin&lang=${lang}&next=${encodeURIComponent(`/pay?product=${payProductId || ""}&model=${model}`)}`
+    : "";
 
   return (
     <main className="page page-products page-scroll" id="product-detail">
@@ -148,6 +159,11 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
           <a className="product-detail-cta is-primary" href={packageHref}>
             {packageLabel}
           </a>
+          {canPay ? (
+            <a className="product-detail-cta" href={payHref}>
+              {t.pay}
+            </a>
+          ) : null}
         </div>
       </article>
 

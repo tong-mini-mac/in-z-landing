@@ -8,6 +8,7 @@ import { useSiteLang } from "@/lib/use-site-lang";
 import { getSession, signOutLocal, type AuthSession } from "@/lib/auth-session";
 import { isDemoAdminEmail } from "@/lib/demo-access";
 import { productsForAccess, type ProductEntry } from "@/lib/products";
+import type { AtlasEntitlement } from "@/lib/atlas-commerce";
 
 export function ProductLauncher() {
   const router = useRouter();
@@ -15,6 +16,7 @@ export function ProductLauncher() {
   const [session, setSession] = useState<AuthSession | null>(null);
   const [openingId, setOpeningId] = useState<string | null>(null);
   const [openError, setOpenError] = useState("");
+  const [entitlements, setEntitlements] = useState<AtlasEntitlement[]>([]);
 
   const t = AUTH_COPY[lang];
   const accountCopy = SITE_COPY[lang].account;
@@ -30,6 +32,12 @@ export function ProductLauncher() {
       return;
     }
     setSession(current);
+    fetch(`/api/pay/entitlements?email=${encodeURIComponent(current.user.email)}`)
+      .then((response) => response.json())
+      .then((data: { items?: AtlasEntitlement[] }) => {
+        setEntitlements(Array.isArray(data.items) ? data.items : []);
+      })
+      .catch(() => setEntitlements([]));
   }, [router]);
 
   const isAdmin = Boolean(
@@ -44,6 +52,14 @@ export function ProductLauncher() {
     () => productsForAccess(isAdmin, session?.user.allowedProducts),
     [isAdmin, session?.user.allowedProducts],
   );
+
+  const latestByProduct = useMemo(() => {
+    const map = new Map<string, AtlasEntitlement>();
+    for (const item of entitlements) {
+      if (!map.has(item.product_id)) map.set(item.product_id, item);
+    }
+    return map;
+  }, [entitlements]);
 
   function signOut() {
     signOutLocal();
@@ -129,6 +145,11 @@ export function ProductLauncher() {
 
       <h2 className="account-products-heading">{t.yourProducts}</h2>
       <p className="account-admin-note">{accountCopy.ssoNote}</p>
+      <p>
+        <a className="product-detail-cta is-primary" href={`/pay?lang=${lang}`}>
+          {accountCopy.buyPackage}
+        </a>
+      </p>
 
       <ul className="product-launcher">
         {products.map((product) => (
@@ -143,7 +164,15 @@ export function ProductLauncher() {
               </span>
               <span className="product-launcher-copy">
                 <strong>{product.name}</strong>
-                <span>{product.description[lang]}</span>
+                <span>
+                  {product.description[lang]}
+                  {latestByProduct.get(product.id) ? (
+                    <>
+                      {" "}
+                      · {accountCopy.paidBadge} {latestByProduct.get(product.id)?.plan_id}
+                    </>
+                  ) : null}
+                </span>
               </span>
               <span className="product-launcher-cta">
                 {openingId === product.id

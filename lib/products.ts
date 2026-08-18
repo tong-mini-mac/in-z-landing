@@ -5,7 +5,8 @@ export type ProductId =
   | "ai-marketing"
   | "music-demo"
   | "content-creator"
-  | "netr";
+  | "netr"
+  | "prism";
 
 export type ProductEntry = {
   id: ProductId;
@@ -96,6 +97,11 @@ export const COMMERCIAL_PRODUCT_IDS: ProductId[] = [
   "music-demo",
   "content-creator",
   "netr",
+];
+
+export const CHECKOUT_PRODUCT_IDS: ProductId[] = [
+  ...COMMERCIAL_PRODUCT_IDS,
+  "prism",
 ];
 
 /** Normalize legacy product ids from older ERP / trial grants. */

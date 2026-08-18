@@ -97,6 +97,7 @@ export type SiteCopy = {
     manual: string;
     yourPackage: string;
     signInSignUp: string;
+    pay: string;
   };
   legal: {
     termsEyebrow: string;
@@ -110,6 +111,44 @@ export type SiteCopy = {
     trialNote: string;
     ssoNote: string;
     openFail: string;
+    buyPackage: string;
+    paidBadge: string;
+  };
+  pay: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    signInFirst: string;
+    product: string;
+    package: string;
+    method: string;
+    promptpay: string;
+    card: string;
+    payNow: string;
+    paying: string;
+    vatNote: string;
+    subtotal: string;
+    vat: string;
+    total: string;
+    scanQr: string;
+    waiting: string;
+    success: string;
+    openAccount: string;
+    notConfigured: string;
+    belowMin: string;
+    cardName: string;
+    cardNumber: string;
+    cardExpiry: string;
+    cardCvc: string;
+    errGeneric: string;
+    monthlyNote: string;
+    yearNote: string;
+    oneTimeNote: string;
+    model: string;
+    quoteOnly: string;
+    quoteNote: string;
+    contactSales: string;
+    promptpayMax: string;
   };
 };
 
@@ -287,6 +326,7 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       manual: "ดาวน์โหลดคู่มือ",
       yourPackage: "แพ็กเกจของคุณ",
       signInSignUp: "เข้าสู่ระบบ / สมัคร",
+      pay: "ชำระเงิน",
     },
     legal: {
       termsEyebrow: "กฎหมาย",
@@ -303,6 +343,44 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       ssoNote:
         "Sign in ที่ IN Z ครั้งเดียว — เปิด product แล้วระบบพาเข้าพร้อมสิทธิ์อัตโนมัติ",
       openFail: "เปิด product ไม่สำเร็จ",
+      buyPackage: "ซื้อแพ็กเกจ",
+      paidBadge: "ชำระแล้ว",
+    },
+    pay: {
+      eyebrow: "ชำระเงิน",
+      title: "จ่ายที่ IN Z ครั้งเดียว",
+      lead: "เลือกผลิตภัณฑ์และแพ็กเกจ ชำระผ่าน PromptPay หรือบัตร แล้วสิทธิ์จะถูกบันทึกใน Atlas และส่งไปยังผลิตภัณฑ์นั้น โดยใช้อีเมลบัญชี IN Z เป็นรหัสอ้างอิง",
+      signInFirst: "เข้าสู่ระบบก่อนชำระเงิน",
+      product: "ผลิตภัณฑ์",
+      package: "แพ็กเกจ",
+      method: "วิธีจ่าย",
+      promptpay: "PromptPay",
+      card: "บัตร",
+      payNow: "ชำระเงิน",
+      paying: "กำลังสร้างรายการ…",
+      vatNote: "ราคาไม่รวม VAT 7% — ยอดที่ชาร์จรวม VAT แล้ว",
+      subtotal: "ราคาก่อน VAT",
+      vat: "VAT 7%",
+      total: "ยอดชำระ",
+      scanQr: "สแกน QR PromptPay เพื่อจ่าย",
+      waiting: "รอการชำระ…",
+      success: "ชำระสำเร็จ — สิทธิ์ถูกส่งไป Atlas และผลิตภัณฑ์แล้ว",
+      openAccount: "เปิดแพ็กเกจของคุณ",
+      notConfigured: "ยังไม่ได้ตั้งค่า Omise บนเซิร์ฟเวอร์ — ใส่ OMISE_SECRET_KEY และ OMISE_PUBLIC_KEY",
+      belowMin: "แพ็กเกจนี้ต่ำกว่าขั้นต่ำของ Omise (฿20) — ติดต่อฝ่ายขายหรือเลือกแผนอื่น",
+      cardName: "ชื่อบนบัตร",
+      cardNumber: "เลขบัตร",
+      cardExpiry: "หมดอายุ MM/YY",
+      cardCvc: "CVC",
+      errGeneric: "ชำระเงินไม่สำเร็จ",
+      monthlyNote: "ชำระงวดแรกที่นี่ — ต่ออายุรอบถัดไปที่หน้าเดียวกัน",
+      yearNote: "ชำระปีแรกที่นี่ — ต่ออายุรอบปีถัดไปที่หน้าเดียวกัน",
+      oneTimeNote: "ซื้อขาดครั้งเดียว — Atlas บันทึกสิทธิ์แล้วทีมจะประสานส่งมอบไบนารีหรือซอร์ส",
+      model: "โมเดล",
+      quoteOnly: "ติดต่อขอใบเสนอราคา",
+      quoteNote: "แพ็กเกจนี้ยังไม่มีราคาคงที่บนหน้าจ่าย — ติดต่อฝ่ายขายเพื่อออกใบเสนอราคา แล้วชำระผ่านหน้านี้หรือโอนตามใบแจ้งหนี้",
+      contactSales: "ติดต่อฝ่ายขาย",
+      promptpayMax: "ยอดนี้เกินเพดาน PromptPay ฿2,000,000 — ใช้บัตร หรือติดต่อฝ่ายขายเพื่อโอนผ่านธนาคาร",
     },
   },
   en: {
@@ -481,6 +559,7 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       manual: "Download manual",
       yourPackage: "Your package",
       signInSignUp: "Sign in / Sign up",
+      pay: "Pay",
     },
     legal: {
       termsEyebrow: "Legal",
@@ -496,6 +575,44 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       ssoNote:
         "Sign in once at IN Z — opening a product hands off your access automatically.",
       openFail: "Could not open product",
+      buyPackage: "Buy a package",
+      paidBadge: "Paid",
+    },
+    pay: {
+      eyebrow: "Checkout",
+      title: "Pay once at IN Z",
+      lead: "Pick a product and package, pay with PromptPay or card, then we record the entitlement in Atlas and send it to that product. Your IN Z account email is the reference.",
+      signInFirst: "Sign in before paying",
+      product: "Product",
+      package: "Package",
+      method: "Payment method",
+      promptpay: "PromptPay",
+      card: "Card",
+      payNow: "Pay",
+      paying: "Creating charge…",
+      vatNote: "Listed prices exclude VAT 7% — the charged total includes VAT.",
+      subtotal: "Subtotal",
+      vat: "VAT 7%",
+      total: "Total",
+      scanQr: "Scan the PromptPay QR to pay",
+      waiting: "Waiting for payment…",
+      success: "Paid — entitlement sent to Atlas and the product",
+      openAccount: "Open your package",
+      notConfigured: "Omise is not configured — set OMISE_SECRET_KEY and OMISE_PUBLIC_KEY on the server",
+      belowMin: "This package is below Omise’s ฿20 minimum — contact sales or pick another plan",
+      cardName: "Name on card",
+      cardNumber: "Card number",
+      cardExpiry: "Expiry MM/YY",
+      cardCvc: "CVC",
+      errGeneric: "Payment failed",
+      monthlyNote: "This charges the first period — renew from this page for the next cycle",
+      yearNote: "This charges the first year — renew from this page for the next year",
+      oneTimeNote: "One-time purchase — Atlas records the entitlement, then the team delivers the binary or source",
+      model: "Model",
+      quoteOnly: "Contact for quote",
+      quoteNote: "This package has no fixed public price yet — contact sales for a quote, then pay here or by bank transfer against the invoice",
+      contactSales: "Contact sales",
+      promptpayMax: "This amount is above the PromptPay ฿2,000,000 cap — pay by card, or contact sales for a bank transfer",
     },
   },
 };

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { isDemoAdminEmail } from "@/lib/demo-access";
+import { listAtlasEntitlements } from "@/lib/atlas-commerce";
 import {
+  CHECKOUT_PRODUCT_IDS,
   COMMERCIAL_PRODUCT_IDS,
   normalizeProductId,
   type ProductId,
@@ -36,7 +38,7 @@ export async function POST(request: Request) {
     if (!email || !email.includes("@")) {
       return NextResponse.json({ error: "email" }, { status: 400 });
     }
-    if (!COMMERCIAL_PRODUCT_IDS.includes(productId)) {
+    if (!CHECKOUT_PRODUCT_IDS.includes(productId)) {
       return NextResponse.json({ error: "product" }, { status: 400 });
     }
 
@@ -64,6 +66,30 @@ export async function POST(request: Request) {
       pkg = "complimentary";
     }
 
+    let planId: string | undefined;
+    let skuId: string | undefined;
+    let paid = false;
+    let entitledProducts = allowedProducts;
+    try {
+      const listed = await listAtlasEntitlements(email);
+      entitledProducts = [
+        ...new Set([
+          ...allowedProducts,
+          ...listed.allowed_products.map((id) => normalizeProductId(id)),
+        ]),
+      ];
+      const latest = listed.items.find(
+        (item) => normalizeProductId(item.product_id) === productId,
+      );
+      if (latest) {
+        planId = latest.plan_id;
+        skuId = latest.sku_id;
+        paid = true;
+      }
+    } catch {
+      /* Atlas down — still hand off the session package */
+    }
+
     const token = signHandoffToken({
       email,
       product_id: productId,
@@ -72,7 +98,10 @@ export async function POST(request: Request) {
       package: pkg,
       allowed_products: unlimited
         ? [...COMMERCIAL_PRODUCT_IDS]
-        : allowedProducts,
+        : entitledProducts,
+      plan_id: planId,
+      sku_id: skuId,
+      paid,
     });
 
     const url = `${base.replace(/\/$/, "")}/?inz_sso=${encodeURIComponent(token)}`;
@@ -81,6 +110,9 @@ export async function POST(request: Request) {
       url,
       productId,
       package: pkg,
+      planId,
+      skuId,
+      paid,
       expires_in: 120,
     });
   } catch {
