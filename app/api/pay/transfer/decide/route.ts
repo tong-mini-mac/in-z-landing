@@ -29,8 +29,9 @@ export async function GET(request: Request) {
 
     const confirmed = await confirmAtlasPurchase(parsed.transferId);
     const sku = findCheckoutSku(confirmed.sku_id);
-    if (sku && confirmed.status === "paid" && !confirmed.duplicate) {
-      await notifyProductEntitlement(
+    let productNote = "";
+    if (sku && confirmed.status === "paid") {
+      const notified = await notifyProductEntitlement(
         sku,
         entitlementPayloadFromSku({
           sku,
@@ -41,11 +42,16 @@ export async function GET(request: Request) {
           paidAt: confirmed.paid_at,
         }),
       );
+      if (!notified.ok) {
+        productNote = ` · product notify: ${notified.error || notified.status || "failed"}`;
+      } else if (notified.skipped) {
+        productNote = " · product notify skipped";
+      }
     }
     return html(
       200,
-      confirmed.duplicate ? "อนุมัติไว้แล้ว" : "อนุมัติแล้ว — เปิดสิทธิ์ใน Atlas",
-      `${confirmed.email} · ${confirmed.sku_id} · ${parsed.transferId}`,
+      confirmed.duplicate ? "อนุมัติไว้แล้ว" : "อนุมัติแล้ว — เปิดสิทธิ์ใน Atlas และส่งให้สินค้า",
+      `${confirmed.email} · ${confirmed.sku_id} · ${parsed.transferId}${productNote}`,
     );
   } catch (error) {
     const message = error instanceof Error ? error.message : "decide_failed";
