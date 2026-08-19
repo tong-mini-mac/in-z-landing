@@ -107,6 +107,15 @@ export async function POST(request: Request) {
     });
 
     const url = `${base.replace(/\/$/, "")}/?inz_sso=${encodeURIComponent(token)}`;
+    const { safeRecordAtlasActivity } = await import("@/lib/atlas-commerce");
+    await safeRecordAtlasActivity({
+      email,
+      action: "product_open",
+      source: "landing",
+      product_id: productId,
+      plan_id: planId,
+      metadata: { package: pkg, paid, sku_id: skuId || "" },
+    });
     return NextResponse.json({
       ok: true,
       url,

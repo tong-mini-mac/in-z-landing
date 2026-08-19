@@ -61,10 +61,20 @@ export async function POST(request: Request) {
       );
     }
 
+    const sessionEmail = data.email || data.username || username;
+    const { safeRecordAtlasActivity } = await import("@/lib/atlas-commerce");
+    await safeRecordAtlasActivity({
+      email: sessionEmail,
+      action: "login",
+      source: "landing",
+      product_id: data.product_id,
+      metadata: { kind: data.kind || "complimentary" },
+    });
+
     return NextResponse.json({
       ok: true,
       username: data.username || username,
-      email: data.email || data.username || username,
+      email: sessionEmail,
       product_id: data.product_id,
       allowedProducts: data.allowed_products || (data.product_id ? [data.product_id] : []),
       expiresAt: data.expires_at,

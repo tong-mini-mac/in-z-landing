@@ -149,6 +149,26 @@ export function normalizePhoneNumber(value: string): string | null {
   return `${hasPlus ? "+" : ""}${digits}`;
 }
 
+export function reportAuthActivity(
+  email: string,
+  action: "login" | "logout",
+  extra?: { product_id?: string },
+) {
+  if (typeof window === "undefined") return;
+  const normalized = email.trim().toLowerCase();
+  if (!normalized.includes("@")) return;
+  void fetch("/api/auth/activity", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: normalized,
+      action,
+      product_id: extra?.product_id,
+    }),
+    keepalive: true,
+  }).catch(() => undefined);
+}
+
 export function combinePhoneNumber(
   countryCode: string,
   localNumber: string,

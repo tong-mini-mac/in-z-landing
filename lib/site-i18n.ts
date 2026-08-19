@@ -345,13 +345,13 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
           label: "White Label",
           title: "White Label",
           lead:
-            "รีแบรนด์เต็มรูปแบบภายใต้แบรนด์ของคุณ — Agency White Label หรือ Enterprise IP Package พร้อมซอร์สและกรรมสิทธิ์",
+            "รีแบรนด์บนเครื่องแยก Agency ไม่รวมซอร์สโรงงาน Enterprise IP คือโอนซอร์สและกรรมสิทธิ์",
         },
         license: {
           label: "License",
           title: "License",
           lead:
-            "Startup License สำหรับใช้งานหลัก — ติดตั้งแบบ binary, ร่วมแบรนด์, เงื่อนไขเชิงพาณิชย์ชัดเจน โดยยังไม่ใช่สิทธิ์ white-label เต็มรูปแบบ",
+            "เครื่องแยกบนโดเมนคุณแบบ Shopify — โปรแกรมอยู่คลาวด์ IN Z บังคับโควตาที่ฝั่งเรา LLM เป็น BYOK ไม่ใช่โรงงานให้โหลด รีแบรนด์เต็มคือ White Label",
         },
         saas: {
           label: "SaaS",
@@ -423,8 +423,8 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       cardCvc: "CVC",
       errGeneric: "ชำระเงินไม่สำเร็จ",
       monthlyNote: "ชำระงวดแรกที่นี่ — ต่ออายุรอบถัดไปที่หน้าเดียวกัน",
-      yearNote: "ชำระปีแรกที่นี่ — ต่ออายุรอบปีถัดไปที่หน้าเดียวกัน",
-      oneTimeNote: "ซื้อขาดครั้งเดียว — Atlas บันทึกสิทธิ์แล้วทีมจะประสานส่งมอบไบนารีหรือซอร์ส",
+      yearNote: "ชำระปีแรกที่นี่ — ต่ออายุรอบปีถัดไปที่หน้าเดียวกัน License คือเครื่องแยกบนโดเมนคุณ ไม่ใช่ไฟล์โรงงานให้โหลด",
+      oneTimeNote: "ซื้อขาดครั้งเดียว — Agency คือเครื่องแยกแบรนด์คุณ (เอนจินอยู่กับ IN Z) Enterprise IP ทีมส่งมอบซอร์ส",
       model: "โมเดล",
       quoteOnly: "ติดต่อขอใบเสนอราคา",
       quoteNote: "แพ็กเกจนี้ยังไม่มีราคาคงที่บนหน้าจ่าย — ติดต่อฝ่ายขายเพื่อออกใบเสนอราคา แล้วชำระผ่านหน้านี้หรือโอนตามใบแจ้งหนี้",
@@ -626,13 +626,13 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
           label: "White Label",
           title: "White Label",
           lead:
-            "Full rebrand under your brand — Agency White Label or Enterprise IP Package with source and ownership.",
+            "Your brand on a dedicated tenant. Agency White Label does not include the factory source. Enterprise IP is the source-and-ownership transfer.",
         },
         license: {
           label: "License",
           title: "License",
           lead:
-            "Startup License for core use — binary deployment, co-branded, fixed commercial terms without full white-label rights.",
+            "Like Shopify: your domain, software on IN Z cloud. Dedicated tenant, quota enforced by us, BYOK for LLM. Not a downloadable factory. Full rebrand is White Label.",
         },
         saas: {
           label: "SaaS",
@@ -703,8 +703,8 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       cardCvc: "CVC",
       errGeneric: "Payment failed",
       monthlyNote: "This charges the first period — renew from this page for the next cycle",
-      yearNote: "This charges the first year — renew from this page for the next year",
-      oneTimeNote: "One-time purchase — Atlas records the entitlement, then the team delivers the binary or source",
+      yearNote: "This charges the first year — renew from this page for the next year. License is a dedicated instance on your domain, not a factory download.",
+      oneTimeNote: "One-time purchase — Agency is a branded dedicated tenant (engine stays with IN Z). Enterprise IP is source delivered by the team.",
       model: "Model",
       quoteOnly: "Contact for quote",
       quoteNote: "This package has no fixed public price yet — contact sales for a quote, then pay here or by bank transfer against the invoice",

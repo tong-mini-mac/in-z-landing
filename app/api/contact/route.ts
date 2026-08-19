@@ -66,6 +66,21 @@ export async function POST(request: Request) {
       );
     }
 
+    const { safeRecordAtlasChat } = await import("@/lib/atlas-commerce");
+    await safeRecordAtlasChat({
+      email,
+      product_id: "landing",
+      channel: channel,
+      thread_id: `landing:contact:${channel}:${email}`,
+      source: "landing",
+      messages: [
+        {
+          role: "visitor",
+          body: `From: ${name}\nChannel: ${config.label}\n\n${message}`,
+        },
+      ],
+    });
+
     return NextResponse.json({ ok: true, to: config.to });
   } catch {
     return NextResponse.json({ error: "server" }, { status: 500 });

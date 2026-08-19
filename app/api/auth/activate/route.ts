@@ -14,6 +14,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "invalid" }, { status: 400 });
     }
 
+    const { safeRecordAtlasActivity } = await import("@/lib/atlas-commerce");
+    await safeRecordAtlasActivity({
+      email: payload.email,
+      action: "signup_activate",
+      source: "landing",
+    });
+
     return NextResponse.json({
       user: {
         fullName: payload.fullName,

@@ -356,8 +356,8 @@ const SYNTHCOMM_SAAS_TIERS: PricingTier[] = [
     name: { en: "Enterprise", th: "Enterprise" },
     price: { en: "Custom", th: "ตามตกลง" },
     detail: {
-      en: "Unlimited · white-label · custom SLA",
-      th: "ไม่จำกัด · white-label · SLA ตามตกลง",
+      en: "Contact sales — typically License or White Label, not a public unlimited cloud SKU",
+      th: "ติดต่อฝ่ายขาย — โดยทั่วไปเป็น License หรือ White Label ไม่ใช่แพ็กคลาวด์ไม่จำกัดบนหน้านี้",
     },
   },
 ];
@@ -365,12 +365,20 @@ const SYNTHCOMM_SAAS_TIERS: PricingTier[] = [
 const SYNTHCOMM_LICENSE_TIERS: PricingTier[] = [
   {
     name: { en: "Startup License", th: "Startup License" },
-    price: "฿480,000",
+    price: "฿480,000 / year",
     detail: {
-      en: "Binary · 1 domain · up to 50K/mo · co-branded · 6 months support",
-      th: "ไบนารี · 1 โดเมน · สูงสุด 50,000/เดือน · ร่วมแบรนด์ · ซัพพอร์ต 6 เดือน",
+      en: "Dedicated instance · 1 CNAME · 50,000/mo · BYOK · badge required · 6 months support · engine not downloaded",
+      th: "เครื่องแยกที่เราโฮสต์ · 1 โดเมน (CNAME) · 50,000/เดือน · นำคีย์มาเอง · มีป้าย · ซัพพอร์ต 6 เดือน · ไม่ส่งโรงงานให้โหลด",
     },
     highlight: true,
+  },
+  {
+    name: { en: "Professional License", th: "Professional License" },
+    price: "฿720,000 / year",
+    detail: {
+      en: "Dedicated instance · 3 CNAMEs · 150,000/mo · BYOK · badge required · 12 months support · engine not downloaded",
+      th: "เครื่องแยกที่เราโฮสต์ · 3 โดเมน (CNAME) · 150,000/เดือน · นำคีย์มาเอง · มีป้าย · ซัพพอร์ต 12 เดือน · ไม่ส่งโรงงานให้โหลด",
+    },
   },
 ];
 
@@ -379,8 +387,8 @@ const SYNTHCOMM_WHITE_LABEL_TIERS: PricingTier[] = [
     name: { en: "Agency White Label", th: "Agency White Label" },
     price: "฿980,000",
     detail: {
-      en: "100% rebrand · no badge · unlimited scale · SaaS resell rights",
-      th: "รีแบรนด์ 100% · ไม่มีป้าย · สเกลไม่จำกัด · สิทธิ์ขายต่อแบบ SaaS",
+      en: "Your brand · no badge · resell SaaS · dedicated tenant · engine stays with IN Z",
+      th: "แบรนด์คุณ · ไม่มีป้าย · ขายต่อ SaaS ได้ · เครื่องแยก · เอนจินยังอยู่กับ IN Z",
     },
     highlight: true,
   },
@@ -627,8 +635,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
         ctaLabel: CONTACT_SALES,
         ctaHref: "/contact?channel=customer-service",
         note: {
-          en: "Co-branded license with Powered by SynthComm badge. Upgrade to White Label for full rebrand.",
-          th: "ไลเซนส์ร่วมแบรนด์พร้อมป้าย Powered by SynthComm อัปเกรดเป็น White Label หากต้องการรีแบรนด์เต็มรูปแบบ",
+          en: "Like Shopify: your domain via CNAME, software on IN Z cloud. Dedicated tenant — engine, workers, quota, expiry stay with us. Job API is ours; LLM APIs are your BYOK. No source, worker image, or on-prem engine (that is Enterprise IP).",
+          th: "แบบ Shopify: โดเมนคุณผ่าน CNAME โปรแกรมอยู่บนคลาวด์ IN Z ทั้งก้อน เป็น dedicated tenant เอนจิน เวิร์กเกอร์ โควตา วันหมดอายุอยู่ฝั่งเรา API ส่งจ๊อบเป็นของ IN Z ค่า LLM เป็น BYOK ของลูกค้า ไม่มีซอร์ส ไม่มี worker image ไม่มี on-prem (นั่นคือ Enterprise IP)",
         },
         tiers: SYNTHCOMM_LICENSE_TIERS,
       },
@@ -636,8 +644,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
         ctaLabel: CONTACT_SALES,
         ctaHref: "/contact?channel=customer-service",
         note: {
-          en: "Pay in full and save 10%. Installment available on Agency White Label and Enterprise IP.",
-          th: "ชำระเต็มจำนวนลด 10% ผ่อนได้สำหรับ Agency White Label และ Enterprise IP",
+          en: "Agency: your brand on a dedicated tenant — the generation engine stays with IN Z. Enterprise IP: source transfer. Pay in full and save 10%. Installment available.",
+          th: "Agency: แบรนด์คุณบนเครื่องแยก — เอนจินผลิตยังอยู่กับ IN Z Enterprise IP: โอนซอร์ส ชำระเต็มจำนวนลด 10% ผ่อนได้",
         },
         tiers: SYNTHCOMM_WHITE_LABEL_TIERS,
       },

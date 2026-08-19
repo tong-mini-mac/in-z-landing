@@ -22,6 +22,7 @@ import {
   isValidPhone,
   isValidTaxId,
   purgeLegacyRememberStores,
+  reportAuthActivity,
   saveRememberedCredentials,
   saveSession,
   signOutLocal,
@@ -189,6 +190,7 @@ export function AuthForm() {
         };
         persistRememberChoice(nextEmail);
         saveSession(user);
+        reportAuthActivity(user.email, "login");
         router.push(postAuthPath(searchParams));
         return;
       }
@@ -254,6 +256,7 @@ export function AuthForm() {
       };
       persistRememberChoice(nextEmail);
       saveSession(user);
+      reportAuthActivity(user.email, "login");
       router.push(postAuthPath(searchParams));
       return;
     }
@@ -413,6 +416,9 @@ export function AuthForm() {
               type="button"
               className="contact-secondary"
               onClick={() => {
+                if (existingSession?.user?.email) {
+                  reportAuthActivity(existingSession.user.email, "logout");
+                }
                 signOutLocal();
                 setExistingSession(null);
                 setEmail("");

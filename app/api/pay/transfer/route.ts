@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
-import { recordAtlasPurchase } from "@/lib/atlas-commerce";
+import { recordAtlasPurchase, recordAtlasSlip } from "@/lib/atlas-commerce";
 import { getBankAccount, SLIP_MAX_BYTES, SLIP_TYPES } from "@/lib/bank-account";
 import { findCheckoutSku, withVat } from "@/lib/checkout-skus";
 import { formatFromAddress, MAILBOX } from "@/lib/mail-addresses";
@@ -64,6 +64,28 @@ export async function POST(request: Request) {
         slip_name: filename,
       },
     });
+
+    try {
+      await recordAtlasSlip({
+        email,
+        transfer_id: transferId,
+        filename,
+        content_type: contentType,
+        content_base64: bytes.toString("base64"),
+        product_id: sku.productId,
+        plan_id: sku.planId,
+        invoice_id: atlas.invoice_id,
+      });
+    } catch (error) {
+      console.error("[pay transfer] atlas slip archive failed", transferId, error);
+      return NextResponse.json(
+        {
+          error: "slip_archive_failed",
+          message: error instanceof Error ? error.message : "Could not store slip in Atlas",
+        },
+        { status: 502 },
+      );
+    }
 
     const mock = process.env.DEMO_BILLING_MOCK === "1";
     if (!mock && !getMailStatus().configured) {

@@ -7,12 +7,12 @@ export const PRODUCT_MODELS: Record<
   "white-label": {
     label: "White Label",
     title: "White Label",
-    lead: "Full rebrand under your brand — Agency White Label or Enterprise IP Package with source and ownership.",
+    lead: "Your brand on a dedicated tenant. Agency White Label does not include the factory source. Enterprise IP is the source-and-ownership transfer.",
   },
   license: {
     label: "License",
     title: "License",
-    lead: "Startup License for core use — binary deployment, co-branded, fixed commercial terms without full white-label rights.",
+    lead: "Like Shopify: your domain, software on IN Z cloud. Dedicated tenant, quota enforced by us, BYOK for LLM. Not a downloadable factory. Full rebrand is White Label.",
   },
   saas: {
     label: "SaaS",

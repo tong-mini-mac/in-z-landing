@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState, type MouseEvent } from "react";
 import { AUTH_COPY } from "@/lib/auth-i18n";
 import { SITE_COPY } from "@/lib/site-i18n";
 import { useSiteLang } from "@/lib/use-site-lang";
-import { getSession, signOutLocal, type AuthSession } from "@/lib/auth-session";
+import { getSession, reportAuthActivity, signOutLocal, type AuthSession } from "@/lib/auth-session";
 import { isDemoAdminEmail } from "@/lib/demo-access";
 import { productsForAccess, type ProductEntry } from "@/lib/products";
 import type { AtlasEntitlement } from "@/lib/atlas-commerce";
@@ -63,6 +63,9 @@ export function ProductLauncher() {
   }, [entitlements]);
 
   function signOut() {
+    if (session?.user?.email) {
+      reportAuthActivity(session.user.email, "logout");
+    }
     signOutLocal();
     router.push("/auth?mode=signin");
   }
