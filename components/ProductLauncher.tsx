@@ -196,7 +196,9 @@ export function ProductLauncher() {
         {t.signOut}
       </button>
 
-      <p className="auth-demo-note">{t.demoNote}</p>
+      {session && isDemoAdminEmail(session.user.email) ? (
+        <p className="auth-demo-note">{t.adminUnlimitedNote}</p>
+      ) : null}
     </div>
   );
 }

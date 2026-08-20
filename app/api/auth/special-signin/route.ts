@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { isDemoAdminEmail } from "@/lib/demo-access";
+import { isValidDemoAdmin } from "@/lib/demo-admin-server";
 
 const ERP_BASE =
   process.env.ERP_SPECIAL_LOGIN_URL?.replace(/\/$/, "") ||
@@ -25,6 +27,31 @@ export async function POST(request: Request) {
 
     if (!username || !password) {
       return NextResponse.json({ error: "invalid" }, { status: 400 });
+    }
+
+    if (isDemoAdminEmail(username)) {
+      if (!isValidDemoAdmin(username, password)) {
+        return NextResponse.json({ error: "admin_password" }, { status: 401 });
+      }
+      const { safeRecordAtlasActivity } = await import("@/lib/atlas-commerce");
+      await safeRecordAtlasActivity({
+        email: username,
+        action: "login",
+        source: "landing",
+        metadata: { kind: "demo_admin" },
+      });
+      return NextResponse.json({
+        ok: true,
+        username,
+        email: username,
+        product_id: undefined,
+        allowedProducts: [],
+        expiresAt: undefined,
+        revenue: false,
+        role: "admin",
+        unlimited: true,
+        kind: "demo_admin",
+      });
     }
 
     const response = await fetch(`${ERP_BASE}/api/access/special-login`, {
@@ -80,6 +107,7 @@ export async function POST(request: Request) {
       expiresAt: data.expires_at,
       revenue: false,
       role: "trial",
+      unlimited: false,
       kind: data.kind || "complimentary",
     });
   } catch {

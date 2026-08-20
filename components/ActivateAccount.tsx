@@ -42,7 +42,7 @@ export function ActivateAccount() {
 
         if (cancelled) return;
 
-        if (!response.ok || !data.ok || !data.user) {
+        if (!response.ok || !data.user) {
           setStatus("error");
           setError(t.errActivate);
           return;

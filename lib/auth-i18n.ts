@@ -139,7 +139,7 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     errAdminSignup: "บัญชี Admin ใช้ได้ที่ Sign In เท่านั้น",
     checkEmailTitle: "ตรวจสอบอีเมลของคุณ",
     checkEmailBody:
-      "เราได้ส่งลิงก์ Activate จาก no-reply@inz.lol ไปที่อีเมลของคุณแล้ว กรุณาคลิกลิงก์เพื่อเปิดใช้งานบัญชี",
+      "เราได้ส่งลิงก์ Activate จาก no-reply@inz.lol ไปที่อีเมลของคุณแล้ว กรุณาคลิกลิงก์เพื่อเปิดใช้งานบัญชี หากไม่เจอใน Inbox ให้ตรวจโฟลเดอร์ Junk / Spam แล้วกด It's not junk ก่อนเปิดลิงก์",
     activating: "กำลัง Activate บัญชี…",
     activateSuccess: "Activate สำเร็จ กำลังพาไปหน้าผลิตภัณฑ์…",
     errActivate: "ลิงก์ Activate ไม่ถูกต้องหรือหมดอายุแล้ว",
@@ -207,7 +207,7 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     errAdminSignup: "Admin trial uses Sign In only",
     checkEmailTitle: "Check your email",
     checkEmailBody:
-      "We sent an activation link from no-reply@inz.lol. Click the link to activate your account.",
+      "We sent an activation link from no-reply@inz.lol. Click the link to activate your account. If you do not see it in Inbox, check Junk / Spam and mark it as not junk before opening the link.",
     activating: "Activating your account…",
     activateSuccess: "Account activated. Taking you to your products…",
     errActivate: "This activation link is invalid or has expired.",

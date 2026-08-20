@@ -11,7 +11,6 @@ import {
 import { useSiteLang } from "@/lib/use-site-lang";
 import {
   isDemoAdminEmail,
-  isValidDemoAdmin,
 } from "@/lib/demo-access";
 import {
   clearRememberedCredentials,
@@ -173,28 +172,6 @@ export function AuthForm() {
     }
 
     if (mode === "signin") {
-      if (isDemoAdminEmail(nextEmail) && !isValidDemoAdmin(nextEmail, nextPassword)) {
-        setError(t.errAdminPassword);
-        setSubmitting(false);
-        return;
-      }
-
-      if (isValidDemoAdmin(nextEmail, nextPassword)) {
-        const user: AuthUser = {
-          fullName: "IN Z Admin",
-          email: nextEmail,
-          phone: "",
-          createdAt: new Date().toISOString(),
-          role: "admin",
-          unlimited: true,
-        };
-        persistRememberChoice(nextEmail);
-        saveSession(user);
-        reportAuthActivity(user.email, "login");
-        router.push(postAuthPath(searchParams));
-        return;
-      }
-
       try {
         const response = await fetch("/api/auth/special-signin", {
           method: "POST",
@@ -208,30 +185,40 @@ export function AuthForm() {
           username?: string;
           allowedProducts?: string[];
           expiresAt?: string;
-          role?: "trial";
+          role?: "trial" | "admin";
+          unlimited?: boolean;
           kind?: string;
         };
 
         if (response.ok && data.ok) {
+          const isAdmin = data.role === "admin" || Boolean(data.unlimited);
           const user: AuthUser = {
-            fullName: (data.username || nextEmail).split("@")[0],
+            fullName: isAdmin
+              ? "IN Z Admin"
+              : (data.username || nextEmail).split("@")[0],
             email: data.email || data.username || nextEmail,
             phone: "",
             createdAt: new Date().toISOString(),
-            role: "trial",
-            unlimited: false,
-            allowedProducts: data.allowedProducts || [],
+            role: isAdmin ? "admin" : "trial",
+            unlimited: isAdmin,
+            allowedProducts: isAdmin ? undefined : data.allowedProducts || [],
             expiresAt: data.expiresAt,
             revenue: false,
-            kind: data.kind || "complimentary",
+            kind: data.kind || (isAdmin ? "demo_admin" : "complimentary"),
           };
           persistRememberChoice(nextEmail);
           saveSession(user);
+          reportAuthActivity(user.email, "login");
           router.push(postAuthPath(searchParams));
           return;
         }
 
         const err = String(data.error || "");
+        if (err === "admin_password") {
+          setError(t.errAdminPassword);
+          setSubmitting(false);
+          return;
+        }
         if (err.toLowerCase().includes("expired") || err.includes("ถูกลบ")) {
           setError("บัญชีทดลองหมดอายุแล้ว และถูกลบแล้ว — ใช้ username นี้ซ้ำไม่ได้");
           setSubmitting(false);
@@ -244,6 +231,12 @@ export function AuthForm() {
         }
       } catch {
         /* fall through to generic local session for non-trial emails */
+      }
+
+      if (isDemoAdminEmail(nextEmail)) {
+        setError(t.errAdminPassword);
+        setSubmitting(false);
+        return;
       }
 
       const user: AuthUser = {
@@ -459,27 +452,6 @@ export function AuthForm() {
         noValidate
         autoComplete="off"
       >
-        {/* Honey-pot / decoy fields — browsers often autofill the first email+password pair. */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            left: "-10000px",
-            top: "auto",
-            width: 1,
-            height: 1,
-            overflow: "hidden",
-          }}
-        >
-          <input type="text" name="username" tabIndex={-1} autoComplete="username" />
-          <input
-            type="password"
-            name="password"
-            tabIndex={-1}
-            autoComplete="current-password"
-          />
-        </div>
-
         {mode === "signup" ? (
           <label className="contact-field">
             <span>{t.fullName}</span>
@@ -507,6 +479,7 @@ export function AuthForm() {
               autoComplete="off"
               data-1p-ignore="true"
               data-lpignore="true"
+              data-bwignore="true"
               data-form-type="other"
               disabled={submitting}
               readOnly={autofillLock}
@@ -566,9 +539,10 @@ export function AuthForm() {
                 name="inz_account_secret"
                 required
                 minLength={8}
-                autoComplete="new-password"
+                autoComplete="off"
                 data-1p-ignore="true"
                 data-lpignore="true"
+                data-bwignore="true"
                 data-form-type="other"
                 disabled={submitting}
                 readOnly={autofillLock}
@@ -745,8 +719,6 @@ export function AuthForm() {
             </button>
           )}
         </p>
-
-        <p className="auth-demo-note">{t.demoNote}</p>
       </form>
     </div>
   );

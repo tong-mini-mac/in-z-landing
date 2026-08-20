@@ -56,7 +56,12 @@ export function createActivationToken(
 }
 
 export function verifyActivationToken(token: string): ActivationPayload | null {
-  const [body, signature] = token.split(".");
+  const cleaned = String(token || "")
+    .trim()
+    // Outlook / mail clients sometimes insert zero-width or soft hyphens into long URLs.
+    .replace(/[\u200B-\u200D\uFEFF\u00AD]/g, "")
+    .replace(/\s+/g, "");
+  const [body, signature] = cleaned.split(".");
   if (!body || !signature) return null;
 
   const expected = sign(body);
