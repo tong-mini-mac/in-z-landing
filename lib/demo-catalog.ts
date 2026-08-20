@@ -94,6 +94,25 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "เริ่มทดลอง Content Creator",
     },
   },
+  {
+    id: "netr",
+    name: "NetR",
+    href: `${PRODUCT_HREF.netr.replace(/\/$/, "")}/chat`,
+    requiresSignup: true,
+    external: true,
+    trialTitle: {
+      en: "Free — 5 minutes / day",
+      th: "ฟรี — 5 นาที/วัน",
+    },
+    trialSummary: {
+      en: "Thai karmic astrology chat on the web — free daily minutes first, then Prepaid or Plus.",
+      th: "คุยดวงโหราศาสตร์กรรมบนเว็บ — ใช้ฟรีรายวันก่อน แล้วเติม Prepaid หรือสมัคร Plus",
+    },
+    ctaLabel: {
+      en: "Try netr free",
+      th: "ทดลองเนตรฟรี",
+    },
+  },
 ];
 
 export const DEMO_COPY: Record<

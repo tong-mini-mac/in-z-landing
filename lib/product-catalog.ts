@@ -770,7 +770,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     pricingByModel: {
       saas: {
         ctaLabel: { en: "Open netr", th: "เปิดเนตร" },
-        ctaHref: "/netr",
+        ctaHref: "https://netr-web-production-ea49.up.railway.app/chat",
         note: {
           en: "Chat only on the web /chat page. Daily free minutes first, then Plus, then Prepaid. No Pro plan.",
           th: "คุยดวงได้เฉพาะหน้าเว็บ /chat ใช้ฟรีรายวันก่อน แล้ว Plus แล้ว Prepaid ไม่มีแพ็กเกจ Pro",

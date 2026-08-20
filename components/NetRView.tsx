@@ -5,30 +5,30 @@ import Link from "next/link";
 import { SiteFooter, SiteNav } from "@/components/SiteChrome";
 import { useSiteLang } from "@/lib/use-site-lang";
 
+const NETR_CHAT = "https://netr-web-production-ea49.up.railway.app/chat";
+
 const COPY = {
   th: {
     eyebrow: "IN Z · SaaS",
     lead: "เนตร — Oracle ที่รู้จักคุณดีกว่าใคร · โหราศาสตร์ปฏิวัติกรรมจากตำราไทยโบราณ ผสาน AI ที่จำคุณได้",
-    statusTitle: "สถานะ",
-    statusBody:
-      "เนตรอยู่ในรายการผลิตภัณฑ์ของคุณ แต่แอปยังเชื่อม SSO จาก IN Z ไม่ครบ — หน้านี้เป็นหน้าสถานะ ไม่ใช่หน้าดูดวง",
-    nextBody:
-      "เมื่อพร้อม จะเปิดหน้าแชทเนตรแบบเดียวกับผลิตภัณฑ์อื่นในบัญชี IN Z",
-    meanwhileTitle: "ระหว่างนี้",
-    meanwhileBody: "ดูแคตตาล็อก SaaS หรือกลับไปแพ็กเกจของคุณ — คุยดวงได้เฉพาะหน้า /chat ของเนตร",
+    trialTitle: "ทดลองใช้ฟรี",
+    trialBody:
+      "เริ่มฟรี 5 นาทีต่อวันบนหน้า /chat — ไม่ต้องใส่บัตร แล้วค่อยเติม Prepaid หรือสมัคร Plus",
+    openChat: "เปิดเนตร /chat",
+    meanwhileTitle: "แพ็กเกจ",
+    meanwhileBody: "ดูแคตตาล็อก SaaS หรือกลับไปแพ็กเกจของคุณบนบัญชี IN Z",
     catalog: "ดูในแคตตาล็อก SaaS",
     account: "แพ็กเกจของคุณ",
   },
   en: {
     eyebrow: "IN Z · SaaS",
     lead: "netr — Oracle of Karmic Stars · Thai karmic astrology from ancient texts plus AI that remembers you.",
-    statusTitle: "Status",
-    statusBody:
-      "netr is listed in Your products, but IN Z SSO handoff is not live yet. This is the status page, not the chat oracle.",
-    nextBody:
-      "When ready, account open will take you into the netr web chat the same way other IN Z products do.",
-    meanwhileTitle: "Meanwhile",
-    meanwhileBody: "Review the SaaS catalog, or return to Your package. Chart chat is only on netr’s /chat page.",
+    trialTitle: "Free trial",
+    trialBody:
+      "Start free with 5 minutes per day on /chat — no card required. Add Prepaid minutes or Plus when you need more.",
+    openChat: "Open netr /chat",
+    meanwhileTitle: "Plans",
+    meanwhileBody: "Review the SaaS catalog, or return to Your package on your IN Z account.",
     catalog: "View on SaaS catalog",
     account: "Your package",
   },
@@ -60,9 +60,13 @@ export function NetRView() {
         </header>
 
         <section className="about-section">
-          <h2>{t.statusTitle}</h2>
-          <p>{t.statusBody}</p>
-          <p>{t.nextBody}</p>
+          <h2>{t.trialTitle}</h2>
+          <p>{t.trialBody}</p>
+          <p style={{ marginTop: "1rem" }}>
+            <a className="demo-cta" href={NETR_CHAT} target="_blank" rel="noreferrer">
+              {t.openChat}
+            </a>
+          </p>
         </section>
 
         <section className="about-section">

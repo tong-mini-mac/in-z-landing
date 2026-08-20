@@ -75,7 +75,7 @@ export const PRODUCTS: ProductEntry[] = [
       th: "โหราศาสตร์กรรมไทย + AI ที่จำคุณได้",
       en: "Thai karmic astrology + AI that remembers you",
     },
-    href: "/netr",
+    href: "https://netr-web-production-ea49.up.railway.app",
     available: true,
   },
   {

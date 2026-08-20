@@ -97,7 +97,9 @@ export function productBaseUrl(productId: string): string | null {
     "content-creator":
       process.env.CONTENT_CREATOR_URL ||
       "https://podcast-web-production-41ac.up.railway.app",
-    netr: process.env.NETR_URL || "",
+    netr:
+      process.env.NETR_URL ||
+      "https://netr-web-production-ea49.up.railway.app",
     prism:
       process.env.PRISM_URL ||
       "https://prism-web-production.up.railway.app",
