@@ -9,6 +9,8 @@ export type HandoffClaims = {
   allowed_products: string[];
   plan_id?: string;
   sku_id?: string;
+  entitlement_id?: string;
+  omise_charge_id?: string;
   paid?: boolean;
   exp: number;
   iat: number;

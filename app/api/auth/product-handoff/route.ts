@@ -68,6 +68,8 @@ export async function POST(request: Request) {
 
     let planId: string | undefined;
     let skuId: string | undefined;
+    let entitlementId: string | undefined;
+    let omiseChargeId: string | undefined;
     let paid = false;
     let entitledProducts = allowedProducts;
     try {
@@ -86,6 +88,8 @@ export async function POST(request: Request) {
       if (latest) {
         planId = latest.plan_id;
         skuId = latest.sku_id;
+        entitlementId = latest.entitlement_id;
+        omiseChargeId = latest.omise_charge_id;
         paid = true;
       }
     } catch {
@@ -103,6 +107,8 @@ export async function POST(request: Request) {
         : entitledProducts,
       plan_id: planId,
       sku_id: skuId,
+      entitlement_id: entitlementId,
+      omise_charge_id: omiseChargeId,
       paid,
     });
 
