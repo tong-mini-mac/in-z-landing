@@ -798,7 +798,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     pricingByModel: {
       license: {
         ctaLabel: { en: "Open PRISM", th: "เปิด PRISM" },
-        ctaHref: "https://prism-web-production.up.railway.app",
+        ctaHref: "https://prism-web-production-e0c6.up.railway.app",
         note: {
           en: "Co-branded license for real-estate teams. Live admin web is the reference UI — contact sales for commercial terms. Upgrade to White Label for full rebrand.",
           th: "ไลเซนส์ร่วมแบรนด์สำหรับทีมอสังหา แอดมินเว็บที่เปิดได้คือ UI อ้างอิง — ติดต่อฝ่ายขายเรื่องเงื่อนไข อัปเกรดเป็น White Label หากต้องการรีแบรนด์เต็ม",
@@ -807,7 +807,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
       },
       "white-label": {
         ctaLabel: { en: "Open PRISM", th: "เปิด PRISM" },
-        ctaHref: "https://prism-web-production.up.railway.app",
+        ctaHref: "https://prism-web-production-e0c6.up.railway.app",
         note: {
           en: "White Label for real-estate brands. Live admin web is the reference UI — contact sales for source, rebrand, and ownership.",
           th: "White Label สำหรับแบรนด์อสังหา แอดมินเว็บที่เปิดได้คือ UI อ้างอิง — ติดต่อฝ่ายขายสำหรับซอร์ส รีแบรนด์ และกรรมสิทธิ์",

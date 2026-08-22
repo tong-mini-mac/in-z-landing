@@ -102,7 +102,7 @@ export function productBaseUrl(productId: string): string | null {
       "https://netr-web-production-ea49.up.railway.app",
     prism:
       process.env.PRISM_URL ||
-      "https://prism-web-production.up.railway.app",
+      "https://prism-web-production-e0c6.up.railway.app",
   };
   return map[productId] || null;
 }

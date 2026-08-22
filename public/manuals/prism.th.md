@@ -6,8 +6,8 @@ PRISM = Property Retrieval & Intent Subset Matching ขับเคลื่อ�
 
 ## ระบบอ้างอิงที่เปิดใช้
 
-แอดมินเว็บ: https://prism-web-production.up.railway.app  
-สุขภาพ API: https://prism-api-production-d41e.up.railway.app/health
+แอดมินเว็บ: https://prism-web-production-e0c6.up.railway.app
+สุขภาพ API: https://prism-api-production-b232.up.railway.app/health
 
 ## ลำดับงาน
 

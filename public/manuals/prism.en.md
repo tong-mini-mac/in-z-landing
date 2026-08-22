@@ -6,8 +6,8 @@ AI customer-engagement platform for real estate marketing: segment, match, and n
 
 ## Live reference
 
-Admin web: https://prism-web-production.up.railway.app  
-API health: https://prism-api-production-d41e.up.railway.app/health
+Admin web: https://prism-web-production-e0c6.up.railway.app
+API health: https://prism-api-production-b232.up.railway.app/health
 
 ## Flow
 
