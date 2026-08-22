@@ -55,7 +55,7 @@ function fromB64url(input: string): Buffer {
   return Buffer.from(padded + pad, "base64");
 }
 
-export function signHandoffToken(claims: Omit<HandoffClaims, "exp" | "iat">, ttlSec = 120): string {
+export function signHandoffToken(claims: Omit<HandoffClaims, "exp" | "iat">, ttlSec = 600): string {
   const now = Math.floor(Date.now() / 1000);
   const full: HandoffClaims = {
     ...claims,

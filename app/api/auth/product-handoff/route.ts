@@ -124,7 +124,7 @@ export async function POST(request: Request) {
       planId,
       skuId,
       paid,
-      expires_in: 120,
+      expires_in: 600,
     });
   } catch {
     return NextResponse.json({ error: "handoff_failed" }, { status: 500 });
