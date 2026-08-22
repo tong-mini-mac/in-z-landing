@@ -1,6 +1,6 @@
 "use client";
 
-import { LogoMark } from "@/components/LogoMark";
+import Image from "next/image";
 import { SITE_COPY } from "@/lib/site-i18n";
 import { useSiteLang } from "@/lib/use-site-lang";
 
@@ -10,7 +10,15 @@ export function HomeHero() {
 
   return (
     <section className="hero" aria-label="Brand">
-      <LogoMark priority />
+      <Image
+        className="logo-mark"
+        src="/logo-transparent.png"
+        alt="IN Z"
+        width={400}
+        height={400}
+        priority
+        unoptimized
+      />
       <div className="hero-copy">
         <p className="brand">
           <span className="hero-copy-line">{t.brand}</span>

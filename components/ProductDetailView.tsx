@@ -1,7 +1,7 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import { LogoMark } from "@/components/LogoMark";
 import { SiteFooter, SiteNav } from "@/components/SiteChrome";
 import {
   SCOPE_OF_WORK_COPY,
@@ -68,7 +68,15 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
 
       <article className="product-detail">
         <header className="product-detail-hero">
-          <LogoMark className="logo-mark logo-mark-products" priority />
+          <Image
+            className="logo-mark logo-mark-products"
+            src="/logo-transparent.png"
+            alt="IN Z"
+            width={280}
+            height={280}
+            priority
+            unoptimized
+          />
           <a className="product-detail-back" href={`/products/${model}`}>
             {t.back}
           </a>

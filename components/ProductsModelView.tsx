@@ -1,6 +1,6 @@
 "use client";
 
-import { LogoMark } from "@/components/LogoMark";
+import Image from "next/image";
 import { ProductCard } from "@/components/ProductCard";
 import { SiteFooter, SiteNav } from "@/components/SiteChrome";
 import {
@@ -33,7 +33,15 @@ export function ProductsModelView({ model }: { model: ProductModel }) {
 
       <article className="products-body">
         <header className="products-hero">
-          <LogoMark className="logo-mark logo-mark-products" priority />
+          <Image
+            className="logo-mark logo-mark-products"
+            src="/logo-transparent.png"
+            alt="IN Z"
+            width={400}
+            height={400}
+            priority
+            unoptimized
+          />
           <p className="brand">IN Z</p>
           <p className="products-model-label">{config.title}</p>
           <p className="products-model-lead">{config.lead}</p>

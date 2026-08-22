@@ -3,11 +3,11 @@
   <g fill="#0a0a0a">
     <!-- I -->
     <rect x="40" y="40" width="54" height="220"/>
-    <!-- N -->
+    <!-- N with diagonal cut -->
     <path d="M130 40h58l118 148V40h54v220h-58L184 112v148h-54V40z"/>
-    <!-- Z — three strokes aligned to I/N cap height (y=40) and baseline (y=260) -->
-    <rect x="390" y="40" width="200" height="54"/>
-    <path d="M578 94 486 206h92V94z"/>
-    <rect x="390" y="206" width="200" height="54"/>
+    <!-- Angular Z rune (three strokes) -->
+    <path d="M390 48h200l-108 88h96v42H402l108-88h-84V48z"/>
+    <rect x="402" y="168" width="176" height="42"/>
+    <path d="M402 220h140v50H402z"/>
   </g>
 </svg>

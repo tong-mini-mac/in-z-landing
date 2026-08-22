@@ -1,6 +1,6 @@
 "use client";
 
-import { LogoMark } from "@/components/LogoMark";
+import Image from "next/image";
 import {
   DEMO_COPY,
   demoOffersForCommercial,
@@ -15,7 +15,15 @@ export function DemoHub() {
   return (
     <article className="demo-body">
       <header className="demo-hero">
-        <LogoMark className="logo-mark logo-mark-demo" priority />
+        <Image
+          className="logo-mark logo-mark-demo"
+          src="/logo-transparent.png"
+          alt="IN Z"
+          width={400}
+          height={400}
+          priority
+          unoptimized
+        />
         <p className="brand">IN Z</p>
         <p className="demo-label">{copy.label}</p>
         <p className="demo-lead">{copy.lead}</p>
