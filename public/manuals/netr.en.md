@@ -28,16 +28,15 @@ Signed in with this package: the button is **Your package** (goes to chat).
 | Package | Price | Quota |
 |---------|-------|--------|
 | Free | ฿0 | 5 minutes / day |
-| Prepaid 15 minutes (`prepaid_15m`) | ฿20 | 15 minutes, stackable |
-| Plus (`plus_monthly`) | ฿59 / month | 150 minutes / month |
+| Prepaid 24 hours (`prepaid_15m`) | ฿30 | 1,440 minutes (24h), stackable, per-minute billing |
+| Plus (`plus_monthly`) | ฿99 / month | 3 hours (180 minutes) / day, resets daily |
 
 There is no Pro plan (discontinued).
 
 ## Minute billing
 
-1. Daily free minutes first (5 minutes)
-2. Then Plus quota (if subscribed)
-3. Then stacked Prepaid
+1. Daily free minutes first (5 minutes) — or Plus 3 hours/day while subscribed
+2. Then stacked Prepaid
 
 Minutes follow the real answer time of each question. Minimum 30 seconds. Maximum 5 minutes per question.
 

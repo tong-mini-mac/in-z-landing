@@ -553,19 +553,19 @@ const NETR_SAAS_TIERS: PricingTier[] = [
     highlight: true,
   },
   {
-    name: { en: "Prepaid 15 minutes", th: "Prepaid 15 นาที" },
-    price: "฿20",
+    name: { en: "Prepaid 24 hours", th: "Prepaid 24 ชม." },
+    price: "฿30",
     detail: {
-      en: "฿20 · buy as needed · stackable · chat at /chat",
-      th: "฿20 · ซื้อตามต้องการ · สะสมได้ · คุยที่ /chat",
+      en: "฿30 · 24h (1,440 min) · deducted per minute · stackable · chat at /chat",
+      th: "฿30 · 24 ชม. (1,440 นาที) · หักเป็นนาที · สะสมได้ · คุยที่ /chat",
     },
   },
   {
     name: { en: "Plus", th: "Plus" },
-    price: { en: "฿59 / month", th: "฿59/เดือน" },
+    price: { en: "฿99 / month", th: "฿99/เดือน" },
     detail: {
-      en: "150 minutes / month · chat at /chat",
-      th: "฿59/เดือน · 150 นาที/เดือน · คุยที่ /chat",
+      en: "3 hours / day · chat at /chat",
+      th: "฿99/เดือน · 3 ชม./วัน · คุยที่ /chat",
     },
   },
 ];
@@ -763,8 +763,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
       th: "ฟรี — 5 นาที/วัน",
     },
     regularPrice: {
-      en: "Prepaid ฿20 · Plus ฿59 / month",
-      th: "Prepaid ฿20 · Plus ฿59/เดือน",
+      en: "Prepaid ฿30 · Plus ฿99 / month",
+      th: "Prepaid ฿30 · Plus ฿99/เดือน",
     },
     models: ["saas"],
     pricingByModel: {
@@ -772,8 +772,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
         ctaLabel: { en: "Open netr", th: "เปิดเนตร" },
         ctaHref: "https://netr-web-production-ea49.up.railway.app/chat",
         note: {
-          en: "Chat only on the web /chat page. Daily free minutes first, then Plus, then Prepaid. No Pro plan.",
-          th: "คุยดวงได้เฉพาะหน้าเว็บ /chat ใช้ฟรีรายวันก่อน แล้ว Plus แล้ว Prepaid ไม่มีแพ็กเกจ Pro",
+          en: "Chat only on the web /chat page. Free 5 min/day, or Plus 3 h/day while subscribed, then Prepaid. No Pro plan.",
+          th: "คุยดวงได้เฉพาะหน้าเว็บ /chat ฟรี 5 นาที/วัน หรือ Plus 3 ชม./วัน ขณะสมาชิก แล้วใช้ Prepaid ต่อ ไม่มีแพ็กเกจ Pro",
         },
         tiers: NETR_SAAS_TIERS,
       },
