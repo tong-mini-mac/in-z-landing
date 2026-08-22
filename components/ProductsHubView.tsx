@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { LogoMark } from "@/components/LogoMark";
 import { SiteFooter, SiteNav } from "@/components/SiteChrome";
 import type { ProductModel } from "@/lib/product-models";
 import { SITE_COPY } from "@/lib/site-i18n";
@@ -19,15 +19,7 @@ export function ProductsHubView() {
 
       <article className="products-body">
         <header className="products-hero">
-          <Image
-            className="logo-mark logo-mark-products"
-            src="/logo-transparent.png"
-            alt="IN Z"
-            width={400}
-            height={400}
-            priority
-            unoptimized
-          />
+          <LogoMark className="logo-mark logo-mark-products" priority />
           <p className="brand">IN Z</p>
           <p className="products-model-label">{t.label}</p>
           <p className="products-model-lead">{t.lead}</p>

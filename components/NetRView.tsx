@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { LogoMark } from "@/components/LogoMark";
 import Link from "next/link";
 import { SiteFooter, SiteNav } from "@/components/SiteChrome";
 import { useSiteLang } from "@/lib/use-site-lang";
@@ -45,15 +45,7 @@ export function NetRView() {
 
       <article className="about contact-page">
         <header className="about-hero">
-          <Image
-            className="logo-mark logo-mark-demo"
-            src="/logo-transparent.png"
-            alt="IN Z"
-            width={280}
-            height={280}
-            priority
-            unoptimized
-          />
+          <LogoMark className="logo-mark logo-mark-demo" priority />
           <p className="about-eyebrow">{t.eyebrow}</p>
           <h1>NetR</h1>
           <p className="about-lead">{t.lead}</p>
