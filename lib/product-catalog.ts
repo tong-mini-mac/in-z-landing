@@ -309,8 +309,8 @@ const CONTENT_CREATOR_DESCRIPTION: LocalizedText = {
 };
 
 const NETR_DESCRIPTION: LocalizedText = {
-  en: "netr (เนตร) is IN Z’s Thai karmic-astrology oracle: ancient Thai texts plus AI that remembers you. Chat your chart on the web — start free with 5 minutes per day, then Prepaid minutes or Plus. Fortune-telling for reflection and decisions, not a substitute for medical or psychiatric care.",
-  th: "เนตร (netr) คือ Oracle โหราศาสตร์ปฏิวัติกรรมจากตำราไทยโบราณ ผสาน AI ที่จำคุณได้ คุยดวงบนเว็บ เริ่มฟรี 5 นาทีต่อวัน แล้วเติมนาที Prepaid หรือสมัคร Plus โหราศาสตร์เพื่อการสะท้อนและตัดสินใจ — ไม่แทนที่คำปรึกษาทางการแพทย์หรือจิตเวช",
+  en: "netr (เนตร) is IN Z’s Thai karmic-astrology oracle: ancient Thai texts plus AI that remembers you. Sign up on inz.lol, open NetR from your account (SSO), then record your birth chart once — no duplicate phone OTP on NetR. Chart view is owner-only. Chat on the web — 5 free minutes/day, then Prepaid or Plus. Not medical or psychiatric advice.",
+  th: "เนตร (netr) คือ Oracle โหราศาสตร์ปฏิวัติกรรมจากตำราไทยโบราณ ผสาน AI ที่จำคุณได้ สมัครที่ inz.lol เปิด NetR จากบัญชี (SSO) แล้วจารึกดวงเกิดครั้งเดียว — ไม่ยืนยันเบอร์ซ้ำที่ NetR ดูดวงได้เจ้าของบัญชีเท่านั้น คุยบนเว็บ ฟรี 5 นาที/วัน แล้ว Prepaid หรือ Plus ไม่ใช่คำปรึกษาทางการแพทย์หรือจิตเวช",
 };
 
 const PRISM_DESCRIPTION: LocalizedText = {
@@ -772,8 +772,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
         ctaLabel: { en: "Open netr", th: "เปิดเนตร" },
         ctaHref: "https://netr-web-production-ea49.up.railway.app/chat",
         note: {
-          en: "Chat only on the web /chat page. Free 5 min/day, or Plus 3 h/day while subscribed, then Prepaid. No Pro plan.",
-          th: "คุยดวงได้เฉพาะหน้าเว็บ /chat ฟรี 5 นาที/วัน หรือ Plus 3 ชม./วัน ขณะสมาชิก แล้วใช้ Prepaid ต่อ ไม่มีแพ็กเกจ Pro",
+          en: "Verify on inz.lol → open from My Account (SSO) → record birth chart once at /register (no duplicate OTP). /chart is owner-only. Chat at /chat — free 5 min/day, Plus 3 h/day, then Prepaid.",
+          th: "ยืนยันตัวตนที่ inz.lol → เปิดจากบัญชี IN Z (SSO) → จารึกดวงครั้งเดียวที่ /register (ไม่ OTP ซ้ำ) /chart เจ้าของบัญชีเท่านั้น คุยที่ /chat — ฟรี 5 นาที/วัน Plus 3 ชม./วัน แล้ว Prepaid",
         },
         tiers: NETR_SAAS_TIERS,
       },

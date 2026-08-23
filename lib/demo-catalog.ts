@@ -105,8 +105,8 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "ฟรี — 5 นาที/วัน",
     },
     trialSummary: {
-      en: "Thai karmic astrology chat on the web — free daily minutes first, then Prepaid or Plus.",
-      th: "คุยดวงโหราศาสตร์กรรมบนเว็บ — ใช้ฟรีรายวันก่อน แล้วเติม Prepaid หรือสมัคร Plus",
+      en: "Sign up on inz.lol, open NetR (SSO), record your birth chart once — owner-only chart view. Free daily chat minutes, then Prepaid or Plus.",
+      th: "สมัคร inz.lol เปิด NetR (SSO) จารึกดวงครั้งเดียว — ดูดวงได้เจ้าของบัญชีเท่านั้น คุยฟรีรายวัน แล้ว Prepaid หรือ Plus",
     },
     ctaLabel: {
       en: "Try netr free",

@@ -15,6 +15,9 @@ const COPY = {
     trialBody:
       "เริ่มฟรี 5 นาทีต่อวันบนหน้า /chat — ไม่ต้องใส่บัตร แล้วค่อยเติม Prepaid หรือสมัคร Plus",
     openChat: "เปิดเนตร /chat",
+    startTitle: "เริ่มต้น",
+    startSteps:
+      "1. สมัครและยืนยันตัวตนที่ inz.lol\n2. เปิด NetR จากบัญชี IN Z (SSO)\n3. จารึกชะตาครั้งเดียวที่ /register — ไม่ OTP ซ้ำ\n4. ดูดวงที่ /chart (เจ้าของบัญชีเท่านั้น) · คุยที่ /chat",
     meanwhileTitle: "แพ็กเกจ",
     meanwhileBody: "ดูแคตตาล็อก SaaS หรือกลับไปแพ็กเกจของคุณบนบัญชี IN Z",
     catalog: "ดูในแคตตาล็อก SaaS",
@@ -27,6 +30,9 @@ const COPY = {
     trialBody:
       "Start free with 5 minutes per day on /chat — no card required. Add Prepaid minutes or Plus when you need more.",
     openChat: "Open netr /chat",
+    startTitle: "Getting started",
+    startSteps:
+      "1. Sign up and verify on inz.lol\n2. Open NetR from your IN Z account (SSO)\n3. Record your birth chart once at /register — no duplicate OTP\n4. View chart at /chart (owner only) · chat at /chat",
     meanwhileTitle: "Plans",
     meanwhileBody: "Review the SaaS catalog, or return to Your package on your IN Z account.",
     catalog: "View on SaaS catalog",
@@ -58,6 +64,11 @@ export function NetRView() {
           <h1>NetR</h1>
           <p className="about-lead">{t.lead}</p>
         </header>
+
+        <section className="about-section">
+          <h2>{t.startTitle}</h2>
+          <p style={{ whiteSpace: "pre-line" }}>{t.startSteps}</p>
+        </section>
 
         <section className="about-section">
           <h2>{t.trialTitle}</h2>
