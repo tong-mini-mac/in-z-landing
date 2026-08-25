@@ -68,6 +68,71 @@ export function buildActivationEmail(params: {
   return { subject, text, html };
 }
 
+export function buildResetPasswordEmail(params: {
+  resetUrl: string;
+  lang: "th" | "en";
+}): { subject: string; text: string; html: string } {
+  if (params.lang === "en") {
+    const subject = "Reset your IN Z password";
+    const text = [
+      "Hello,",
+      "",
+      "We received a request to reset your IN Z account password.",
+      "Click the link below to choose a new password:",
+      "",
+      params.resetUrl,
+      "",
+      "This link expires in 1 hour.",
+      "",
+      "If you did not request this, you can ignore this email.",
+      "",
+      "— IN Z",
+      AUTH_FROM_EMAIL,
+    ].join("\n");
+
+    const html = `
+      <p>Hello,</p>
+      <p>We received a request to reset your IN Z account password.</p>
+      <p><a href="${escapeAttr(params.resetUrl)}">Reset your password</a></p>
+      <p>Or copy this link:<br/><code>${escapeHtml(params.resetUrl)}</code></p>
+      <p>This link expires in 1 hour.</p>
+      <p>If you did not request this, you can ignore this email.</p>
+      <p>— IN Z<br/>${AUTH_FROM_EMAIL}</p>
+    `;
+
+    return { subject, text, html };
+  }
+
+  const subject = "รีเซ็ตรหัสผ่านบัญชี IN Z";
+  const text = [
+    "สวัสดี",
+    "",
+    "เราได้รับคำขอรีเซ็ตรหัสผ่านบัญชี IN Z ของคุณ",
+    "กรุณาคลิกลิงก์ด้านล่างเพื่อตั้งรหัสผ่านใหม่:",
+    "",
+    params.resetUrl,
+    "",
+    "ลิงก์นี้หมดอายุใน 1 ชั่วโมง",
+    "",
+    "หากคุณไม่ได้ร้องขอ สามารถเพิกเฉยอีเมลนี้ได้",
+    "",
+    "— IN Z",
+    AUTH_FROM_EMAIL,
+  ].join("\n");
+
+  const html = `
+    <p>สวัสดี</p>
+    <p>เราได้รับคำขอรีเซ็ตรหัสผ่านบัญชี IN Z ของคุณ</p>
+    <p><a href="${escapeAttr(params.resetUrl)}">ตั้งรหัสผ่านใหม่</a></p>
+    <p>หรือคัดลอกลิงก์นี้:<br/><code>${escapeHtml(params.resetUrl)}</code></p>
+    <p>ลิงก์นี้หมดอายุใน 1 ชั่วโมง</p>
+    <p>หากคุณไม่ได้ร้องขอ สามารถเพิกเฉยอีเมลนี้ได้</p>
+    <p>— IN Z<br/>${AUTH_FROM_EMAIL}</p>
+  `;
+
+  return { subject, text, html };
+}
+
 export function activationFromAddress(): string {
   return formatFromAddress(MAILBOX.noReply);
 }

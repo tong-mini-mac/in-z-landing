@@ -6,6 +6,7 @@ import {
 import { createActivationToken } from "@/lib/auth-activation";
 import { MAILBOX } from "@/lib/mail-addresses";
 import { getSiteUrl, sendMail } from "@/lib/mail";
+import { hashPassword } from "@/lib/password-hash";
 import {
   isValidEmail,
   normalizePhoneNumber,
@@ -20,6 +21,7 @@ export async function POST(request: Request) {
       fullName?: string;
       email?: string;
       phone?: string;
+      password?: string;
       vat?: VatProfile | null;
       lang?: string;
     };
@@ -27,11 +29,16 @@ export async function POST(request: Request) {
     const fullName = String(body.fullName || "").trim();
     const email = String(body.email || "").trim().toLowerCase();
     const phone = normalizePhoneNumber(String(body.phone || "").trim());
+    const password = String(body.password || "");
     const vat = body.vat ?? null;
     const lang = body.lang === "en" ? "en" : "th";
 
     if (!fullName || !isValidEmail(email) || !phone || !isValidPhone(phone)) {
       return NextResponse.json({ error: "invalid" }, { status: 400 });
+    }
+
+    if (password.length < 8) {
+      return NextResponse.json({ error: "password" }, { status: 400 });
     }
 
     if (vat?.taxId && !isValidTaxId(vat.taxId)) {
@@ -50,12 +57,14 @@ export async function POST(request: Request) {
     }
 
     const createdAt = new Date().toISOString();
+    const password_hash = hashPassword(password);
     const token = createActivationToken({
       fullName,
       email,
       phone,
       vat,
       createdAt,
+      password_hash,
     });
 
     const siteUrl = getSiteUrl(request);

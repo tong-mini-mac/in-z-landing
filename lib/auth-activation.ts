@@ -7,10 +7,19 @@ export type ActivationPayload = {
   phone: string;
   vat?: VatProfile | null;
   createdAt: string;
+  /** PBKDF2 hash only — never plaintext password */
+  password_hash?: string;
   exp: number;
 };
 
-const TOKEN_TTL_MS = 1000 * 60 * 60 * 48; // 48 hours
+export type ResetPayload = {
+  email: string;
+  purpose: "reset";
+  exp: number;
+};
+
+const ACTIVATION_TTL_MS = 1000 * 60 * 60 * 48; // 48 hours
+const RESET_TTL_MS = 1000 * 60 * 60; // 1 hour
 
 function getSecret(): string {
   const secret =
@@ -44,23 +53,15 @@ function sign(body: string): string {
   return createHmac("sha256", getSecret()).update(body).digest("base64url");
 }
 
-export function createActivationToken(
-  user: Omit<ActivationPayload, "exp">,
-): string {
-  const payload: ActivationPayload = {
-    ...user,
-    exp: Date.now() + TOKEN_TTL_MS,
-  };
-  const body = toBase64Url(JSON.stringify(payload));
-  return `${body}.${sign(body)}`;
-}
-
-export function verifyActivationToken(token: string): ActivationPayload | null {
-  const cleaned = String(token || "")
+function cleanToken(token: string): string {
+  return String(token || "")
     .trim()
-    // Outlook / mail clients sometimes insert zero-width or soft hyphens into long URLs.
     .replace(/[\u200B-\u200D\uFEFF\u00AD]/g, "")
     .replace(/\s+/g, "");
+}
+
+function parseSigned<T>(token: string): T | null {
+  const cleaned = cleanToken(token);
   const [body, signature] = cleaned.split(".");
   if (!body || !signature) return null;
 
@@ -70,11 +71,43 @@ export function verifyActivationToken(token: string): ActivationPayload | null {
   if (a.length !== b.length || !timingSafeEqual(a, b)) return null;
 
   try {
-    const payload = JSON.parse(fromBase64Url(body)) as ActivationPayload;
-    if (!payload.email || !payload.fullName || !payload.exp) return null;
-    if (Date.now() > payload.exp) return null;
-    return payload;
+    return JSON.parse(fromBase64Url(body)) as T;
   } catch {
     return null;
   }
+}
+
+export function createActivationToken(
+  user: Omit<ActivationPayload, "exp">,
+): string {
+  const payload: ActivationPayload = {
+    ...user,
+    exp: Date.now() + ACTIVATION_TTL_MS,
+  };
+  const body = toBase64Url(JSON.stringify(payload));
+  return `${body}.${sign(body)}`;
+}
+
+export function verifyActivationToken(token: string): ActivationPayload | null {
+  const payload = parseSigned<ActivationPayload>(token);
+  if (!payload?.email || !payload.fullName || !payload.exp) return null;
+  if (Date.now() > payload.exp) return null;
+  return payload;
+}
+
+export function createResetToken(email: string): string {
+  const payload: ResetPayload = {
+    email: email.trim().toLowerCase(),
+    purpose: "reset",
+    exp: Date.now() + RESET_TTL_MS,
+  };
+  const body = toBase64Url(JSON.stringify(payload));
+  return `${body}.${sign(body)}`;
+}
+
+export function verifyResetToken(token: string): ResetPayload | null {
+  const payload = parseSigned<ResetPayload>(token);
+  if (!payload?.email || payload.purpose !== "reset" || !payload.exp) return null;
+  if (Date.now() > payload.exp) return null;
+  return payload;
 }

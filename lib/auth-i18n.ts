@@ -69,6 +69,19 @@ type AuthCopy = {
   adminUnlimitedNote: string;
   errAdminPassword: string;
   errAdminSignup: string;
+  errCredentials: string;
+  forgotPassword: string;
+  forgotTitle: string;
+  forgotLead: string;
+  forgotSubmit: string;
+  forgotSentTitle: string;
+  forgotSentBody: string;
+  resetTitle: string;
+  resetLead: string;
+  resetSubmit: string;
+  resetSuccess: string;
+  errResetToken: string;
+  backToSignIn: string;
   checkEmailTitle: string;
   checkEmailBody: string;
   activating: string;
@@ -137,6 +150,20 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
       "บัญชี Admin สำหรับทดสอบ — เข้าได้ทุก Product โดยไม่จำกัดแพ็กเกจ",
     errAdminPassword: "รหัสผ่าน Admin ไม่ถูกต้อง",
     errAdminSignup: "บัญชี Admin ใช้ได้ที่ Sign In เท่านั้น",
+    errCredentials: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
+    forgotPassword: "ลืมรหัสผ่าน?",
+    forgotTitle: "ลืมรหัสผ่าน",
+    forgotLead: "กรอกอีเมลที่ใช้สมัคร — เราจะส่งลิงก์รีเซ็ตรหัสผ่านให้",
+    forgotSubmit: "ส่งลิงก์รีเซ็ต",
+    forgotSentTitle: "ตรวจสอบอีเมลของคุณ",
+    forgotSentBody:
+      "หากมีบัญชีที่ใช้อีเมลนี้ เราได้ส่งลิงก์รีเซ็ตรหัสผ่านจาก no-reply@inz.lol แล้ว ลิงก์หมดอายุใน 1 ชั่วโมง หากไม่เจอใน Inbox ให้ตรวจ Junk / Spam",
+    resetTitle: "ตั้งรหัสผ่านใหม่",
+    resetLead: "กรอกรหัสผ่านใหม่สำหรับบัญชี IN Z ของคุณ",
+    resetSubmit: "บันทึกรหัสผ่านใหม่",
+    resetSuccess: "ตั้งรหัสผ่านใหม่แล้ว — กำลังพาไป Sign In…",
+    errResetToken: "ลิงก์รีเซ็ตไม่ถูกต้องหรือหมดอายุแล้ว",
+    backToSignIn: "กลับไป Sign In",
     checkEmailTitle: "ตรวจสอบอีเมลของคุณ",
     checkEmailBody:
       "เราได้ส่งลิงก์ Activate จาก no-reply@inz.lol ไปที่อีเมลของคุณแล้ว กรุณาคลิกลิงก์เพื่อเปิดใช้งานบัญชี หากไม่เจอใน Inbox ให้ตรวจโฟลเดอร์ Junk / Spam แล้วกด It's not junk ก่อนเปิดลิงก์",
@@ -205,6 +232,20 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
       "Admin trial account — open every product with no plan limits",
     errAdminPassword: "Incorrect admin password",
     errAdminSignup: "Admin trial uses Sign In only",
+    errCredentials: "Incorrect email or password",
+    forgotPassword: "Forgot password?",
+    forgotTitle: "Forgot password",
+    forgotLead: "Enter the email you used to sign up — we will send a reset link.",
+    forgotSubmit: "Send reset link",
+    forgotSentTitle: "Check your email",
+    forgotSentBody:
+      "If an account exists for this email, we sent a reset link from no-reply@inz.lol. The link expires in 1 hour. If you do not see it in Inbox, check Junk / Spam.",
+    resetTitle: "Set a new password",
+    resetLead: "Choose a new password for your IN Z account.",
+    resetSubmit: "Save new password",
+    resetSuccess: "Password updated — taking you to Sign In…",
+    errResetToken: "This reset link is invalid or has expired.",
+    backToSignIn: "Back to Sign In",
     checkEmailTitle: "Check your email",
     checkEmailBody:
       "We sent an activation link from no-reply@inz.lol. Click the link to activate your account. If you do not see it in Inbox, check Junk / Spam and mark it as not junk before opening the link.",

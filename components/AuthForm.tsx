@@ -224,8 +224,7 @@ export function AuthForm() {
           setSubmitting(false);
           return;
         }
-        // Not a complimentary user, or Atlas gate temporarily down —
-        // continue as a normal IN Z session (do not show "wrong password").
+        // Wrong complimentary password — stop (do not try customer for same email with known special fail that isn't soft)
         const softFail =
           !err ||
           err === "not_a_special_user" ||
@@ -233,12 +232,12 @@ export function AuthForm() {
           err === "unavailable" ||
           response.status >= 500;
         if (!softFail) {
-          setError("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
+          setError(t.errCredentials);
           setSubmitting(false);
           return;
         }
       } catch {
-        /* fall through to generic local session for non-trial emails */
+        /* try customer login next */
       }
 
       if (isDemoAdminEmail(nextEmail)) {
@@ -247,18 +246,30 @@ export function AuthForm() {
         return;
       }
 
-      const user: AuthUser = {
-        fullName: nextEmail.split("@")[0],
-        email: nextEmail,
-        phone: "",
-        createdAt: new Date().toISOString(),
-        role: "user",
-        unlimited: false,
-      };
-      persistRememberChoice(nextEmail);
-      saveSession(user);
-      reportAuthActivity(user.email, "login");
-      router.push(postAuthPath(searchParams));
+      try {
+        const customerRes = await fetch("/api/auth/customer-signin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: nextEmail, password: nextPassword }),
+        });
+        const customerData = (await customerRes.json()) as {
+          ok?: boolean;
+          error?: string;
+          user?: AuthUser;
+        };
+        if (customerRes.ok && customerData.ok && customerData.user) {
+          persistRememberChoice(nextEmail);
+          saveSession(customerData.user);
+          reportAuthActivity(customerData.user.email, "login");
+          router.push(postAuthPath(searchParams));
+          return;
+        }
+      } catch {
+        /* fall through to credentials error */
+      }
+
+      setError(t.errCredentials);
+      setSubmitting(false);
       return;
     }
 
@@ -335,6 +346,7 @@ export function AuthForm() {
           fullName,
           email: nextEmail,
           phone,
+          password: nextPassword,
           vat,
           lang,
         }),
@@ -718,9 +730,15 @@ export function AuthForm() {
 
         <p className="auth-switch">
           {mode === "signin" ? (
-            <button type="button" onClick={() => switchMode("signup")}>
-              {t.switchToSignUp}
-            </button>
+            <>
+              <Link className="auth-inline-link" href="/auth/forgot">
+                {t.forgotPassword}
+              </Link>
+              {" · "}
+              <button type="button" onClick={() => switchMode("signup")}>
+                {t.switchToSignUp}
+              </button>
+            </>
           ) : (
             <button type="button" onClick={() => switchMode("signin")}>
               {t.switchToSignIn}
