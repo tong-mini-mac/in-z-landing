@@ -224,7 +224,15 @@ export function AuthForm() {
           setSubmitting(false);
           return;
         }
-        if (err && err !== "not_a_special_user") {
+        // Not a complimentary user, or Atlas gate temporarily down —
+        // continue as a normal IN Z session (do not show "wrong password").
+        const softFail =
+          !err ||
+          err === "not_a_special_user" ||
+          err === "special_login_unavailable" ||
+          err === "unavailable" ||
+          response.status >= 500;
+        if (!softFail) {
           setError("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
           setSubmitting(false);
           return;

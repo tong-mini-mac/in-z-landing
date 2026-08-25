@@ -82,9 +82,15 @@ export async function POST(request: Request) {
     };
 
     if (!response.ok) {
+      const raw = String(data.error || "login_failed");
+      // Atlas service-key mismatch / gateway issues — not a user password failure.
+      const systemErr =
+        /special-login credentials|unauthorized|forbidden|unavailable/i.test(raw) ||
+        response.status === 502 ||
+        response.status === 503;
       return NextResponse.json(
-        { error: data.error || "login_failed" },
-        { status: response.status === 403 ? 403 : 401 },
+        { error: systemErr ? "special_login_unavailable" : raw },
+        { status: systemErr ? 503 : response.status === 403 ? 403 : 401 },
       );
     }
 
