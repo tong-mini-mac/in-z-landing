@@ -143,13 +143,11 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     signOut: "Sign Out",
     alreadySignedInNote: "คุณเข้าสู่ระบบอยู่แล้ว — กดไปหน้าผลิตภัณฑ์ หรือ Sign Out เพื่อเข้าด้วยบัญชีอื่น",
     continueToAccount: "ไปที่ผลิตภัณฑ์ของฉัน",
-    demoNote:
-      "บัญชี Admin สำหรับทดสอบภายในทีม — ไม่แสดงรหัสผ่านบนหน้าเว็บ",
+    demoNote: "",
     adminBadge: "Admin · Unlimited trial",
-    adminUnlimitedNote:
-      "บัญชี Admin สำหรับทดสอบ — เข้าได้ทุก Product โดยไม่จำกัดแพ็กเกจ",
+    adminUnlimitedNote: "",
     errAdminPassword: "รหัสผ่าน Admin ไม่ถูกต้อง",
-    errAdminSignup: "บัญชี Admin ใช้ได้ที่ Sign In เท่านั้น",
+    errAdminSignup: "บัญชีนี้ใช้ได้ที่ Sign In เท่านั้น",
     errCredentials: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
     forgotPassword: "ลืมรหัสผ่าน?",
     forgotTitle: "ลืมรหัสผ่าน",
@@ -225,13 +223,11 @@ export const AUTH_COPY: Record<AuthLang, AuthCopy> = {
     alreadySignedInNote:
       "You’re already signed in — continue to your products, or Sign Out to use another account.",
     continueToAccount: "Go to your products",
-    demoNote:
-      "Admin trial is for internal testing — credentials are not shown on this page.",
+    demoNote: "",
     adminBadge: "Admin · Unlimited trial",
-    adminUnlimitedNote:
-      "Admin trial account — open every product with no plan limits",
+    adminUnlimitedNote: "",
     errAdminPassword: "Incorrect admin password",
-    errAdminSignup: "Admin trial uses Sign In only",
+    errAdminSignup: "This account uses Sign In only",
     errCredentials: "Incorrect email or password",
     forgotPassword: "Forgot password?",
     forgotTitle: "Forgot password",

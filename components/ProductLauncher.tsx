@@ -142,7 +142,6 @@ export function ProductLauncher() {
         ) : null}
       </p>
 
-      {isAdmin ? <p className="account-admin-note">{t.adminUnlimitedNote}</p> : null}
       {isTrial ? (
         <p className="account-admin-note">{accountCopy.trialNote}</p>
       ) : null}
@@ -195,10 +194,6 @@ export function ProductLauncher() {
       <button type="button" className="contact-secondary" onClick={signOut}>
         {t.signOut}
       </button>
-
-      {session && isDemoAdminEmail(session.user.email) ? (
-        <p className="auth-demo-note">{t.adminUnlimitedNote}</p>
-      ) : null}
     </div>
   );
 }

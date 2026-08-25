@@ -9,8 +9,7 @@ export function demoAdminPassword(): string {
   return (
     process.env.INZ_DEMO_ADMIN_PASSWORD ||
     process.env.DEMO_ADMIN_PASSWORD ||
-    // Server-only fallback. Override with INZ_DEMO_ADMIN_PASSWORD in production.
-    "admin2026"
+    ""
   ).trim();
 }
 
