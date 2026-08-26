@@ -31,7 +31,19 @@ export type SiteCopy = {
     body: string;
     privacyLink: string;
     accept: string;
+    reject: string;
     essential: string;
+    customizeTitle: string;
+    customizeBody: string;
+    prefEssential: string;
+    prefEssentialDesc: string;
+    prefAnalytics: string;
+    prefAnalyticsDesc: string;
+    prefMarketing: string;
+    prefMarketingDesc: string;
+    alwaysOn: string;
+    back: string;
+    save: string;
   };
   home: {
     brand: string;
@@ -235,10 +247,23 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
     cookies: {
       title: "การใช้งานคุกกี้",
       body:
-        "เว็บไซต์นี้ใช้คุกกี้ที่จำเป็นต่อการทำงาน และอาจใช้คุกกี้เพื่อปรับปรุงประสบการณ์การใช้งาน หากดำเนินการต่อ ถือว่าคุณรับทราบตามนโยบายความเป็นส่วนตัว",
-      privacyLink: "อ่านนโยบายความเป็นส่วนตัว",
-      accept: "ยอมรับทั้งหมด",
-      essential: "จำเป็นเท่านั้น",
+        "เราใช้คุกกี้เพื่อให้เว็บไซต์ทำงานได้ และอาจใช้เพื่อวิเคราะห์การใช้งานหรือการตลาด กรุณาเลือกความยินยอมของคุณ",
+      privacyLink: "นโยบายความเป็นส่วนตัว",
+      accept: "Accept all",
+      reject: "Reject all",
+      essential: "Only necessary",
+      customizeTitle: "เลือกประเภทคุกกี้",
+      customizeBody:
+        "คุกกี้ที่จำเป็นเปิดอยู่เสมอ คุณสามารถเลือกเปิดหรือปิดประเภทอื่นได้",
+      prefEssential: "จำเป็น",
+      prefEssentialDesc: "ต้องใช้เพื่อให้เว็บไซต์ทำงาน เช่น เข้าสู่ระบบและความปลอดภัย",
+      prefAnalytics: "วิเคราะห์",
+      prefAnalyticsDesc: "ช่วยให้เราเข้าใจการใช้งานเว็บเพื่อปรับปรุงประสบการณ์",
+      prefMarketing: "การตลาด",
+      prefMarketingDesc: "ใช้เพื่อแสดงเนื้อหาหรือโฆษณาที่เกี่ยวข้องมากขึ้น",
+      alwaysOn: "เปิดเสมอ",
+      back: "ย้อนกลับ",
+      save: "บันทึกการตั้งค่า",
     },
     home: {
       brand: "IN Z",
@@ -521,10 +546,23 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
     cookies: {
       title: "Cookie consent",
       body:
-        "This site uses essential cookies to work properly and may use cookies to improve your experience. By continuing, you acknowledge our Privacy Policy.",
-      privacyLink: "Read the Privacy Policy",
+        "We use cookies to make this site work, and may use cookies for analytics or marketing. Please choose your preference.",
+      privacyLink: "Privacy Policy",
       accept: "Accept all",
-      essential: "Essential only",
+      reject: "Reject all",
+      essential: "Only necessary",
+      customizeTitle: "Cookie preferences",
+      customizeBody:
+        "Essential cookies stay on. You can turn other categories on or off.",
+      prefEssential: "Essential",
+      prefEssentialDesc: "Required for the site to work — sign-in, security, and basic features.",
+      prefAnalytics: "Analytics",
+      prefAnalyticsDesc: "Helps us understand how the site is used so we can improve it.",
+      prefMarketing: "Marketing",
+      prefMarketingDesc: "Used to show more relevant content or ads.",
+      alwaysOn: "Always on",
+      back: "Back",
+      save: "Save preferences",
     },
     home: {
       brand: "IN Z",
