@@ -25,6 +25,7 @@ export type SiteCopy = {
   footer: {
     terms: string;
     privacy: string;
+    cookies: string;
   };
   cookies: {
     title: string;
@@ -44,6 +45,7 @@ export type SiteCopy = {
     alwaysOn: string;
     back: string;
     save: string;
+    close: string;
   };
   home: {
     brand: string;
@@ -243,6 +245,7 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
     footer: {
       terms: "ข้อกำหนดและการสนับสนุน",
       privacy: "ความเป็นส่วนตัวและนโยบาย",
+      cookies: "ตั้งค่าคุกกี้",
     },
     cookies: {
       title: "การใช้งานคุกกี้",
@@ -264,6 +267,7 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       alwaysOn: "เปิดเสมอ",
       back: "ย้อนกลับ",
       save: "บันทึกการตั้งค่า",
+      close: "ปิด",
     },
     home: {
       brand: "IN Z",
@@ -542,6 +546,7 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
     footer: {
       terms: "Term and Support",
       privacy: "Privacy and Policy",
+      cookies: "Cookie settings",
     },
     cookies: {
       title: "Cookie consent",
@@ -563,6 +568,7 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       alwaysOn: "Always on",
       back: "Back",
       save: "Save preferences",
+      close: "Close",
     },
     home: {
       brand: "IN Z",

@@ -259,7 +259,10 @@ export default function PrivacyPage() {
           </ul>
           <h3>8.3 Your Control</h3>
           <ul>
-            <li>Manage cookie preferences in Settings</li>
+            <li>
+              Open <strong>Cookie settings</strong> in the site footer anytime to change
+              your preference
+            </li>
             <li>Use browser settings to block cookies</li>
             <li>Note: disabling cookies may affect functionality</li>
           </ul>

@@ -3,6 +3,7 @@
 export const COOKIE_CONSENT_KEY = "inz_cookie_consent";
 export const COOKIE_CONSENT_ACCOUNTS_KEY = "inz_cookie_consent_accounts";
 export const COOKIE_CONSENT_VERSION = 2;
+export const COOKIE_SETTINGS_OPEN_EVENT = "inz-cookie-settings-open";
 
 export type CookieConsentChoice = "accepted" | "rejected" | "custom";
 
@@ -136,4 +137,10 @@ export function writeCookieConsent(
     new CustomEvent("inz-cookie-consent", { detail: record }),
   );
   return record;
+}
+
+/** Re-open the cookie settings modal from footer / privacy links. */
+export function openCookieSettings(): void {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new Event(COOKIE_SETTINGS_OPEN_EVENT));
 }

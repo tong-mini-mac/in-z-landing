@@ -3,6 +3,7 @@
 import { ContactNav } from "@/components/ContactNav";
 import { NavAuth } from "@/components/NavAuth";
 import { ProductsNav } from "@/components/ProductsNav";
+import { openCookieSettings } from "@/lib/cookie-consent";
 import { SITE_COPY } from "@/lib/site-i18n";
 import { useSiteLang } from "@/lib/use-site-lang";
 
@@ -85,6 +86,9 @@ export function SiteFooter() {
       <div className="legal">
         <a href="/terms">{t.terms}</a>
         <a href="/privacy">{t.privacy}</a>
+        <button type="button" className="legal-button" onClick={() => openCookieSettings()}>
+          {t.cookies}
+        </button>
       </div>
     </footer>
   );

@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AUTH_SESSION_CHANGE_EVENT, getSession } from "@/lib/auth-session";
 import {
+  COOKIE_SETTINGS_OPEN_EVENT,
   needsCookieConsent,
+  readCookieConsentForEmail,
   writeCookieConsent,
   type CookiePreferences,
 } from "@/lib/cookie-consent";
@@ -22,24 +24,50 @@ export function CookieConsent() {
   const [analytics, setAnalytics] = useState(false);
   const [marketing, setMarketing] = useState(false);
 
-  useEffect(() => {
-    const sessionEmail = getSession()?.user.email ?? null;
+  function syncEmail() {
+    return getSession()?.user.email ?? null;
+  }
+
+  function openForEdit(startStep: Step = "main") {
+    const sessionEmail = syncEmail();
     setEmail(sessionEmail);
-    setVisible(needsCookieConsent(sessionEmail));
-    setStep("main");
+    const existing = readCookieConsentForEmail(sessionEmail);
+    setAnalytics(Boolean(existing?.preferences.analytics));
+    setMarketing(Boolean(existing?.preferences.marketing));
+    setStep(startStep);
+    setVisible(true);
+  }
+
+  useEffect(() => {
+    const sessionEmail = syncEmail();
+    setEmail(sessionEmail);
+    if (needsCookieConsent(sessionEmail)) {
+      setVisible(true);
+      setStep("main");
+    }
   }, []);
 
   useEffect(() => {
-    function onStorage() {
-      const sessionEmail = getSession()?.user.email ?? null;
+    function onAuthChange() {
+      const sessionEmail = syncEmail();
       setEmail(sessionEmail);
-      setVisible(needsCookieConsent(sessionEmail));
+      if (needsCookieConsent(sessionEmail)) {
+        setVisible(true);
+        setStep("main");
+      }
     }
-    window.addEventListener("storage", onStorage);
-    window.addEventListener(AUTH_SESSION_CHANGE_EVENT, onStorage);
+
+    function onOpenSettings() {
+      openForEdit("customize");
+    }
+
+    window.addEventListener("storage", onAuthChange);
+    window.addEventListener(AUTH_SESSION_CHANGE_EVENT, onAuthChange);
+    window.addEventListener(COOKIE_SETTINGS_OPEN_EVENT, onOpenSettings);
     return () => {
-      window.removeEventListener("storage", onStorage);
-      window.removeEventListener(AUTH_SESSION_CHANGE_EVENT, onStorage);
+      window.removeEventListener("storage", onAuthChange);
+      window.removeEventListener(AUTH_SESSION_CHANGE_EVENT, onAuthChange);
+      window.removeEventListener(COOKIE_SETTINGS_OPEN_EVENT, onOpenSettings);
     };
   }, []);
 
@@ -56,7 +84,14 @@ export function CookieConsent() {
 
   return (
     <div className="cookie-modal" role="presentation">
-      <div className="cookie-modal-backdrop" aria-hidden="true" />
+      <div
+        className="cookie-modal-backdrop"
+        aria-hidden="true"
+        onClick={() => {
+          /* keep required first-visit blocking; allow dismiss only when editing existing */
+          if (!needsCookieConsent(email)) setVisible(false);
+        }}
+      />
       <div
         className="cookie-modal-panel"
         role="dialog"
@@ -92,11 +127,7 @@ export function CookieConsent() {
               <button
                 type="button"
                 className="cookie-consent-btn is-secondary"
-                onClick={() => {
-                  setAnalytics(false);
-                  setMarketing(false);
-                  setStep("customize");
-                }}
+                onClick={() => setStep("customize")}
               >
                 {t.essential}
               </button>
@@ -151,16 +182,17 @@ export function CookieConsent() {
               <button
                 type="button"
                 className="cookie-consent-btn is-secondary"
-                onClick={() => setStep("main")}
+                onClick={() => {
+                  if (needsCookieConsent(email)) setStep("main");
+                  else setVisible(false);
+                }}
               >
-                {t.back}
+                {needsCookieConsent(email) ? t.back : t.close}
               </button>
               <button
                 type="button"
                 className="cookie-consent-btn is-primary"
-                onClick={() =>
-                  finish("custom", { analytics, marketing })
-                }
+                onClick={() => finish("custom", { analytics, marketing })}
               >
                 {t.save}
               </button>
