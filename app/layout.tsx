@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, Manrope } from "next/font/google";
+import { CookieConsent } from "@/components/CookieConsent";
 import "./globals.css";
 
 const syne = Syne({
@@ -26,7 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${syne.variable} ${manrope.variable}`}>{children}</body>
+      <body className={`${syne.variable} ${manrope.variable}`}>
+        {children}
+        <CookieConsent />
+      </body>
     </html>
   );
 }

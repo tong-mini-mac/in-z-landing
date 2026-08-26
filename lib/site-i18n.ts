@@ -26,6 +26,13 @@ export type SiteCopy = {
     terms: string;
     privacy: string;
   };
+  cookies: {
+    title: string;
+    body: string;
+    privacyLink: string;
+    accept: string;
+    essential: string;
+  };
   home: {
     brand: string;
     tagline: string;
@@ -224,6 +231,14 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
     footer: {
       terms: "ข้อกำหนดและการสนับสนุน",
       privacy: "ความเป็นส่วนตัวและนโยบาย",
+    },
+    cookies: {
+      title: "การใช้งานคุกกี้",
+      body:
+        "เว็บไซต์นี้ใช้คุกกี้ที่จำเป็นต่อการทำงาน และอาจใช้คุกกี้เพื่อปรับปรุงประสบการณ์การใช้งาน หากดำเนินการต่อ ถือว่าคุณรับทราบตามนโยบายความเป็นส่วนตัว",
+      privacyLink: "อ่านนโยบายความเป็นส่วนตัว",
+      accept: "ยอมรับทั้งหมด",
+      essential: "จำเป็นเท่านั้น",
     },
     home: {
       brand: "IN Z",
@@ -502,6 +517,14 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
     footer: {
       terms: "Term and Support",
       privacy: "Privacy and Policy",
+    },
+    cookies: {
+      title: "Cookie consent",
+      body:
+        "This site uses essential cookies to work properly and may use cookies to improve your experience. By continuing, you acknowledge our Privacy Policy.",
+      privacyLink: "Read the Privacy Policy",
+      accept: "Accept all",
+      essential: "Essential only",
     },
     home: {
       brand: "IN Z",
