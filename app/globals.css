@@ -490,7 +490,7 @@ img {
   .social {
     position: absolute;
     left: 50%;
-    bottom: 2.4rem;
+    bottom: calc(2.4rem + 0.5in);
     transform: translateX(-50%);
     gap: 1.6rem;
     pointer-events: auto;

@@ -114,12 +114,26 @@ export async function recordAtlasSlip(input: {
   product_id?: string;
   plan_id?: string;
   invoice_id?: string;
+  expected_name?: string;
+  expected_amount?: number;
 }) {
   return atlasFetch<{
     ok: boolean;
     slip_id: string;
     sha256: string;
     duplicate?: boolean;
+    ocr?: {
+      status?: string;
+      reason?: string;
+      fields?: {
+        payer_name?: string | null;
+        amount?: number | null;
+        transferred_at?: string | null;
+        ref?: string | null;
+      };
+      name?: { status?: string; reason?: string; score?: number };
+      amount?: { status?: string; reason?: string };
+    };
   }>("/api/commerce/slip", {
     method: "POST",
     body: JSON.stringify(input),

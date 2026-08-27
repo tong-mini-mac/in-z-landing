@@ -6,6 +6,7 @@ import { findCheckoutSku, withVat } from "@/lib/checkout-skus";
 import { formatFromAddress, MAILBOX } from "@/lib/mail-addresses";
 import { getMailStatus, sendMail } from "@/lib/mail";
 import { notifySecretarySlip } from "@/lib/notify-secretary";
+import { formatSlipOcrLines, type SlipOcrResult } from "@/lib/slip-ocr-format";
 import { transferDecideUrls } from "@/lib/transfer-approval";
 
 export async function POST(request: Request) {
@@ -65,8 +66,9 @@ export async function POST(request: Request) {
       },
     });
 
+    let ocr: SlipOcrResult | undefined;
     try {
-      await recordAtlasSlip({
+      const archived = await recordAtlasSlip({
         email,
         transfer_id: transferId,
         filename,
@@ -75,7 +77,10 @@ export async function POST(request: Request) {
         product_id: sku.productId,
         plan_id: sku.planId,
         invoice_id: atlas.invoice_id,
+        expected_name: displayName || undefined,
+        expected_amount: money.total,
       });
+      ocr = archived.ocr;
     } catch (error) {
       console.error("[pay transfer] atlas slip archive failed", transferId, error);
       return NextResponse.json(
@@ -86,6 +91,8 @@ export async function POST(request: Request) {
         { status: 502 },
       );
     }
+
+    const ocrLines = formatSlipOcrLines(ocr);
 
     const mock = process.env.DEMO_BILLING_MOCK === "1";
     if (!mock && !getMailStatus().configured) {
@@ -112,12 +119,15 @@ export async function POST(request: Request) {
             ? `Paid to: ${bank.bankName} ${bank.accountNumber} (${bank.accountName})`
             : "Bank account env is not set on the server",
           "",
+          ...ocrLines,
+          "",
           "Status: pending_slip — คุณสมร will request approval on Telegram.",
         ].join("\n"),
         html: `<p>Bank transfer slip awaiting secretary approval on Telegram.</p>
 <p><strong>${escapeHtml(sku.productName)}</strong> · ${escapeHtml(sku.planId)} · ฿${money.total}</p>
 <p>Buyer: ${escapeHtml(displayName || email)} &lt;${escapeHtml(email)}&gt;</p>
-<p>Transfer ${escapeHtml(transferId)} · Invoice ${escapeHtml(atlas.invoice_id || "-")}</p>`,
+<p>Transfer ${escapeHtml(transferId)} · Invoice ${escapeHtml(atlas.invoice_id || "-")}</p>
+<pre>${escapeHtml(ocrLines.join("\n"))}</pre>`,
         attachments: [
           {
             filename,
@@ -152,6 +162,8 @@ export async function POST(request: Request) {
           `Transfer: ${transferId}`,
           `Invoice: ${atlas.invoice_id || "-"}`,
           "",
+          ...ocrLines,
+          "",
           "ตรวจสลิปให้ตรงยอด แล้วกดอนุมัติเพื่อเปิดสิทธิ์ใน Atlas",
         ].join("\n"),
         approveUrl: urls.approveUrl,
@@ -172,6 +184,7 @@ export async function POST(request: Request) {
       invoiceId: atlas.invoice_id,
       skuId: sku.id,
       amount: money,
+      ocrStatus: ocr?.status || null,
     });
   } catch (error) {
     console.error("[pay transfer]", error);
