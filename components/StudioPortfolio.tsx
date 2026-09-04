@@ -17,7 +17,6 @@ import {
   studioBadgeLabel,
   type StudioIndustry,
 } from "@/lib/studio-portfolio";
-import { useSiteLang } from "@/lib/use-site-lang";
 
 function ArrowIcon() {
   return (
@@ -103,8 +102,7 @@ function stackIcon(id: string) {
 }
 
 export function StudioPortfolio() {
-  const lang = useSiteLang();
-  const t = STUDIO_COPY[lang];
+  const t = STUDIO_COPY.en;
   const [workFilter, setWorkFilter] = useState<"all" | StudioIndustry>("all");
 
   const visibleWorks =

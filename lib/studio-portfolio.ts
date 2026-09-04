@@ -346,16 +346,16 @@ export const STUDIO_WORKS: StudioWork[] = [
     industry: "enterprise",
     icon: "📋",
     name: "Procurement System",
-    tagline: "พ.ร.บ. 2560 Compliance Engine",
+    tagline: "Public Procurement Act B.E. 2560 Compliance Engine",
     badges: ["deployed", "industry"],
     industryLabel: "Enterprise",
     problem: [
       {
-        text: "เอกสารราชการที่ต้อง copy-paste ซ้ำๆ ทำให้เกิดข้อผิดพลาดบ่อยครั้ง ระบบนี้ ",
+        text: "Government paperwork that depends on repetitive copy-paste creates frequent errors. This system ",
       },
-      { text: "อ่าน PDF อัตโนมัติ ด้วย OCR", strong: true },
+      { text: "reads PDFs automatically with OCR", strong: true },
       {
-        text: " แล้วเติมแบบฟอร์มทั้งหมดให้ถูกต้องตาม พ.ร.บ. จัดซื้อจัดจ้าง 2560",
+        text: " and fills every form correctly under Thailand's Public Procurement Act B.E. 2560.",
       },
     ],
     tags: ["FastAPI", "OCR", "AI Chat", "Word Template"],
@@ -371,11 +371,11 @@ export const STUDIO_WORKS: StudioWork[] = [
     industryLabel: "Logistics",
     problem: [
       {
-        text: "ข้อมูลเส้นทางกระจัดกระจาย ต้องวิเคราะห์เองว่าเส้นทางไหนปลอดภัย ระบบนี้รวม ",
+        text: "Route intelligence is scattered, forcing teams to judge safety by hand. This system combines ",
       },
-      { text: "สภาพอากาศ ข่าวภูมิรัฐศาสตร์ ภัยธรรมชาติ", strong: true },
+      { text: "weather, geopolitics, and natural-disaster signals", strong: true },
       {
-        text: " แล้วให้คะแนนความเสี่ยงแต่ละเส้นทางแบบ real-time",
+        text: " and scores each route's risk in real time.",
       },
     ],
     tags: ["Risk Scoring", "Geopolitics", "AIR/SEA/TRUCK", "Compliance"],
@@ -391,11 +391,11 @@ export const STUDIO_WORKS: StudioWork[] = [
     industryLabel: "Logistics",
     problem: [
       {
-        text: "ผู้ส่งออกไป EU ขาด Carbon Report ที่ได้มาตรฐาน TGO ระบบนี้ ",
+        text: "EU exporters lack carbon reports that meet TGO standards. This system ",
       },
-      { text: "คำนวณ CO₂ อัตโนมัติ", strong: true },
+      { text: "calculates CO₂ automatically", strong: true },
       {
-        text: " ออก GHG Report และแจ้งเตือนเมื่อรถควรเข้าซ่อมเพื่อลดการสิ้นเปลืองน้ำมัน",
+        text: ", generates GHG reports, and alerts when vehicles need service to cut fuel waste.",
       },
     ],
     tags: ["Carbon Credit", "TGO", "EU Export", "Fleet Management"],
@@ -411,11 +411,11 @@ export const STUDIO_WORKS: StudioWork[] = [
     industryLabel: "AI",
     problem: [
       {
-        text: "ลูกค้าเดินออกจากโครงการเพราะไม่เจอสิ่งที่ใช่ PRISM ใช้ ",
+        text: "Buyers walk away when they cannot find the right project. PRISM uses an ",
       },
-      { text: "SRAG Engine จับคู่ Intent ลูกค้า", strong: true },
+      { text: "SRAG engine to match customer intent", strong: true },
       {
-        text: " กับโครงการที่เหมาะสม และดูแล Lead ที่ยังไม่พร้อมซื้อให้กลายเป็น Buyer ในอนาคต",
+        text: " to the right developments and nurtures not-yet-ready leads into future buyers.",
       },
     ],
     tags: ["SRAG", "Intent Classification", "Lead Nurturing", "Vector Search"],
@@ -431,14 +431,14 @@ export const STUDIO_WORKS: StudioWork[] = [
     industryLabel: "Enterprise",
     problem: [
       {
-        text: "SME ไม่มีงบซื้อ ERP ระดับองค์กร ระบบนี้ให้ ",
+        text: "SMEs cannot afford enterprise ERP stacks. This platform delivers ",
       },
       {
-        text: "Finance, HR, Stock, Procurement, Marketing",
+        text: "Finance, HR, Stock, Procurement, and Marketing",
         strong: true,
       },
       {
-        text: " ในแพลตฟอร์มเดียว เลือก Module ได้ตามต้องการ พร้อม Industry Template เช่น ร้านอาหาร คลินิก Beauty",
+        text: " in one place — pick the modules you need, with industry templates for restaurants, clinics, and beauty.",
       },
     ],
     tags: ["FastAPI", "Multi-Industry", "DIY Modules", "AI CFO"],
@@ -454,11 +454,11 @@ export const STUDIO_WORKS: StudioWork[] = [
     industryLabel: "AI",
     problem: [
       {
-        text: "ทีม QA ขาดเครื่องมือทดสอบความพร้อมก่อน Launch QA LAB ",
+        text: "QA teams lack readiness tools before launch. QA LAB ",
       },
-      { text: "จำลอง User Persona และ Load Scenarios", strong: true },
+      { text: "simulates user personas and load scenarios", strong: true },
       {
-        text: " วิเคราะห์ด้วย ML แล้วรายงานจุดอ่อนก่อนระบบล่มจริง",
+        text: ", analyzes with ML, and reports weak points before production fails.",
       },
     ],
     tags: ["Load Simulation", "Persona Testing", "ML Anomaly", "Appium"],
@@ -474,11 +474,11 @@ export const STUDIO_WORKS: StudioWork[] = [
     industryLabel: "AI",
     problem: [
       {
-        text: "การ Train AI ต้องการข้อมูลจำนวนมาก แต่ข้อมูลจริงติดปัญหา PDPA SynthComm ",
+        text: "Training AI needs volume, but real conversation data collides with PDPA. SynthComm ",
       },
-      { text: "สร้าง Synthetic Data ภาษาไทยคุณภาพสูง", strong: true },
+      { text: "generates high-fidelity Thai synthetic data", strong: true },
       {
-        text: " ด้วย Multi-Agent Factory พร้อม Monthly ML Retraining อัตโนมัติ",
+        text: " through a multi-agent factory with automated monthly ML retraining.",
       },
     ],
     tags: ["Multi-Agent", "Thai NLP", "PDPA Safe", "Auto-Scale"],
@@ -494,11 +494,11 @@ export const STUDIO_WORKS: StudioWork[] = [
     industryLabel: "Creative",
     problem: [
       {
-        text: "Creator ต้องใช้หลายแอปในการผลิต Content ระบบนี้จบในที่เดียว: ",
+        text: "Creators juggle multiple apps to ship content. This platform finishes in one place: ",
       },
       { text: "Script → TTS → MP4 (9:16)", strong: true },
       {
-        text: " รองรับ TikTok/IG/X และ Podcast ภาษาถิ่น เหนือ อีสาน ใต้ รวมถึงเวียดนามและอินโดนีเซีย",
+        text: " — for TikTok / IG / X, plus podcasts in Northern, Isaan, and Southern Thai dialects, Vietnamese, and Indonesian.",
       },
     ],
     tags: ["Video AI", "TTS", "Podcast", "SEA Languages"],
@@ -514,14 +514,14 @@ export const STUDIO_WORKS: StudioWork[] = [
     industryLabel: "Creative",
     problem: [
       {
-        text: "การผลิต Series Animation ต้องโยกย้ายข้อมูลระหว่างหลายแอป Drama Studio รวม ",
+        text: "Series animation production forces data hops across many tools. Drama Studio unifies ",
       },
       { text: "Script → Brief → Draft → Production", strong: true },
       {
-        text: " ไว้ในที่เดียว ลดเวลาและต้นทุนการผลิตอย่างมีนัยสำคัญ",
+        text: " in one pipeline — cutting production time and cost significantly.",
       },
     ],
-    tags: ["FastAPI", "Script AI", "Animation", "Thai UI"],
+    tags: ["FastAPI", "Script AI", "Animation", "Web UI"],
   },
   {
     id: "music",
@@ -534,13 +534,13 @@ export const STUDIO_WORKS: StudioWork[] = [
     industryLabel: "Creative",
     problem: [
       {
-        text: "นักแต่งเพลงต้องประสานงานระหว่างคนคิดคำร้องและทำนอง ใช้เวลานาน MyClaw ช่วย ",
+        text: "Songwriters lose time coordinating lyricists and composers. MyClaw helps ",
       },
       {
-        text: "ร่างเพลง Demo ที่มีจิตวิญญาณของผู้แต่ง",
+        text: "draft demos that keep the author's voice",
         strong: true,
       },
-      { text: " ไม่ใช่เพลง AI ที่เร็วแต่ไร้ตัวตน" },
+      { text: " — not fast, soulless AI tracks." },
     ],
     tags: ["Next.js", "Music AI", "Gen Z", "HITL"],
   },
@@ -549,20 +549,20 @@ export const STUDIO_WORKS: StudioWork[] = [
     number: "11",
     industry: "healthcare",
     icon: "🌟",
-    name: "NETR (เนตร)",
+    name: "NETR",
     tagline: "Mental Health Behind the Stars",
     badges: ["live", "industry"],
     industryLabel: "Healthcare",
     problem: [
       {
-        text: "คนที่มีปัญหาชีวิตมักหาทางระบายผ่านการดูดวง NETR เป็น ",
+        text: "People under life stress often seek relief through astrology. NETR is an ",
       },
       {
-        text: "AI โหราศาสตร์ที่ซ่อนระบบให้คำปรึกษาสุขภาพจิต",
+        text: "astrology AI with mental-health counseling behind the scenes",
         strong: true,
       },
       {
-        text: ' ไว้เบื้องหลัง รองรับภาวะซึมเศร้า วัยชรา และวัยรุ่น โดยไม่ทำให้ผู้ใช้รู้สึกว่ากำลัง "ขอความช่วยเหลือ"',
+        text: ' — supporting depression, aging, and youth without making users feel like they are "asking for help."',
       },
     ],
     tags: ["Mental Health", "RAG Counseling", "LINE OA", "Thai Astrology"],
