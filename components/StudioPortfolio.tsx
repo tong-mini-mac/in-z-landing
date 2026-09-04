@@ -531,7 +531,7 @@ export function StudioPortfolio() {
             {t.contactHeroPBefore} <strong>{t.contactHeroPStrong}</strong>
           </p>
           <div className="studio-contact-buttons">
-            <a className="studio-contact-btn-primary" href={t.contactEmailHref}>
+            <a className="studio-contact-btn-primary" href={t.contactBtnPrimaryHref}>
               {t.contactBtnPrimary}
               <ArrowIcon />
             </a>
