@@ -2526,6 +2526,28 @@ img {
   padding: 1.35rem 8vw 0;
 }
 
+.studio-top-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem 1.75rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.studio-lang .auth-lang-btn {
+  color: var(--studio-muted);
+}
+
+.studio-lang .auth-lang-btn.is-active,
+.studio-lang .auth-lang-btn:hover,
+.studio-lang .auth-lang-btn:focus-visible {
+  color: var(--studio-accent);
+}
+
+.studio-lang .auth-lang-sep {
+  color: rgba(255, 255, 255, 0.25);
+}
+
 .studio-mark {
   display: inline-flex;
   align-items: center;
@@ -4214,6 +4236,11 @@ img {
     align-items: flex-start;
     padding-left: 6vw;
     padding-right: 6vw;
+  }
+
+  .studio-top-right {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .studio-nav {

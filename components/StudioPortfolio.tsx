@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { AuthLangToggle } from "@/components/AuthLangToggle";
 import {
   STUDIO_CONTACT_EXPECTATIONS,
   STUDIO_COPY,
@@ -15,8 +16,10 @@ import {
   STUDIO_WORK_FILTERS,
   studioBadgeClass,
   studioBadgeLabel,
+  type LocalizedPart,
   type StudioIndustry,
 } from "@/lib/studio-portfolio";
+import { useSiteLang } from "@/lib/use-site-lang";
 
 function ArrowIcon() {
   return (
@@ -101,8 +104,19 @@ function stackIcon(id: string) {
   return <IconBolt />;
 }
 
+function renderParts(parts: LocalizedPart[]) {
+  return parts.map((part, index) =>
+    part.strong ? (
+      <strong key={index}>{part.text}</strong>
+    ) : (
+      <span key={index}>{part.text}</span>
+    ),
+  );
+}
+
 export function StudioPortfolio() {
-  const t = STUDIO_COPY.en;
+  const lang = useSiteLang();
+  const t = STUDIO_COPY[lang];
   const [workFilter, setWorkFilter] = useState<"all" | StudioIndustry>("all");
 
   const visibleWorks =
@@ -116,7 +130,7 @@ export function StudioPortfolio() {
       <div className="studio-bg-grid" aria-hidden="true" />
 
       <header className="studio-top">
-        <a className="studio-mark" href="#hero" aria-label={t.brand}>
+        <a className="studio-mark" href="https://www.inz.lol" aria-label={t.brand}>
           <Image
             src="/logo-transparent.png"
             alt=""
@@ -127,12 +141,18 @@ export function StudioPortfolio() {
           />
           <span>{t.brand}</span>
         </a>
-        <nav className="studio-nav" aria-label="Studio">
-          <a href="#who">{t.navAbout}</a>
-          <a href="#work">{t.navWork}</a>
-          <a href="#vision">{t.navVision}</a>
-          <a href="#talk">{t.navTalk}</a>
-        </nav>
+        <div className="studio-top-right">
+          <nav className="studio-nav" aria-label="Studio">
+            <a href="https://www.inz.lol">{t.navHome}</a>
+            <a href="#who">{t.navAbout}</a>
+            <a href="#work">{t.navWork}</a>
+            <a href="#vision">{t.navVision}</a>
+            <a href="#talk">{t.navTalk}</a>
+          </nav>
+          <div className="studio-lang">
+            <AuthLangToggle lang={lang} onChange={() => {}} />
+          </div>
+        </div>
       </header>
 
       {/* SECTION 1: Hero */}
@@ -156,9 +176,9 @@ export function StudioPortfolio() {
         <div className="studio-proof-bar">
           <div className="studio-proof-item">
             <div className="studio-proof-num">
-              <span>11</span>
+              <span>5</span>
             </div>
-            <div className="studio-proof-label">{t.proofSystems}</div>
+            <div className="studio-proof-label">{t.proofIndustries}</div>
           </div>
           <div className="studio-proof-item">
             <div className="studio-proof-num">
@@ -168,9 +188,9 @@ export function StudioPortfolio() {
           </div>
           <div className="studio-proof-item">
             <div className="studio-proof-num">
-              <span>3</span>
+              <span>11</span>
             </div>
-            <div className="studio-proof-label">{t.proofIndustries}</div>
+            <div className="studio-proof-label">{t.proofSystems}</div>
           </div>
           <div className="studio-proof-item">
             <div className="studio-proof-num">
@@ -236,11 +256,11 @@ export function StudioPortfolio() {
 
             <div className="studio-timeline">
               {STUDIO_TIMELINE.map((item) => (
-                <div className="studio-tl-item" key={item.title}>
+                <div className="studio-tl-item" key={item.title.en}>
                   <div className="studio-tl-dot" />
                   <div>
-                    <div className="studio-tl-title">{item.title}</div>
-                    <div className="studio-tl-sub">{item.sub}</div>
+                    <div className="studio-tl-title">{item.title[lang]}</div>
+                    <div className="studio-tl-sub">{item.sub[lang]}</div>
                   </div>
                 </div>
               ))}
@@ -264,12 +284,12 @@ export function StudioPortfolio() {
               >
                 <div className="studio-stack-group-label">
                   {stackIcon(group.id)}
-                  {group.label}
+                  {group.label[lang]}
                 </div>
                 <div className="studio-tags">
                   {group.tags.map((tag) => (
                     <span
-                      key={tag.label}
+                      key={tag.label.en}
                       className={
                         group.variant === "now"
                           ? "studio-tag-item studio-tag-item-now"
@@ -278,7 +298,7 @@ export function StudioPortfolio() {
                             : "studio-tag-item"
                       }
                     >
-                      {tag.label}
+                      {tag.label[lang]}
                     </span>
                   ))}
                 </div>
@@ -329,23 +349,17 @@ export function StudioPortfolio() {
                 <div className="studio-work-card-badges">
                   {work.badges.map((badge) => (
                     <span key={badge} className={studioBadgeClass(badge)}>
-                      {studioBadgeLabel(badge, work.industryLabel)}
+                      {studioBadgeLabel(badge, work.industryLabel[lang], lang)}
                     </span>
                   ))}
                 </div>
               </div>
               <div>
-                <h3 className="studio-work-card-name">{work.name}</h3>
-                <p className="studio-work-card-tagline">{work.tagline}</p>
+                <h3 className="studio-work-card-name">{work.name[lang]}</h3>
+                <p className="studio-work-card-tagline">{work.tagline[lang]}</p>
               </div>
               <p className="studio-work-card-problem">
-                {work.problem.map((part, index) =>
-                  part.strong ? (
-                    <strong key={index}>{part.text}</strong>
-                  ) : (
-                    <span key={index}>{part.text}</span>
-                  ),
-                )}
+                {renderParts(work.problem[lang])}
               </p>
               <div className="studio-work-card-tags">
                 {work.tags.map((tag) => (
@@ -382,12 +396,12 @@ export function StudioPortfolio() {
 
         <div className="studio-problem-row">
           {STUDIO_VISION_PROBLEMS.map((item) => (
-            <div className="studio-problem-card" key={item.title}>
+            <div className="studio-problem-card" key={item.title.en}>
               <div className="studio-problem-icon" aria-hidden="true">
                 {item.icon}
               </div>
-              <div className="studio-problem-title">{item.title}</div>
-              <div className="studio-problem-desc">{item.desc}</div>
+              <div className="studio-problem-title">{item.title[lang]}</div>
+              <div className="studio-problem-desc">{item.desc[lang]}</div>
             </div>
           ))}
         </div>
@@ -415,12 +429,12 @@ export function StudioPortfolio() {
               <div className="studio-device-node">
                 <div className={`studio-device-circle studio-device-${device.id}`}>{device.icon}</div>
                 <div className={`studio-device-label studio-device-label-${device.tone}`}>
-                  {device.label}
+                  {device.label[lang]}
                 </div>
                 <div className="studio-device-sub">
-                  {device.sub[0]}
+                  {device.sub[lang][0]}
                   <br />
-                  {device.sub[1]}
+                  {device.sub[lang][1]}
                 </div>
               </div>
             </div>
@@ -429,17 +443,11 @@ export function StudioPortfolio() {
 
         <div className="studio-feature-grid">
           {STUDIO_VISION_FEATURES.map((feature) => (
-            <div className="studio-feature-card" key={feature.num}>
-              <div className="studio-feature-num">{feature.num}</div>
-              <div className="studio-feature-title">{feature.title}</div>
+            <div className="studio-feature-card" key={feature.num.en}>
+              <div className="studio-feature-num">{feature.num[lang]}</div>
+              <div className="studio-feature-title">{feature.title[lang]}</div>
               <p className="studio-feature-desc">
-                {feature.parts.map((part, index) =>
-                  "strong" in part && part.strong ? (
-                    <strong key={index}>{part.text}</strong>
-                  ) : (
-                    <span key={index}>{part.text}</span>
-                  ),
-                )}
+                {renderParts(feature.parts[lang])}
               </p>
             </div>
           ))}
@@ -492,14 +500,14 @@ export function StudioPortfolio() {
 
           <div className="studio-align-right">
             {STUDIO_VISION_MIRRORS.map((item) => (
-              <div className="studio-mirror-card" key={item.title}>
+              <div className="studio-mirror-card" key={item.title.en}>
                 <div className="studio-mirror-icon" aria-hidden="true">
                   {item.icon}
                 </div>
                 <div>
-                  <div className="studio-mirror-title">{item.title}</div>
+                  <div className="studio-mirror-title">{item.title[lang]}</div>
                   <div className="studio-mirror-desc">
-                    {item.before} <em>{item.em}</em>
+                    {item.before[lang]} <em>{item.em[lang]}</em>
                   </div>
                 </div>
               </div>
@@ -556,7 +564,7 @@ export function StudioPortfolio() {
                   ✉️
                 </div>
                 <div className="studio-channel-info">
-                  <div className="studio-channel-name">Email</div>
+                  <div className="studio-channel-name">{t.contactChannelEmail}</div>
                   <div className="studio-channel-value">{t.contactEmail}</div>
                 </div>
                 <ChannelArrow />
@@ -571,7 +579,7 @@ export function StudioPortfolio() {
                   💼
                 </div>
                 <div className="studio-channel-info">
-                  <div className="studio-channel-name">LinkedIn</div>
+                  <div className="studio-channel-name">{t.contactChannelLinkedIn}</div>
                   <div className="studio-channel-value">{t.contactLinkedIn}</div>
                 </div>
                 <ChannelArrow />
@@ -586,7 +594,7 @@ export function StudioPortfolio() {
                   🌐
                 </div>
                 <div className="studio-channel-info">
-                  <div className="studio-channel-name">Website</div>
+                  <div className="studio-channel-name">{t.contactChannelWeb}</div>
                   <div className="studio-channel-value">{t.contactWeb}</div>
                 </div>
                 <ChannelArrow />
@@ -605,14 +613,8 @@ export function StudioPortfolio() {
                 {STUDIO_CONTACT_EXPECTATIONS.map((item, index) => (
                   <div className="studio-response-item" key={index}>
                     {"parts" in item
-                      ? item.parts.map((part, partIndex) =>
-                          "strong" in part && part.strong ? (
-                            <strong key={partIndex}>{part.text}</strong>
-                          ) : (
-                            <span key={partIndex}>{part.text}</span>
-                          ),
-                        )
-                      : item.text}
+                      ? renderParts(item.parts[lang])
+                      : item.text[lang]}
                   </div>
                 ))}
               </div>
@@ -635,6 +637,9 @@ export function StudioPortfolio() {
             <div className="studio-footer-sub">{t.contactFooterSub}</div>
           </div>
           <div className="studio-footer-right">
+            <a className="studio-footer-link" href="https://www.inz.lol">
+              {t.navHome}
+            </a>
             <a className="studio-footer-link" href="#who">
               {t.navAbout}
             </a>
