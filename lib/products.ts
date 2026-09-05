@@ -90,6 +90,16 @@ export const PRODUCTS: ProductEntry[] = [
     available: true,
   },
   {
+    id: "prism",
+    name: "PRISM",
+    description: {
+      th: "AI ดูแลลีดอสังหา — SRAG จับคู่เจตนากับโครงการ",
+      en: "Real-estate AI lead engine — SRAG intent-to-project matching",
+    },
+    href: "https://prism-web-production-e0c6.up.railway.app",
+    available: true,
+  },
+  {
     id: "erp",
     name: "Universal ERP",
     description: {
@@ -113,6 +123,7 @@ export const COMMERCIAL_PRODUCT_IDS: ProductId[] = [
 /** Shown on /demo — commercial trials plus selected platform demos. */
 export const DEMO_HUB_PRODUCT_IDS: ProductId[] = [
   ...COMMERCIAL_PRODUCT_IDS,
+  "prism",
   "erp",
 ];
 

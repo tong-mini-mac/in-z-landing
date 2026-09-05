@@ -132,6 +132,25 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "เปิด ERP",
     },
   },
+  {
+    id: "prism",
+    name: "PRISM",
+    href: PRODUCT_HREF.prism,
+    requiresSignup: true,
+    external: true,
+    trialTitle: {
+      en: "Live admin web — reference UI",
+      th: "แอดมินเว็บจริง — UI อ้างอิง",
+    },
+    trialSummary: {
+      en: "Open the PRISM admin web: SRAG intent matching, lead segments, and SubsetGuard for real-estate teams.",
+      th: "เปิดแอดมินเว็บ PRISM: จับคู่เจตนาด้วย SRAG แบ่งลีด และ SubsetGuard สำหรับทีมอสังหา",
+    },
+    ctaLabel: {
+      en: "Open PRISM",
+      th: "เปิด PRISM",
+    },
+  },
 ];
 
 export const DEMO_COPY: Record<
