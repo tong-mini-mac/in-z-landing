@@ -1,4 +1,4 @@
-import { COMMERCIAL_PRODUCT_IDS, PRODUCTS, type ProductId } from "@/lib/products";
+import { DEMO_HUB_PRODUCT_IDS, PRODUCTS, type ProductId } from "@/lib/products";
 import type { AuthLang } from "@/lib/auth-i18n";
 
 export type DemoOffer = {
@@ -16,7 +16,7 @@ const PRODUCT_HREF = Object.fromEntries(
   PRODUCTS.map((p) => [p.id, p.href]),
 ) as Record<ProductId, string>;
 
-/** Public free-trial hub entries — commercial products only. */
+/** Public free-trial hub entries. */
 export const DEMO_OFFERS: DemoOffer[] = [
   {
     id: "synthcomm",
@@ -113,6 +113,25 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "ทดลองเนตรฟรี",
     },
   },
+  {
+    id: "erp",
+    name: "Universal ERP",
+    href: PRODUCT_HREF.erp,
+    requiresSignup: true,
+    external: true,
+    trialTitle: {
+      en: "Pilot — modular ERP for SME",
+      th: "Pilot — ERP แบบโมดูลสำหรับ SME",
+    },
+    trialSummary: {
+      en: "Finance, HR, Stock, Procurement, and Marketing in one place — pick the modules you need.",
+      th: "Finance, HR, Stock, Procurement, Marketing ในที่เดียว — เลือก Module ตามต้องการ",
+    },
+    ctaLabel: {
+      en: "Open ERP",
+      th: "เปิด ERP",
+    },
+  },
 ];
 
 export const DEMO_COPY: Record<
@@ -139,6 +158,6 @@ export const DEMO_COPY: Record<
 };
 
 export function demoOffersForCommercial(): DemoOffer[] {
-  const allowed = new Set(COMMERCIAL_PRODUCT_IDS);
+  const allowed = new Set(DEMO_HUB_PRODUCT_IDS);
   return DEMO_OFFERS.filter((offer) => allowed.has(offer.id));
 }

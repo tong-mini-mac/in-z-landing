@@ -6,7 +6,8 @@ export type ProductId =
   | "music-demo"
   | "content-creator"
   | "netr"
-  | "prism";
+  | "prism"
+  | "erp";
 
 export type ProductEntry = {
   id: ProductId;
@@ -88,6 +89,16 @@ export const PRODUCTS: ProductEntry[] = [
     href: "https://ai-marketing-production-d0d4.up.railway.app",
     available: true,
   },
+  {
+    id: "erp",
+    name: "Universal ERP",
+    description: {
+      th: "ERP แบบโมดูลสำหรับ SME — Finance / HR / Stock / Procurement / Marketing",
+      en: "Modular ERP for SME — Finance, HR, Stock, Procurement, Marketing",
+    },
+    href: "https://erp-atlas-production.up.railway.app",
+    available: true,
+  },
 ];
 
 /** Commercial products only — Landing / ERP / AI-Marketing are not sellable products. */
@@ -97,6 +108,12 @@ export const COMMERCIAL_PRODUCT_IDS: ProductId[] = [
   "music-demo",
   "content-creator",
   "netr",
+];
+
+/** Shown on /demo — commercial trials plus selected platform demos. */
+export const DEMO_HUB_PRODUCT_IDS: ProductId[] = [
+  ...COMMERCIAL_PRODUCT_IDS,
+  "erp",
 ];
 
 export const CHECKOUT_PRODUCT_IDS: ProductId[] = [

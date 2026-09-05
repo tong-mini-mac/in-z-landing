@@ -105,6 +105,10 @@ export function productBaseUrl(productId: string): string | null {
     prism:
       process.env.PRISM_URL ||
       "https://prism-web-production-e0c6.up.railway.app",
+    erp:
+      process.env.ERP_BASE_URL ||
+      process.env.INZ_ERP_ORIGIN ||
+      "https://erp-atlas-production.up.railway.app",
   };
   return map[productId] || null;
 }
