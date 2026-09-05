@@ -713,7 +713,7 @@ export const STUDIO_WORKS: StudioWork[] = [
     },
     tagline: {
       en: "AI Series Production Pipeline",
-      th: "ไปป์ไลน์ผลิตซีรีส์ด้วย AI",
+      th: "AI Series Production Pipeline",
     },
     industryLabel: { en: "Creative", th: "ครีเอทีฟ" },
     problem: {
@@ -723,7 +723,11 @@ export const STUDIO_WORKS: StudioWork[] = [
         },
         { text: "Script → Brief → Draft → Production", strong: true },
         {
-          text: " in one pipeline — cutting production time and cost significantly.",
+          text: " in one place — with ",
+        },
+        { text: "character face-lock", strong: true },
+        {
+          text: " and automatic storyboards.",
         },
       ],
       th: [
@@ -732,11 +736,15 @@ export const STUDIO_WORKS: StudioWork[] = [
         },
         { text: "Script → Brief → Draft → Production", strong: true },
         {
-          text: " ไว้ในที่เดียว ลดเวลาและต้นทุนการผลิตอย่างมีนัยสำคัญ",
+          text: " ไว้ในที่เดียว พร้อมระบบ ",
+        },
+        { text: "ล็อกใบหน้าตัวละคร", strong: true },
+        {
+          text: " และ Storyboard อัตโนมัติ",
         },
       ],
     },
-    tags: ["FastAPI", "Script AI", "Animation", "Web UI"],
+    tags: ["FastAPI", "AI", "Storyboard", "Character Lock"],
   },
   {
     id: "music",
@@ -749,33 +757,37 @@ export const STUDIO_WORKS: StudioWork[] = [
       th: "MyClaw Music",
     },
     tagline: {
-      en: "Human-Soul Music Demo Tool",
-      th: "เครื่องมือเดโมเพลงที่มีจิตวิญญาณ",
+      en: "We don't create the finished work — you do.",
+      th: "เราไม่ได้สร้างสิ่งที่สมบูรณ์ คุณคือคนทำให้มันสมบูรณ์",
     },
     industryLabel: { en: "Creative", th: "ครีเอทีฟ" },
     problem: {
       en: [
         {
-          text: "Songwriters lose time coordinating lyricists and composers. MyClaw helps ",
+          text: "Songwriters lack a DEMO tool before entering the DAW. MyClaw helps create a ",
         },
         {
-          text: "draft demos that keep the author's voice",
+          text: "reference DEMO",
           strong: true,
         },
-        { text: " — not fast, soulless AI tracks." },
+        {
+          text: " with Lyrics + Chords + Audio in one system — Credits pay-as-you-go, no monthly lock-in.",
+        },
       ],
       th: [
         {
-          text: "นักแต่งเพลงต้องประสานงานระหว่างคนคิดคำร้องและทำนอง ใช้เวลานาน MyClaw ช่วย ",
+          text: "นักแต่งเพลงขาดเครื่องมือสร้าง DEMO ก่อนเข้า Studio MyClaw ช่วยสร้าง ",
         },
         {
-          text: "ร่างเพลง Demo ที่มีจิตวิญญาณของผู้แต่ง",
+          text: "เพลงอ้างอิง (DEMO)",
           strong: true,
         },
-        { text: " ไม่ใช่เพลง AI ที่เร็วแต่ไร้ตัวตน" },
+        {
+          text: " พร้อม Lyrics + Chords + Audio ในระบบเดียว ด้วยระบบ Credits แบบ Pay-as-you-go ไม่ผูกแพ็กรายเดือน",
+        },
       ],
     },
-    tags: ["Next.js", "Music AI", "Gen Z", "HITL"],
+    tags: ["Next.js", "Credits PAYG", "Busker Mode", "Export PDF"],
   },
   {
     id: "netr",
@@ -785,40 +797,54 @@ export const STUDIO_WORKS: StudioWork[] = [
     badges: ["live", "industry"],
     name: {
       en: "NETR",
-      th: "NETR (เนตร)",
+      th: "เนตร (NETR)",
     },
     tagline: {
-      en: "Mental Health Behind the Stars",
-      th: "สุขภาพจิตที่ซ่อนอยู่เบื้องหลังดวงดาว",
+      en: "Thai karmic astrology + AI that remembers you",
+      th: "โหราศาสตร์กรรมไทย + AI ที่จำคุณได้",
     },
     industryLabel: { en: "Healthcare", th: "สุขภาพ" },
     problem: {
       en: [
         {
-          text: "People under life stress often seek relief through astrology. NETR is an ",
+          text: "People facing life problems often seek answers through astrology — but lack real mental-health support. NETR uses ",
         },
         {
-          text: "astrology AI with mental-health counseling behind the scenes",
+          text: "complete traditional Thai astrology",
           strong: true,
         },
         {
-          text: ' — supporting depression, aging, and youth without making users feel like they are "asking for help."',
+          text: " as the entry point, with ",
+        },
+        {
+          text: "psychological RAG counseling",
+          strong: true,
+        },
+        {
+          text: " behind the scenes — plus crisis mode and bullying detection.",
         },
       ],
       th: [
         {
-          text: "คนที่มีปัญหาชีวิตมักหาทางระบายผ่านการดูดวง NETR เป็น ",
+          text: "คนที่เผชิญปัญหาชีวิต มักหาทางออกผ่านดวง — แต่ขาดการสนับสนุนด้านสุขภาพจิตที่แท้จริง เนตรใช้ ",
         },
         {
-          text: "AI โหราศาสตร์ที่ซ่อนระบบให้คำปรึกษาสุขภาพจิต",
+          text: "โหราศาสตร์ไทยมาตรฐานสมบูรณ์",
           strong: true,
         },
         {
-          text: ' ไว้เบื้องหลัง รองรับภาวะซึมเศร้า วัยชรา และวัยรุ่น โดยไม่ทำให้ผู้ใช้รู้สึกว่ากำลัง "ขอความช่วยเหลือ"',
+          text: " เป็นหน้าต่างเข้าถึงผู้ใช้ และซ่อน ",
+        },
+        {
+          text: "RAG จิตวิทยา",
+          strong: true,
+        },
+        {
+          text: " ไว้เบื้องหลัง พร้อมโหมดวิกฤตและตรวจจับการกลั่นแกล้ง",
         },
       ],
     },
-    tags: ["Mental Health", "RAG Counseling", "LINE OA", "Thai Astrology"],
+    tags: ["RAG", "Counseling ML", "LINE OA", "Ijime Detection"],
   },
 ];
 

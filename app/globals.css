@@ -2631,7 +2631,7 @@ img {
   font-family: var(--font-display), system-ui, sans-serif;
   font-size: clamp(42px, 7vw, 88px);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.28;
   letter-spacing: -0.03em;
   margin-bottom: 28px;
   opacity: 0;
@@ -2645,6 +2645,7 @@ img {
 
 .studio-headline-line2 {
   display: block;
+  margin-top: 0.12em;
   background: linear-gradient(135deg, var(--studio-accent) 0%, var(--studio-accent2) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -2863,12 +2864,14 @@ img {
   font-family: var(--font-display), system-ui, sans-serif;
   font-size: clamp(32px, 3.5vw, 48px);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.28;
   letter-spacing: -0.02em;
   color: var(--studio-text);
 }
 
 .studio-about-title span {
+  display: inline-block;
+  margin-top: 0.08em;
   background: linear-gradient(135deg, var(--studio-accent), var(--studio-accent2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -3076,11 +3079,13 @@ img {
   font-size: clamp(28px, 3vw, 42px);
   font-weight: 800;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.28;
   color: var(--studio-text);
 }
 
 .studio-portfolio-title span {
+  display: inline-block;
+  margin-top: 0.08em;
   background: linear-gradient(135deg, var(--studio-accent), var(--studio-accent2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -3312,7 +3317,7 @@ img {
   font-family: var(--font-display), system-ui, sans-serif;
   font-size: clamp(32px, 4.5vw, 58px);
   font-weight: 900;
-  line-height: 1.08;
+  line-height: 1.28;
   letter-spacing: -0.03em;
   margin-bottom: 28px;
   color: var(--studio-text);
@@ -3642,7 +3647,7 @@ img {
   font-size: clamp(22px, 2.5vw, 34px);
   font-weight: 800;
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1.32;
   margin-bottom: 24px;
   color: var(--studio-text);
 }
@@ -3800,10 +3805,21 @@ img {
   font-family: var(--font-display), system-ui, sans-serif;
   font-size: clamp(36px, 5.5vw, 72px);
   font-weight: 900;
-  line-height: 1;
+  line-height: 1.28;
   letter-spacing: -0.03em;
   margin-bottom: 28px;
   color: var(--studio-text);
+}
+
+.studio-contact-hero h2 .studio-contact-line,
+.studio-contact-hero h2 .studio-grad,
+.studio-contact-hero h2 .studio-contact-dim {
+  display: block;
+}
+
+.studio-contact-hero h2 .studio-grad,
+.studio-contact-hero h2 .studio-contact-dim {
+  margin-top: 0.12em;
 }
 
 .studio-contact-dim {

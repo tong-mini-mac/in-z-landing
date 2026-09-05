@@ -527,10 +527,8 @@ export function StudioPortfolio() {
 
         <div className="studio-contact-hero">
           <h2 id="studio-contact-title">
-            {t.contactHeroLine1}
-            <br />
+            <span className="studio-contact-line">{t.contactHeroLine1}</span>
             <span className="studio-grad">{t.contactHeroGrad}</span>
-            <br />
             <span className="studio-contact-dim">{t.contactHeroDim}</span>
           </h2>
           <p>
