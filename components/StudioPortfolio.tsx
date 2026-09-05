@@ -19,7 +19,7 @@ import {
   type LocalizedPart,
   type StudioIndustry,
 } from "@/lib/studio-portfolio";
-import { useSiteLang } from "@/lib/use-site-lang";
+import { useStudioLang } from "@/lib/use-site-lang";
 
 function ArrowIcon() {
   return (
@@ -115,7 +115,7 @@ function renderParts(parts: LocalizedPart[]) {
 }
 
 export function StudioPortfolio() {
-  const lang = useSiteLang();
+  const [lang, setLang] = useStudioLang();
   const t = STUDIO_COPY[lang];
   const [workFilter, setWorkFilter] = useState<"all" | StudioIndustry>("all");
 
@@ -150,7 +150,7 @@ export function StudioPortfolio() {
             <a href="#talk">{t.navTalk}</a>
           </nav>
           <div className="studio-lang">
-            <AuthLangToggle lang={lang} onChange={() => {}} />
+            <AuthLangToggle lang={lang} onChange={setLang} />
           </div>
         </div>
       </header>
