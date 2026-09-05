@@ -649,23 +649,29 @@ img {
 
 /* —— Demo hub —— */
 .page-demo {
-  overflow: auto;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  height: 100svh;
   min-height: 100svh;
 }
 
 .page-demo .demo-body {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
   width: min(42rem, calc(100% - 2.5rem));
   margin: 0 auto;
-  padding: 2.5rem 0 4rem;
+  padding: 2.5rem 0 1rem;
   animation: fade-up 0.9s ease both;
 }
 
 .demo-hero {
-  margin-bottom: 2.5rem;
+  flex-shrink: 0;
+  margin-bottom: 1.5rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -701,7 +707,18 @@ img {
   gap: 0;
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 0 0.35rem 0.5rem 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.page-demo .footer {
+  position: relative;
+  flex-shrink: 0;
+  z-index: 2;
 }
 
 .demo-item {
@@ -782,7 +799,7 @@ img {
 /* Side nav — same placement as Home / Products / About */
 @media (min-width: 700px) {
   .page.page-demo {
-    display: block;
+    display: flex;
   }
 
   .page-demo > .nav {
@@ -806,9 +823,32 @@ img {
   }
 
   .page-demo .demo-body {
-    padding: 4.5rem 0 5rem;
+    padding: 4.5rem 0 1rem;
     margin-left: max(10rem, calc((100% - 42rem) / 2));
     margin-right: auto;
+  }
+}
+
+@media (min-width: 900px) {
+  .page-demo .footer {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1rem 1.25rem 1.5rem;
+    pointer-events: auto;
+  }
+
+  .page-demo .social,
+  .page-demo .legal {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    transform: none;
+    pointer-events: auto;
   }
 }
 
