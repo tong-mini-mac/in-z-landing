@@ -135,7 +135,6 @@ export const COMMERCIAL_PRODUCT_IDS: ProductId[] = [
 export const DEMO_HUB_PRODUCT_IDS: ProductId[] = [
   ...COMMERCIAL_PRODUCT_IDS,
   "prism",
-  "prism-api",
   "erp",
 ];
 

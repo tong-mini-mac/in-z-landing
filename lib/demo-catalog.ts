@@ -151,25 +151,6 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "เปิด PRISM",
     },
   },
-  {
-    id: "prism-api",
-    name: "PRISM API",
-    href: PRODUCT_HREF["prism-api"],
-    requiresSignup: false,
-    external: true,
-    trialTitle: {
-      en: "Live API health — backend",
-      th: "API จริง — สุขภาพระบบ",
-    },
-    trialSummary: {
-      en: "Open the PRISM API health endpoint used by the admin web and integrations.",
-      th: "เปิด endpoint สุขภาพ PRISM API ที่เว็บแอดมินและระบบเชื่อมต่อใช้งาน",
-    },
-    ctaLabel: {
-      en: "Open PRISM API",
-      th: "เปิด PRISM API",
-    },
-  },
 ];
 
 export const DEMO_COPY: Record<
