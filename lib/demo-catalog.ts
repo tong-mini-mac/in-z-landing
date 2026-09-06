@@ -134,6 +134,29 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "เปิด PRISM",
     },
   },
+  {
+    id: "erp-demo",
+    name: "ERP-Demo",
+    href: PRODUCT_HREF["erp-demo"],
+    requiresSignup: false,
+    external: true,
+    trialTitle: {
+      en: "Sandbox from tong-mini-mac/ERP",
+      th: "Sandbox จาก repo ERP",
+    },
+    trialSummary: {
+      en: "Universal ERP demo with simulated data — separate from company ATLAS (admin.inz.lol).",
+      th: "Universal ERP พร้อมข้อมูลจำลอง — แยกจาก ATLAS บริษัท (admin.inz.lol)",
+    },
+    sandboxLogin: {
+      en: "Demo login: demo@erp.demo / demo-erp-2026",
+      th: "รหัส Demo: demo@erp.demo / demo-erp-2026",
+    },
+    ctaLabel: {
+      en: "Open ERP-Demo",
+      th: "เปิด ERP-Demo",
+    },
+  },
 ];
 
 export const DEMO_COPY: Record<

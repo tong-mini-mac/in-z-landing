@@ -125,11 +125,11 @@ export const PRODUCTS: ProductEntry[] = [
     id: "erp-demo",
     name: "ERP-Demo",
     description: {
-      th: "รอ deploy จาก repo ERP (ยังไม่พร้อม) — ไม่ใช้ ATLAS ของบริษัท",
-      en: "Pending deploy from ERP repo (not ready) — not company ATLAS",
+      th: "Sandbox Universal ERP จาก repo ERP — ข้อมูลจำลอง ไม่ใช่ ATLAS บริษัท",
+      en: "Universal ERP sandbox from ERP repo — simulated data, not company ATLAS",
     },
-    href: "https://github.com/tong-mini-mac/ERP",
-    available: false,
+    href: "https://erp-demo-production-9ab8.up.railway.app",
+    available: true,
   },
 ];
 
@@ -146,6 +146,7 @@ export const COMMERCIAL_PRODUCT_IDS: ProductId[] = [
 export const DEMO_HUB_PRODUCT_IDS: ProductId[] = [
   ...COMMERCIAL_PRODUCT_IDS,
   "prism",
+  "erp-demo",
 ];
 
 export const CHECKOUT_PRODUCT_IDS: ProductId[] = [

@@ -114,8 +114,7 @@ export function productBaseUrl(productId: string): string | null {
       "https://erp-atlas-production.up.railway.app",
     "erp-demo":
       process.env.ERP_DEMO_URL ||
-      "",
+      "https://erp-demo-production-9ab8.up.railway.app",
   };
-  const url = map[productId];
-  return url || null;
+  return map[productId] || null;
 }
