@@ -151,6 +151,25 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "เปิด PRISM",
     },
   },
+  {
+    id: "prism-api",
+    name: "PRISM API",
+    href: PRODUCT_HREF["prism-api"],
+    requiresSignup: false,
+    external: true,
+    trialTitle: {
+      en: "Live API health — backend",
+      th: "API จริง — สุขภาพระบบ",
+    },
+    trialSummary: {
+      en: "Open the PRISM API health endpoint used by the admin web and integrations.",
+      th: "เปิด endpoint สุขภาพ PRISM API ที่เว็บแอดมินและระบบเชื่อมต่อใช้งาน",
+    },
+    ctaLabel: {
+      en: "Open PRISM API",
+      th: "เปิด PRISM API",
+    },
+  },
 ];
 
 export const DEMO_COPY: Record<
@@ -160,6 +179,12 @@ export const DEMO_COPY: Record<
     lead: string;
     metaSignup: string;
     metaNoSignup: string;
+    menuTab: string;
+    menuLabel: string;
+    closeMenu: string;
+    trials: string;
+    backToDemos: string;
+    openExternal: string;
   }
 > = {
   en: {
@@ -167,12 +192,24 @@ export const DEMO_COPY: Record<
     lead: "Try each product free before you subscribe — pick a trial and open the live app.",
     metaSignup: "May require account signup in the product app",
     metaNoSignup: "No signup required to start",
+    menuTab: "Menu",
+    menuLabel: "Demo menu",
+    closeMenu: "Close menu",
+    trials: "Trials",
+    backToDemos: "Back to demos",
+    openExternal: "Open in new tab",
   },
   th: {
     label: "Demo",
     lead: "ทดลองใช้แต่ละผลิตภัณฑ์ฟรีก่อนสมัครแพ็กเกจ — เลือกแล้วเปิดแอปจริงได้เลย",
     metaSignup: "อาจต้องสมัครบัญชีในแอปของผลิตภัณฑ์",
     metaNoSignup: "เริ่มได้โดยไม่ต้องสมัคร",
+    menuTab: "เมนู",
+    menuLabel: "เมนูทดลองใช้",
+    closeMenu: "ปิดเมนู",
+    trials: "รายการทดลอง",
+    backToDemos: "กลับหน้ารายการ Demo",
+    openExternal: "เปิดแท็บใหม่",
   },
 };
 

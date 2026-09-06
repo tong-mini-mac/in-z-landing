@@ -7,6 +7,7 @@ export type ProductId =
   | "content-creator"
   | "netr"
   | "prism"
+  | "prism-api"
   | "erp";
 
 export type ProductEntry = {
@@ -100,13 +101,23 @@ export const PRODUCTS: ProductEntry[] = [
     available: true,
   },
   {
+    id: "prism-api",
+    name: "PRISM API",
+    description: {
+      th: "API ของ PRISM — สุขภาพระบบและ endpoint สำหรับเชื่อมต่อ",
+      en: "PRISM API — health check and integration endpoints",
+    },
+    href: "https://prism-api-production-b232.up.railway.app/health",
+    available: true,
+  },
+  {
     id: "erp",
     name: "Universal ERP",
     description: {
       th: "ERP แบบโมดูลสำหรับ SME — Finance / HR / Stock / Procurement / Marketing",
       en: "Modular ERP for SME — Finance, HR, Stock, Procurement, Marketing",
     },
-    href: "https://erp-atlas-production.up.railway.app",
+    href: "https://erp-atlas-production.up.railway.app/admin",
     available: true,
   },
 ];
@@ -124,6 +135,7 @@ export const COMMERCIAL_PRODUCT_IDS: ProductId[] = [
 export const DEMO_HUB_PRODUCT_IDS: ProductId[] = [
   ...COMMERCIAL_PRODUCT_IDS,
   "prism",
+  "prism-api",
   "erp",
 ];
 

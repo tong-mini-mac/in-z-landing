@@ -105,6 +105,9 @@ export function productBaseUrl(productId: string): string | null {
     prism:
       process.env.PRISM_URL ||
       "https://prism-web-production-e0c6.up.railway.app",
+    "prism-api":
+      process.env.PRISM_API_URL ||
+      "https://prism-api-production-b232.up.railway.app",
     erp:
       process.env.ERP_BASE_URL ||
       process.env.INZ_ERP_ORIGIN ||
