@@ -8,7 +8,8 @@ export type ProductId =
   | "netr"
   | "prism"
   | "prism-api"
-  | "erp";
+  | "erp"
+  | "erp-demo";
 
 export type ProductEntry = {
   id: ProductId;
@@ -120,6 +121,16 @@ export const PRODUCTS: ProductEntry[] = [
     href: "https://erp-atlas-production.up.railway.app/admin",
     available: true,
   },
+  {
+    id: "erp-demo",
+    name: "ERP-Demo",
+    description: {
+      th: "ทดลอง ERP แยกจากระบบบริษัท — instance สำหรับ Demo เท่านั้น",
+      en: "Isolated ERP trial — demo instance only, not company production",
+    },
+    href: "https://erp-demo-production-51fd.up.railway.app/admin",
+    available: true,
+  },
 ];
 
 /** Commercial products only — Landing / ERP / AI-Marketing are not sellable products. */
@@ -135,6 +146,7 @@ export const COMMERCIAL_PRODUCT_IDS: ProductId[] = [
 export const DEMO_HUB_PRODUCT_IDS: ProductId[] = [
   ...COMMERCIAL_PRODUCT_IDS,
   "prism",
+  "erp-demo",
 ];
 
 export const CHECKOUT_PRODUCT_IDS: ProductId[] = [

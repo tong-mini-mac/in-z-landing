@@ -112,6 +112,9 @@ export function productBaseUrl(productId: string): string | null {
       process.env.ERP_BASE_URL ||
       process.env.INZ_ERP_ORIGIN ||
       "https://erp-atlas-production.up.railway.app",
+    "erp-demo":
+      process.env.ERP_DEMO_URL ||
+      "https://erp-demo-production-51fd.up.railway.app",
   };
   return map[productId] || null;
 }

@@ -132,6 +132,25 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "เปิด PRISM",
     },
   },
+  {
+    id: "erp-demo",
+    name: "ERP-Demo",
+    href: PRODUCT_HREF["erp-demo"],
+    requiresSignup: false,
+    external: true,
+    trialTitle: {
+      en: "Isolated ERP trial",
+      th: "ทดลอง ERP แยกอิสระ",
+    },
+    trialSummary: {
+      en: "Try the modular ERP on a demo-only instance — separate from company production (admin.inz.lol).",
+      th: "ทดลอง ERP แบบโมดูลบน instance สำหรับ Demo เท่านั้น — ไม่เชื่อมกับระบบบริษัท (admin.inz.lol)",
+    },
+    ctaLabel: {
+      en: "Open ERP-Demo",
+      th: "เปิด ERP-Demo",
+    },
+  },
 ];
 
 export const DEMO_COPY: Record<
