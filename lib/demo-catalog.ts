@@ -134,29 +134,6 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "เปิด PRISM",
     },
   },
-  {
-    id: "erp-demo",
-    name: "ERP-Demo",
-    href: PRODUCT_HREF["erp-demo"],
-    requiresSignup: false,
-    external: true,
-    trialTitle: {
-      en: "System test only — not live ops",
-      th: "ทดสอบระบบเท่านั้น — ไม่ใช่งานจริง",
-    },
-    trialSummary: {
-      en: "Separate Railway sandbox (not admin.inz.lol). UI still shows an admin login — use the demo credentials below. Company accounts/passwords will not work here.",
-      th: "Sandbox แยกบน Railway (ไม่ใช่ admin.inz.lol) หน้าจอยังเป็นฟอร์ม admin — ใช้รหัส demo ด้านล่าง บัญชี/รหัสของบริษัทใช้ที่นี่ไม่ได้",
-    },
-    sandboxLogin: {
-      en: "Demo login: admin@inz.lol / demo-erp-2026 (sandbox only)",
-      th: "รหัส Demo: admin@inz.lol / demo-erp-2026 (ใช้ได้เฉพาะ sandbox)",
-    },
-    ctaLabel: {
-      en: "Open ERP-Demo",
-      th: "เปิด ERP-Demo",
-    },
-  },
 ];
 
 export const DEMO_COPY: Record<
