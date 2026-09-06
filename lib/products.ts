@@ -125,8 +125,8 @@ export const PRODUCTS: ProductEntry[] = [
     id: "erp-demo",
     name: "ERP-Demo",
     description: {
-      th: "ทดลอง ERP แยกจากระบบบริษัท — instance สำหรับ Demo เท่านั้น",
-      en: "Isolated ERP trial — demo instance only, not company production",
+      th: "Sandbox ทดสอบว่าระบบ ERP รันได้ — รหัส demo แยก ไม่ใช่ระบบบริษัท",
+      en: "Sandbox to verify ERP runs — separate demo login, not company production",
     },
     href: "https://erp-demo-production-51fd.up.railway.app/admin",
     available: true,

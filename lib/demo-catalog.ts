@@ -10,6 +10,8 @@ export type DemoOffer = {
   trialTitle: Record<AuthLang, string>;
   trialSummary: Record<AuthLang, string>;
   ctaLabel: Record<AuthLang, string>;
+  /** Shown when the trial app still has a login screen (sandbox-only). */
+  sandboxLogin?: Record<AuthLang, string>;
 };
 
 const PRODUCT_HREF = Object.fromEntries(
@@ -139,12 +141,16 @@ export const DEMO_OFFERS: DemoOffer[] = [
     requiresSignup: false,
     external: true,
     trialTitle: {
-      en: "Isolated ERP trial",
-      th: "ทดลอง ERP แยกอิสระ",
+      en: "System test only — not live ops",
+      th: "ทดสอบระบบเท่านั้น — ไม่ใช่งานจริง",
     },
     trialSummary: {
-      en: "Try the modular ERP on a demo-only instance — separate from company production (admin.inz.lol).",
-      th: "ทดลอง ERP แบบโมดูลบน instance สำหรับ Demo เท่านั้น — ไม่เชื่อมกับระบบบริษัท (admin.inz.lol)",
+      en: "Separate Railway sandbox (not admin.inz.lol). UI still shows an admin login — use the demo credentials below. Company accounts/passwords will not work here.",
+      th: "Sandbox แยกบน Railway (ไม่ใช่ admin.inz.lol) หน้าจอยังเป็นฟอร์ม admin — ใช้รหัส demo ด้านล่าง บัญชี/รหัสของบริษัทใช้ที่นี่ไม่ได้",
+    },
+    sandboxLogin: {
+      en: "Demo login: admin@inz.lol / demo-erp-2026 (sandbox only)",
+      th: "รหัส Demo: admin@inz.lol / demo-erp-2026 (ใช้ได้เฉพาะ sandbox)",
     },
     ctaLabel: {
       en: "Open ERP-Demo",

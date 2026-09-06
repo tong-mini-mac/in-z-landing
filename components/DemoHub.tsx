@@ -159,6 +159,9 @@ export function DemoHub() {
                   <h2 className="demo-product-name">{offer.name}</h2>
                   <p className="demo-trial-title">{offer.trialTitle[lang]}</p>
                   <p className="demo-trial-summary">{offer.trialSummary[lang]}</p>
+                  {offer.sandboxLogin ? (
+                    <p className="demo-sandbox-login">{offer.sandboxLogin[lang]}</p>
+                  ) : null}
                   <p className="demo-meta">
                     {offer.requiresSignup ? copy.metaSignup : copy.metaNoSignup}
                   </p>
