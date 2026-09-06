@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { AuthLangToggle } from "@/components/AuthLangToggle";
 import {
   DEMO_COPY,
   demoOffersForCommercial,
@@ -71,7 +72,10 @@ export function DemoHub() {
         className={`demo-side${menuOpen ? " is-open" : ""}`}
         aria-label={copy.menuLabel}
       >
-        <p className="demo-side-brand">IN Z</p>
+        <div className="demo-side-top">
+          <p className="demo-side-brand">IN Z</p>
+          <AuthLangToggle lang={lang} onChange={() => {}} />
+        </div>
         <nav className="demo-side-nav">
           <a href="/">{nav.home}</a>
           <a href="/about">{nav.about}</a>

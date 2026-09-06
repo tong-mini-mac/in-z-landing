@@ -788,9 +788,15 @@ img {
 }
 
 /* —— Demo embedded shell (keeps side menu while trying live apps) —— */
-.page-demo.is-demo-hub > .nav,
-.page-demo.is-demo-hub > .nav-auth-wrap {
+.page-demo.is-demo-hub > .nav {
   display: none;
+}
+
+.page-demo.is-demo-hub > .nav-auth-wrap {
+  position: fixed;
+  top: 1.15rem;
+  right: 1.25rem;
+  z-index: 8;
 }
 
 .page-demo.is-demo-stage > .footer {
@@ -895,6 +901,17 @@ img {
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0.32em;
+}
+
+.demo-side-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.demo-side-top .auth-lang {
+  flex-shrink: 0;
 }
 
 .demo-side-nav {
@@ -1084,14 +1101,17 @@ img {
 
 @media (min-width: 900px) {
   .page-demo.is-demo-hub .demo-shell {
-    display: grid;
-    grid-template-columns: 15.5rem 1fr;
+    display: flex;
+    flex-direction: column;
   }
 
   .page-demo.is-demo-hub .demo-shell > .demo-body,
   .page-demo.is-demo-hub .demo-shell > .demo-stage {
     min-width: 0;
     min-height: 0;
+  }
+
+  .page-demo.is-demo-hub .demo-shell > .demo-body {
     overflow: hidden;
   }
 
@@ -1100,19 +1120,33 @@ img {
     display: none;
   }
 
+  /* Sidebar overlays; main content stays viewport-centered */
   .page-demo.is-demo-hub .demo-side {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 7;
     transform: none;
-    width: auto;
-    height: auto;
+    width: 15.5rem;
+    height: 100svh;
     min-height: 100%;
   }
 
   .page-demo.is-demo-hub .demo-body {
     width: min(42rem, calc(100% - 2.5rem));
-    margin-left: 0;
+    margin-left: auto;
     margin-right: auto;
     padding-left: 0;
+  }
+
+  .page-demo.is-demo-stage .demo-stage {
+    overflow: hidden;
+    padding-left: 15.5rem;
+  }
+
+  .page-demo.is-demo-hub > .nav-auth-wrap {
+    top: 1.6rem;
+    right: 2.6rem;
   }
 
   .demo-stage-bar {
