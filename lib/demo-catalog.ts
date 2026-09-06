@@ -114,25 +114,6 @@ export const DEMO_OFFERS: DemoOffer[] = [
     },
   },
   {
-    id: "erp",
-    name: "Universal ERP",
-    href: PRODUCT_HREF.erp,
-    requiresSignup: true,
-    external: true,
-    trialTitle: {
-      en: "Pilot — modular ERP for SME",
-      th: "Pilot — ERP แบบโมดูลสำหรับ SME",
-    },
-    trialSummary: {
-      en: "Finance, HR, Stock, Procurement, and Marketing in one place — pick the modules you need.",
-      th: "Finance, HR, Stock, Procurement, Marketing ในที่เดียว — เลือก Module ตามต้องการ",
-    },
-    ctaLabel: {
-      en: "Open ERP",
-      th: "เปิด ERP",
-    },
-  },
-  {
     id: "prism",
     name: "PRISM",
     href: PRODUCT_HREF.prism,
