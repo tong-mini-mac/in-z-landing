@@ -122,16 +122,16 @@ export const DEMO_OFFERS: DemoOffer[] = [
     requiresSignup: true,
     external: true,
     trialTitle: {
-      en: "Live admin web — reference UI",
-      th: "แอดมินเว็บจริง — UI อ้างอิง",
+      en: "Live admin web — Prism-Demo",
+      th: "แอดมินเว็บจริง — Prism-Demo",
     },
     trialSummary: {
-      en: "Open the PRISM admin web: SRAG intent matching, lead segments, and SubsetGuard for real-estate teams.",
-      th: "เปิดแอดมินเว็บ PRISM: จับคู่เจตนาด้วย SRAG แบ่งลีด และ SubsetGuard สำหรับทีมอสังหา",
+      en: "Open Prism-Demo (IN Z trial fork): SRAG intent matching, lead segments, and SubsetGuard. Separate from the licensed prism product repo.",
+      th: "เปิด Prism-Demo (fork ทดลองบน IN Z): จับคู่เจตนาด้วย SRAG แบ่งลีด และ SubsetGuard — แยกจาก repo product ที่ขาย license",
     },
     ctaLabel: {
-      en: "Open PRISM",
-      th: "เปิด PRISM",
+      en: "Open Prism-Demo",
+      th: "เปิด Prism-Demo",
     },
   },
   {
