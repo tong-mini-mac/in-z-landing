@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { isDemoAdminEmail } from "@/lib/demo-access";
 import { listAtlasEntitlements } from "@/lib/atlas-commerce";
 import {
-  CHECKOUT_PRODUCT_IDS,
-  COMMERCIAL_PRODUCT_IDS,
+  ADMIN_LAUNCHER_PRODUCT_IDS,
+  HANDOFF_PRODUCT_IDS,
   normalizeProductId,
   type ProductId,
 } from "@/lib/products";
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     if (!email || !email.includes("@")) {
       return NextResponse.json({ error: "email" }, { status: 400 });
     }
-    if (!CHECKOUT_PRODUCT_IDS.includes(productId)) {
+    if (!HANDOFF_PRODUCT_IDS.includes(productId)) {
       return NextResponse.json({ error: "product" }, { status: 400 });
     }
 
@@ -103,7 +103,7 @@ export async function POST(request: Request) {
       unlimited,
       package: pkg,
       allowed_products: unlimited
-        ? [...COMMERCIAL_PRODUCT_IDS]
+        ? [...ADMIN_LAUNCHER_PRODUCT_IDS]
         : entitledProducts,
       plan_id: planId,
       sku_id: skuId,

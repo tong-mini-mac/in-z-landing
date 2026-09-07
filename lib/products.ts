@@ -154,6 +154,30 @@ export const CHECKOUT_PRODUCT_IDS: ProductId[] = [
   "prism",
 ];
 
+/**
+ * Account launcher for admin@inz.lol / unlimited — every product needed to
+ * check systems (commercial trials + demos + internal tools).
+ * Company ATLAS (`erp`) is included for admin ops only; customer trials use erp-demo.
+ */
+export const ADMIN_LAUNCHER_PRODUCT_IDS: ProductId[] = [
+  ...COMMERCIAL_PRODUCT_IDS,
+  "prism",
+  "erp-demo",
+  "ai-marketing",
+  "admin-portal",
+  "prism-api",
+  "erp",
+];
+
+/** SSO handoff-capable product ids (must match productBaseUrl keys). */
+export const HANDOFF_PRODUCT_IDS: ProductId[] = [
+  ...COMMERCIAL_PRODUCT_IDS,
+  "prism",
+  "prism-api",
+  "erp",
+  "erp-demo",
+];
+
 /** Normalize legacy product ids from older ERP / trial grants. */
 export function normalizeProductId(id: string): string {
   if (id === "podcast") return "content-creator";
@@ -167,17 +191,21 @@ export function productsForAccess(
   const commercial = PRODUCTS.filter((product) =>
     COMMERCIAL_PRODUCT_IDS.includes(product.id),
   );
+  const adminPool = PRODUCTS.filter((product) =>
+    ADMIN_LAUNCHER_PRODUCT_IDS.includes(product.id),
+  );
 
   if (allowedProducts && allowedProducts.length > 0) {
     const allowed = new Set(allowedProducts.map(normalizeProductId));
-    return commercial
+    const pool = isAdmin ? adminPool : commercial;
+    return pool
       .filter((product) => allowed.has(product.id))
       .map((product) => ({ ...product, available: true }));
   }
 
-  // Admin trial unlocks every commercial product — still excludes internal tools.
+  // Demo admin / unlimited: unlock every launcher product for system checks.
   if (isAdmin) {
-    return commercial.map((product) => ({ ...product, available: true }));
+    return adminPool.map((product) => ({ ...product, available: true }));
   }
 
   return commercial;

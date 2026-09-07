@@ -12,6 +12,7 @@ import { useSiteLang } from "@/lib/use-site-lang";
 import {
   isDemoAdminEmail,
 } from "@/lib/demo-access";
+import { ADMIN_LAUNCHER_PRODUCT_IDS } from "@/lib/products";
 import {
   clearRememberedCredentials,
   combinePhoneNumber,
@@ -201,7 +202,11 @@ export function AuthForm() {
             createdAt: new Date().toISOString(),
             role: isAdmin ? "admin" : "trial",
             unlimited: isAdmin,
-            allowedProducts: isAdmin ? undefined : data.allowedProducts || [],
+            allowedProducts: isAdmin
+              ? data.allowedProducts?.length
+                ? data.allowedProducts
+                : [...ADMIN_LAUNCHER_PRODUCT_IDS]
+              : data.allowedProducts || [],
             expiresAt: data.expiresAt,
             revenue: false,
             kind: data.kind || (isAdmin ? "demo_admin" : "complimentary"),
