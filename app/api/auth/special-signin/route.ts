@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { isDemoAdminEmail } from "@/lib/demo-access";
 import { isValidDemoAdmin } from "@/lib/demo-admin-server";
+import { ADMIN_LAUNCHER_PRODUCT_IDS } from "@/lib/products";
 
 const ERP_BASE =
   process.env.ERP_SPECIAL_LOGIN_URL?.replace(/\/$/, "") ||
@@ -45,7 +46,8 @@ export async function POST(request: Request) {
         username,
         email: username,
         product_id: undefined,
-        allowedProducts: [],
+        // Explicit full product list so Account + handoff treat admin as unlimited everywhere.
+        allowedProducts: [...ADMIN_LAUNCHER_PRODUCT_IDS],
         expiresAt: undefined,
         revenue: false,
         role: "admin",
