@@ -9,6 +9,10 @@ import { getSession, reportAuthActivity, signOutLocal, type AuthSession } from "
 import { isDemoAdminEmail } from "@/lib/demo-access";
 import { productsForAccess, type ProductEntry } from "@/lib/products";
 import type { AtlasEntitlement } from "@/lib/atlas-commerce";
+import {
+  pathPartsFromHref,
+  requestProductHandoffUrl,
+} from "@/lib/product-handoff-client";
 
 export function ProductLauncher() {
   const router = useRouter();
@@ -81,38 +85,28 @@ export function ProductLauncher() {
     setOpenError("");
     setOpeningId(product.id);
     try {
-      const response = await fetch("/api/auth/product-handoff", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: session.user.email,
-          productId: product.id,
-          role: session.user.role || "user",
-          unlimited: Boolean(session.user.unlimited || isAdmin),
-          allowedProducts: session.user.allowedProducts || [],
-          kind: session.user.kind,
-          expiresAt: session.user.expiresAt,
-        }),
+      const { path, hash } = pathPartsFromHref(product.href);
+      const result = await requestProductHandoffUrl({
+        session,
+        productId: product.id,
+        unlimited: Boolean(session.user.unlimited || isAdmin),
+        path,
+        hash,
+        source: "account",
       });
-      const data = (await response.json()) as {
-        ok?: boolean;
-        url?: string;
-        error?: string;
-        message?: string;
-      };
 
-      if (response.ok && data.url) {
-        window.location.href = data.url;
+      if (result.url) {
+        window.location.href = result.url;
         return;
       }
 
-      if (response.status === 501) {
+      if (result.status === 501) {
         // SSO not wired for this product yet — open raw product URL.
         window.location.href = product.href;
         return;
       }
 
-      setOpenError(data.message || data.error || accountCopy.openFail);
+      setOpenError(result.error || accountCopy.openFail);
     } catch {
       setOpenError(accountCopy.openFail);
     } finally {

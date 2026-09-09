@@ -20,6 +20,7 @@ export async function POST(request: Request) {
       quantity?: number;
       unit?: string;
       storage_uri?: string;
+      metadata?: Record<string, string | number | boolean | null>;
     };
     const email = String(body.email || "")
       .trim()
@@ -30,9 +31,19 @@ export async function POST(request: Request) {
     }
     const forwarded = request.headers.get("x-forwarded-for") || "";
     const ip = forwarded.split(",")[0]?.trim() || "";
+    const metadata =
+      body.metadata && typeof body.metadata === "object" && !Array.isArray(body.metadata)
+        ? body.metadata
+        : undefined;
     await safeRecordAtlasActivity({
       email,
-      action: action as "login" | "logout" | "signup_activate" | "product_open" | "token_usage" | "save_work",
+      action: action as
+        | "login"
+        | "logout"
+        | "signup_activate"
+        | "product_open"
+        | "token_usage"
+        | "save_work",
       source: "landing",
       product_id: body.product_id,
       plan_id: body.plan_id,
@@ -41,6 +52,7 @@ export async function POST(request: Request) {
       storage_uri: body.storage_uri,
       ip,
       user_agent: request.headers.get("user-agent") || "",
+      metadata,
     });
     return NextResponse.json({ ok: true });
   } catch {

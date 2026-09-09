@@ -656,6 +656,40 @@ img {
   min-height: 100svh;
 }
 
+/*
+  List view: page itself scrolls when the window is short / not fullscreen.
+  Nested overflow:hidden + flex height locks were trapping wheel/touch scroll.
+*/
+.page-demo.is-demo-hub:not(.is-demo-stage) {
+  height: 100svh;
+  max-height: 100svh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+.page-demo.is-demo-hub:not(.is-demo-stage) .demo-shell {
+  height: auto;
+  flex: 1 0 auto;
+  min-height: 0;
+}
+
+.page-demo.is-demo-hub:not(.is-demo-stage) .demo-body {
+  flex: none;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+  padding-bottom: 2rem;
+}
+
+.page-demo.is-demo-hub:not(.is-demo-stage) .demo-list {
+  flex: none;
+  overflow: visible;
+  overscroll-behavior: auto;
+  padding-bottom: 1.25rem;
+}
+
 .page-demo .demo-body {
   position: relative;
   z-index: 1;
@@ -1053,41 +1087,74 @@ img {
   background: #fff;
 }
 
+.demo-stage-sso,
+.demo-signed-in {
+  margin: 0;
+  padding: 0.45rem 0.85rem 0.45rem 2.6rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: rgba(10, 10, 10, 0.72);
+  border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+  background: rgba(244, 244, 242, 0.65);
+}
+
+.demo-signed-in {
+  padding: 0;
+  border: 0;
+  background: none;
+  max-width: 36rem;
+}
+
+.demo-launch {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.85rem;
+  min-height: 0;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background:
+    radial-gradient(ellipse 70% 55% at 15% 20%, rgba(180, 210, 200, 0.35), transparent 55%),
+    linear-gradient(160deg, #f4f4f2 0%, #e8ebe8 48%, #f7f6f3 100%);
+}
+
+.demo-launch-kicker {
+  margin: 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(10, 10, 10, 0.55);
+}
+
+.demo-launch-title {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.demo-launch-body {
+  margin: 0;
+  max-width: 32rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(10, 10, 10, 0.78);
+}
+
+.demo-launch-cta {
+  display: inline-flex;
+  text-decoration: none;
+  margin-top: 0.35rem;
+}
+
 /*
-  Mobile / tablet: nested list scroll often fails on touch when parents
-  are height-locked + overflow:hidden. Scroll the page instead.
+  Mobile / tablet stage: fixed viewport + iframe scroll.
+  List-view scroll is handled above for all breakpoints.
 */
 @media (max-width: 899px) {
-  .page-demo:not(.is-demo-stage) {
-    height: auto;
-    min-height: 100svh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
-  }
-
-  .page-demo:not(.is-demo-stage) .demo-shell {
-    height: auto;
-    flex: 1 0 auto;
-    min-height: 0;
-  }
-
-  .page-demo:not(.is-demo-stage) .demo-body {
-    flex: none;
-    height: auto;
-    min-height: 0;
-    overflow: visible;
-    padding-bottom: 2rem;
-  }
-
-  .page-demo:not(.is-demo-stage) .demo-list {
-    flex: none;
-    overflow: visible;
-    overscroll-behavior: auto;
-    padding-bottom: 1.25rem;
-  }
-
   /* Embedded product view still needs a fixed viewport + iframe scroll */
   .page-demo.is-demo-stage {
     height: 100svh;
@@ -1119,7 +1186,11 @@ img {
     min-height: 0;
   }
 
-  .page-demo.is-demo-hub .demo-shell > .demo-body {
+  .page-demo.is-demo-hub:not(.is-demo-stage) .demo-shell > .demo-body {
+    overflow: visible;
+  }
+
+  .page-demo.is-demo-hub.is-demo-stage .demo-shell > .demo-body {
     overflow: hidden;
   }
 

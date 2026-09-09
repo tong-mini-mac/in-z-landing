@@ -7,6 +7,11 @@ export type DemoOffer = {
   href: string;
   requiresSignup: boolean;
   external: boolean;
+  /**
+   * false when the product sets X-Frame-Options / CSP frame-ancestors that
+   * block embedding — show an in-stage launch panel instead of a blank iframe.
+   */
+  frameable?: boolean;
   trialTitle: Record<AuthLang, string>;
   trialSummary: Record<AuthLang, string>;
   ctaLabel: Record<AuthLang, string>;
@@ -64,6 +69,7 @@ export const DEMO_OFFERS: DemoOffer[] = [
     href: PRODUCT_HREF["music-demo"],
     requiresSignup: true,
     external: true,
+    frameable: false,
     trialTitle: {
       en: "Try AI music creation",
       th: "ลองสร้างเพลงด้วย AI",
@@ -102,6 +108,7 @@ export const DEMO_OFFERS: DemoOffer[] = [
     href: `${PRODUCT_HREF.netr.replace(/\/$/, "")}/chat`,
     requiresSignup: true,
     external: true,
+    frameable: false,
     trialTitle: {
       en: "Free — 5 minutes / day",
       th: "ฟรี — 5 นาที/วัน",
@@ -172,6 +179,12 @@ export const DEMO_COPY: Record<
     trials: string;
     backToDemos: string;
     openExternal: string;
+    opening: string;
+    signedInNote: string;
+    metaSignedIn: string;
+    externalOnlyTitle: string;
+    externalOnlyBody: string;
+    openApp: string;
   }
 > = {
   en: {
@@ -185,6 +198,13 @@ export const DEMO_COPY: Record<
     trials: "Trials",
     backToDemos: "Back to demos",
     openExternal: "Open in new tab",
+    opening: "Opening…",
+    signedInNote: "Signed in at IN Z — opening with your account (no product sign-in).",
+    metaSignedIn: "Signed in at IN Z — opens with SSO (no product sign-in)",
+    externalOnlyTitle: "Opens in a new tab",
+    externalOnlyBody:
+      "This app cannot run inside the demo frame. Use the button below — if you are signed in at IN Z, access is handed off automatically.",
+    openApp: "Open app",
   },
   th: {
     label: "Demo",
@@ -197,6 +217,13 @@ export const DEMO_COPY: Record<
     trials: "รายการทดลอง",
     backToDemos: "กลับหน้ารายการ Demo",
     openExternal: "เปิดแท็บใหม่",
+    opening: "กำลังเปิด…",
+    signedInNote: "เข้าสู่ระบบ IN Z แล้ว — เปิดด้วยบัญชีของคุณ (ไม่ต้อง sign in ในแอปซ้ำ)",
+    metaSignedIn: "ล็อกอิน IN Z แล้ว — เปิดด้วย SSO ไม่ต้อง sign in ซ้ำ",
+    externalOnlyTitle: "เปิดในแท็บใหม่",
+    externalOnlyBody:
+      "แอปนี้ฝังในเฟรม Demo ไม่ได้ กดปุ่มด้านล่าง — หากล็อกอิน IN Z อยู่แล้ว ระบบจะส่งสิทธิ์ให้อัตโนมัติ",
+    openApp: "เปิดแอป",
   },
 };
 

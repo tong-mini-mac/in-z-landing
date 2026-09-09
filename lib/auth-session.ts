@@ -164,6 +164,7 @@ export function reportAuthActivity(
       email: normalized,
       action,
       product_id: extra?.product_id,
+      metadata: { surface: "auth" },
     }),
     keepalive: true,
   }).catch(() => undefined);

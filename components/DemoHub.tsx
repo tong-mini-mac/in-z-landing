@@ -1,25 +1,62 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AuthLangToggle } from "@/components/AuthLangToggle";
 import {
   DEMO_COPY,
   demoOffersForCommercial,
   type DemoOffer,
 } from "@/lib/demo-catalog";
+import {
+  AUTH_SESSION_CHANGE_EVENT,
+  getSession,
+  type AuthSession,
+} from "@/lib/auth-session";
+import { isDemoAdminEmail } from "@/lib/demo-access";
+import {
+  pathPartsFromHref,
+  requestProductHandoffUrl,
+} from "@/lib/product-handoff-client";
+import { createDemoUsageTracker } from "@/lib/product-usage";
 import { SITE_COPY } from "@/lib/site-i18n";
 import { useSiteLang } from "@/lib/use-site-lang";
+
+function isFrameable(offer: DemoOffer): boolean {
+  return offer.frameable !== false;
+}
 
 export function DemoHub() {
   const lang = useSiteLang();
   const offers = demoOffersForCommercial();
   const copy = DEMO_COPY[lang];
   const nav = SITE_COPY[lang].nav;
+  const [session, setSession] = useState<AuthSession | null>(null);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [stageUrl, setStageUrl] = useState("");
+  const [loadingStage, setLoadingStage] = useState(false);
+  const [usedSso, setUsedSso] = useState(false);
+  const usageRef = useRef(createDemoUsageTracker());
+  const activeUsageRef = useRef<{
+    productId: string;
+    viaHandoff: boolean;
+  } | null>(null);
 
   const active = offers.find((offer) => offer.id === activeId) ?? null;
+
+  useEffect(() => {
+    function syncSession() {
+      setSession(getSession());
+    }
+    syncSession();
+    window.addEventListener(AUTH_SESSION_CHANGE_EVENT, syncSession);
+    window.addEventListener("storage", syncSession);
+    return () => {
+      window.removeEventListener(AUTH_SESSION_CHANGE_EVENT, syncSession);
+      window.removeEventListener("storage", syncSession);
+    };
+  }, []);
 
   useEffect(() => {
     const page = document.querySelector(".page-demo");
@@ -31,14 +68,115 @@ export function DemoHub() {
     };
   }, [active]);
 
-  function openOffer(offer: DemoOffer) {
+  useEffect(() => {
+    const usage = usageRef.current;
+
+    function onVisibility() {
+      if (document.visibilityState === "hidden") {
+        usage.stop("hidden");
+        return;
+      }
+      const pending = activeUsageRef.current;
+      if (pending) {
+        usage.start(pending.productId, getSession(), {
+          openedViaHandoff: true,
+        });
+      }
+    }
+
+    function onPageHide() {
+      usage.stop("pagehide");
+    }
+
+    window.addEventListener("pagehide", onPageHide);
+    document.addEventListener("visibilitychange", onVisibility);
+
+    const heartbeat = window.setInterval(() => {
+      usage.heartbeat();
+    }, 60_000);
+
+    return () => {
+      window.clearInterval(heartbeat);
+      window.removeEventListener("pagehide", onPageHide);
+      document.removeEventListener("visibilitychange", onVisibility);
+      usage.stop("unmount");
+    };
+  }, []);
+
+  async function resolveOfferUrl(offer: DemoOffer): Promise<{
+    url: string;
+    sso: boolean;
+  }> {
+    const current = getSession();
+    setSession(current);
+    if (!current?.user?.email) {
+      return { url: offer.href, sso: false };
+    }
+
+    const { path, hash } = pathPartsFromHref(offer.href);
+    const unlimited = Boolean(
+      current.user.unlimited ||
+        current.user.role === "admin" ||
+        isDemoAdminEmail(current.user.email),
+    );
+    const result = await requestProductHandoffUrl({
+      session: current,
+      productId: offer.id,
+      unlimited,
+      path,
+      hash,
+      source: "demo",
+    });
+
+    if (result.url) {
+      return { url: result.url, sso: true };
+    }
+
+    // 501 / network / etc. — still open the live app URL (no blank stage).
+    return { url: offer.href, sso: false };
+  }
+
+  async function openOffer(offer: DemoOffer) {
     setActiveId(offer.id);
     setMenuOpen(false);
+    setLoadingStage(true);
+    setStageUrl("");
+    setUsedSso(false);
+
+    try {
+      const resolved = await resolveOfferUrl(offer);
+      setStageUrl(resolved.url);
+      setUsedSso(resolved.sso);
+      activeUsageRef.current = {
+        productId: offer.id,
+        viaHandoff: resolved.sso,
+      };
+      usageRef.current.start(offer.id, getSession(), {
+        openedViaHandoff: resolved.sso,
+      });
+    } catch {
+      setStageUrl(offer.href);
+      setUsedSso(false);
+      activeUsageRef.current = {
+        productId: offer.id,
+        viaHandoff: false,
+      };
+      usageRef.current.start(offer.id, getSession(), {
+        openedViaHandoff: false,
+      });
+    } finally {
+      setLoadingStage(false);
+    }
   }
 
   function closeStage() {
+    activeUsageRef.current = null;
+    usageRef.current.stop("back");
     setActiveId(null);
     setMenuOpen(false);
+    setStageUrl("");
+    setLoadingStage(false);
+    setUsedSso(false);
   }
 
   return (
@@ -101,7 +239,7 @@ export function DemoHub() {
                     ? "demo-side-product is-active"
                     : "demo-side-product"
                 }
-                onClick={() => openOffer(offer)}
+                onClick={() => void openOffer(offer)}
               >
                 {offer.name}
               </button>
@@ -119,21 +257,49 @@ export function DemoHub() {
             <p className="demo-stage-title">{active.name}</p>
             <a
               className="demo-stage-external"
-              href={active.href}
+              href={stageUrl || active.href}
               target="_blank"
               rel="noreferrer"
             >
               {copy.openExternal}
             </a>
           </header>
-          <iframe
-            key={active.id}
-            className="demo-frame"
-            src={active.href}
-            title={active.name}
-            allow="clipboard-read; clipboard-write; fullscreen"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+
+          {session && usedSso ? (
+            <p className="demo-stage-sso">{copy.signedInNote}</p>
+          ) : null}
+
+          {loadingStage ? (
+            <div className="demo-launch" role="status">
+              <p className="demo-launch-title">{copy.opening}</p>
+            </div>
+          ) : !isFrameable(active) ? (
+            <div className="demo-launch">
+              <p className="demo-launch-kicker">{active.name}</p>
+              <h2 className="demo-launch-title">{copy.externalOnlyTitle}</h2>
+              <p className="demo-launch-body">{copy.externalOnlyBody}</p>
+              {active.sandboxLogin ? (
+                <p className="demo-sandbox-login">{active.sandboxLogin[lang]}</p>
+              ) : null}
+              <a
+                className="demo-cta demo-launch-cta"
+                href={stageUrl || active.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {copy.openApp}
+              </a>
+            </div>
+          ) : (
+            <iframe
+              key={`${active.id}:${stageUrl}`}
+              className="demo-frame"
+              src={stageUrl || active.href}
+              title={active.name}
+              allow="clipboard-read; clipboard-write; fullscreen"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          )}
         </section>
       ) : (
         <article className="demo-body">
@@ -150,6 +316,9 @@ export function DemoHub() {
             <p className="brand">IN Z</p>
             <p className="demo-label">{copy.label}</p>
             <p className="demo-lead">{copy.lead}</p>
+            {session?.user?.email ? (
+              <p className="demo-signed-in">{copy.signedInNote}</p>
+            ) : null}
           </header>
 
           <ul className="demo-list">
@@ -163,13 +332,17 @@ export function DemoHub() {
                     <p className="demo-sandbox-login">{offer.sandboxLogin[lang]}</p>
                   ) : null}
                   <p className="demo-meta">
-                    {offer.requiresSignup ? copy.metaSignup : copy.metaNoSignup}
+                    {offer.requiresSignup
+                      ? session
+                        ? copy.metaSignedIn
+                        : copy.metaSignup
+                      : copy.metaNoSignup}
                   </p>
                 </div>
                 <button
                   type="button"
                   className="demo-cta"
-                  onClick={() => openOffer(offer)}
+                  onClick={() => void openOffer(offer)}
                 >
                   {offer.ctaLabel[lang]}
                 </button>
