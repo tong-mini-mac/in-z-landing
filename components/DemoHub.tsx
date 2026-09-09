@@ -26,6 +26,12 @@ function isFrameable(offer: DemoOffer): boolean {
   return offer.frameable !== false;
 }
 
+/** iOS/Android iframes often blank or break product SSO — open the app full-page instead. */
+function prefersTopLevelOpen(): boolean {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(max-width: 899px)").matches;
+}
+
 export function DemoHub() {
   const lang = useSiteLang();
   const offers = demoOffersForCommercial();
@@ -137,8 +143,30 @@ export function DemoHub() {
   }
 
   async function openOffer(offer: DemoOffer) {
-    setActiveId(offer.id);
     setMenuOpen(false);
+
+    // Mobile: leave the demo shell and open the live app (SSO URL when signed in).
+    // Embedding Content Creator / other apps in an iframe fails on many phones.
+    if (prefersTopLevelOpen()) {
+      setLoadingStage(true);
+      setActiveId(offer.id);
+      try {
+        const resolved = await resolveOfferUrl(offer);
+        activeUsageRef.current = {
+          productId: offer.id,
+          viaHandoff: resolved.sso,
+        };
+        usageRef.current.start(offer.id, getSession(), {
+          openedViaHandoff: resolved.sso,
+        });
+        window.location.assign(resolved.url);
+      } catch {
+        window.location.assign(offer.href);
+      }
+      return;
+    }
+
+    setActiveId(offer.id);
     setLoadingStage(true);
     setStageUrl("");
     setUsedSso(false);
