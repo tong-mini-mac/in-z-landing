@@ -26,10 +26,13 @@ function isFrameable(offer: DemoOffer): boolean {
   return offer.frameable !== false;
 }
 
-/** iOS/Android iframes often blank or break product SSO — open the app full-page instead. */
+/** Prefer full-page open on phones/tablets — iframes often render as a tiny unusable strip. */
 function prefersTopLevelOpen(): boolean {
   if (typeof window === "undefined") return false;
-  return window.matchMedia("(max-width: 899px)").matches;
+  const narrow = window.matchMedia("(max-width: 899px)").matches;
+  const coarse = window.matchMedia("(pointer: coarse)").matches;
+  const touch = navigator.maxTouchPoints > 0;
+  return narrow || (coarse && touch);
 }
 
 export function DemoHub() {
@@ -145,11 +148,9 @@ export function DemoHub() {
   async function openOffer(offer: DemoOffer) {
     setMenuOpen(false);
 
-    // Mobile: leave the demo shell and open the live app (SSO URL when signed in).
-    // Embedding Content Creator / other apps in an iframe fails on many phones.
+    // Mobile/touch: leave the demo shell and open the live app (SSO URL when signed in).
+    // Never mount the iframe stage first — that shows a tiny unusable strip on phones.
     if (prefersTopLevelOpen()) {
-      setLoadingStage(true);
-      setActiveId(offer.id);
       try {
         const resolved = await resolveOfferUrl(offer);
         activeUsageRef.current = {

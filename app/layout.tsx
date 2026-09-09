@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Syne, Manrope } from "next/font/google";
 import { CookieConsent } from "@/components/CookieConsent";
 import "./globals.css";
@@ -18,6 +18,12 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "IN Z — AI Transform and SaaS",
   description: "IN Z — AI Transform and SaaS",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

@@ -89,6 +89,7 @@ export const DEMO_OFFERS: DemoOffer[] = [
     href: PRODUCT_HREF["content-creator"],
     requiresSignup: true,
     external: true,
+    frameable: false,
     trialTitle: {
       en: "14-day free trial",
       th: "ทดลองใช้ฟรี 14 วัน",
