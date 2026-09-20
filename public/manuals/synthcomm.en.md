@@ -7,7 +7,7 @@ Portal tabs: **Package** · **LLM API keys** · **Domains** · **New job** · **
 ## 1. Get started
 
 1. Sign in at [inz.lol](https://www.inz.lol)
-2. Open SynthComm from **Your package** (SSO)
+2. Open SynthComm from **Your package** (SSO) — no second sign-in in the app
 3. Check remaining quota on the **Package** tab
 
 ## 2. Create a job
@@ -34,19 +34,32 @@ Portal tabs: **Package** · **LLM API keys** · **Domains** · **New job** · **
 
 Large jobs (> 1,000 rows) are split into parallel workers automatically — track the same parent Job ID.
 
-## 4. License — LLM keys (BYOK)
+## 4. What each job produces
+
+| Format | You typically get |
+|--------|-------------------|
+| **Bundle** | Conversation data + HTML/PDF summary report + QC |
+| **JSON** | Data and package JSON (including QC) |
+| **CSV** | Conversation table |
+| **PDF** | Summary report PDF |
+
+The **job summary report** (`05_Final_Package.html` / `.pdf`) is the job-detail document — topic, QC, emotion mix, and sample dialogues — separate from the raw data file.
+
+Note: you can download **job outputs** — not the engine itself.
+
+## 5. License — LLM keys (BYOK)
 
 On License / White Label, open **LLM API keys** and paste keys for Research / Writer / QC.  
-Token usage bills to your own keys.
+SaaS uses IN Z keys; BYOK token usage bills to your own keys.
 
-## 5. License — custom domain
+## 6. License — custom domain
 
 1. Open **Domains** — copy the CNAME target shown
 2. Create the CNAME at your DNS
 3. Submit the request in the portal — the team enables HTTPS after pointing
 
-## 6. Account (PDPA)
+## 7. Account (PDPA)
 
 On **Account**, export your data as JSON or delete the account under PDPA rights.
 
-Note: you can download **job outputs** — not the engine itself.
+Upgrade packages: [inz.lol/pay](https://www.inz.lol/pay?product=synthcomm)

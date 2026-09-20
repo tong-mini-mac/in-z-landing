@@ -423,7 +423,7 @@ const SYNTHCOMM_USAGE: LocalizedUsageGuide = {
   th: {
     title: "วิธีใช้งานแอป",
     intro:
-      "SynthComm ใช้ผ่าน Web Portal เท่านั้น — แท็บแพ็กเกจ · สร้างงาน · สถานะงาน · (License) คีย์ LLM / โดเมน",
+      "SynthComm ใช้ผ่าน Web Portal เท่านั้น — เปิดจากบัญชี IN Z แล้วสั่งงาน ดาวน์โหลดได้ทั้งข้อมูลและรายงานสรุปจ๊อบ",
     steps: [
       {
         title: "เปิดจากบัญชี IN Z",
@@ -432,27 +432,28 @@ const SYNTHCOMM_USAGE: LocalizedUsageGuide = {
       {
         title: "สร้างงาน",
         detail:
-          "แท็บสร้างงาน: ใส่ Topic · เลือกภาษา Thai/English/Vietnamese/Indonesian · จำนวนบทสนทนา · รูปแบบผลลัพธ์ · (ถ้ามี) CSV แล้วกดส่งงาน",
+          "แท็บสร้างงาน: Topic · ภาษา Thai/English/Vietnamese/Indonesian · จำนวน · Bundle/JSON/CSV/PDF · (ถ้ามี) CSV แล้วกดส่งงาน",
       },
       {
         title: "ติดตามและดาวน์โหลด",
-        detail: "แท็บสถานะงาน: ใส่ Job ID → เช็คสถานะ / Auto-poll จน completed → Download",
+        detail:
+          "แท็บสถานะงาน: Job ID → เช็คสถานะจน completed → Download — Bundle รวมรายงาน HTML/PDF รายละเอียดจ๊อบ",
       },
       {
         title: "License — คีย์ LLM และโดเมน",
         detail:
-          "ถ้าใช้ License: วางคีย์ BYOK ในแท็บ API คีย์ LLM และตั้ง CNAME ในแท็บโดเมน",
+          "ถ้าใช้ License: วางคีย์ BYOK (Research / Writer / QC) และตั้ง CNAME ในแท็บโดเมน",
       },
     ],
     tips: [
-      "Thai ไม่ระบุภูมิภาค → ค่าเริ่มต้นภาคกลาง · English ไม่ระบุประเทศ → ค่าเริ่มต้นสิงคโปร์",
-      "โหลดได้เฉพาะผลจ๊อบ — ไม่ใช่ตัวเอนจิน",
+      "Thai ไม่ระบุภูมิภาค → ภาคกลาง · English ไม่ระบุประเทศ → สิงคโปร์",
+      "รายงานสรุปจ๊อบแยกจากไฟล์ข้อมูลดิบ — โหลดได้เฉพาะผลจ๊อบ ไม่ใช่เอนจิน",
     ],
   },
   en: {
     title: "How to use the app",
     intro:
-      "SynthComm is web-portal only — Package · New job · Job status · (License) LLM keys / Domains.",
+      "SynthComm is web-portal only — open from your IN Z account, run jobs, and download both data and a job summary report.",
     steps: [
       {
         title: "Open from your IN Z account",
@@ -461,20 +462,21 @@ const SYNTHCOMM_USAGE: LocalizedUsageGuide = {
       {
         title: "Create a job",
         detail:
-          "New job: Topic · language Thai/English/Vietnamese/Indonesian · count · output format · optional CSV → Submit.",
+          "New job: Topic · Thai/English/Vietnamese/Indonesian · count · Bundle/JSON/CSV/PDF · optional CSV → Submit.",
       },
       {
         title: "Track and download",
-        detail: "Job status: enter Job ID → Check status / Auto-poll until completed → Download.",
+        detail:
+          "Job status: Job ID → poll until completed → Download. Bundle includes the HTML/PDF job summary report.",
       },
       {
         title: "License — LLM keys and domain",
-        detail: "On License: paste BYOK keys under LLM API keys and set CNAME under Domains.",
+        detail: "On License: paste BYOK keys (Research / Writer / QC) and set CNAME under Domains.",
       },
     ],
     tips: [
       "Thai with no region defaults to Central · English with no country defaults to Singapore.",
-      "You can download job outputs — not the engine.",
+      "The job summary report is separate from raw data — outputs only, not the engine.",
     ],
   },
 };
