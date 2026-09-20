@@ -856,6 +856,76 @@ img {
   height: 100%;
 }
 
+/* Mobile: clear top bar so nav is obvious (site .nav is hidden on demo hub). */
+.demo-mobile-bar {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .demo-mobile-bar {
+    position: sticky;
+    top: 0;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    min-height: 3rem;
+    padding: 0.55rem 4.5rem 0.55rem 0.85rem;
+    border-bottom: 1px solid rgba(10, 10, 10, 0.1);
+    background: rgba(244, 244, 242, 0.96);
+    backdrop-filter: blur(8px);
+  }
+
+  .demo-mobile-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0.35rem 0.55rem;
+    border: 1px solid rgba(10, 10, 10, 0.16);
+    border-radius: 0.4rem;
+    background: rgba(255, 255, 255, 0.75);
+    color: var(--ink);
+    font-family: var(--font-display), sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .demo-mobile-bar-title {
+    margin: 0;
+    font-family: var(--font-display), sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Top bar replaces the edge tab on phones */
+  .page-demo.is-demo-hub .demo-menu-tab {
+    display: none;
+  }
+
+  .page-demo.is-demo-hub:not(.is-demo-stage) .demo-body {
+    padding-top: 1rem;
+  }
+
+  .page-demo.is-demo-stage .demo-mobile-bar {
+    display: none;
+  }
+
+  /* In product stage, keep a compact edge control to reopen the trial list */
+  .page-demo.is-demo-stage .demo-menu-tab {
+    display: flex;
+    top: auto;
+    bottom: 1.25rem;
+    transform: none;
+  }
+}
+
 .demo-menu-tab {
   position: fixed;
   top: 50%;
@@ -1172,13 +1242,6 @@ img {
     min-width: 0;
     min-height: 0;
   }
-
-  /* Keep Demo MENU tab from covering the product's own left nav controls */
-  .page-demo.is-demo-stage .demo-menu-tab {
-    top: auto;
-    bottom: 1.25rem;
-    transform: none;
-  }
 }
 
 @media (min-width: 900px) {
@@ -1205,7 +1268,8 @@ img {
   }
 
   .page-demo.is-demo-hub .demo-menu-tab,
-  .page-demo.is-demo-hub .demo-menu-backdrop {
+  .page-demo.is-demo-hub .demo-menu-backdrop,
+  .page-demo.is-demo-hub .demo-mobile-bar {
     display: none;
   }
 

@@ -205,6 +205,7 @@ export const DEMO_COPY: Record<
     externalOnlyTitle: string;
     externalOnlyBody: string;
     openApp: string;
+    mobileBarTitle: string;
   }
 > = {
   en: {
@@ -225,6 +226,7 @@ export const DEMO_COPY: Record<
     externalOnlyBody:
       "This app cannot run inside the demo frame. Use the button below — if you are signed in at IN Z, access is handed off automatically.",
     openApp: "Open app",
+    mobileBarTitle: "IN Z · Demo",
   },
   th: {
     label: "Demo",
@@ -244,6 +246,7 @@ export const DEMO_COPY: Record<
     externalOnlyBody:
       "แอปนี้ฝังในเฟรม Demo ไม่ได้ กดปุ่มด้านล่าง — หากล็อกอิน IN Z อยู่แล้ว ระบบจะส่งสิทธิ์ให้อัตโนมัติ",
     openApp: "เปิดแอป",
+    mobileBarTitle: "IN Z · Demo",
   },
 };
 

@@ -210,6 +210,24 @@ export function DemoHub() {
 
   return (
     <div className={`demo-shell${active ? " has-stage" : ""}`}>
+      <header className="demo-mobile-bar">
+        <button
+          type="button"
+          className="demo-mobile-menu-btn"
+          aria-expanded={menuOpen}
+          aria-controls="demo-side-menu"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span className="demo-menu-tab-bars" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </span>
+          <span>{copy.menuTab}</span>
+        </button>
+        <p className="demo-mobile-bar-title">{copy.mobileBarTitle}</p>
+      </header>
+
       <button
         type="button"
         className={`demo-menu-tab${menuOpen ? " is-open" : ""}`}
