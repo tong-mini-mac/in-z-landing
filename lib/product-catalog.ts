@@ -422,54 +422,59 @@ const SCORE_BOARD_USAGE: LocalizedUsageGuide = {
 const SYNTHCOMM_USAGE: LocalizedUsageGuide = {
   th: {
     title: "วิธีใช้งานแอป",
-    intro: "SynthComm ใช้ผ่าน Web Portal เท่านั้น — ไม่มีบอท Telegram หรือ LINE",
+    intro:
+      "SynthComm ใช้ผ่าน Web Portal เท่านั้น — แท็บแพ็กเกจ · สร้างงาน · สถานะงาน · (License) คีย์ LLM / โดเมน",
     steps: [
       {
         title: "เปิดจากบัญชี IN Z",
-        detail: "ล็อกอินที่ inz.lol แล้วเปิด SynthComm จากแพ็กเกจของคุณ (SSO)",
+        detail: "ล็อกอินที่ inz.lol แล้วเปิด SynthComm จากแพ็กเกจของคุณ (SSO) ดูโควต้าในแท็บแพ็กเกจ",
       },
       {
-        title: "สร้างจ๊อบในพอร์ทัล",
-        detail: "ใส่หัวข้อและจำนวนบทสนทนา เลือกภาษา TH / EN / ID / VI แล้วเริ่มผลิต",
+        title: "สร้างงาน",
+        detail:
+          "แท็บสร้างงาน: ใส่ Topic · เลือกภาษา Thai/English/Vietnamese/Indonesian · จำนวนบทสนทนา · รูปแบบผลลัพธ์ · (ถ้ามี) CSV แล้วกดส่งงาน",
       },
       {
-        title: "ตรวจผลและดาวน์โหลด",
-        detail: "ดูสถานะจ๊อบแล้วดาวน์โหลดผลเป็น JSON / CSV / HTML / PDF จากพอร์ทัล",
+        title: "ติดตามและดาวน์โหลด",
+        detail: "แท็บสถานะงาน: ใส่ Job ID → เช็คสถานะ / Auto-poll จน completed → Download",
       },
       {
-        title: "อัปเกรดหรือเติมโควตา",
-        detail: "ใช้ฟรี 100 บทสนทนา/เดือน แล้วอัปเกรด Starter / Growth / Business หรือ License ที่ inz.lol/pay",
+        title: "License — คีย์ LLM และโดเมน",
+        detail:
+          "ถ้าใช้ License: วางคีย์ BYOK ในแท็บ API คีย์ LLM และตั้ง CNAME ในแท็บโดเมน",
       },
     ],
     tips: [
-      "License / White Label ใช้โดเมนตัวเองผ่าน CNAME — โปรแกรมอยู่บนคลาวด์ IN Z",
-      "คีย์ LLM เป็น BYOK ของลูกค้า ไม่ใช้คีย์ IN Z",
+      "Thai ไม่ระบุภูมิภาค → ค่าเริ่มต้นภาคกลาง · English ไม่ระบุประเทศ → ค่าเริ่มต้นสิงคโปร์",
+      "โหลดได้เฉพาะผลจ๊อบ — ไม่ใช่ตัวเอนจิน",
     ],
   },
   en: {
     title: "How to use the app",
-    intro: "SynthComm is web-portal only — no Telegram or LINE bot.",
+    intro:
+      "SynthComm is web-portal only — Package · New job · Job status · (License) LLM keys / Domains.",
     steps: [
       {
         title: "Open from your IN Z account",
-        detail: "Sign in on inz.lol, then open SynthComm from Your package (SSO).",
+        detail: "Sign in on inz.lol, open SynthComm from Your package (SSO), and check quota on Package.",
       },
       {
-        title: "Create a job in the portal",
-        detail: "Enter topic and conversation count, pick TH / EN / ID / VI, then run production.",
+        title: "Create a job",
+        detail:
+          "New job: Topic · language Thai/English/Vietnamese/Indonesian · count · output format · optional CSV → Submit.",
       },
       {
-        title: "Review and download outputs",
-        detail: "Track job status and download JSON / CSV / HTML / PDF from the portal.",
+        title: "Track and download",
+        detail: "Job status: enter Job ID → Check status / Auto-poll until completed → Download.",
       },
       {
-        title: "Upgrade or buy a package",
-        detail: "Free tier is 100 conversations/month; upgrade to Starter / Growth / Business or License on inz.lol/pay.",
+        title: "License — LLM keys and domain",
+        detail: "On License: paste BYOK keys under LLM API keys and set CNAME under Domains.",
       },
     ],
     tips: [
-      "License / White Label use your domain via CNAME — software stays on IN Z cloud.",
-      "LLM keys are customer BYOK, not IN Z keys.",
+      "Thai with no region defaults to Central · English with no country defaults to Singapore.",
+      "You can download job outputs — not the engine.",
     ],
   },
 };

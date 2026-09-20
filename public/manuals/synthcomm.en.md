@@ -1,36 +1,52 @@
 # User Manual — SynthComm
 
-Web portal only — no Telegram or LINE bot.
+Use the **Web Portal** in a browser — no Telegram / LINE bot.
 
-## Get started
+Portal tabs: **Package** · **LLM API keys** · **Domains** · **New job** · **Job status** · **Account**
+
+## 1. Get started
 
 1. Sign in at [inz.lol](https://www.inz.lol)
 2. Open SynthComm from **Your package** (SSO)
-3. Enter the portal and create a job
+3. Check remaining quota on the **Package** tab
 
-## Create a job
+## 2. Create a job
 
-1. Enter topic and conversation count
-2. Choose language TH / EN / ID / VI
-3. Run production — optional web research, locale lock, then QC
-4. Download outputs as JSON / CSV / HTML / PDF from the portal
+1. Open **New job**
+2. Enter **Topic** (subject / context)
+3. Choose language: Thai · English · Vietnamese · Indonesian
+4. Set conversation count (deducted from this month’s quota)
+5. Choose output format: Bundle / JSON / CSV / PDF
+6. Optionally upload a CSV for batch input
+7. Click **Submit** — keep the **Job ID** and download token
 
-## License — configure LLM keys (if applicable)
+**Language and locale**
 
-In the portal **LLM API keys** tab, paste keys per slot:
+- Thai — if no region is specified, Central Thailand is the default
+- English — if no country is specified, Singapore is the default
 
-| Slot | Used for |
-|------|----------|
-| Research | Web context before writing |
-| Writer | Conversation generation |
-| QC | Judge / fix rows |
+## 3. Track and download
 
-Token usage bills to your own keys (BYOK).
+1. Open **Job status**
+2. Enter the Job ID (and token if shown)
+3. Click **Check status** or **Auto-poll** until `completed`
+4. Click **Download**
 
-## License — custom domain (if applicable)
+Large jobs (> 1,000 rows) are split into parallel workers automatically — track the same parent Job ID.
 
-1. Open the portal **Domains** tab and create a request
-2. At your DNS, create a **CNAME** to the target shown in the portal
-3. Submit — the team enables the host after review
+## 4. License — LLM keys (BYOK)
+
+On License / White Label, open **LLM API keys** and paste keys for Research / Writer / QC.  
+Token usage bills to your own keys.
+
+## 5. License — custom domain
+
+1. Open **Domains** — copy the CNAME target shown
+2. Create the CNAME at your DNS
+3. Submit the request in the portal — the team enables HTTPS after pointing
+
+## 6. Account (PDPA)
+
+On **Account**, export your data as JSON or delete the account under PDPA rights.
 
 Note: you can download **job outputs** — not the engine itself.
