@@ -1674,10 +1674,19 @@ img {
   text-underline-offset: 0.15em;
 }
 
-.product-manual-content code {
-  font-size: 0.85em;
-  padding: 0.05em 0.3em;
-  background: rgba(17, 17, 17, 0.06);
+.product-manual-content pre {
+  margin: 0 0 0.85rem;
+  padding: 0.75rem 0.85rem;
+  overflow: auto;
+  background: rgba(17, 17, 17, 0.05);
+  border: 1px solid rgba(17, 17, 17, 0.1);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.product-manual-content pre code {
+  padding: 0;
+  background: transparent;
 }
 
 .product-manual-content table {

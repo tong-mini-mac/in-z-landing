@@ -6,12 +6,34 @@ export function simpleMarkdownToHtml(source: string): string {
   const escaped = escapeHtml(String(source || "").replace(/\r\n/g, "\n").trim());
   if (!escaped) return "";
 
-  const blocks = escaped.split(/\n{2,}/);
+  // Preserve fenced code blocks before paragraph splitting
+  const withCode: string[] = [];
+  const fenceRe = /```[\w-]*\n([\s\S]*?)```/g;
+  let last = 0;
+  let match: RegExpExecArray | null;
+  const codeParts: string[] = [];
+  while ((match = fenceRe.exec(escaped))) {
+    withCode.push(escaped.slice(last, match.index));
+    const token = `@@CODE${codeParts.length}@@`;
+    codeParts.push(`<pre><code>${match[1].trim()}</code></pre>`);
+    withCode.push(token);
+    last = match.index + match[0].length;
+  }
+  withCode.push(escaped.slice(last));
+  const prepared = withCode.join("");
+
+  const blocks = prepared.split(/\n{2,}/);
   const html: string[] = [];
 
   for (const rawBlock of blocks) {
     const block = rawBlock.trim();
     if (!block) continue;
+
+    const codeToken = block.match(/^@@CODE(\d+)@@$/);
+    if (codeToken) {
+      html.push(codeParts[Number(codeToken[1])] || "");
+      continue;
+    }
 
     if (/^(-{3,}|\*{3,}|_{3,})$/.test(block)) {
       html.push("<hr />");

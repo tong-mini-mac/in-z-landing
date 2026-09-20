@@ -419,6 +419,336 @@ const SCORE_BOARD_USAGE: LocalizedUsageGuide = {
   },
 };
 
+const SYNTHCOMM_USAGE: LocalizedUsageGuide = {
+  th: {
+    title: "วิธีใช้งานแอป",
+    intro: "SynthComm ใช้ผ่าน Web Portal เท่านั้น — ไม่มีบอท Telegram หรือ LINE",
+    steps: [
+      {
+        title: "เปิดจากบัญชี IN Z",
+        detail: "ล็อกอินที่ inz.lol แล้วเปิด SynthComm จากแพ็กเกจของคุณ (SSO)",
+      },
+      {
+        title: "สร้างจ๊อบในพอร์ทัล",
+        detail: "ใส่หัวข้อและจำนวนบทสนทนา เลือกภาษา TH / EN / ID / VI แล้วเริ่มผลิต",
+      },
+      {
+        title: "ตรวจผลและดาวน์โหลด",
+        detail: "ดูสถานะจ๊อบแล้วดาวน์โหลดผลเป็น JSON / CSV / HTML / PDF จากพอร์ทัล",
+      },
+      {
+        title: "อัปเกรดหรือเติมโควตา",
+        detail: "ใช้ฟรี 100 บทสนทนา/เดือน แล้วอัปเกรด Starter / Growth / Business หรือ License ที่ inz.lol/pay",
+      },
+    ],
+    tips: [
+      "License / White Label ใช้โดเมนตัวเองผ่าน CNAME — โปรแกรมอยู่บนคลาวด์ IN Z",
+      "คีย์ LLM เป็น BYOK ของลูกค้า ไม่ใช้คีย์ IN Z",
+    ],
+  },
+  en: {
+    title: "How to use the app",
+    intro: "SynthComm is web-portal only — no Telegram or LINE bot.",
+    steps: [
+      {
+        title: "Open from your IN Z account",
+        detail: "Sign in on inz.lol, then open SynthComm from Your package (SSO).",
+      },
+      {
+        title: "Create a job in the portal",
+        detail: "Enter topic and conversation count, pick TH / EN / ID / VI, then run production.",
+      },
+      {
+        title: "Review and download outputs",
+        detail: "Track job status and download JSON / CSV / HTML / PDF from the portal.",
+      },
+      {
+        title: "Upgrade or buy a package",
+        detail: "Free tier is 100 conversations/month; upgrade to Starter / Growth / Business or License on inz.lol/pay.",
+      },
+    ],
+    tips: [
+      "License / White Label use your domain via CNAME — software stays on IN Z cloud.",
+      "LLM keys are customer BYOK, not IN Z keys.",
+    ],
+  },
+};
+
+const QA_LAB_USAGE: LocalizedUsageGuide = {
+  th: {
+    title: "วิธีใช้งานแอป",
+    intro: "จำลองและตรวจสอบเว็บ/API/มือถือที่ deploy แล้วมี URL สาธารณะ",
+    steps: [
+      {
+        title: "ตรวจความพร้อมฟรี (ไม่ต้องสมัคร)",
+        detail: "เปิด QA LAB Portal ใส่ URL ระบบจริง ได้คะแนน 0–100 และข้อค้นพบสูงสุด 5 ข้อ โดยไม่ใช้ LLM",
+      },
+      {
+        title: "เข้าสู่ระบบจากบัญชี IN Z",
+        detail: "ล็อกอินที่ inz.lol แล้วเปิด QA LAB จากแพ็กเกจของคุณ",
+      },
+      {
+        title: "รัน Persona → Simulate",
+        detail: "ตั้งเป้าเว็บ/API (และมือถือผ่าน Appium ถ้ามี) แล้วรันซิมในพอร์ทัล",
+      },
+      {
+        title: "ดูผลในแดชบอร์ด",
+        detail: "อ่านรายงาน เลือกแพ็ก Starter / Pro / Business หรือ License ตามโควตา",
+      },
+    ],
+    tips: [
+      "นำคีย์ API มาเอง (BYOK) ตามแพ็กเกจ",
+      "ไม่ใช่การทดสอบ repo บน Git โดยตรง — ต้องมีระบบที่รันอยู่",
+    ],
+  },
+  en: {
+    title: "How to use the app",
+    intro: "Simulate and verify web / API / mobile systems that already have a public URL.",
+    steps: [
+      {
+        title: "Run a free readiness check (no signup)",
+        detail: "Open the QA LAB Portal, paste a live system URL, and get a 0–100 score plus up to 5 findings — no LLM.",
+      },
+      {
+        title: "Sign in from your IN Z account",
+        detail: "Sign in on inz.lol, then open QA LAB from Your package.",
+      },
+      {
+        title: "Run Persona → Simulate",
+        detail: "Point at web/API targets (and mobile via Appium when available), then run sims in the portal.",
+      },
+      {
+        title: "Review results and pick a plan",
+        detail: "Read the dashboard report, then choose Starter / Pro / Business or License by quota.",
+      },
+    ],
+    tips: [
+      "Bring your own API keys (BYOK) per plan.",
+      "Not a Git-repo tester — the system under test must already be running.",
+    ],
+  },
+};
+
+const MUSIC_DEMO_USAGE: LocalizedUsageGuide = {
+  th: {
+    title: "วิธีใช้งานแอป",
+    intro: "Music Demo สร้าง DEMO / blueprint — คุณคือคนทำให้ผลงานสมบูรณ์",
+    steps: [
+      {
+        title: "เปิดจากบัญชี IN Z",
+        detail: "ล็อกอินที่ inz.lol แล้วเปิด Music Demo จากแพ็กเกจของคุณ ได้เครดิตสมัครฟรี",
+      },
+      {
+        title: "สร้าง DEMO พรีวิว",
+        detail: "สร้าง Artist Blueprint (คำร้อง · คอร์ด · MIDI/MusicXML) ใช้เครดิตตามเรทที่กำหนด",
+      },
+      {
+        title: "Confirm & Lock",
+        detail: "ยืนยันผลแล้วล็อก — แชร์แบบอ่านอย่างเดียวได้ แนะนำ Export ไป DAW / สตูดิโอ",
+      },
+      {
+        title: "เติมเครดิตเมื่อต้องการ",
+        detail: "เติมที่ inz.lol/pay หรือในแอป — เสียงร้อง AI เป็นแอดออนแยก เริ่ม ฿49",
+      },
+    ],
+    tips: [
+      "Solo Mode: 1 เพลง = 1 เจ้าของ",
+      "ไม่ใช่ไฟล์เพลงสำเร็จรูปพร้อมวางขาย",
+    ],
+  },
+  en: {
+    title: "How to use the app",
+    intro: "Music Demo builds a DEMO / blueprint — you complete the finished work.",
+    steps: [
+      {
+        title: "Open from your IN Z account",
+        detail: "Sign in on inz.lol, open Music Demo from Your package, and receive signup credits.",
+      },
+      {
+        title: "Create a DEMO preview",
+        detail: "Build an Artist Blueprint (lyrics · chords · MIDI/MusicXML) using the credit rates shown in-app.",
+      },
+      {
+        title: "Confirm & Lock",
+        detail: "Confirm to lock the piece — share read-only, then export to a DAW / studio.",
+      },
+      {
+        title: "Top up credits when needed",
+        detail: "Pay on inz.lol/pay or in-app. AI vocal preview is a separate add-on from ฿49.",
+      },
+    ],
+    tips: [
+      "Solo Mode: one song = one owner.",
+      "Not a commercial-ready release file.",
+    ],
+  },
+};
+
+const CONTENT_CREATOR_USAGE: LocalizedUsageGuide = {
+  th: {
+    title: "วิธีใช้งานแอป",
+    intro: "สร้างพอดแคสต์และ AI Video สำหรับภาษาถิ่นไทยและ SEA",
+    steps: [
+      {
+        title: "เปิดจากบัญชี IN Z",
+        detail: "ล็อกอินที่ inz.lol แล้วเปิด Content Creator — ได้ทดลองฟรี 14 วัน",
+      },
+      {
+        title: "ทำพอดแคสต์หรือ AI Video",
+        detail: "พอดแคสต์: อัปโหลด → ถอดเสียง → show notes → clips → RSS · AI Video: chat สคริปต์ → สื่อ → TTS → เรนเดอร์ MP4",
+      },
+      {
+        title: "ดูโควตาใน Dashboard",
+        detail: "ตรวจ episodes / render / storage ที่เหลือ โควตารายเดือนรีเซ็ตวันที่ 1 (เวลาไทย)",
+      },
+      {
+        title: "อัปเกรดแพ็กเกจ",
+        detail: "ไป Billing หรือ inz.lol/pay เลือก Starter / Creator / Pro ตามโควตา",
+      },
+    ],
+    tips: [
+      "วิดีโอช่วงทดลองติดลายน้ำเสมอ",
+      "AI clips / ตารางโพสต์ เริ่มที่ Creator · Sponsor CRM / API เริ่มที่ Pro",
+    ],
+  },
+  en: {
+    title: "How to use the app",
+    intro: "Create podcasts and AI Video for Thai dialects and SEA languages.",
+    steps: [
+      {
+        title: "Open from your IN Z account",
+        detail: "Sign in on inz.lol, open Content Creator — 14-day free trial included.",
+      },
+      {
+        title: "Run a podcast or AI Video job",
+        detail: "Podcast: upload → STT → show notes → clips → RSS. AI Video: script chat → media → TTS → render MP4.",
+      },
+      {
+        title: "Check quotas on the Dashboard",
+        detail: "Track episodes / renders / storage. Monthly quotas reset on the 1st (Thailand time).",
+      },
+      {
+        title: "Upgrade your plan",
+        detail: "Use Billing or inz.lol/pay for Starter / Creator / Pro.",
+      },
+    ],
+    tips: [
+      "Trial videos always include a watermark.",
+      "AI clips / scheduling start at Creator; Sponsor CRM / API start at Pro.",
+    ],
+  },
+};
+
+const NETR_USAGE: LocalizedUsageGuide = {
+  th: {
+    title: "วิธีใช้งานแอป",
+    intro: "คุยกับเนตรได้บนหน้าเว็บเท่านั้น — ไม่ใช่คำปรึกษาทางการแพทย์หรือจิตเวช",
+    steps: [
+      {
+        title: "ยืนยันตัวตนที่ inz.lol",
+        detail: "สมัครและยืนยันเบอร์/อีเมลที่ IN Z ครั้งเดียว",
+      },
+      {
+        title: "เปิด NetR จากบัญชี IN Z",
+        detail: "กดเปิดจากแพ็กเกจของคุณ — ระบบ Sign in อัตโนมัติ (SSO) ไม่ต้อง OTP ซ้ำที่ NetR",
+      },
+      {
+        title: "จารึกชะตาครั้งเดียว",
+        detail: "ไป /register กรอกวันเวลาและสถานที่เกิด แล้วยืนยัน — ข้อมูลล็อกหลังยืนยัน",
+      },
+      {
+        title: "ดูดวงและคุย",
+        detail: "ดูดวงที่ /chart (เจ้าของบัญชีเท่านั้น) แล้วคุยที่ /chat — ฟรี 5 นาที/วัน จากนั้น Prepaid หรือ Plus",
+      },
+    ],
+    tips: [
+      "เติมนาที / Plus ที่ inz.lol/pay หรือ /topup",
+      "แก้ข้อมูลเกิดหลังล็อก ต้องผ่านทีมเนตร",
+    ],
+  },
+  en: {
+    title: "How to use the app",
+    intro: "Chat with netr on the web only — not medical or psychiatric advice.",
+    steps: [
+      {
+        title: "Verify on inz.lol",
+        detail: "Sign up and verify phone/email once on IN Z.",
+      },
+      {
+        title: "Open NetR from your IN Z account",
+        detail: "Launch from Your package — SSO signs you in. No duplicate OTP on NetR.",
+      },
+      {
+        title: "Record your birth chart once",
+        detail: "Go to /register, enter birth date/time/place, and confirm — data locks after confirm.",
+      },
+      {
+        title: "View chart and chat",
+        detail: "Open /chart (owner only), then chat at /chat — 5 free minutes/day, then Prepaid or Plus.",
+      },
+    ],
+    tips: [
+      "Top up minutes / Plus on inz.lol/pay or /topup.",
+      "Chart corrections after lock go through the netr team.",
+    ],
+  },
+};
+
+const PRISM_USAGE: LocalizedUsageGuide = {
+  th: {
+    title: "วิธีใช้งานแอป",
+    intro: "แพลตฟอร์มดูแลลีดอสังหาด้วย SRAG — แอดมินเว็บที่เปิดได้คือ UI อ้างอิง",
+    steps: [
+      {
+        title: "เปิดแอดมินเว็บอ้างอิง",
+        detail: "เข้า PRISM จากบัญชี IN Z หรือลิงก์แอดมินที่ทีมให้ เพื่อดูลำดับงานจริง",
+      },
+      {
+        title: "ลงทะเบียนและจำแนกเจตนา",
+        detail: "รับลูกค้า → SRAG จำแนกเจตนา → แบ่ง High / Medium / Low",
+      },
+      {
+        title: "จับคู่โครงการและนัดหมาย",
+        detail: "High/Medium จับคู่โครงการ นัดชม และติดตาม · Low วิเคราะห์ช่องว่างตลาด",
+      },
+      {
+        title: "ดูแลต่อเนื่อง",
+        detail: "เช็กอินรายเดือนและใช้แท็กอ้างอิงบุคคลภายใต้ SubsetGuard",
+      },
+    ],
+    tips: [
+      "ผู้ใช้ค้นได้เฉพาะชุดข้อมูลที่ได้รับสิทธิ์ (SubsetGuard)",
+      "License / White Label ติดต่อฝ่ายขายเรื่องเงื่อนไขและรีแบรนด์",
+    ],
+  },
+  en: {
+    title: "How to use the app",
+    intro: "Real-estate lead care with SRAG — the live admin web is the reference UI.",
+    steps: [
+      {
+        title: "Open the reference admin web",
+        detail: "Launch PRISM from your IN Z account or the admin link your team provides.",
+      },
+      {
+        title: "Register and classify intent",
+        detail: "Capture the lead → SRAG intent matching → High / Medium / Low.",
+      },
+      {
+        title: "Match projects and book viewings",
+        detail: "High/Medium get project matches and follow-ups; Low feeds gap analysis.",
+      },
+      {
+        title: "Nurture ongoing",
+        detail: "Run monthly check-ins and person tags under SubsetGuard.",
+      },
+    ],
+    tips: [
+      "Users only search inside their assigned subset (SubsetGuard).",
+      "License / White Label terms and rebrand: contact sales.",
+    ],
+  },
+};
+
 const PRISM_DESCRIPTION: LocalizedText = {
   en: "PRISM (Property Retrieval & Intent Subset Matching) is an AI customer-engagement platform for real estate marketing, powered by SRAG (Subset Retrieval Augmented Generation). It classifies intent, segments leads High / Medium / Low, matches projects, and nurtures from registration through closing — with SubsetGuard so each user only searches inside their assigned data subset.",
   th: "PRISM (Property Retrieval & Intent Subset Matching) เป็นแพลตฟอร์มดูแลลูกค้าด้วย AI สำหรับการตลาดอสังหาริมทรัพย์ ขับเคลื่อนด้วย SRAG (Subset Retrieval Augmented Generation) จำแนกเจตนา แบ่งลีด High / Medium / Low จับคู่โครงการ และดูแลตั้งแต่ลงทะเบียนถึงปิดการขาย พร้อม SubsetGuard ให้แต่ละผู้ใช้ค้นได้เฉพาะชุดข้อมูลที่ได้รับสิทธิ์",
@@ -749,6 +1079,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
       th: "SynthComm — โรงงานข้อมูลบทสนทนาสังเคราะห์",
     },
     description: SYNTHCOMM_DESCRIPTION,
+    usageGuide: SYNTHCOMM_USAGE,
     earlyBirdPrice: { en: "Contact for quote", th: "ติดต่อขอใบเสนอราคา" },
     regularPrice: { en: "Custom packaging", th: "แพ็กเกจตามความต้องการ" },
     models: ["white-label", "license", "saas"],
@@ -792,6 +1123,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
       th: "QA LAB — จำลองและตรวจสอบเว็บ API และมือถือ",
     },
     description: UNIVERSAL_SIMULATOR_DESCRIPTION,
+    usageGuide: QA_LAB_USAGE,
     earlyBirdPrice: {
       en: "SaaS from ฿490 / month · License Early Bird from ฿120,000 / year",
       th: "SaaS เริ่ม ฿490 / เดือน · License Early Bird เริ่ม ฿120,000 / ปี",
@@ -842,6 +1174,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
       th: "Music Demo — เราช่วยให้คุณสมบูรณ์",
     },
     description: MUSIC_DEMO_DESCRIPTION,
+    usageGuide: MUSIC_DEMO_USAGE,
     earlyBirdPrice: {
       en: "Signup bonus 100–300 credits · top-up from ฿30",
       th: "โบนัสสมัคร 100–300 เครดิต · เติมเริ่ม ฿30",
@@ -870,6 +1203,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
       th: "Content Creator — ถิ่นไทย + SEA",
     },
     description: CONTENT_CREATOR_DESCRIPTION,
+    usageGuide: CONTENT_CREATOR_USAGE,
     earlyBirdPrice: { en: "14-day free trial", th: "ทดลองฟรี 14 วัน" },
     regularPrice: { en: "฿599 – ฿2,999 / month", th: "฿599 – ฿2,999 / เดือน" },
     models: ["saas"],
@@ -892,6 +1226,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
       th: "เนตร — Oracle ที่รู้จักคุณดีกว่าใคร",
     },
     description: NETR_DESCRIPTION,
+    usageGuide: NETR_USAGE,
     earlyBirdPrice: {
       en: "Free — 5 minutes / day",
       th: "ฟรี — 5 นาที/วัน",
@@ -949,6 +1284,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
       th: "PRISM — ค้นโครงการและจับคู่เจตนาด้วย SRAG",
     },
     description: PRISM_DESCRIPTION,
+    usageGuide: PRISM_USAGE,
     earlyBirdPrice: {
       en: "Contact for License / White Label quote",
       th: "ติดต่อขอใบเสนอราคา License / White Label",
