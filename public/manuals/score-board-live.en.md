@@ -1,61 +1,51 @@
 # Score Board Live Manual
 
-Club sports scoreboard overlay — you mix camera + Overlay in your own encoder app. Video never goes through IN Z servers.
-
-## How it works
-
-1. Open Score Board from your IN Z account (SSO)
-2. Copy the **Overlay URL** into a Browser Source / Web Widget
-3. Update scores from a second device (phone/tablet)
-4. Go live to Facebook or YouTube from the encoder app with a stream key — not the in-app Facebook/YouTube camera
+Mix camera + Overlay in your encoder app — video never goes through IN Z servers.
 
 ## Steps
 
 ### 1. Open from IN Z and set the match
 
-Choose sport, 2–4 player/team names, house rules, and **Day / Night** for the score bar, then save the match.
-
-Sports: snooker · football · volleyball · badminton · tennis · generic · team vs team · chess · TCG · cards
+Choose sport, 2–4 player/team names, house rules, and **Day / Night**, then save.
 
 ### 2. Copy the Overlay URL
 
-Copy it from the home screen. Paste it only into your encoder — treat it like a password and do not post it publicly.
+Paste it only into your encoder — do not post it publicly.
 
 ### 3. Open the scorer on a phone
 
-On a second device, open the score panel. Update scores, names, sponsors, and handicap; the overlay refreshes immediately.
+Update scores, names, sponsors, and handicap — the overlay refreshes immediately.
 
-### 4. Add the Overlay in your encoder app
+### 4. Add the Overlay in your encoder
 
-**Desktop (recommended)**
+**Desktop**
 
-| App | How to add Overlay |
+| App | How |
 | --- | --- |
-| OBS Studio | Sources → Browser → paste Overlay URL · size equal to canvas (1920×1080 or 1080×1920) · transparent background |
+| OBS Studio | Sources → Browser → paste Overlay URL · size equal to canvas · transparent background |
 | Streamlabs Desktop | Same Browser Source flow |
 | PRISM Live Studio | Webpage / Browser source |
 
-**Mobile**
+**Mobile** (**HTTPS** required)
 
-| App | How to add Overlay |
+| App | How |
 | --- | --- |
-| Larix Broadcaster | Web Widget (**HTTPS** required) |
+| Larix Broadcaster | Web Widget |
 | PRISM Live Studio | Webpage source |
-| Streamlabs Mobile | Add URL / web overlay (**HTTPS** required) |
+| Streamlabs Mobile | Add URL / web overlay |
 
 ### 5. Go live with a stream key
 
-1. Open the encoder, add the camera as the main layer, put Overlay on top
-2. Set destination to **Facebook Live Producer** or **YouTube Studio → Streaming software**
-3. Start Streaming in the encoder app
-4. Do **not** use the in-app Facebook/YouTube camera — those cannot load this overlay
+1. Camera as main layer, Overlay on top
+2. Destination: **Facebook Live Producer** or **YouTube Studio → Streaming software**
+3. Start Streaming in the encoder
+4. Do not use the in-app Facebook/YouTube camera
 
 ### 6. Update scores during the live
 
-Tap scores on the phone while live; the Browser Source updates. End the stream in the encoder app.
+Tap scores on the phone · end the stream in the encoder.
 
 ## Tips
 
-- **Day** = light bar / dark text (bright rooms) · **Night** = dark bar / light text (dark halls)
+- Day = light bar / dark text · Night = dark bar / light text
 - Empty sponsor slots stay transparent on the overlay
-- Mobile encoders need HTTPS to load the Overlay Web Widget

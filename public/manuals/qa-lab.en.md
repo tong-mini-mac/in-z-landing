@@ -1,22 +1,23 @@
-# QA LAB — User Manual
+# User Manual — QA LAB
 
-IN Z QA LAB — simulation and verification for web, API, and mobile. Persona → Simulate → ML/AI → Portal.
+Simulate and verify **deployed** web / API / mobile systems with a public URL — not Git-repo testing.
 
-## Scope
+## Open the portal
 
-Simulate user behavior and test **web/API systems that are already deployed with a URL** — including mobile backends and native E2E via Appium. Not Git-repo testing. Not a hosted device farm on Cloud SaaS.
+Launch QA LAB from your IN Z account or the portal URL your team provides.
 
-## Start
+## Free readiness check (no signup)
 
-1. Open the portal (for example https://qa-lab-production.up.railway.app).
-2. Public docs: Catalog · User Manual · PDPA.
-3. Free readiness: paste a live system URL — score 0–100 plus up to 5 findings. No signup. No LLM.
-4. After login, choose Starter / Pro / Business.
+1. Paste a live system URL
+2. Get a 0–100 score and up to 5 findings
+3. No LLM and no account required
 
-## Early Bird 2026 SaaS
+## After sign-in
 
-| Plan | Price | Seats | Sims / month |
-|------|-------|-------|----------------|
-| Starter | ฿490 / month | 1 | 50 |
-| Pro | ฿3,490 / month | 3 | 300 |
-| Business | ฿5,990 / month | 5 | 500 |
+1. Open from your IN Z account (SSO)
+2. Select the plan you are on
+3. Point at web/API targets (and mobile via Appium when available)
+4. Run Persona → Simulate in the portal
+5. Read findings and reports on the dashboard
+
+Note: bring your own API keys (BYOK) per plan.

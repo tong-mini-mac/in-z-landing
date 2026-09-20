@@ -1,25 +1,29 @@
-# Content Creator — User Manual
+# User Manual — Content Creator
 
-SaaS for Thai dialects (Northern · Isan · Southern) and SEA (Vietnamese · Indonesian · Central Thai · English).
+Create podcasts and AI Video for Thai dialects and SEA languages.
 
-## What it does
+## Get started
 
-- Podcast: upload → STT → show notes → clips → RSS
-- AI Video: idea chat → script → media match → TTS → render MP4 → publish queue
+1. Sign in at [inz.lol](https://www.inz.lol)
+2. Open Content Creator from **Your package**
+3. Open the Dashboard
 
-## Getting started
+## Podcast
 
-1. 14-day free trial or register.
-2. Login → Dashboard.
-3. Billing to upgrade Starter / Creator / Pro.
+Upload → STT → show notes → clips → RSS
 
-Monthly quotas reset on the 1st (Thailand time). Trial videos always have a watermark. AI clips, social scheduler, and guest CRM start at Creator. Sponsor CRM, API, and white-label start at Pro.
+## AI Video
 
-## Plans
+Idea/script chat → upload media → scene match → TTS → render MP4 → publish queue
 
-| Plan | Price / month | Episodes | Renders | Storage |
-|------|----------------|----------|---------|---------|
-| Free Trial | ฿0 · 14 days | 5 total | 3 (watermark) | 5 GB |
-| Starter | ฿599 | 10 | 20 | 20 GB |
-| Creator | ฿1,499 | 50 | 150 | 100 GB |
-| Pro | ฿2,999 | 200 | 600 | 500 GB |
+## Quotas and upgrades
+
+1. Check remaining episodes / renders / storage on the Dashboard
+2. Monthly quotas reset on the 1st (Thailand time)
+3. Upgrade in Billing or on [inz.lol/pay](https://www.inz.lol/pay)
+
+## What each plan unlocks
+
+- Trial: videos always include a watermark
+- Creator+: AI clips / scheduling / Guest CRM
+- Pro: Sponsor CRM / API / white-label

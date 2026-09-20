@@ -1,27 +1,30 @@
-# Music Demo — User Manual
+# User Manual — Music Demo
 
-Music Demo is a DEMO / blueprint tool — we do not create the finished work; you do.
+Builds a DEMO / blueprint — you complete the finished work.
 
-- Tagline: we help you complete
-- Solo Mode: one song = one owner — share is read-only
-- After Confirm, export to a DAW / studio / musician — not “continue on Suno”
-- AI vocal is a separate add-on — not in Artist Blueprint
+## Get started
 
-## Getting started
+1. Sign in at [inz.lol](https://www.inz.lol)
+2. Open Music Demo from **Your package**
+3. New accounts receive starter credits automatically
 
-1. Sign in at IN Z, then open Music Demo from **Your package**.
-2. New accounts get free credits (100, or 300 for the first 30 users).
-3. Create a DEMO, preview, then Confirm & Lock.
+## Create a DEMO
 
-## Credits (source: CREDIT_CONFIG)
+1. Build an Artist Blueprint (lyrics · chords · MIDI/MusicXML)
+2. Preview the result
+3. Tap **Confirm & Lock**
+4. Export to a DAW / studio / musician — not “continue on Suno”
 
-| Item | Value |
-|------|--------|
-| Top-up ฿30 | 100 credits |
-| Top-up ฿90 | 300 credits |
-| Top-up ฿270 | 1,000 credits |
-| Create song | 50 credits |
-| Regenerate | 25 credits |
-| Re-edit | 50 credits |
+## Credits used while working
 
-AI Vocal Preview add-on from ฿49 — not for commercial release.
+| Action | Credits |
+|--------|---------|
+| Create | 50 |
+| Regenerate | 25 |
+| Re-edit | 50 |
+
+AI vocal is a separate add-on — not included in Artist Blueprint.
+
+## Solo Mode
+
+One song = one owner · sharing is read-only.

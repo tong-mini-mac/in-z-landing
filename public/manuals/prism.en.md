@@ -1,29 +1,24 @@
-# PRISM — User Manual
+# User Manual — PRISM
 
-PRISM = Property Retrieval & Intent Subset Matching, powered by SRAG (Subset Retrieval Augmented Generation).
+Admin web for real-estate lead care — intent and project matching with SRAG.
 
-AI customer-engagement platform for real estate marketing: segment, match, and nurture leads from registration through closing.
+## Get started
 
-## Live reference
+1. Sign in at [inz.lol](https://www.inz.lol)
+2. Open PRISM from **Your package** or the admin link your team provides
+3. Enter the reference admin web
 
-Admin web: https://prism-web-production-e0c6.up.railway.app
-API health: https://prism-api-production-b232.up.railway.app/health
+## Daily workflow
 
-## Flow
+1. **Register a customer / lead**
+2. **Review intent classification** — High / Medium / Low
+3. **Match projects**
+   - High: match available projects → invite → schedule viewing → follow up
+   - Medium: upcoming projects → present + launch date → schedule
+   - Low: no match → review market-gap report
+4. **Follow up and book viewings** from the admin queue
+5. **Monthly check-ins** on the cadence your team sets
 
-Customer registration → intent classification + SRAG → High / Medium / Low
+## Search permissions
 
-- High: match existing project → AI invitation → schedule viewing → 1-week follow-up
-- Medium: upcoming project → present + launch date → schedule → reminder
-- Low: no match → group analysis → market gap report
-- All: monthly check-ins (2×/month) → analytics → ad campaigns
-
-## Core
-
-- Intent classes: zone_focused / transit_focused / premium / first_jobber
-- SRAG search: Keyword Bot → 4 Code Bots → Subset Calculator → Vector Refiner
-- SubsetGuard: each user searches only inside their assigned subset (zone, price, type, …)
-- Offers, appointments, follow-ups, and person-reference tags
-
-White Label packaging: contact IN Z sales for source, rebrand, and ownership.
-License: co-branded binary deploy without full rebrand rights — contact sales for terms.
+Each user can search only inside their assigned data subset (zone, price, type, etc.) — if results look empty, check permissions first.
