@@ -1527,6 +1527,7 @@ img {
 }
 
 .product-detail-cta {
+  appearance: none;
   font-family: var(--font-display), system-ui, sans-serif;
   font-size: var(--text-nav);
   font-weight: 700;
@@ -1537,6 +1538,8 @@ img {
   border: 1px solid rgba(10, 10, 10, 0.18);
   background: rgba(255, 255, 255, 0.7);
   color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .product-detail-cta.is-primary {
@@ -1548,6 +1551,158 @@ img {
 .product-detail-cta:hover,
 .product-detail-cta:focus-visible {
   opacity: 0.72;
+}
+
+.product-manual-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.product-manual-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: rgba(17, 17, 17, 0.45);
+  backdrop-filter: blur(2px);
+  cursor: pointer;
+}
+
+.product-manual-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: min(40rem, 100%);
+  max-height: min(88svh, 52rem);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: #fff;
+  border: 1px solid rgba(17, 17, 17, 0.16);
+  box-shadow: 0 18px 48px rgba(17, 17, 17, 0.18);
+}
+
+.product-manual-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+}
+
+.product-manual-modal-header h2 {
+  margin: 0;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.product-manual-modal-close {
+  appearance: none;
+  border: 1px solid rgba(17, 17, 17, 0.22);
+  background: #fff;
+  color: #111;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.45rem 0.75rem;
+  cursor: pointer;
+}
+
+.product-manual-modal-body {
+  overflow: auto;
+  padding: 1.15rem 1.2rem 1.4rem;
+}
+
+.product-manual-content {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #333;
+}
+
+.product-manual-content h1,
+.product-manual-content h2,
+.product-manual-content h3 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  color: #111;
+  line-height: 1.25;
+  margin: 1.1rem 0 0.45rem;
+}
+
+.product-manual-content h1 {
+  font-size: 1.2rem;
+  margin-top: 0;
+}
+
+.product-manual-content h2 {
+  font-size: 1rem;
+}
+
+.product-manual-content h3 {
+  font-size: 0.92rem;
+}
+
+.product-manual-content p,
+.product-manual-content ul,
+.product-manual-content ol,
+.product-manual-content table {
+  margin: 0 0 0.85rem;
+}
+
+.product-manual-content ul,
+.product-manual-content ol {
+  padding-left: 1.2rem;
+}
+
+.product-manual-content li + li {
+  margin-top: 0.3rem;
+}
+
+.product-manual-content a {
+  color: #111;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.product-manual-content code {
+  font-size: 0.85em;
+  padding: 0.05em 0.3em;
+  background: rgba(17, 17, 17, 0.06);
+}
+
+.product-manual-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.product-manual-content th,
+.product-manual-content td {
+  border: 1px solid rgba(17, 17, 17, 0.14);
+  padding: 0.45rem 0.55rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.product-manual-content th {
+  background: rgba(17, 17, 17, 0.04);
+  font-weight: 600;
+}
+
+.product-manual-content hr {
+  border: 0;
+  border-top: 1px solid rgba(17, 17, 17, 0.12);
+  margin: 1rem 0;
 }
 
 .product-hover {

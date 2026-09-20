@@ -116,6 +116,10 @@ export type SiteCopy = {
     back: string;
     catalog: string;
     manual: string;
+    manualTitle: string;
+    manualLoading: string;
+    manualMissing: string;
+    closeManual: string;
     usage: string;
     yourPackage: string;
     signInSignUp: string;
@@ -416,7 +420,11 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
     productDetail: {
       back: "กลับไปผลิตภัณฑ์",
       catalog: "แคตตาล็อก",
-      manual: "ดาวน์โหลดคู่มือ",
+      manual: "ดูคู่มือ",
+      manualTitle: "คู่มือ {name}",
+      manualLoading: "กำลังโหลดคู่มือ…",
+      manualMissing: "ยังไม่มีคู่มือสำหรับผลิตภัณฑ์นี้",
+      closeManual: "ปิด",
       usage: "วิธีใช้งาน",
       yourPackage: "แพ็กเกจของคุณ",
       signInSignUp: "เข้าสู่ระบบ / สมัคร",
@@ -721,7 +729,11 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
     productDetail: {
       back: "Back to products",
       catalog: "Catalog",
-      manual: "Download manual",
+      manual: "View manual",
+      manualTitle: "{name} manual",
+      manualLoading: "Loading manual…",
+      manualMissing: "No manual is available for this product yet.",
+      closeManual: "Close",
       usage: "How to use",
       yourPackage: "Your package",
       signInSignUp: "Sign in / Sign up",

@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SiteFooter, SiteNav } from "@/components/SiteChrome";
+import { ProductManualModal } from "@/components/ProductManualModal";
 import {
   SCOPE_OF_WORK_COPY,
   pickLang,
   pricingForProduct,
-  productManualHref,
   type CatalogProduct,
 } from "@/lib/product-catalog";
 import { catalogNameToProductId, skusForProductModel } from "@/lib/checkout-skus";
@@ -33,6 +33,7 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
   const scope = product.scopeOfWork?.[lang] || product.scopeOfWork?.th || product.scopeOfWork?.en;
   const usage = product.usageGuide?.[lang] || product.usageGuide?.th || product.usageGuide?.en;
   const [signedIn, setSignedIn] = useState(false);
+  const [manualOpen, setManualOpen] = useState(false);
 
   useEffect(() => {
     function refresh() {
@@ -174,13 +175,13 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
         ) : null}
 
         <div className="product-detail-actions">
-          <a
+          <button
+            type="button"
             className="product-detail-cta"
-            href={productManualHref(product.name, lang)}
-            download
+            onClick={() => setManualOpen(true)}
           >
             {t.manual}
-          </a>
+          </button>
           <a className="product-detail-cta is-primary" href={packageHref}>
             {packageLabel}
           </a>
@@ -191,6 +192,13 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
           ) : null}
         </div>
       </article>
+
+      <ProductManualModal
+        open={manualOpen}
+        onClose={() => setManualOpen(false)}
+        product={product}
+        lang={lang}
+      />
 
       <SiteFooter />
     </main>
