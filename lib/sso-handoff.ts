@@ -102,6 +102,9 @@ export function productBaseUrl(productId: string): string | null {
     netr:
       process.env.NETR_URL ||
       "https://netr-web-production-ea49.up.railway.app",
+    "score-board":
+      process.env.SCORE_BOARD_URL ||
+      "https://score-board-production-a501.up.railway.app",
     prism:
       process.env.PRISM_URL ||
       "https://prism-web-production-e0c6.up.railway.app",

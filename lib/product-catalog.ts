@@ -313,6 +313,11 @@ const NETR_DESCRIPTION: LocalizedText = {
   th: "เนตร (netr) คือ Oracle โหราศาสตร์ปฏิวัติกรรมจากตำราไทยโบราณ ผสาน AI ที่จำคุณได้ สมัครที่ inz.lol เปิด NetR จากบัญชี (SSO) แล้วจารึกดวงเกิดครั้งเดียว — ไม่ยืนยันเบอร์ซ้ำที่ NetR ดูดวงได้เจ้าของบัญชีเท่านั้น คุยบนเว็บ ฟรี 5 นาที/วัน แล้ว Prepaid หรือ Plus ไม่ใช่คำปรึกษาทางการแพทย์หรือจิตเวช",
 };
 
+const SCORE_BOARD_DESCRIPTION: LocalizedText = {
+  en: "Score Board Live is a club sports scoreboard overlay for snooker, football, volleyball, badminton, tennis, chess, TCG, and cards. Sign up for a 5-day full-feature trial, then ฿99/month or ฿990/year. Copy an Overlay URL into OBS / Streamlabs / Larix as a Browser Source; update scores from a phone. Video stays on the customer's encoder — not our servers.",
+  th: "Score Board Live คือสกอร์บอร์ด overlay สำหรับสโมสร (สนุกเกอร์ ฟุตบอล วอลเลย์ แบดมินตัน เทนนิส หมากรุก TCG ไพ่) สมัครแล้วทดลองฟรี 5 วันครบฟีเจอร์ จากนั้น ฿99/เดือน หรือ ฿990/ปี คัดลอก Overlay URL ไปใส่ Browser Source ใน OBS / Streamlabs / Larix อัปเดตคะแนนจากมือถือ วิดีโออยู่ที่ encoder ของลูกค้า ไม่ผ่านเซิร์ฟเวอร์เรา",
+};
+
 const PRISM_DESCRIPTION: LocalizedText = {
   en: "PRISM (Property Retrieval & Intent Subset Matching) is an AI customer-engagement platform for real estate marketing, powered by SRAG (Subset Retrieval Augmented Generation). It classifies intent, segments leads High / Medium / Low, matches projects, and nurtures from registration through closing — with SubsetGuard so each user only searches inside their assigned data subset.",
   th: "PRISM (Property Retrieval & Intent Subset Matching) เป็นแพลตฟอร์มดูแลลูกค้าด้วย AI สำหรับการตลาดอสังหาริมทรัพย์ ขับเคลื่อนด้วย SRAG (Subset Retrieval Augmented Generation) จำแนกเจตนา แบ่งลีด High / Medium / Low จับคู่โครงการ และดูแลตั้งแต่ลงทะเบียนถึงปิดการขาย พร้อม SubsetGuard ให้แต่ละผู้ใช้ค้นได้เฉพาะชุดข้อมูลที่ได้รับสิทธิ์",
@@ -570,6 +575,34 @@ const NETR_SAAS_TIERS: PricingTier[] = [
   },
 ];
 
+const SCORE_BOARD_SAAS_TIERS: PricingTier[] = [
+  {
+    name: { en: "Trial", th: "ทดลอง" },
+    price: "฿0",
+    detail: {
+      en: "5 days · full features · then account locks until paid",
+      th: "5 วัน · ฟีเจอร์ครบ · จากนั้นล็อกจนกว่าจะชำระ",
+    },
+    highlight: true,
+  },
+  {
+    name: { en: "Monthly", th: "รายเดือน" },
+    price: "฿99 / month",
+    detail: {
+      en: "Overlay URL + scorer · OBS / Streamlabs / Larix",
+      th: "Overlay URL + หน้าใส่คะแนน · OBS / Streamlabs / Larix",
+    },
+  },
+  {
+    name: { en: "Yearly", th: "รายปี" },
+    price: "฿990 / year",
+    detail: {
+      en: "Same features · ~2 months free vs monthly",
+      th: "ฟีเจอร์เดียวกัน · ประหยัดราว 2 เดือนเทียบรายเดือน",
+    },
+  },
+];
+
 const PRISM_LICENSE_TIERS: PricingTier[] = [
   {
     name: { en: "Startup License", th: "Startup License" },
@@ -776,6 +809,34 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
           th: "ยืนยันตัวตนที่ inz.lol → เปิดจากบัญชี IN Z (SSO) → จารึกดวงครั้งเดียวที่ /register (ไม่ OTP ซ้ำ) /chart เจ้าของบัญชีเท่านั้น คุยที่ /chat — ฟรี 5 นาที/วัน Plus 3 ชม./วัน แล้ว Prepaid",
         },
         tiers: NETR_SAAS_TIERS,
+      },
+    },
+  },
+  {
+    name: "Score Board Live",
+    title: {
+      en: "Score Board Live — club sports overlay",
+      th: "Score Board Live — สกอร์บอร์ดสโมสร",
+    },
+    description: SCORE_BOARD_DESCRIPTION,
+    earlyBirdPrice: {
+      en: "5-day free trial",
+      th: "ทดลองฟรี 5 วัน",
+    },
+    regularPrice: {
+      en: "฿99 / month · ฿990 / year",
+      th: "฿99 / เดือน · ฿990 / ปี",
+    },
+    models: ["saas"],
+    pricingByModel: {
+      saas: {
+        ctaLabel: { en: "Open Score Board Live", th: "เปิด Score Board Live" },
+        ctaHref: "/demo",
+        note: {
+          en: "Sign up in-app for 5 free days. After trial, transfer ฿99/month or ฿990/year and an operator activates at /admin. Overlay URL goes into OBS / Streamlabs / Larix; scores update from a second device. Prices exclude VAT 7%.",
+          th: "สมัครในแอปได้ทดลองฟรี 5 วัน หลังทดลองโอน ฿99/เดือน หรือ ฿990/ปี แล้วทีมเปิดที่ /admin นำ Overlay URL ไปใส่ OBS / Streamlabs / Larix อัปเดตคะแนนจากอีกเครื่อง ราคาไม่รวม VAT 7%",
+        },
+        tiers: SCORE_BOARD_SAAS_TIERS,
       },
     },
   },

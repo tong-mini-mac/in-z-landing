@@ -6,6 +6,7 @@ export type ProductId =
   | "music-demo"
   | "content-creator"
   | "netr"
+  | "score-board"
   | "prism"
   | "prism-api"
   | "erp"
@@ -82,6 +83,16 @@ export const PRODUCTS: ProductEntry[] = [
     available: true,
   },
   {
+    id: "score-board",
+    name: "Score Board Live",
+    description: {
+      th: "สกอร์บอร์ด overlay สำหรับสโมสร — OBS / Streamlabs / Larix",
+      en: "Live scoreboard overlay for clubs — OBS / Streamlabs / Larix",
+    },
+    href: "https://score-board-production-a501.up.railway.app",
+    available: true,
+  },
+  {
     id: "ai-marketing",
     name: "AI-Marketing",
     description: {
@@ -140,6 +151,7 @@ export const COMMERCIAL_PRODUCT_IDS: ProductId[] = [
   "music-demo",
   "content-creator",
   "netr",
+  "score-board",
 ];
 
 /** Shown on /demo — commercial trials plus selected platform demos. */
@@ -181,6 +193,7 @@ export const HANDOFF_PRODUCT_IDS: ProductId[] = [
 /** Normalize legacy product ids from older ERP / trial grants. */
 export function normalizeProductId(id: string): string {
   if (id === "podcast") return "content-creator";
+  if (id === "scoreboard" || id === "score-board-live") return "score-board";
   return id;
 }
 

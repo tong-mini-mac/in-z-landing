@@ -225,6 +225,35 @@ export const CHECKOUT_SKUS: CheckoutSku[] = [
     minutes: 180,
   },
   {
+    id: "score-board-monthly",
+    productId: "score-board",
+    productName: "Score Board Live",
+    planId: "monthly",
+    label: { en: "Monthly", th: "รายเดือน" },
+    detail: {
+      en: "Overlay + scorer · OBS / Streamlabs / Larix",
+      th: "Overlay + ใส่คะแนน · OBS / Streamlabs / Larix",
+    },
+    amountBaht: 99,
+    interval: "month",
+    model: "saas",
+    highlight: true,
+  },
+  {
+    id: "score-board-yearly",
+    productId: "score-board",
+    productName: "Score Board Live",
+    planId: "yearly",
+    label: { en: "Yearly", th: "รายปี" },
+    detail: {
+      en: "Same features · ~2 months free vs monthly",
+      th: "ฟีเจอร์เดียวกัน · ประหยัดราว 2 เดือน",
+    },
+    amountBaht: 990,
+    interval: "year",
+    model: "saas",
+  },
+  {
     id: "synthcomm-startup-license",
     productId: "synthcomm",
     productName: "SynthComm",
@@ -443,6 +472,14 @@ export function catalogNameToProductId(name: string): ProductId | null {
   if (key === "music demo" || key === "music-demo") return "music-demo";
   if (key === "content creator" || key === "content-creator") return "content-creator";
   if (key === "netr" || key === "เนตร") return "netr";
+  if (
+    key === "score board" ||
+    key === "score-board" ||
+    key === "score board live" ||
+    key === "scoreboard"
+  ) {
+    return "score-board";
+  }
   if (key === "prism") return "prism";
   return null;
 }

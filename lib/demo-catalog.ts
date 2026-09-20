@@ -124,6 +124,25 @@ export const DEMO_OFFERS: DemoOffer[] = [
     },
   },
   {
+    id: "score-board",
+    name: "Score Board Live",
+    href: PRODUCT_HREF["score-board"],
+    requiresSignup: true,
+    external: true,
+    trialTitle: {
+      en: "5-day free trial",
+      th: "ทดลองฟรี 5 วัน",
+    },
+    trialSummary: {
+      en: "Club sports scoreboard overlay for OBS / Streamlabs / Larix — scorer phone + Browser Source. Then ฿99/month or ฿990/year.",
+      th: "สกอร์บอร์ด overlay สำหรับสโมสร ใส่ใน OBS / Streamlabs / Larix — มือถือใส่คะแนน + Browser Source จากนั้น ฿99/เดือน หรือ ฿990/ปี",
+    },
+    ctaLabel: {
+      en: "Try Score Board Live",
+      th: "ทดลอง Score Board Live",
+    },
+  },
+  {
     id: "prism",
     name: "PRISM",
     href: PRODUCT_HREF.prism,
