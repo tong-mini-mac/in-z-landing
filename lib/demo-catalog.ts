@@ -134,8 +134,8 @@ export const DEMO_OFFERS: DemoOffer[] = [
       th: "ทดลองฟรี 5 วัน",
     },
     trialSummary: {
-      en: "Club sports scoreboard overlay for OBS / Streamlabs / Larix — scorer phone + Browser Source. Then ฿99/month or ฿990/year.",
-      th: "สกอร์บอร์ด overlay สำหรับสโมสร ใส่ใน OBS / Streamlabs / Larix — มือถือใส่คะแนน + Browser Source จากนั้น ฿99/เดือน หรือ ฿990/ปี",
+      en: "Open from IN Z account (SSO). Club sports overlay for OBS / Streamlabs / Larix — then pay Monthly or Yearly on inz.lol/pay.",
+      th: "เปิดจากบัญชี IN Z (SSO) สกอร์บอร์ด overlay สำหรับ OBS / Streamlabs / Larix — แล้วชำระรายเดือน/รายปีที่ inz.lol/pay",
     },
     ctaLabel: {
       en: "Try Score Board Live",

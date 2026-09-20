@@ -1782,6 +1782,47 @@ img {
   color: var(--muted);
 }
 
+.product-usage-list {
+  list-style: decimal;
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.product-usage-list li {
+  padding-left: 0.25rem;
+}
+
+.product-usage-list strong {
+  display: block;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  color: var(--ink);
+}
+
+.product-usage-list span {
+  display: block;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.product-usage-tips {
+  list-style: disc;
+  margin: 1rem 0 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.4rem;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
 @media (min-width: 900px) {
   .page-products:has(.products-panel) {
     min-height: max(100svh, 46rem);

@@ -116,6 +116,7 @@ export type SiteCopy = {
     back: string;
     catalog: string;
     manual: string;
+    usage: string;
     yourPackage: string;
     signInSignUp: string;
     pay: string;
@@ -416,6 +417,7 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       back: "กลับไปผลิตภัณฑ์",
       catalog: "แคตตาล็อก",
       manual: "ดาวน์โหลดคู่มือ",
+      usage: "วิธีใช้งาน",
       yourPackage: "แพ็กเกจของคุณ",
       signInSignUp: "เข้าสู่ระบบ / สมัคร",
       pay: "ชำระเงิน",
@@ -720,6 +722,7 @@ export const SITE_COPY: Record<AuthLang, SiteCopy> = {
       back: "Back to products",
       catalog: "Catalog",
       manual: "Download manual",
+      usage: "How to use",
       yourPackage: "Your package",
       signInSignUp: "Sign in / Sign up",
       pay: "Pay",

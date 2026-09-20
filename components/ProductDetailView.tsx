@@ -31,6 +31,7 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
   const scopeCopy = SCOPE_OF_WORK_COPY[lang];
   const pricing = pricingForProduct(product, model, lang);
   const scope = product.scopeOfWork?.[lang] || product.scopeOfWork?.th || product.scopeOfWork?.en;
+  const usage = product.usageGuide?.[lang] || product.usageGuide?.th || product.usageGuide?.en;
   const [signedIn, setSignedIn] = useState(false);
 
   useEffect(() => {
@@ -143,6 +144,32 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
                 </li>
               ))}
             </ul>
+          </section>
+        ) : null}
+
+        {usage ? (
+          <section
+            className="product-detail-section"
+            id="usage"
+            aria-labelledby="product-usage-heading"
+          >
+            <h2 id="product-usage-heading">{usage.title || t.usage}</h2>
+            {usage.intro ? <p className="product-detail-body">{usage.intro}</p> : null}
+            <ol className="product-usage-list">
+              {usage.steps.map((step) => (
+                <li key={step.title}>
+                  <strong>{step.title}</strong>
+                  <span>{step.detail}</span>
+                </li>
+              ))}
+            </ol>
+            {usage.tips?.length ? (
+              <ul className="product-usage-tips">
+                {usage.tips.map((tip) => (
+                  <li key={tip}>{tip}</li>
+                ))}
+              </ul>
+            ) : null}
           </section>
         ) : null}
 

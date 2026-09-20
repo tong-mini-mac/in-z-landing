@@ -41,6 +41,20 @@ export type ScopeOfWork = {
 
 export type LocalizedScopeOfWork = Record<AuthLang, ScopeOfWork>;
 
+export type UsageStep = {
+  title: string;
+  detail: string;
+};
+
+export type UsageGuide = {
+  title: string;
+  intro: string;
+  steps: UsageStep[];
+  tips?: string[];
+};
+
+export type LocalizedUsageGuide = Record<AuthLang, UsageGuide>;
+
 export type CatalogProduct = {
   name: string;
   title: LocalizedText;
@@ -50,6 +64,8 @@ export type CatalogProduct = {
   models: ProductModel[];
   /** Optional Scope of Work shown via product card button (TH/EN). */
   scopeOfWork?: LocalizedScopeOfWork;
+  /** Customer-facing how-to-use (app workflow only — not full engineering manual). */
+  usageGuide?: LocalizedUsageGuide;
   /** Per-model pricing; falls back to earlyBird/regular when absent. */
   pricingByModel?: Partial<
     Record<
@@ -314,8 +330,93 @@ const NETR_DESCRIPTION: LocalizedText = {
 };
 
 const SCORE_BOARD_DESCRIPTION: LocalizedText = {
-  en: "Score Board Live is a club sports scoreboard overlay for snooker, football, volleyball, badminton, tennis, chess, TCG, and cards. Sign up for a 5-day full-feature trial, then ฿99/month or ฿990/year. Copy an Overlay URL into OBS / Streamlabs / Larix as a Browser Source; update scores from a phone. Video stays on the customer's encoder — not our servers.",
-  th: "Score Board Live คือสกอร์บอร์ด overlay สำหรับสโมสร (สนุกเกอร์ ฟุตบอล วอลเลย์ แบดมินตัน เทนนิส หมากรุก TCG ไพ่) สมัครแล้วทดลองฟรี 5 วันครบฟีเจอร์ จากนั้น ฿99/เดือน หรือ ฿990/ปี คัดลอก Overlay URL ไปใส่ Browser Source ใน OBS / Streamlabs / Larix อัปเดตคะแนนจากมือถือ วิดีโออยู่ที่ encoder ของลูกค้า ไม่ผ่านเซิร์ฟเวอร์เรา",
+  en: "Score Board Live is a club sports scoreboard overlay for snooker, football, volleyball, badminton, tennis, chess, TCG, and cards. Sign in once on inz.lol, open from My Account (SSO) for a 5-day full-feature trial, then pay ฿99/month or ฿990/year on the shared IN Z checkout. Copy an Overlay URL into OBS / Streamlabs / Larix as a Browser Source; update scores from a phone. Video stays on the customer's encoder — not our servers.",
+  th: "Score Board Live คือสกอร์บอร์ด overlay สำหรับสโมสร (สนุกเกอร์ ฟุตบอล วอลเลย์ แบดมินตัน เทนนิส หมากรุก TCG ไพ่) ล็อกอินครั้งเดียวที่ inz.lol แล้วเปิดจากบัญชี (SSO) ได้ทดลองครบฟีเจอร์ 5 วัน จากนั้นชำระ ฿99/เดือน หรือ ฿990/ปี ที่หน้า Pay รวมของ IN Z คัดลอก Overlay URL ไปใส่ Browser Source ใน OBS / Streamlabs / Larix อัปเดตคะแนนจากมือถือ วิดีโออยู่ที่ encoder ของลูกค้า ไม่ผ่านเซิร์ฟเวอร์เรา",
+};
+
+const SCORE_BOARD_USAGE: LocalizedUsageGuide = {
+  th: {
+    title: "วิธีใช้งานแอป",
+    intro:
+      "วิดีโอไม่ผ่านเซิร์ฟเวอร์เรา — ลูกค้าผสมกล้องกับ Overlay ในแอปไลฟ์ของตัวเอง แล้วส่งไป Facebook หรือ YouTube",
+    steps: [
+      {
+        title: "เปิดจากบัญชี IN Z แล้วตั้งแมตช์",
+        detail:
+          "เข้า Score Board จากบัญชี IN Z เลือกชนิดกีฬา ชื่อผู้เล่น/ทีม (2–4) กติกาคลับ และโหมด Day/Night ของสกอร์บาร์ แล้วบันทึกแมตช์",
+      },
+      {
+        title: "คัดลอก Overlay URL",
+        detail:
+          "คัดลอก URL จากหน้าหลัก ใส่เฉพาะในโปรแกรมไลฟ์ อย่าโพสต์สาธารณะ — URL นี้เท่ากับรหัสผ่านของสกอร์บอร์ด",
+      },
+      {
+        title: "เปิดแผงใส่คะแนนบนมือถือ",
+        detail:
+          "ใช้อีกเครื่อง (มือถือ/แท็บเล็ต) เปิดแผงสกอร์ กดคะแนน ชื่อ สปอนเซอร์ และแต้มต่อ Overlay อัปเดตทันที",
+      },
+      {
+        title: "ใส่ Overlay ในแอป encoder",
+        detail:
+          "บนคอม: OBS / Streamlabs / PRISM — เพิ่ม Browser Source หรือ Webpage วาง Overlay URL ขนาดเท่าฉาก (เช่น 1920×1080) พื้นโปร่งใส บนมือถือ: Larix / PRISM / Streamlabs Mobile — Web Widget (ต้อง HTTPS)",
+      },
+      {
+        title: "ไลฟ์ออกเพจหรือช่องด้วยสตรีมคีย์",
+        detail:
+          "ตั้งปลายทางเป็น Facebook Live Producer หรือ YouTube Studio (streaming software) แล้วกดเริ่มสตรีมในแอป encoder — ห้ามไลฟ์จากกล้องในแอป Facebook/YouTube โดยตรง เพราะใส่ Overlay ไม่ได้",
+      },
+      {
+        title: "อัปเดตสกอร์ระหว่างไลฟ์",
+        detail:
+          "กดคะแนนบนมือถือระหว่างแข่ง Overlay ใน Browser Source เปลี่ยนตาม จบไลฟ์ที่แอป encoder",
+      },
+    ],
+    tips: [
+      "Day = บาร์อ่อนตัวเข้ม (ห้องสว่าง) · Night = บาร์เข้มตัวสว่าง (ห้องมืด) — สลับได้ตอนตั้งแมตช์หรือหน้าใส่คะแนน",
+      "ช่องสปอนเซอร์ว่างจะโปร่งใสบน Overlay ไม่บังภาพ",
+    ],
+  },
+  en: {
+    title: "How to use the app",
+    intro:
+      "Video never goes through our servers — you mix camera + Overlay in your own encoder app, then stream to Facebook or YouTube.",
+    steps: [
+      {
+        title: "Open from your IN Z account and set the match",
+        detail:
+          "Launch Score Board from My Account. Choose sport, 2–4 player/team names, house rules, and Day/Night for the score bar, then save the match.",
+      },
+      {
+        title: "Copy the Overlay URL",
+        detail:
+          "Copy the URL from the home screen. Paste it only into your encoder — treat it like a password and do not post it publicly.",
+      },
+      {
+        title: "Open the scorer on a phone",
+        detail:
+          "On a second device, open the score panel. Update scores, names, sponsors, and handicap; the overlay refreshes immediately.",
+      },
+      {
+        title: "Add the Overlay in your encoder app",
+        detail:
+          "Desktop: OBS / Streamlabs / PRISM — Browser or Webpage source, paste Overlay URL, size equal to canvas (e.g. 1920×1080), transparent background. Mobile: Larix / PRISM / Streamlabs Mobile — Web Widget (HTTPS required).",
+      },
+      {
+        title: "Go live with a stream key",
+        detail:
+          "Point the encoder at Facebook Live Producer or YouTube Studio (streaming software), then Start Streaming. Do not use the in-app Facebook/YouTube camera — those cannot load this overlay.",
+      },
+      {
+        title: "Update scores during the live",
+        detail:
+          "Tap scores on the phone while live; the Browser Source updates over the connection. End the stream in the encoder app.",
+      },
+    ],
+    tips: [
+      "Day = light bar / dark text (bright rooms) · Night = dark bar / light text (dark halls) — switch on match setup or the scorer.",
+      "Empty sponsor slots stay transparent on the overlay.",
+    ],
+  },
 };
 
 const PRISM_DESCRIPTION: LocalizedText = {
@@ -819,6 +920,7 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
       th: "Score Board Live — สกอร์บอร์ดสโมสร",
     },
     description: SCORE_BOARD_DESCRIPTION,
+    usageGuide: SCORE_BOARD_USAGE,
     earlyBirdPrice: {
       en: "5-day free trial",
       th: "ทดลองฟรี 5 วัน",
@@ -833,8 +935,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
         ctaLabel: { en: "Open Score Board Live", th: "เปิด Score Board Live" },
         ctaHref: "/demo",
         note: {
-          en: "Sign up in-app for 5 free days. After trial, transfer ฿99/month or ฿990/year and an operator activates at /admin. Overlay URL goes into OBS / Streamlabs / Larix; scores update from a second device. Prices exclude VAT 7%.",
-          th: "สมัครในแอปได้ทดลองฟรี 5 วัน หลังทดลองโอน ฿99/เดือน หรือ ฿990/ปี แล้วทีมเปิดที่ /admin นำ Overlay URL ไปใส่ OBS / Streamlabs / Larix อัปเดตคะแนนจากอีกเครื่อง ราคาไม่รวม VAT 7%",
+          en: "Sign in on inz.lol → open from My Account (SSO) for 5 free days. Renew on /pay (Monthly or Yearly package). Overlay URL goes into OBS / Streamlabs / Larix; scores update from a second device. Prices exclude VAT 7%.",
+          th: "ยืนยันตัวตนที่ inz.lol → เปิดจากบัญชี IN Z (SSO) ได้ทดลองฟรี 5 วัน ต่ออายุที่ /pay ตามแพ็กเกจรายเดือนหรือรายปี นำ Overlay URL ไปใส่ OBS / Streamlabs / Larix อัปเดตคะแนนจากอีกเครื่อง ราคาไม่รวม VAT 7%",
         },
         tiers: SCORE_BOARD_SAAS_TIERS,
       },
