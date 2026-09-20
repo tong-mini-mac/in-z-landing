@@ -1185,6 +1185,9 @@ img {
   .page-demo.is-demo-hub .demo-shell {
     display: flex;
     flex-direction: column;
+    /* Fixed sidebar is 15.5rem — keep list + stage clear of it when the window is short/narrow. */
+    padding-left: 15.5rem;
+    box-sizing: border-box;
   }
 
   .page-demo.is-demo-hub .demo-shell > .demo-body,
@@ -1206,7 +1209,6 @@ img {
     display: none;
   }
 
-  /* Sidebar overlays; main content stays viewport-centered */
   .page-demo.is-demo-hub .demo-side {
     position: fixed;
     top: 0;
@@ -1227,7 +1229,8 @@ img {
 
   .page-demo.is-demo-stage .demo-stage {
     overflow: hidden;
-    padding-left: 15.5rem;
+    /* Shell already pads for the sidebar */
+    padding-left: 0;
   }
 
   .page-demo.is-demo-hub > .nav-auth-wrap {
