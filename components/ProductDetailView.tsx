@@ -32,6 +32,8 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
   const pricing = pricingForProduct(product, model, lang);
   const scope = product.scopeOfWork?.[lang] || product.scopeOfWork?.th || product.scopeOfWork?.en;
   const usage = product.usageGuide?.[lang] || product.usageGuide?.th || product.usageGuide?.en;
+  const story =
+    product.catalogStory?.[lang] || product.catalogStory?.th || product.catalogStory?.en;
   const [signedIn, setSignedIn] = useState(false);
   const [manualOpen, setManualOpen] = useState(false);
 
@@ -89,7 +91,67 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
 
         <section className="product-detail-section" aria-labelledby="product-catalog-heading">
           <h2 id="product-catalog-heading">{t.catalog}</h2>
-          <p className="product-detail-body">{pickLang(product.description, lang)}</p>
+          <p className="product-detail-body">
+            {story?.lead || pickLang(product.description, lang)}
+          </p>
+
+          {story?.pain?.length ? (
+            <div className="product-catalog-block">
+              {story.painHeading ? (
+                <p className="product-scope-heading">{story.painHeading}</p>
+              ) : null}
+              <ul className="product-catalog-bullets">
+                {story.pain.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {story?.howSteps?.length ? (
+            <div className="product-catalog-block" id="how">
+              {story.howHeading ? (
+                <p className="product-scope-heading">{story.howHeading}</p>
+              ) : null}
+              <ol className="product-usage-list">
+                {story.howSteps.map((step) => (
+                  <li key={step.title}>
+                    <strong>{step.title}</strong>
+                    <span>{step.detail}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : null}
+
+          {story?.sports?.length ? (
+            <div className="product-catalog-block">
+              {story.sportsHeading ? (
+                <p className="product-scope-heading">{story.sportsHeading}</p>
+              ) : null}
+              <ul className="product-catalog-tags">
+                {story.sports.map((sport) => (
+                  <li key={sport}>{sport}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {story?.features?.length ? (
+            <div className="product-catalog-block">
+              {story.featuresHeading ? (
+                <p className="product-scope-heading">{story.featuresHeading}</p>
+              ) : null}
+              <ul className="product-scope-list">
+                {story.features.map((feat) => (
+                  <li key={feat.title}>
+                    <strong>{feat.title}</strong>
+                    <span>{feat.detail}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
 
           {pricing?.tiers?.length ? (
             <ul className="product-pricing product-pricing-tiers product-detail-tiers">
@@ -118,6 +180,26 @@ export function ProductDetailView({ product, model }: ProductDetailViewProps) {
           )}
           {pricing?.note ? (
             <p className="product-pricing-note">{pricing.note}</p>
+          ) : null}
+
+          {story?.faq?.length ? (
+            <div className="product-catalog-block">
+              {story.faqHeading ? (
+                <p className="product-scope-heading">{story.faqHeading}</p>
+              ) : null}
+              <ul className="product-catalog-faq">
+                {story.faq.map((item) => (
+                  <li key={item.question}>
+                    <strong>{item.question}</strong>
+                    <span>{item.answer}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {story?.closing ? (
+            <p className="product-detail-body product-catalog-closing">{story.closing}</p>
           ) : null}
         </section>
 
