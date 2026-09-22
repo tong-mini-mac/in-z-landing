@@ -1,5 +1,19 @@
 import type { ProductModel } from "@/lib/product-models";
 import type { AuthLang } from "@/lib/auth-i18n";
+import {
+  SYNTHCOMM_DESCRIPTION,
+  SYNTHCOMM_STORY,
+  QA_LAB_DESCRIPTION,
+  QA_LAB_STORY,
+  MUSIC_DEMO_DESCRIPTION,
+  MUSIC_DEMO_STORY,
+  CONTENT_CREATOR_DESCRIPTION,
+  CONTENT_CREATOR_STORY,
+  NETR_DESCRIPTION,
+  NETR_STORY,
+  PRISM_DESCRIPTION,
+  PRISM_STORY,
+} from "@/lib/catalog-stories";
 
 export type LocalizedText = Record<AuthLang, string>;
 
@@ -110,15 +124,6 @@ export type CatalogProduct = {
   >;
 };
 
-const SYNTHCOMM_DESCRIPTION: LocalizedText = {
-  en: "Industrial multi-agent factory for high-fidelity synthetic CS data (Thai · English · Indonesian · Vietnamese) — web-grounded SOP production, locale-locked geo/banks/tracking, multi-dimensional QC, and a B2B web portal. Customer channel is the web portal only (no Telegram or LINE bot). Start free with 100 conversations per month, then Starter, Growth, Business, or Enterprise.",
-  th: "โรงงาน multi-agent สำหรับข้อมูลบทสนทนาสังเคราะห์คุณภาพสูง (ไทย · อังกฤษ · อินโดนีเซีย · เวียดนาม) — ผลิต SOP จากเว็บ ล็อก locale (เมือง/ธนาคาร/แทร็กกิง) QC หลายมิติ และพอร์ทัลลูกค้า B2B ช่องทางลูกค้าคือ Web Portal เท่านั้น ไม่มีบอท Telegram หรือ LINE เริ่มฟรี 100 บทสนทนาต่อเดือน แล้วขยายเป็น Starter, Growth, Business หรือ Enterprise",
-};
-
-const UNIVERSAL_SIMULATOR_DESCRIPTION: LocalizedText = {
-  en: "IN Z QA LAB — simulation and verification for web, API, and mobile. Persona → Simulate → ML/AI → Portal. QA simulation & verification lab · Web · API · Mobile · Bring Your Own API Key. Early Bird 2026: SaaS ฿490–5,990/month · License ฿120K–300K/year · White Label ฿3M+. Free readiness check on a live system URL — no signup.",
-  th: "IN Z QA LAB — จำลอง + ตรวจสอบเว็บ/API/มือถือ · Persona → Simulate → ML/AI → Portal ห้องแล็บจำลองและตรวจสอบสำหรับทีม QA · Web · API · Mobile · นำคีย์ API มาเอง Early Bird 2026: SaaS ฿490–5,990/เดือน · License ฿120K–300K/ปี · White Label ฿3M+ ตรวจความพร้อมฟรีจาก URL ระบบที่รันอยู่ — ไม่ต้องสมัคร",
-};
 
 const UNIVERSAL_SIMULATOR_SCOPE_EN: ScopeOfWork = {
   summary:
@@ -344,20 +349,6 @@ export const SCOPE_OF_WORK_COPY: Record<
   },
 };
 
-const MUSIC_DEMO_DESCRIPTION: LocalizedText = {
-  en: "Music Demo is a DEMO / blueprint tool — we do not create the finished work; you do. Tagline: we help you complete. Core package is Artist Blueprint (lyrics · chords · MIDI/MusicXML) for playing on real instruments. AI vocal preview is a separate add-on from ฿49, not for commercial release. Credits pay-as-you-go (฿30 = 100 credits): create 50 · regenerate 25 · re-edit 50. Signup bonus 100 credits (300 for the first 30 users). For Gen Z, students, buskers, and small studios — not a commercial-ready song.",
-  th: "Music Demo เป็นเครื่องมือสร้าง DEMO / blueprint — เราไม่ได้สร้างสิ่งที่สมบูรณ์ คุณคือคนสร้างสิ่งที่สมบูรณ์ แพ็กหลักคือ Artist Blueprint (คำร้อง · คอร์ด · โน้ต/MIDI/MusicXML) สำหรับเล่นบนเครื่องจริง เสียงร้อง AI เป็นแอดออนแยก เริ่ม ฿49 ไม่ใช่ไฟล์ปล่อยขาย เครดิตจ่ายตามใช้ (฿30 = 100 เครดิต): สร้างเพลง 50 · เจนใหม่ 25 · Re-edit 50 โบนัสสมัคร 100 เครดิต (300 สำหรับ 30 คนแรก) สำหรับ Gen Z นักเรียน Busker และสตูดิโอเล็ก — ไม่ใช่ผลงานสำเร็จรูปพร้อมวางขาย",
-};
-
-const CONTENT_CREATOR_DESCRIPTION: LocalizedText = {
-  en: "Content Creator is a SaaS for making and managing content in Thai dialects (Northern · Isan · Southern) and SEA (Vietnamese · Indonesian · Central Thai · English). Pipeline: podcast upload → STT → show notes → clips → RSS, plus AI Video (idea chat → script → media match → TTS → render MP4 → multi-platform publish). 14-day free trial, then Starter ฿599 · Creator ฿1,499 · Pro ฿2,999 per month.",
-  th: "Content Creator เป็น SaaS สำหรับสร้างและจัดการคอนเทนต์ภาษาถิ่นไทย (เหนือ · อีสาน · ใต้) และ SEA (เวียดนาม · อินโดนีเซีย · ไทยกลาง · อังกฤษ) ไปป์ไลน์พอดแคสต์: อัปโหลด → ถอดเสียง → show notes → clips → RSS และ AI Video: chat แต่งเรื่อง/สคริปต์ → อัปโหลดสื่อ → จับคู่ฉาก → TTS → เรนเดอร์ MP4 → คิว publish ทดลองฟรี 14 วัน แล้วเป็น Starter ฿599 · Creator ฿1,499 · Pro ฿2,999 ต่อเดือน",
-};
-
-const NETR_DESCRIPTION: LocalizedText = {
-  en: "netr (เนตร) is IN Z’s Thai karmic-astrology oracle: ancient Thai texts plus AI that remembers you. Sign up on inz.lol, open NetR from your account (SSO), then record your birth chart once — no duplicate phone OTP on NetR. Chart view is owner-only. Chat on the web — 5 free minutes/day, then Prepaid or Plus. Not medical or psychiatric advice.",
-  th: "เนตร (netr) คือ Oracle โหราศาสตร์ปฏิวัติกรรมจากตำราไทยโบราณ ผสาน AI ที่จำคุณได้ สมัครที่ inz.lol เปิด NetR จากบัญชี (SSO) แล้วจารึกดวงเกิดครั้งเดียว — ไม่ยืนยันเบอร์ซ้ำที่ NetR ดูดวงได้เจ้าของบัญชีเท่านั้น คุยบนเว็บ ฟรี 5 นาที/วัน แล้ว Prepaid หรือ Plus ไม่ใช่คำปรึกษาทางการแพทย์หรือจิตเวช",
-};
 
 const SCORE_BOARD_DESCRIPTION: LocalizedText = {
   en: "Club sports live with a pro scoreboard in five minutes. No extra hardware, no technician hire — copy the Overlay URL into OBS and the score shows on Facebook or YouTube. Five-day full-feature trial via your IN Z account, then Monthly or Yearly on shared checkout. Video stays on your encoder — not our servers.",
@@ -961,11 +952,6 @@ const PRISM_USAGE: LocalizedUsageGuide = {
   },
 };
 
-const PRISM_DESCRIPTION: LocalizedText = {
-  en: "PRISM (Property Retrieval & Intent Subset Matching) is an AI customer-engagement platform for real estate marketing, powered by SRAG (Subset Retrieval Augmented Generation). It classifies intent, segments leads High / Medium / Low, matches projects, and nurtures from registration through closing — with SubsetGuard so each user only searches inside their assigned data subset.",
-  th: "PRISM (Property Retrieval & Intent Subset Matching) เป็นแพลตฟอร์มดูแลลูกค้าด้วย AI สำหรับการตลาดอสังหาริมทรัพย์ ขับเคลื่อนด้วย SRAG (Subset Retrieval Augmented Generation) จำแนกเจตนา แบ่งลีด High / Medium / Low จับคู่โครงการ และดูแลตั้งแต่ลงทะเบียนถึงปิดการขาย พร้อม SubsetGuard ให้แต่ละผู้ใช้ค้นได้เฉพาะชุดข้อมูลที่ได้รับสิทธิ์",
-};
-
 const SYNTHCOMM_SAAS_TIERS: PricingTier[] = [
   {
     name: { en: "Free", th: "ฟรี" },
@@ -1287,10 +1273,11 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "SynthComm",
     title: {
-      en: "SynthComm — Industrial synthetic CS data factory",
-      th: "SynthComm — โรงงานข้อมูลบทสนทนาสังเคราะห์",
+      en: "Synthetic customer chats for AI training — without real chats",
+      th: "บทสนทนาลูกค้าสังเคราะห์สำหรับเทรน AI — โดยไม่ใช้แชทจริง",
     },
     description: SYNTHCOMM_DESCRIPTION,
+    catalogStory: SYNTHCOMM_STORY,
     usageGuide: SYNTHCOMM_USAGE,
     earlyBirdPrice: { en: "Contact for quote", th: "ติดต่อขอใบเสนอราคา" },
     regularPrice: { en: "Custom packaging", th: "แพ็กเกจตามความต้องการ" },
@@ -1331,10 +1318,11 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "QA LAB",
     title: {
-      en: "QA LAB — simulation & verification for web, API, and mobile",
-      th: "QA LAB — จำลองและตรวจสอบเว็บ API และมือถือ",
+      en: "Check if your live website or API is ready for customers",
+      th: "ตรวจว่าระบบเว็บหรือ API ที่เปิดอยู่พร้อมรับลูกค้าหรือยัง",
     },
-    description: UNIVERSAL_SIMULATOR_DESCRIPTION,
+    description: QA_LAB_DESCRIPTION,
+    catalogStory: QA_LAB_STORY,
     usageGuide: QA_LAB_USAGE,
     earlyBirdPrice: {
       en: "SaaS from ฿490 / month · License Early Bird from ฿120,000 / year",
@@ -1382,10 +1370,11 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "Music Demo",
     title: {
-      en: "Music Demo — We help you complete",
-      th: "Music Demo — เราช่วยให้คุณสมบูรณ์",
+      en: "Song blueprint (lyrics · chords · MIDI) you finish yourself",
+      th: "แบบร่างเพลง (คำร้อง · คอร์ด · MIDI) ให้คุณทำให้สมบูรณ์เอง",
     },
     description: MUSIC_DEMO_DESCRIPTION,
+    catalogStory: MUSIC_DEMO_STORY,
     usageGuide: MUSIC_DEMO_USAGE,
     earlyBirdPrice: {
       en: "Signup bonus 100–300 credits · top-up from ฿30",
@@ -1411,10 +1400,11 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "Content Creator",
     title: {
-      en: "Content Creator — Thai dialects + SEA",
-      th: "Content Creator — ถิ่นไทย + SEA",
+      en: "Podcasts and short AI videos in Thai dialects / SEA",
+      th: "พอดแคสต์และวิดีโอสั้นภาษาถิ่นไทย / SEA",
     },
     description: CONTENT_CREATOR_DESCRIPTION,
+    catalogStory: CONTENT_CREATOR_STORY,
     usageGuide: CONTENT_CREATOR_USAGE,
     earlyBirdPrice: { en: "14-day free trial", th: "ทดลองฟรี 14 วัน" },
     regularPrice: { en: "฿599 – ฿2,999 / month", th: "฿599 – ฿2,999 / เดือน" },
@@ -1424,8 +1414,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
         ctaLabel: { en: "Open Content Creator", th: "เปิด Content Creator" },
         ctaHref: "/demo",
         note: {
-          en: "Source of truth: api/src/config/plans.ts — Free Trial then Starter / Creator / Pro. Monthly quotas reset on the 1st (Thailand time). Trial videos always have a watermark.",
-          th: "ต้นฉบับราคา: api/src/config/plans.ts — ทดลองฟรี แล้วเป็น Starter / Creator / Pro โควตารายเดือนรีเซ็ตวันที่ 1 ตามเวลาไทย วิดีโอช่วงทดลองติดลายน้ำเสมอ",
+          en: "Free Trial, then Starter / Creator / Pro. Monthly quotas reset on the 1st (Thailand time). Trial videos always have a watermark.",
+          th: "ทดลองฟรี แล้วเป็น Starter / Creator / Pro โควตารายเดือนรีเซ็ตวันที่ 1 ตามเวลาไทย วิดีโอช่วงทดลองติดลายน้ำเสมอ",
         },
         tiers: CONTENT_CREATOR_SAAS_TIERS,
       },
@@ -1434,10 +1424,11 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "NetR",
     title: {
-      en: "netr — Oracle of Karmic Stars",
-      th: "เนตร — Oracle ที่รู้จักคุณดีกว่าใคร",
+      en: "Thai astrology chat that remembers your birth chart",
+      th: "คุยโหราศาสตร์ไทย ที่จำดวงเกิดของคุณได้",
     },
     description: NETR_DESCRIPTION,
+    catalogStory: NETR_STORY,
     usageGuide: NETR_USAGE,
     earlyBirdPrice: {
       en: "Free — 5 minutes / day",
@@ -1493,10 +1484,11 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "PRISM",
     title: {
-      en: "PRISM — Property Retrieval & Intent Subset Matching",
-      th: "PRISM — ค้นโครงการและจับคู่เจตนาด้วย SRAG",
+      en: "Match real-estate leads to the right project — with permissions",
+      th: "จับคู่ลีดอสังหากับโครงการที่ถูก — พร้อมจำกัดสิทธิ์ข้อมูล",
     },
     description: PRISM_DESCRIPTION,
+    catalogStory: PRISM_STORY,
     usageGuide: PRISM_USAGE,
     earlyBirdPrice: {
       en: "Contact for License / White Label quote",
