@@ -20,10 +20,22 @@ import {
 } from "@/lib/product-handoff-client";
 import { createDemoUsageTracker } from "@/lib/product-usage";
 import { SITE_COPY } from "@/lib/site-i18n";
+import { setStoredAuthLang, type AuthLang } from "@/lib/auth-i18n";
 import { useSiteLang } from "@/lib/use-site-lang";
 
 function isFrameable(offer: DemoOffer): boolean {
   return offer.frameable !== false;
+}
+
+/** Pass Landing TH/EN into product iframes (cross-origin localStorage is isolated). */
+function withUiLang(url: string, lang: AuthLang): string {
+  try {
+    const u = new URL(url);
+    u.searchParams.set("lang", lang);
+    return u.toString();
+  } catch {
+    return url;
+  }
 }
 
 /** Prefer full-page open on phones/tablets — iframes often render as a tiny unusable strip. */
@@ -112,6 +124,11 @@ export function DemoHub() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!stageUrl) return;
+    setStageUrl((prev) => (prev ? withUiLang(prev, lang) : prev));
+  }, [lang]);
+
   async function resolveOfferUrl(offer: DemoOffer): Promise<{
     url: string;
     sso: boolean;
@@ -119,7 +136,7 @@ export function DemoHub() {
     const current = getSession();
     setSession(current);
     if (!current?.user?.email) {
-      return { url: offer.href, sso: false };
+      return { url: withUiLang(offer.href, lang), sso: false };
     }
 
     const { path, hash } = pathPartsFromHref(offer.href);
@@ -138,11 +155,11 @@ export function DemoHub() {
     });
 
     if (result.url) {
-      return { url: result.url, sso: true };
+      return { url: withUiLang(result.url, lang), sso: true };
     }
 
     // 501 / network / etc. — still open the live app URL (no blank stage).
-    return { url: offer.href, sso: false };
+    return { url: withUiLang(offer.href, lang), sso: false };
   }
 
   async function openOffer(offer: DemoOffer) {
@@ -162,7 +179,7 @@ export function DemoHub() {
         });
         window.location.assign(resolved.url);
       } catch {
-        window.location.assign(offer.href);
+        window.location.assign(withUiLang(offer.href, lang));
       }
       return;
     }
@@ -184,7 +201,7 @@ export function DemoHub() {
         openedViaHandoff: resolved.sso,
       });
     } catch {
-      setStageUrl(offer.href);
+      setStageUrl(withUiLang(offer.href, lang));
       setUsedSso(false);
       activeUsageRef.current = {
         productId: offer.id,
@@ -259,7 +276,12 @@ export function DemoHub() {
       >
         <div className="demo-side-top">
           <p className="demo-side-brand">IN Z</p>
-          <AuthLangToggle lang={lang} onChange={() => {}} />
+          <AuthLangToggle
+            lang={lang}
+            onChange={(next) => {
+              setStoredAuthLang(next);
+            }}
+          />
         </div>
         <nav className="demo-side-nav">
           <a href="/">{nav.home}</a>
