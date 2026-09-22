@@ -619,7 +619,7 @@ const SYNTHCOMM_USAGE: LocalizedUsageGuide = {
   th: {
     title: "วิธีใช้งานแอป",
     intro:
-      "SynthComm ใช้ผ่าน Web Portal เท่านั้น — เปิดจากบัญชี IN Z แล้วสั่งงาน ดาวน์โหลดได้ทั้งข้อมูลและรายงานสรุปจ๊อบ",
+      "SynthComm ใช้ผ่าน Web Portal เท่านั้น — สร้างได้ทั้งบทสนทนา (dialogue) และเอกสาร JSON (document) เปิดจากบัญชี IN Z แล้วสั่งงาน ดาวน์โหลดข้อมูลพร้อมรายงานสรุปจ๊อบ",
     steps: [
       {
         title: "เปิดจากบัญชี IN Z",
@@ -628,7 +628,7 @@ const SYNTHCOMM_USAGE: LocalizedUsageGuide = {
       {
         title: "สร้างงาน",
         detail:
-          "แท็บสร้างงาน: Topic · ภาษา Thai/English/Vietnamese/Indonesian · จำนวน · Bundle/JSON/CSV/PDF · (ถ้ามี) CSV แล้วกดส่งงาน",
+          "แท็บสร้างงาน: เลือกบทสนทนาหรือเอกสาร · (เอกสาร) เลือกรูปแบบ เช่น แบบฟอร์มร้องเรียน / อีเมล / ประกาศนิติ / ใบแจ้งหนี้ / ตั๋วซัพพอร์ต · Topic · ภาษา Thai/English/Vietnamese/Indonesian · จำนวน · Bundle/JSON/CSV/PDF · (ถ้ามี) CSV แล้วกดส่งงาน",
       },
       {
         title: "ติดตามและดาวน์โหลด",
@@ -643,13 +643,14 @@ const SYNTHCOMM_USAGE: LocalizedUsageGuide = {
     ],
     tips: [
       "Thai ไม่ระบุภูมิภาค → ภาคกลาง · English ไม่ระบุประเทศ → สิงคโปร์",
+      "โควตาคิดเป็นแถวต่องาน — ทั้งบทสนทนาและเอกสารใช้โควตาเดียวกัน",
       "รายงานสรุปจ๊อบแยกจากไฟล์ข้อมูลดิบ — โหลดได้เฉพาะผลจ๊อบ ไม่ใช่เอนจิน",
     ],
   },
   en: {
     title: "How to use the app",
     intro:
-      "SynthComm is web-portal only — open from your IN Z account, run jobs, and download both data and a job summary report.",
+      "SynthComm is web-portal only — build CS dialogues or document JSON rows. Open from your IN Z account, run jobs, and download data plus a job summary report.",
     steps: [
       {
         title: "Open from your IN Z account",
@@ -658,7 +659,7 @@ const SYNTHCOMM_USAGE: LocalizedUsageGuide = {
       {
         title: "Create a job",
         detail:
-          "New job: Topic · Thai/English/Vietnamese/Indonesian · count · Bundle/JSON/CSV/PDF · optional CSV → Submit.",
+          "New job: pick Dialogue or Document · (Document) choose complaint form / email / HOA notice / invoice / support ticket · Topic · Thai/English/Vietnamese/Indonesian · count · Bundle/JSON/CSV/PDF · optional CSV → Submit.",
       },
       {
         title: "Track and download",
@@ -672,6 +673,7 @@ const SYNTHCOMM_USAGE: LocalizedUsageGuide = {
     ],
     tips: [
       "Thai with no region defaults to Central · English with no country defaults to Singapore.",
+      "Quota is per row — dialogue and document jobs share the same monthly quota.",
       "The job summary report is separate from raw data — outputs only, not the engine.",
     ],
   },
@@ -957,8 +959,8 @@ const SYNTHCOMM_SAAS_TIERS: PricingTier[] = [
     name: { en: "Free", th: "ฟรี" },
     price: "฿0",
     detail: {
-      en: "100 conversations / month",
-      th: "100 บทสนทนา / เดือน",
+      en: "100 rows / month (dialogue or document)",
+      th: "100 แถว / เดือน (บทสนทนาหรือเอกสาร)",
     },
     highlight: true,
   },
@@ -966,24 +968,24 @@ const SYNTHCOMM_SAAS_TIERS: PricingTier[] = [
     name: { en: "Starter", th: "Starter" },
     price: "฿2,900 / month",
     detail: {
-      en: "1,000 conversations / month",
-      th: "1,000 บทสนทนา / เดือน",
+      en: "1,000 rows / month (dialogue or document)",
+      th: "1,000 แถว / เดือน (บทสนทนาหรือเอกสาร)",
     },
   },
   {
     name: { en: "Growth", th: "Growth" },
     price: "฿12,900 / month",
     detail: {
-      en: "5,000 conversations / month",
-      th: "5,000 บทสนทนา / เดือน",
+      en: "5,000 rows / month (dialogue or document)",
+      th: "5,000 แถว / เดือน (บทสนทนาหรือเอกสาร)",
     },
   },
   {
     name: { en: "Business", th: "Business" },
     price: "฿39,000 / month",
     detail: {
-      en: "20,000 conversations / month",
-      th: "20,000 บทสนทนา / เดือน",
+      en: "20,000 rows / month (dialogue or document)",
+      th: "20,000 แถว / เดือน (บทสนทนาหรือเอกสาร)",
     },
   },
   {
@@ -1273,8 +1275,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
   {
     name: "SynthComm",
     title: {
-      en: "Synthetic customer chats for AI training — without real chats",
-      th: "บทสนทนาลูกค้าสังเคราะห์สำหรับเทรน AI — โดยไม่ใช้แชทจริง",
+      en: "Synthetic CS chats and documents for AI training — without real customer data",
+      th: "บทสนทนา CS และเอกสารสังเคราะห์สำหรับเทรน AI — โดยไม่ใช้ข้อมูลลูกค้าจริง",
     },
     description: SYNTHCOMM_DESCRIPTION,
     catalogStory: SYNTHCOMM_STORY,
@@ -1285,8 +1287,8 @@ export const PRODUCT_CATALOG: CatalogProduct[] = [
     pricingByModel: {
       saas: {
         ctaLabel: {
-          en: "Try free — 100 conversations",
-          th: "ทดลองฟรี — 100 บทสนทนา",
+          en: "Try free — 100 rows",
+          th: "ทดลองฟรี — 100 แถว",
         },
         ctaHref: "/demo",
         note: {

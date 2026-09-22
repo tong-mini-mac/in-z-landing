@@ -3,8 +3,8 @@ import type { LocalizedCatalogStory, LocalizedText } from "@/lib/product-catalog
 /** Plain-language catalog leads (what it is / who it's for) — Score Board style. */
 
 export const SYNTHCOMM_DESCRIPTION: LocalizedText = {
-  en: "Need Thai or SEA customer-chat data for AI training or product tests — without using real customer chats? SynthComm builds synthetic conversations for you. Open from your IN Z account, submit a topic and count, then download the data plus a job summary report.",
-  th: "อยากได้ข้อมูลบทสนทนาลูกค้าภาษาไทยหรือ SEA ไว้เทรน AI / ทดสอบระบบ แต่ไม่อยากใช้แชทจริงของลูกค้า? SynthComm สร้างบทสนทนาสังเคราะห์ให้ คุณเปิดจากบัญชี IN Z ใส่หัวข้อกับจำนวน แล้วดาวน์โหลดข้อมูลพร้อมรายงานสรุปจ๊อบ",
+  en: "Need Thai or SEA training data for AI / product tests — without real customer chats or documents? SynthComm builds synthetic CS dialogues and document JSON rows (complaint forms, emails, HOA notices, invoices, support tickets). Open from your IN Z account, pick a product type, submit topic and count, then download the data plus a job summary report.",
+  th: "อยากได้ข้อมูลภาษาไทยหรือ SEA ไว้เทรน AI / ทดสอบระบบ โดยไม่ใช้แชทหรือเอกสารลูกค้าจริง? SynthComm สร้างได้ทั้งบทสนทนา CS สังเคราะห์ และเอกสาร JSON (แบบฟอร์มร้องเรียน อีเมล ประกาศนิติ ใบแจ้งหนี้ ตั๋วซัพพอร์ต) เปิดจากบัญชี IN Z เลือกประเภทงาน ใส่หัวข้อกับจำนวน แล้วดาวน์โหลดข้อมูลพร้อมรายงานสรุปจ๊อบ",
 };
 
 export const QA_LAB_DESCRIPTION: LocalizedText = {
@@ -34,12 +34,12 @@ export const PRISM_DESCRIPTION: LocalizedText = {
 
 export const SYNTHCOMM_STORY: LocalizedCatalogStory = {
   th: {
-    lead: "SynthComm สร้างข้อมูลบทสนทนาลูกค้าแบบสังเคราะห์ ให้ทีม AI / ผลิตภัณฑ์เอาไปเทรนหรือทดสอบ โดยไม่ต้องใช้แชทจริง",
+    lead: "SynthComm สร้างข้อมูลสังเคราะห์ให้ทีม AI / ผลิตภัณฑ์ — ทั้งบทสนทนาลูกค้า (CS) และเอกสาร JSON — โดยไม่ต้องใช้ข้อมูลลูกค้าจริง",
     painHeading: "เคยเจอแบบนี้ไหม?",
     pain: [
-      "อยากเทรนบอท แต่ข้อมูลแชทจริงมี PDPA / ความลับ",
-      "จ้างคนเขียนบทสนทนาทีละแถวช้าและแพง",
-      "ข้อมูลตัวอย่างไม่ครบภาษาไทย / อินโด / เวียด",
+      "อยากเทรนบอท / โมเดล แต่แชทและเอกสารจริงมี PDPA / ความลับ",
+      "ต้องการทั้งแชทและเอกสาร (ร้องเรียน อีเมล ประกาศ ใบแจ้งหนี้) ไม่ใช่แค่บทสนทนา",
+      "จ้างคนเขียนทีละแถวช้าและแพง · ตัวอย่างไม่ครบไทย / อินโด / เวียด",
       "ได้ไฟล์มาแล้วไม่รู้คุณภาพผ่านเกณฑ์ไหม",
     ],
     howHeading: "ใช้งานยังไง",
@@ -49,12 +49,12 @@ export const SYNTHCOMM_STORY: LocalizedCatalogStory = {
         detail: "Sign in ที่ inz.lol แล้วเปิด SynthComm จากแพ็กเกจของคุณ",
       },
       {
-        title: "ใส่หัวข้อและจำนวน",
-        detail: "เลือกภาษา Thai / English / Vietnamese / Indonesian แล้วส่งงาน",
+        title: "เลือกประเภทงาน",
+        detail: "บทสนทนา (dialogue) หรือเอกสาร (document) — ถ้าเป็นเอกสารเลือกรูปแบบ เช่น แบบฟอร์มร้องเรียน / อีเมล / ประกาศนิติ / ใบแจ้งหนี้ / ตั๋วซัพพอร์ต",
       },
       {
-        title: "รอจ๊อบเสร็จแล้วดาวน์โหลด",
-        detail: "ได้ไฟล์ข้อมูล + รายงานสรุปจ๊อบ (Bundle มี HTML/PDF)",
+        title: "ใส่หัวข้อ ภาษา และจำนวน",
+        detail: "Thai / English / Vietnamese / Indonesian แล้วส่งงาน — ดาวน์โหลดข้อมูล + รายงานสรุปจ๊อบ (Bundle มี HTML/PDF)",
       },
       {
         title: "License (ถ้าใช้)",
@@ -64,24 +64,28 @@ export const SYNTHCOMM_STORY: LocalizedCatalogStory = {
     featuresHeading: "ได้อะไรบ้าง",
     features: [
       {
-        title: "บทสนทนาหลายภาษา",
-        detail: "ไทย อังกฤษ อินโดนีเซีย เวียดนาม พร้อมล็อกเมือง/ธนาคารตามภาษา",
+        title: "สองผลิตภัณฑ์ในคิวเดียวกัน",
+        detail: "บทสนทนา CS และเอกสาร JSON พร้อมล็อก locale (เมือง · สกุลเงิน · ธนาคาร)",
+      },
+      {
+        title: "เอกสารหลายชนิด",
+        detail: "แบบฟอร์มร้องเรียน · อีเมลซัพพอร์ต · ประกาศนิติ/หมู่บ้าน · ใบแจ้งหนี้ · ตั๋วซัพพอร์ต",
       },
       {
         title: "รายงานสรุปจ๊อบ",
         detail: "นอกจากไฟล์ข้อมูล ยังมี HTML/PDF สรุปคุณภาพและตัวอย่าง",
       },
       {
-        title: "ไม่ใช้แชทลูกค้าจริง",
-        detail: "เป็นข้อมูลสังเคราะห์ — ลดความเสี่ยง PDPA ตอนทดสอบ",
-      },
-      {
         title: "Web Portal อย่างเดียว",
-        detail: "ไม่มีบอท Telegram / LINE — ทำงานบนเบราว์เซอร์",
+        detail: "ไม่มีบอท Telegram / LINE — ทำงานบนเบราว์เซอร์ผ่านบัญชี IN Z",
       },
     ],
     faqHeading: "คำถามที่พบบ่อย",
     faq: [
+      {
+        question: "สร้างได้แค่บทสนทนาไหม?",
+        answer: "ไม่ — มีทั้งบทสนทนา (dialogue) และเอกสาร JSON (document) ในงานเดียวกันบนพอร์ทัล",
+      },
       {
         question: "ได้โปรแกรมโรงงานไปรันเองไหม?",
         answer: "ไม่ได้ — โหลดได้เฉพาะผลจ๊อบและคู่มือ โปรแกรมอยู่บนคลาวด์ IN Z",
@@ -98,12 +102,12 @@ export const SYNTHCOMM_STORY: LocalizedCatalogStory = {
     closing: "เริ่มจากบัญชี IN Z — แพ็กฟรีมีโควตาทดลอง แล้วอัปเกรดเมื่องานจริงมากขึ้น",
   },
   en: {
-    lead: "SynthComm builds synthetic customer conversations so AI and product teams can train or test without using real chats.",
+    lead: "SynthComm builds synthetic data for AI and product teams — CS dialogues and document JSON rows — without using real customer data.",
     painHeading: "Sound familiar?",
     pain: [
-      "You need bot training data but real chats are sensitive",
-      "Paying people to write rows by hand is slow and costly",
-      "Samples don’t cover Thai / Indonesian / Vietnamese well",
+      "You need bot / model training data but real chats and docs are sensitive",
+      "You need forms, emails, notices, and invoices — not only chat rows",
+      "Hand-writing rows is slow and costly · samples miss Thai / Indonesian / Vietnamese",
       "You get files and still don’t know if quality passed",
     ],
     howHeading: "How to use it",
@@ -113,12 +117,12 @@ export const SYNTHCOMM_STORY: LocalizedCatalogStory = {
         detail: "Sign in on inz.lol, then open SynthComm from Your package",
       },
       {
-        title: "Enter topic and count",
-        detail: "Pick Thai / English / Vietnamese / Indonesian and submit",
+        title: "Pick a product type",
+        detail: "Dialogue (CS chat) or Document — for documents choose complaint form, email, HOA notice, invoice, or support ticket",
       },
       {
-        title: "Download when the job completes",
-        detail: "Get data files plus a job summary report (Bundle includes HTML/PDF)",
+        title: "Enter topic, language, and count",
+        detail: "Thai / English / Vietnamese / Indonesian → submit → download data plus a job summary report (Bundle includes HTML/PDF)",
       },
       {
         title: "License (if applicable)",
@@ -128,24 +132,28 @@ export const SYNTHCOMM_STORY: LocalizedCatalogStory = {
     featuresHeading: "What you get",
     features: [
       {
-        title: "Multi-language dialogues",
-        detail: "Thai, English, Indonesian, Vietnamese with locale-locked cities and banks",
+        title: "Two products, one queue",
+        detail: "CS dialogues and document JSON with locale-locked cities, currency, and banks",
+      },
+      {
+        title: "Document types",
+        detail: "Complaint forms · support emails · HOA / village notices · invoices · support tickets",
       },
       {
         title: "Job summary report",
         detail: "Beyond raw data — HTML/PDF summary of quality and samples",
       },
       {
-        title: "No real customer chats",
-        detail: "Synthetic data — lower PDPA risk while testing",
-      },
-      {
         title: "Web portal only",
-        detail: "No Telegram / LINE bot — work in the browser",
+        detail: "No Telegram / LINE bot — work in the browser via your IN Z account",
       },
     ],
     faqHeading: "FAQ",
     faq: [
+      {
+        question: "Is it chat-only?",
+        answer: "No — both dialogue and document JSON products run on the same portal job flow.",
+      },
       {
         question: "Can I download the factory software?",
         answer: "No — you download job outputs and manuals. The engine stays on IN Z cloud.",

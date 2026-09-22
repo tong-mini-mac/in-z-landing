@@ -638,31 +638,31 @@ export const STUDIO_WORKS: StudioWork[] = [
       th: "SynthComm",
     },
     tagline: {
-      en: "Thai Synthetic Data Factory",
-      th: "โรงงานข้อมูลสังเคราะห์ภาษาไทย",
+      en: "Synthetic dialogues & documents",
+      th: "บทสนทนาและเอกสารสังเคราะห์",
     },
     industryLabel: { en: "AI", th: "AI" },
     problem: {
       en: [
         {
-          text: "Training AI needs volume, but real conversation data collides with PDPA. SynthComm ",
+          text: "Training AI needs volume, but real chats and documents collide with PDPA. SynthComm ",
         },
-        { text: "generates high-fidelity Thai synthetic data", strong: true },
+        { text: "builds synthetic CS dialogues and document JSON rows", strong: true },
         {
           text: " through a multi-agent factory with automated monthly ML retraining.",
         },
       ],
       th: [
         {
-          text: "การ Train AI ต้องการข้อมูลจำนวนมาก แต่ข้อมูลจริงติดปัญหา PDPA SynthComm ",
+          text: "การ Train AI ต้องการข้อมูลจำนวนมาก แต่แชทและเอกสารจริงติดปัญหา PDPA SynthComm ",
         },
-        { text: "สร้าง Synthetic Data ภาษาไทยคุณภาพสูง", strong: true },
+        { text: "สร้างบทสนทนา CS และเอกสาร JSON สังเคราะห์", strong: true },
         {
           text: " ด้วย Multi-Agent Factory พร้อม Monthly ML Retraining อัตโนมัติ",
         },
       ],
     },
-    tags: ["Multi-Agent", "Thai NLP", "PDPA Safe", "Auto-Scale"],
+    tags: ["Multi-Agent", "Dialogue + Docs", "PDPA Safe", "Auto-Scale"],
   },
   {
     id: "content-creator",

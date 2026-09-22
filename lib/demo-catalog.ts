@@ -32,12 +32,12 @@ export const DEMO_OFFERS: DemoOffer[] = [
     requiresSignup: true,
     external: true,
     trialTitle: {
-      en: "Free — 100 conversations / month",
-      th: "ฟรี — 100 บทสนทนา / เดือน",
+      en: "Free — 100 rows / month",
+      th: "ฟรี — 100 แถว / เดือน",
     },
     trialSummary: {
-      en: "Generate synthetic CS conversations free — 100 per month (TH · EN · ID · VI).",
-      th: "สร้างบทสนทนาสังเคราะห์ฟรี 100 ครั้งต่อเดือน (ไทย · อังกฤษ · อินโด · เวียด)",
+      en: "Generate synthetic CS dialogues or document JSON free — 100 rows/month (TH · EN · ID · VI).",
+      th: "สร้างบทสนทนา CS หรือเอกสาร JSON สังเคราะห์ฟรี 100 แถว/เดือน (ไทย · อังกฤษ · อินโด · เวียด)",
     },
     ctaLabel: {
       en: "Try SynthComm free",

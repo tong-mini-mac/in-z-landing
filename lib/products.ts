@@ -36,8 +36,8 @@ export const PRODUCTS: ProductEntry[] = [
     id: "synthcomm",
     name: "SynthComm",
     description: {
-      th: "โรงงานข้อมูลบทสนทนาสังเคราะห์ (ไทย · อังกฤษ · อินโด · เวียด)",
-      en: "Industrial synthetic CS data factory (TH · EN · ID · VI)",
+      th: "บทสนทนา CS และเอกสาร JSON สังเคราะห์ (ไทย · อังกฤษ · อินโด · เวียด)",
+      en: "Synthetic CS dialogues + document JSON (TH · EN · ID · VI)",
     },
     href: "https://synthcomm-production.up.railway.app",
     available: true,
