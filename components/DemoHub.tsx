@@ -125,8 +125,26 @@ export function DemoHub() {
   }, []);
 
   useEffect(() => {
-    if (!stageUrl) return;
-    setStageUrl((prev) => (prev ? withUiLang(prev, lang) : prev));
+    if (!activeId || !stageUrl) return;
+    const offer = offers.find((item) => item.id === activeId);
+    if (!offer) return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const resolved = await resolveOfferUrl(offer);
+        if (!cancelled) {
+          setStageUrl(resolved.url);
+          setUsedSso(resolved.sso);
+        }
+      } catch {
+        if (!cancelled) setStageUrl(withUiLang(offer.href, lang));
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // Fresh SSO token when TH/EN changes — do not reuse a spent handoff URL.
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only re-hand off on lang
   }, [lang]);
 
   async function resolveOfferUrl(offer: DemoOffer): Promise<{
