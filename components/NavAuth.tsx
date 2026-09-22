@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AuthLangToggle } from "@/components/AuthLangToggle";
 import {
@@ -10,8 +11,11 @@ import { SITE_COPY } from "@/lib/site-i18n";
 import { useSiteLang } from "@/lib/use-site-lang";
 
 export function NavAuth() {
+  const pathname = usePathname();
   const lang = useSiteLang();
   const [signedIn, setSignedIn] = useState(false);
+  // Demo hub already has TH/EN in the side menu — don't stack a second toggle.
+  const showLangToggle = !pathname?.startsWith("/demo");
 
   useEffect(() => {
     function refresh() {
@@ -40,7 +44,9 @@ export function NavAuth() {
       <a className="nav-auth" href={href}>
         {label}
       </a>
-      <AuthLangToggle lang={lang} onChange={() => {}} />
+      {showLangToggle ? (
+        <AuthLangToggle lang={lang} onChange={() => {}} />
+      ) : null}
     </div>
   );
 }
